@@ -1,2 +1,78 @@
-# accurate-artistry-game-hub
-AAA Game Repo
+# Accurate Artistry Game Hub
+
+Accurate Artistry Game Hub is a modular HTML5 mini-game platform whose first vertical slice is a high-fidelity 3D kart racer with hybrid 2D avatar drivers. The approved requirements baseline is Product Requirements Document v1.1.
+
+## Current state
+
+**Current checkpoint:** Slice 0 - Repository & Project Bootstrap.
+
+The repository currently provides the technical foundation and a minimal app-shell proof only. It intentionally contains no kart physics, Circuit Alpha gameplay, drifting, AI, items, or other Slice 1+ implementation.
+
+## Local setup
+
+Prerequisites:
+
+- Node.js 22 or newer compatible release
+- npm
+- Git LFS before adding production binary assets
+
+```bash
+git lfs install
+npm ci
+npm run dev
+```
+
+Vite prints the local development URL when the server starts.
+
+## Commands
+
+| Command                | Purpose                                              |
+| ---------------------- | ---------------------------------------------------- |
+| `npm run dev`          | Start the Vite development server.                   |
+| `npm run build`        | Typecheck and create a production build in `dist/`.  |
+| `npm run typecheck`    | Run strict TypeScript validation.                    |
+| `npm run lint`         | Run ESLint with zero warnings permitted.             |
+| `npm run test`         | Run Vitest in watch mode.                            |
+| `npm run test:ci`      | Run Vitest once with coverage for CI.                |
+| `npm run format`       | Apply Prettier formatting.                           |
+| `npm run format:check` | Verify formatting without changing files.            |
+| `npm run validate`     | Run typecheck, lint, CI tests, and production build. |
+
+## Architecture summary
+
+- **Application:** TypeScript single-page application built by Vite.
+- **Rendering baseline:** Three.js.
+- **Physics baseline:** Rapier 3D through `@dimforge/rapier3d-compat`.
+- **Audio baseline:** Howler.js backed by Web Audio.
+- **Testing:** Vitest with jsdom and V8 coverage.
+- **Quality gates:** strict TypeScript, ESLint, Prettier, unit tests, production build, and GitHub Actions.
+- **Asset governance:** Git LFS for production 3D models, audio, and high-resolution character/kart/track raster assets.
+- **Continuity:** repository documents are authoritative; Cowork/chat history is supplemental.
+
+The `src/game/` directories reserve PRD-defined system boundaries. Their presence is architectural scaffolding, not evidence that those systems are implemented.
+
+## Repository map
+
+- `docs/` - approved PRD, working Markdown PRD, decisions, testing rules, and implementation status.
+- `public/assets/` - governed asset roots for characters, karts, track, items, and audio.
+- `src/app/` - game-hub application shell.
+- `src/audio/` - future audio integration boundary.
+- `src/config/` and `src/schemas/` - future configuration and validation boundaries.
+- `src/game/` - future gameplay system boundaries organized by domain.
+- `src/ui/` - future interface and HUD boundary.
+- `tests/` - automated test suite.
+- `.github/workflows/` - repository CI.
+
+## Project source of truth
+
+- [Approved implementation PRD](docs/PRD.md)
+- [Word PRD v1.1](docs/Accurate_Artistry_Game_Hub_PRD_v1.1.docx)
+- [Architecture decisions](docs/DECISIONS.md)
+- [Current implementation status](docs/IMPLEMENTATION-STATUS.md)
+- [Testing and evidence requirements](docs/TESTING.md)
+
+Future Cowork sessions must read these files before implementation, update them as decisions and evidence change, and execute only the currently approved slice.
+
+## Binary asset policy
+
+`.gitattributes` routes production GLB/GLTF support binaries, common production audio formats, and high-resolution PNG/WebP assets in the character, kart, and track trees through Git LFS. Install Git LFS before adding matching files. Do not bypass or replace this policy without recording an approved decision in `docs/DECISIONS.md`.
