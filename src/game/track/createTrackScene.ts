@@ -44,8 +44,78 @@ function markerAt(track: CircuitAlpha, progress: number, color: number): THREE.M
   return marker;
 }
 
+function createSegmentStrip(
+  track: CircuitAlpha,
+  startProgress: number,
+  endProgress: number,
+  centerOffset: number,
+  halfWidth: number,
+  material: THREE.Material,
+  y: number,
+): THREE.Mesh {
+  const positions: number[] = [];
+  const indices: number[] = [];
+  const start = Math.floor(startProgress * track.sampleCount);
+  const end = Math.ceil(endProgress * track.sampleCount);
+
+  for (let index = start; index <= end; index += 1) {
+    const wrapped = index % track.sampleCount;
+    const point = track.samples[wrapped]?.clone() ?? new THREE.Vector3();
+    const tangent = track.tangents[wrapped] ?? new THREE.Vector3(0, 0, 1);
+    const right = new THREE.Vector3(tangent.z, 0, -tangent.x).normalize();
+    const center = point.addScaledVector(right, centerOffset);
+    const leftPoint = center.clone().addScaledVector(right, -halfWidth);
+    const rightPoint = center.clone().addScaledVector(right, halfWidth);
+    positions.push(leftPoint.x, y, leftPoint.z, rightPoint.x, y, rightPoint.z);
+    const local = index - start;
+    if (index < end) {
+      const base = local * 2;
+      indices.push(base, base + 2, base + 1, base + 1, base + 2, base + 3);
+    }
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geometry.setIndex(indices);
+  geometry.computeVertexNormals();
+  return new THREE.Mesh(geometry, material);
+}
+
+function createSky(): THREE.Mesh {
+  return new THREE.Mesh(
+    new THREE.SphereGeometry(760, 32, 18),
+    new THREE.ShaderMaterial({
+      side: THREE.BackSide,
+      depthWrite: false,
+      uniforms: {
+        topColor: { value: new THREE.Color(0x3b2d67) },
+        horizonColor: { value: new THREE.Color(0xe1a7bd) },
+        lowerColor: { value: new THREE.Color(0x796481) },
+      },
+      vertexShader: `varying vec3 worldPosition;
+        void main() {
+          vec4 world = modelMatrix * vec4(position, 1.0);
+          worldPosition = world.xyz;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }`,
+      fragmentShader: `uniform vec3 topColor;
+        uniform vec3 horizonColor;
+        uniform vec3 lowerColor;
+        varying vec3 worldPosition;
+        void main() {
+          float h = normalize(worldPosition).y;
+          vec3 color = h >= 0.0
+            ? mix(horizonColor, topColor, smoothstep(0.0, 0.72, h))
+            : mix(horizonColor, lowerColor, smoothstep(0.0, -0.35, h));
+          gl_FragColor = vec4(color, 1.0);
+        }`,
+    }),
+  );
+}
+
 export function createTrackScene(track: CircuitAlpha): THREE.Group {
   const group = new THREE.Group();
+  group.add(createSky());
 
   const ground = new THREE.Mesh(
     new THREE.PlaneGeometry(900, 900),
@@ -75,18 +145,15 @@ export function createTrackScene(track: CircuitAlpha): THREE.Group {
   group.remove(road);
   group.add(shoulder, road);
 
-  const dirt = createStrip(
+  const dirt = createSegmentStrip(
     track,
-    track.roadHalfWidth + 0.08,
+    0.235,
+    0.315,
+    3.75,
+    2.25,
     new THREE.MeshStandardMaterial({ color: 0x8b5938, roughness: 1 }),
     0.025,
   );
-  const dirtPositions = dirt.geometry.getAttribute('position');
-  for (let index = 0; index < dirtPositions.count; index += 1) {
-    const progress = Math.floor(index / 2) / track.sampleCount;
-    if (progress < 0.235 || progress > 0.315) dirtPositions.setY(index, -0.12);
-  }
-  dirt.geometry.computeVertexNormals();
   group.add(dirt);
 
   group.add(markerAt(track, 0.45, 0x29c9ff), markerAt(track, 0.815, 0x29c9ff));

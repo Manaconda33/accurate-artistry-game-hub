@@ -1,8 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import {
   createKartTuning,
+  driftBoostProfile,
+  driftThresholds,
   sliceOneDriver,
   surfaceAccelerationMultiplier,
+  surfaceMinimumPlayableSpeed,
   surfaceSpeedMultiplier,
 } from '../src/config/kartTuning';
 
@@ -23,6 +26,26 @@ describe('kart tuning and surface behavior', () => {
     expect(surfaceAccelerationMultiplier('grass', traction)).toBeLessThan(
       surfaceAccelerationMultiplier('dirt', traction),
     );
+    expect(surfaceMinimumPlayableSpeed('grass')).toBeGreaterThan(0);
+    expect(surfaceMinimumPlayableSpeed('dirt')).toBeGreaterThan(
+      surfaceMinimumPlayableSpeed('grass'),
+    );
+  });
+
+  it('orders all three drift tiers and rewards higher Mini-Turbo', () => {
+    const low = driftThresholds(1);
+    const high = driftThresholds(10);
+    expect(low.blue).toBeLessThan(low.orange);
+    expect(low.orange).toBeLessThan(low.purple);
+    expect(high.blue).toBeLessThan(low.blue);
+    expect(high.purple).toBeLessThan(low.purple);
+
+    const blue = driftBoostProfile('blue', 5);
+    const orange = driftBoostProfile('orange', 5);
+    const purple = driftBoostProfile('purple', 5);
+    expect(blue.duration).toBeLessThan(orange.duration);
+    expect(orange.duration).toBeLessThan(purple.duration);
+    expect(blue.speedMultiplier).toBeLessThan(purple.speedMultiplier);
   });
 
   it('keeps a ten-minute fixed-step numeric soak finite', () => {

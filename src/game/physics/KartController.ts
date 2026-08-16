@@ -1,7 +1,10 @@
 import RAPIER from '@dimforge/rapier3d-compat';
 import * as THREE from 'three';
 import {
+  driftBoostProfile,
+  driftThresholds,
   surfaceAccelerationMultiplier,
+  surfaceMinimumPlayableSpeed,
   surfaceSpeedMultiplier,
   type DriverStats,
   type KartTuning,
@@ -12,6 +15,17 @@ export interface DriveInput {
   throttle: number;
   steering: number;
   brake: boolean;
+  drift: boolean;
+}
+
+export type DriftTier = 'none' | 'blue' | 'orange' | 'purple';
+
+export interface KartFeedback {
+  drifting: boolean;
+  driftTier: DriftTier;
+  chargeRatio: number;
+  boostActive: boolean;
+  airborne: boolean;
 }
 
 export class KartController {
@@ -19,6 +33,16 @@ export class KartController {
   private yaw: number;
   private currentSteer = 0;
   private boostRemaining = 0;
+  private boostMultiplier = 1;
+  private activeBoostTier: DriftTier = 'none';
+  private drifting = false;
+  private driftDirection = 0;
+  private driftCharge = 0;
+  private previousDriftPressed = false;
+  private airborneSeconds = 0;
+  private wasGrounded = true;
+  private rampCooldown = 0;
+  private stuntArmed = false;
 
   public constructor(
     private readonly world: RAPIER.World,
@@ -55,26 +79,63 @@ export class KartController {
     const lateralSpeed = planar.dot(right);
     const speedRatio = Math.min(Math.abs(forwardSpeed) / this.tuning.maxSpeed, 1);
     const steeringScale = THREE.MathUtils.lerp(1, 0.48, speedRatio);
-    const steeringTarget = input.steering * this.tuning.steeringRate * steeringScale;
+    const steeringTarget =
+      input.steering * this.tuning.steeringRate * steeringScale * (this.drifting ? 1.45 : 1);
     this.currentSteer = THREE.MathUtils.damp(this.currentSteer, steeringTarget, 10, dt);
+
+    const driftStarted = input.drift && !this.previousDriftPressed;
+    if (
+      driftStarted &&
+      grounded &&
+      Math.abs(forwardSpeed) >= 6.5 &&
+      Math.abs(input.steering) >= 0.25
+    ) {
+      this.drifting = true;
+      this.driftDirection = Math.sign(input.steering);
+      this.driftCharge = 0;
+      this.body.applyImpulse({ x: 0, y: this.tuning.mass * 1.25, z: 0 }, true);
+    }
+
+    if (this.drifting) {
+      if (!input.drift || Math.abs(forwardSpeed) < 3 || this.airborneSeconds > 0.6) {
+        this.releaseDrift();
+      } else if (grounded) {
+        const steerQuality = THREE.MathUtils.clamp(Math.abs(input.steering), 0.65, 1.35);
+        this.driftCharge += dt * steerQuality;
+      }
+    }
+    this.previousDriftPressed = input.drift;
 
     if (Math.abs(forwardSpeed) > 0.35) {
       const direction = forwardSpeed >= 0 ? 1 : -0.65;
-      this.yaw += this.currentSteer * dt * direction;
+      const driftYaw = this.drifting ? 1.18 + Math.abs(this.driftDirection) * 0.22 : 1;
+      this.yaw += this.currentSteer * dt * direction * driftYaw;
     }
 
     const speedMultiplier = surfaceSpeedMultiplier(surface, this.stats.traction);
     const accelerationMultiplier = surfaceAccelerationMultiplier(surface, this.stats.traction);
     const maxForward = this.tuning.maxSpeed * speedMultiplier;
 
-    if (surface === 'boost' && this.boostRemaining <= 0) this.boostRemaining = 0.8;
+    if (surface === 'boost' && this.boostRemaining <= 0) {
+      this.boostRemaining = 0.8;
+      this.boostMultiplier = 1.12;
+      this.activeBoostTier = 'blue';
+    }
     this.boostRemaining = Math.max(0, this.boostRemaining - dt);
-    const boostedMax = maxForward * (this.boostRemaining > 0 ? 1.12 : 1);
+    if (this.boostRemaining === 0) {
+      this.boostMultiplier = 1;
+      this.activeBoostTier = 'none';
+    }
+    const boostedMax = maxForward * this.boostMultiplier;
     const acceleration =
       this.tuning.acceleration * accelerationMultiplier * (this.boostRemaining > 0 ? 1.35 : 1);
 
     if (input.throttle > 0 && grounded) {
       forwardSpeed = Math.min(boostedMax, forwardSpeed + acceleration * dt);
+      const playableFloor = surfaceMinimumPlayableSpeed(surface);
+      if (playableFloor > 0 && forwardSpeed > 3) {
+        forwardSpeed = Math.max(forwardSpeed, Math.min(playableFloor, boostedMax));
+      }
     } else if (input.throttle < 0 && grounded) {
       forwardSpeed = Math.max(-this.tuning.reverseSpeed, forwardSpeed - acceleration * 0.72 * dt);
     } else {
@@ -86,7 +147,9 @@ export class KartController {
     const retainedLateral = THREE.MathUtils.damp(
       lateralSpeed,
       0,
-      this.tuning.lateralGrip * (surface === 'grass' ? 0.55 : surface === 'dirt' ? 0.72 : 1),
+      this.tuning.lateralGrip *
+        (surface === 'grass' ? 0.55 : surface === 'dirt' ? 0.72 : 1) *
+        (this.drifting ? 0.48 : 1),
       dt,
     );
     const nextForward = new THREE.Vector3(Math.sin(this.yaw), 0, Math.cos(this.yaw));
@@ -97,12 +160,31 @@ export class KartController {
 
     this.body.setLinvel({ x: nextVelocity.x, y: velocity.y, z: nextVelocity.z }, true);
     this.setYaw(this.yaw);
+
+    this.rampCooldown = Math.max(0, this.rampCooldown - dt);
+    if (surface === 'ramp' && grounded && this.rampCooldown === 0 && Math.abs(forwardSpeed) > 8) {
+      this.body.applyImpulse({ x: 0, y: this.tuning.mass * 4.8, z: 0 }, true);
+      this.rampCooldown = 1.25;
+      this.stuntArmed = true;
+    }
+    this.airborneSeconds = grounded ? 0 : this.airborneSeconds + dt;
+    if (grounded && !this.wasGrounded && this.stuntArmed) {
+      this.activateBoost('blue', 0.6, 1.08);
+      this.stuntArmed = false;
+    }
+    this.wasGrounded = grounded;
   }
 
   public respawn(position: THREE.Vector3, yaw: number): void {
     this.yaw = yaw;
     this.currentSteer = 0;
     this.boostRemaining = 0;
+    this.boostMultiplier = 1;
+    this.activeBoostTier = 'none';
+    this.drifting = false;
+    this.driftCharge = 0;
+    this.airborneSeconds = 0;
+    this.stuntArmed = false;
     this.body.setTranslation({ x: position.x, y: 1.2, z: position.z }, true);
     this.body.setLinvel({ x: 0, y: 0, z: 0 }, true);
     this.body.setAngvel({ x: 0, y: 0, z: 0 }, true);
@@ -129,9 +211,49 @@ export class KartController {
     return [p.x, p.y, p.z, v.x, v.y, v.z, this.yaw].every(Number.isFinite);
   }
 
+  public feedback(): KartFeedback {
+    const thresholds = this.driftThresholds();
+    return {
+      drifting: this.drifting,
+      driftTier: this.drifting ? this.tierForCharge(this.driftCharge) : this.activeBoostTier,
+      chargeRatio: THREE.MathUtils.clamp(this.driftCharge / thresholds.purple, 0, 1),
+      boostActive: this.boostRemaining > 0,
+      airborne: this.airborneSeconds > 0.08,
+    };
+  }
+
   private setYaw(yaw: number): void {
     const half = yaw / 2;
     this.body.setRotation({ x: 0, y: Math.sin(half), z: 0, w: Math.cos(half) }, true);
+  }
+
+  private driftThresholds(): { blue: number; orange: number; purple: number } {
+    return driftThresholds(this.stats.miniTurbo);
+  }
+
+  private tierForCharge(charge: number): DriftTier {
+    const thresholds = this.driftThresholds();
+    if (charge >= thresholds.purple) return 'purple';
+    if (charge >= thresholds.orange) return 'orange';
+    if (charge >= thresholds.blue) return 'blue';
+    return 'none';
+  }
+
+  private releaseDrift(): void {
+    const tier = this.tierForCharge(this.driftCharge);
+    if (tier !== 'none') {
+      const profile = driftBoostProfile(tier, this.stats.miniTurbo);
+      this.activateBoost(tier, profile.duration, profile.speedMultiplier);
+    }
+    this.drifting = false;
+    this.driftDirection = 0;
+    this.driftCharge = 0;
+  }
+
+  private activateBoost(tier: DriftTier, duration: number, multiplier: number): void {
+    this.activeBoostTier = tier;
+    this.boostRemaining = Math.max(this.boostRemaining, duration);
+    this.boostMultiplier = Math.max(this.boostMultiplier, multiplier);
   }
 
   private groundContactCount(): number {

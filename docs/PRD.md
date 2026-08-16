@@ -6,7 +6,7 @@
 
 High-Fidelity HTML5 Kart Racer Vertical Slice + Modular Mini-Game Hub
 
-Version 1.1 - Final approved baseline; working implementation amendment 1.2
+Version 1.1 - Final approved baseline; working implementation amendment 1.3
 
 August 16, 2026
 
@@ -17,6 +17,10 @@ Durable source of truth: GitHub repository
 ## Approved implementation amendment 1.2 - Manual confirmation deployments
 
 Approved August 16, 2026. Beginning with Slice 1, every slice checkpoint must include a testable deployment produced from the checkpoint source through a GitHub deployment environment, with GitHub Pages as the default implementation. A slice may not be presented for manual confirmation without the live deployment URL. Automated validation and CI remain required; the deployment adds product-owner manual confirmation rather than replacing other evidence. The repository must record the deployed commit, workflow result, URL, known manual-test limitations, and whether the next slice remains locked pending approval. This amendment changes delivery governance only and does not expand the gameplay scope assigned to any slice.
+
+## Approved implementation amendment 1.3 - Manual-test course length and Slice 1 corrections
+
+Approved August 16, 2026 after product-owner manual confirmation of Slice 1. Circuit Alpha’s implementation target is shortened from approximately 1.45 km to approximately 0.90 km so repeated manual validation remains practical while preserving twelve checkpoints, three laps, all named track sections, and representative handling tests. Target average lap time becomes approximately 30-45 seconds. Dirt must be an optional partial-width lane or a ramp/jump feature rather than covering the entire road. Sustained grass and dirt penalties must retain a playable forward-speed floor while remaining measurably slower than asphalt. Forward controls must read A/Left as visual left and D/Right as visual right from the chase camera. The track scene must provide a deliberate rendered sky/horizon rather than an unlit black upper viewport. These changes supersede conflicting track-length and full-width dirt details below.
 
 # Contents
 
@@ -1135,23 +1139,23 @@ HELD -\> ACTIVE -\> EXPIRING_WARNING -\> NORMAL
 
 ## 18.1 Circuit Alpha
 
-Target lap length approximately 1.45 km. Target average lap 55-75 seconds. Road width 9-12 m. Primary road surface is asphalt; secondary surfaces include dirt, grass, rumble/edge, boost surface, and ramps.
+Target lap length approximately 0.90 km. Target average lap 30-45 seconds. Road width 9-12 m. Primary road surface is asphalt; secondary surfaces include dirt, grass, rumble/edge, boost surface, and ramps. The original 1.45 km target was superseded by approved implementation amendment 1.3 after Slice 1 manual testing.
 
 ## 18.2 Track Segments
 
 | **Segment**           | **Approx. Distance** | **Feature**                            |
 |-----------------------|----------------------|----------------------------------------|
-| Start/Finish Straight | 0-180 m              | Wide asphalt, grid, first item cluster |
-| Banked Left           | 180-330 m            | Medium-radius 12-degree bank           |
-| Split S-Bend          | 330-470 m            | Safe asphalt vs shorter dirt line      |
-| Climb                 | 470-620 m            | Elevation gain and boost pads          |
-| Crest Ramp            | 620-700 m            | Jump and stunt boost                   |
-| Downhill Switchback   | 700-870 m            | Technical braking section              |
-| Fast Sweep            | 870-1030 m           | High-speed handling test               |
-| Underpass             | 1030-1130 m          | Lighting transition                    |
-| Heavy Hairpin         | 1130-1270 m          | Collision/overtake zone                |
-| Final Chicane         | 1270-1380 m          | Drift opportunity                      |
-| Finish Approach       | 1380-1450 m          | Final boost opportunity                |
+| Start/Finish Straight | 0-112 m              | Wide asphalt, grid, first item cluster |
+| Banked Left           | 112-205 m            | Medium-radius 12-degree bank           |
+| Split S-Bend          | 205-292 m            | Safe asphalt vs shorter dirt line      |
+| Climb                 | 292-385 m            | Elevation gain and boost pads          |
+| Crest Ramp            | 385-435 m            | Jump and stunt boost                   |
+| Downhill Switchback   | 435-540 m            | Technical braking section              |
+| Fast Sweep            | 540-640 m            | High-speed handling test               |
+| Underpass             | 640-700 m            | Lighting transition                    |
+| Heavy Hairpin         | 700-790 m            | Collision/overtake zone                |
+| Final Chicane         | 790-855 m            | Drift opportunity                      |
+| Finish Approach       | 855-900 m            | Final boost opportunity                |
 
 ## 18.3 Elevation
 
@@ -1170,8 +1174,8 @@ Ramp angle approximately 10-14 degrees; target aerial time 0.6-1.1 s. Timing nea
 | **Surface** | **Speed / Accel / Grip Behavior**                                   |
 |-------------|---------------------------------------------------------------------|
 | Asphalt     | speed 1.00; accel 1.00; base grip 1.00                              |
-| Dirt        | uses Traction; baseline speed retention ~0.60; reduced lateral grip |
-| Grass       | more severe than dirt; baseline speed retention ~0.48               |
+| Dirt        | uses Traction; baseline speed retention ~0.60; reduced lateral grip; optional partial-width line with playable minimum speed |
+| Grass       | more severe than dirt; baseline speed retention ~0.48; playable minimum speed while throttle is held |
 | Boost Pad   | temporarily overrides normal acceleration                           |
 | Ramp        | asphalt grip before airborne transition                             |
 

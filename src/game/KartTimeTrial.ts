@@ -1,9 +1,11 @@
 import RAPIER from '@dimforge/rapier3d-compat';
 import * as THREE from 'three';
+import { Howler } from 'howler';
 import { createKartTuning, sliceOneDriver, type SurfaceType } from '../config/kartTuning';
 import { ChaseCamera } from './camera/ChaseCamera';
 import { FixedStepRunner } from './physics/FixedStepRunner';
 import { KartController, type DriveInput } from './physics/KartController';
+import type { DriftTier } from './physics/KartController';
 import { LapTracker } from './race/LapTracker';
 import { CircuitAlpha } from './track/CircuitAlpha';
 import { createTrackScene } from './track/createTrackScene';
@@ -17,6 +19,10 @@ export interface HudState {
   fps: number;
   frameMs: number;
   finished: boolean;
+  driftTier: DriftTier;
+  driftCharge: number;
+  boostActive: boolean;
+  airborne: boolean;
 }
 
 export interface TimeTrialOptions {
@@ -34,6 +40,7 @@ export class KartTimeTrial {
   private readonly fixedStep = new FixedStepRunner();
   private readonly pressed = new Set<string>();
   private readonly kartMesh = new THREE.Group();
+  private readonly driftLights: THREE.Mesh[] = [];
   private readonly kart: KartController;
   private readonly chaseCamera: ChaseCamera;
   private readonly position = new THREE.Vector3();
@@ -50,6 +57,7 @@ export class KartTimeTrial {
   private fpsAccumulator = 0;
   private fpsFrames = 0;
   private fps = 60;
+  private lastToneTier: DriftTier = 'none';
 
   public static async create(options: TimeTrialOptions): Promise<KartTimeTrial> {
     await RAPIER.init();
@@ -61,8 +69,8 @@ export class KartTimeTrial {
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    this.scene.background = new THREE.Color(0x11091c);
-    this.scene.fog = new THREE.Fog(0x11091c, 220, 720);
+    this.scene.background = new THREE.Color(0x8f718f);
+    this.scene.fog = new THREE.Fog(0x9b7d97, 180, 650);
 
     this.camera = new THREE.PerspectiveCamera(62, 1, 0.1, 900);
     this.chaseCamera = new ChaseCamera(this.camera);
@@ -139,11 +147,12 @@ export class KartTimeTrial {
           ? -1
           : 0,
       steering: this.isPressed('KeyA', 'ArrowLeft')
-        ? -1
+        ? 1
         : this.isPressed('KeyD', 'ArrowRight')
-          ? 1
+          ? -1
           : 0,
       brake: false,
+      drift: this.isPressed('Space'),
     };
 
     this.kart.update(input, projection.surface, dt);
@@ -193,6 +202,22 @@ export class KartTimeTrial {
     this.kartMesh.position.copy(position);
     this.kartMesh.rotation.y = Math.atan2(forward.x, forward.z);
     this.chaseCamera.update(position, forward, this.pressed.has('KeyC'), dt);
+    const feedback = this.kart.feedback();
+    const color =
+      feedback.driftTier === 'purple'
+        ? 0xa855f7
+        : feedback.driftTier === 'orange'
+          ? 0xff8a28
+          : 0x38bdf8;
+    for (const light of this.driftLights) {
+      light.visible = feedback.driftTier !== 'none';
+      (light.material as THREE.MeshBasicMaterial).color.setHex(color);
+      light.scale.setScalar(0.75 + feedback.chargeRatio * 1.4);
+    }
+    if (feedback.driftTier !== this.lastToneTier && feedback.driftTier !== 'none') {
+      this.playTierTone(feedback.driftTier);
+    }
+    this.lastToneTier = feedback.driftTier;
   }
 
   private updateHud(frameSeconds: number): void {
@@ -206,6 +231,7 @@ export class KartTimeTrial {
 
     const projection = this.track.project(this.kart.position(this.position));
     const snapshot = this.lapTracker.snapshot();
+    const feedback = this.kart.feedback();
     this.options.onHud({
       lap: Math.min(snapshot.lap + 1, 3),
       speedKph: Math.round(this.kart.speedMetersPerSecond() * 3.6),
@@ -215,6 +241,10 @@ export class KartTimeTrial {
       fps: Math.round(this.fps),
       frameMs: frameSeconds * 1000,
       finished: snapshot.finished,
+      driftTier: feedback.driftTier,
+      driftCharge: feedback.chargeRatio,
+      boostActive: feedback.boostActive,
+      airborne: feedback.airborne,
     });
   }
 
@@ -246,7 +276,33 @@ export class KartTimeTrial {
         this.kartMesh.add(wheel);
       }
     }
+    for (const x of [-0.72, 0.72]) {
+      const spark = new THREE.Mesh(
+        new THREE.SphereGeometry(0.16, 8, 6),
+        new THREE.MeshBasicMaterial({ color: 0x38bdf8 }),
+      );
+      spark.position.set(x, -0.08, -1.15);
+      spark.visible = false;
+      this.driftLights.push(spark);
+      this.kartMesh.add(spark);
+    }
     this.scene.add(this.kartMesh);
+  }
+
+  private playTierTone(tier: DriftTier): void {
+    const context = Howler.ctx;
+    if (context.state !== 'running') return;
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+    const frequency = tier === 'purple' ? 880 : tier === 'orange' ? 660 : 480;
+    oscillator.frequency.setValueAtTime(frequency, context.currentTime);
+    oscillator.type = 'sine';
+    gain.gain.setValueAtTime(0.0001, context.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.09, context.currentTime + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.16);
+    oscillator.connect(gain).connect(context.destination);
+    oscillator.start();
+    oscillator.stop(context.currentTime + 0.18);
   }
 
   private bindEvents(): void {

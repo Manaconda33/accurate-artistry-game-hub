@@ -59,7 +59,7 @@ export function mountAppShell(root: HTMLElement): void {
       <main class="screen compact-screen"><p class="eyebrow">Reference</p><h1>Controls</h1>
         <dl class="control-list">
           <div><dt>Accelerate</dt><dd>W / ↑</dd></div><div><dt>Brake &amp; reverse</dt><dd>S / ↓</dd></div>
-          <div><dt>Steer</dt><dd>A D / ← →</dd></div><div><dt>Drift</dt><dd>Space · Slice 2</dd></div>
+          <div><dt>Steer</dt><dd>A D / ← →</dd></div><div><dt>Hop / drift</dt><dd>Space + steer</dd></div>
           <div><dt>Rear camera</dt><dd>C</dd></div><div><dt>Recover kart</dt><dd>R</dd></div>
           <div><dt>Pause</dt><dd>Esc / P</dd></div>
         </dl>${button('Back', 'menu', 'primary')}</main>`;
@@ -88,10 +88,14 @@ export function mountAppShell(root: HTMLElement): void {
         <div class="hud top-right"><span>Speed</span><strong id="speed">0 km/h</strong></div>
         <div class="hud bottom-left"><span>Surface</span><strong id="surface">ASPHALT</strong></div>
         <div class="hud bottom-right performance"><span>Performance</span><strong id="performance">60 FPS · 16.7 ms</strong></div>
+        <div id="drift-panel" class="drift-panel" data-tier="none">
+          <span id="drift-label">Hold Space + steer to drift</span>
+          <div class="drift-meter"><i id="drift-fill"></i></div>
+        </div>
         <div id="wrong-way" class="warning" hidden>WRONG WAY</div>
         <div id="loading" class="loading-card"><span class="spinner"></span><h2>Initializing Circuit Alpha</h2><p>Loading Rapier physics and the procedural track…</p></div>
         <div id="finish" class="finish-card" hidden><p class="eyebrow">Time trial complete</p><h2 id="finish-time">0:00.00</h2>${button('Return to Hub', 'finish-menu', 'primary')}</div>
-        <div class="game-help">WASD / arrows drive · S / Down brake &amp; reverse · C rear view · R recover · Esc pause</div>
+        <div class="game-help">WASD / arrows drive · Space + steer drift · C rear view · R recover · Esc pause</div>
       </section>`;
 
     const canvas = root.querySelector<HTMLCanvasElement>('#game-canvas');
@@ -110,6 +114,16 @@ export function mountAppShell(root: HTMLElement): void {
       getElement('#performance').textContent =
         `${String(state.fps)} FPS · ${state.frameMs.toFixed(1)} ms`;
       getElement('#wrong-way').hidden = !state.wrongWay;
+      const driftPanel = getElement('#drift-panel');
+      driftPanel.dataset.tier = state.driftTier;
+      getElement('#drift-fill').style.width = `${String(Math.round(state.driftCharge * 100))}%`;
+      getElement('#drift-label').textContent = state.airborne
+        ? 'AIRBORNE'
+        : state.boostActive
+          ? `${state.driftTier.toUpperCase()} BOOST`
+          : state.driftTier === 'none'
+            ? 'Hold Space + steer to drift'
+            : `${state.driftTier.toUpperCase()} CHARGE`;
     };
     game = await KartTimeTrial.create({
       canvas,

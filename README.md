@@ -4,9 +4,9 @@ Accurate Artistry Game Hub is a modular HTML5 mini-game platform whose first ver
 
 ## Current state
 
-**Current slice:** Slice 1 - Engine Setup, Basic Kart Physics, Keyboard Controls, Single Track Loop & Time Trial.
+**Current slice:** Slice 2 - Drift Engine, Three-Tier Mini-Turbo & Multi-Surface Traction.
 
-The current implementation adds the player-only Circuit Alpha time trial: a fixed-step Rapier kart, keyboard controls, ordered checkpoints, surface behavior, recovery, timing, chase camera, and performance HUD. Drift, AI opponents, items, and competitive racing remain later slices.
+The current implementation includes the player-only Circuit Alpha time trial plus hop/drift entry, Blue/Orange/Purple charge tiers, release boosts, Mini-Turbo scaling, boost pads, ramp/stunt landing boost, playable off-road floors, a shorter manual-test course, and drift HUD/VFX/audio feedback. AI opponents, items, character selection, and competitive racing remain later slices.
 
 ## Live test build
 

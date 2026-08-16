@@ -18,6 +18,19 @@ export interface KartTuning {
   reverseSpeed: number;
 }
 
+export type DriftTierName = 'none' | 'blue' | 'orange' | 'purple';
+
+export interface DriftThresholds {
+  blue: number;
+  orange: number;
+  purple: number;
+}
+
+export interface DriftBoostProfile {
+  duration: number;
+  speedMultiplier: number;
+}
+
 export const sliceOneDriver: DriverStats = {
   speed: 7,
   acceleration: 7,
@@ -64,4 +77,29 @@ export function surfaceAccelerationMultiplier(surface: SurfaceType, traction: nu
     default:
       return 1;
   }
+}
+
+export function surfaceMinimumPlayableSpeed(surface: SurfaceType): number {
+  if (surface === 'grass') return 8.5;
+  if (surface === 'dirt') return 11.5;
+  return 0;
+}
+
+export function driftThresholds(miniTurbo: number): DriftThresholds {
+  const turboN = (miniTurbo - 1) / 9;
+  return {
+    blue: 0.95 - 0.18 * turboN,
+    orange: 1.9 - 0.35 * turboN,
+    purple: 3.15 - 0.6 * turboN,
+  };
+}
+
+export function driftBoostProfile(
+  tier: Exclude<DriftTierName, 'none'>,
+  miniTurbo: number,
+): DriftBoostProfile {
+  const turboN = (miniTurbo - 1) / 9;
+  if (tier === 'blue') return { duration: 0.55 + 0.15 * turboN, speedMultiplier: 1.08 };
+  if (tier === 'orange') return { duration: 0.9 + 0.25 * turboN, speedMultiplier: 1.12 };
+  return { duration: 1.35 + 0.4 * turboN, speedMultiplier: 1.16 };
 }

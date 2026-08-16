@@ -283,6 +283,49 @@ h2 {
   color: #bce4ff;
   font-size: 0.9rem;
 }
+.drift-panel {
+  position: absolute;
+  left: 50%;
+  bottom: 2.9rem;
+  width: min(22rem, 46vw);
+  transform: translateX(-50%);
+  color: #d9d0e2;
+  text-align: center;
+  text-shadow: 0 2px 7px #000;
+  pointer-events: none;
+}
+.drift-panel span {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.drift-meter {
+  height: 0.48rem;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 999px;
+  background: rgb(6 3 11 / 70%);
+}
+.drift-meter i {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: #38bdf8;
+  box-shadow: 0 0 1rem currentcolor;
+  transition:
+    width 80ms linear,
+    background 120ms ease;
+}
+.drift-panel[data-tier='orange'] .drift-meter i {
+  background: #ff8a28;
+}
+.drift-panel[data-tier='purple'] .drift-meter i {
+  background: #a855f7;
+}
 .warning {
   position: absolute;
   top: 24%;

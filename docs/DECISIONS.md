@@ -99,3 +99,15 @@ This log records approved or implementation-shaping decisions. Future sessions m
 - **Product impact:** Manny can test each playable checkpoint before authorizing the next slice.
 - **Implementation impact:** CI validates, packages, and deploys `dist/` after healthy pushes to `main`. Vite uses the repository Pages base path.
 - **Approval:** Manny’s Slice 1 authorization and deployment requirement.
+
+## ADR-008: Shorten Circuit Alpha and preserve playable off-road floors
+
+- **Date:** 2026-08-16
+- **Status:** Approved
+- **Context:** Slice 1 manual confirmation required over a minute per lap, making repeated checkpoint testing unnecessarily slow. Full-width dirt removed player choice, sustained off-road slowdown could become an unplayable crawl, and the unlit sky read as a black rendering defect.
+- **Options considered:** Keep the original 1.45 km target; reduce required laps; shorten the course while retaining three-lap and checkpoint rules.
+- **Decision:** Shorten Circuit Alpha to approximately 0.90 km and retain three laps and twelve ordered checkpoints. Dirt becomes a partial-width optional lane. Grass and dirt receive distinct playable speed floors under throttle. Add a rendered gradient sky/horizon. Forward A/Left and D/Right must match chase-camera visual direction.
+- **Rationale:** Reduces manual-test time without weakening lap validation or representative handling coverage, while directly resolving product-owner feedback.
+- **Product impact:** Faster repeat testing, clearer route choice, playable off-road recovery, correct controls, and a finished-looking horizon.
+- **Implementation impact:** Track coordinates and distance documentation are scaled; surface projection tracks signed lateral offset; off-road controller logic enforces floors; track rendering adds an original procedural sky.
+- **Approval:** Manny’s Slice 1 manual confirmation and Slice 2 authorization.

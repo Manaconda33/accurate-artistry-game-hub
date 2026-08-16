@@ -7,6 +7,7 @@ export interface TrackProjection {
   point: THREE.Vector3;
   tangent: THREE.Vector3;
   lateralDistance: number;
+  lateralOffset: number;
   surface: SurfaceType;
 }
 
@@ -33,7 +34,7 @@ export class CircuitAlpha {
       new THREE.Vector3(-210, 0, -160),
       new THREE.Vector3(-95, 0, -215),
     ];
-    points.forEach((point) => point.multiplyScalar(0.88));
+    points.forEach((point) => point.multiplyScalar(0.55));
 
     this.curve = new THREE.CatmullRomCurve3(points, true, 'centripetal', 0.5);
     this.samples = Array.from({ length: this.sampleCount }, (_, index) =>
@@ -63,9 +64,18 @@ export class CircuitAlpha {
 
     const progress = nearestIndex / this.sampleCount;
     const lateralDistance = Math.sqrt(nearestDistanceSq);
+    const nearestPoint = this.samples[nearestIndex]?.clone() ?? new THREE.Vector3();
+    const nearestTangent = this.tangents[nearestIndex]?.clone() ?? new THREE.Vector3(0, 0, 1);
+    const right = new THREE.Vector3(nearestTangent.z, 0, -nearestTangent.x).normalize();
+    const lateralOffset = position.clone().sub(nearestPoint).dot(right);
     let surface: SurfaceType = lateralDistance <= this.roadHalfWidth ? 'asphalt' : 'grass';
 
-    if (progress >= 0.235 && progress <= 0.315 && lateralDistance <= this.roadHalfWidth + 2) {
+    if (
+      progress >= 0.235 &&
+      progress <= 0.315 &&
+      lateralOffset >= 1.35 &&
+      lateralOffset <= this.roadHalfWidth + 1
+    ) {
       surface = 'dirt';
     } else if (
       ((progress >= 0.445 && progress <= 0.458) || (progress >= 0.81 && progress <= 0.823)) &&
@@ -79,9 +89,10 @@ export class CircuitAlpha {
     return {
       index: nearestIndex,
       progress,
-      point: this.samples[nearestIndex]?.clone() ?? new THREE.Vector3(),
-      tangent: this.tangents[nearestIndex]?.clone() ?? new THREE.Vector3(0, 0, 1),
+      point: nearestPoint,
+      tangent: nearestTangent,
       lateralDistance,
+      lateralOffset,
       surface,
     };
   }
