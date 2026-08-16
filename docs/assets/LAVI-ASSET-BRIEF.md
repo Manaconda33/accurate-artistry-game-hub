@@ -49,7 +49,7 @@ Production assets follow PRD sections 2.1, 23, and 27:
 | Steer-left frame | 512 x 512 PNG, transparent, sRGB | Approved and prepared |
 | Steer-right frame | 512 x 512 PNG, transparent, sRGB | Approved and prepared |
 | Hit frame | 512 x 512 PNG, transparent, sRGB | Approved and prepared |
-| Victory frame | 512 x 512 PNG, transparent, sRGB | Not started |
+| Victory frame | 512 x 512 PNG, transparent, sRGB | Approved and prepared |
 | Potato kart | GLB with PRD hierarchy and LOD budgets | Not started |
 
 Generated concepts remain candidates until Manny approves them. Approval of the portrait does not automatically approve the five driver states or Potato's 3D asset.
@@ -103,4 +103,16 @@ Generated concepts remain candidates until Manny approves them. Approval of the 
 - **File validation:** PNG RGBA in sRGB; alpha ranges from fully transparent to fully opaque, and the corner pixel is transparent. A checkerboard composite confirmed the cutout visually.
 - **Approval:** Manny approved Hit Candidate 1 on 2026-08-16.
 - **Production derivative:** `public/assets/characters/aa-02/driver/hit.png`.
+- **Production validation:** 512 x 512 PNG RGBA in sRGB; alpha ranges from fully transparent to fully opaque, the corner pixel is transparent, and normal-Git runtime-asset treatment is confirmed.
+
+## Victory candidate 1
+
+- **Generated:** 2026-08-16.
+- **Purpose:** Reusable celebration pose for the race finish, podium, and optional major Purple Burst boost.
+- **Pose:** Rear seated crop with one raised fist, a compact second arm pump, bouncing curls, and a smiling over-the-shoulder turn.
+- **Source dimensions:** 1254 x 1254 px.
+- **Source cleanup:** A detached yellow speck above the raised fist was removed without changing the character artwork.
+- **File validation:** PNG RGBA in sRGB; alpha ranges from fully transparent to fully opaque, and the corner pixel is transparent.
+- **Approval:** Manny approved the corrected Victory Candidate 1 on 2026-08-16.
+- **Production derivative:** `public/assets/characters/aa-02/driver/victory.png`.
 - **Production validation:** 512 x 512 PNG RGBA in sRGB; alpha ranges from fully transparent to fully opaque, the corner pixel is transparent, and normal-Git runtime-asset treatment is confirmed.
