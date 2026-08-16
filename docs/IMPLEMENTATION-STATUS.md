@@ -2,7 +2,7 @@
 
 ## Current slice
 
-**Slice 1 - Engine Setup, Basic Kart Physics, Keyboard Controls, Single Track Loop & Time Trial: implementation complete; deployment verification in progress**
+**Slice 1 - Engine Setup, Basic Kart Physics, Keyboard Controls, Single Track Loop & Time Trial: complete; awaiting product-owner manual confirmation**
 
 Manny approved Slice 1 on 2026-08-16 and added a standing requirement that every slice checkpoint provide a GitHub-hosted manual test URL.
 
@@ -29,14 +29,12 @@ Manny approved Slice 1 on 2026-08-16 and added a standing requirement that every
 
 ## Work in progress
 
-- Publish the Slice 1 checkpoint candidate.
-- Verify GitHub Actions and the GitHub Pages environment.
-- Perform deployed smoke validation and provide the live URL for Manny’s manual confirmation.
+- None. Slice 2 remains locked pending Manny’s manual test and explicit approval.
 
 ## Known defects
 
 - None identified by automated validation.
-- Manual play confirmation is pending the deployed checkpoint.
+- Product-owner manual play confirmation is pending at the live checkpoint URL.
 
 ## Deferred work
 
@@ -64,8 +62,10 @@ Validated from a clean npm installation on 2026-08-16:
 - Coverage: 59.74% statements, 54.21% branches, 57.57% functions, and 62.85% lines across instrumented test targets.
 - Production build: Vite `8.2.1` passed; title/menu JavaScript is 12.49 kB gzip and the lazily loaded Three.js/Rapier gameplay package is 1.20 MB gzip, inside the PRD’s download budgets.
 - Local production preview served successfully at the configured `/accurate-artistry-game-hub/` base path.
-- CI and GitHub Pages: pending checkpoint publication.
+- CI: GitHub Actions run `31966439138`, attempt 2, passed for Slice 1 candidate `82f7ea4ba8712640b01e262d9be59e2cbf2a9831`. Install, typecheck, lint, 11 tests, production build, artifact upload, and deployment completed successfully.
+- Deployment: GitHub Pages deployment `5934411430` published candidate `82f7ea4ba8712640b01e262d9be59e2cbf2a9831` through the `github-pages` environment.
+- Live URL: `https://manaconda33.github.io/accurate-artistry-game-hub/` returned HTTPS 200. The HTML and title/menu JavaScript, CSS, and lazy gameplay JavaScript assets each returned HTTP 200 from GitHub Pages.
 
 ## Last verified commit
 
-`745de06d02b36df9560932323d32a7445c56fec7` - approved Slice 0 checkpoint. Slice 1 candidate commit pending publication.
+`82f7ea4ba8712640b01e262d9be59e2cbf2a9831` - validated and deployed Slice 1 implementation candidate. The following evidence-only checkpoint changes only this status record and re-runs the same CI/deployment workflow.
