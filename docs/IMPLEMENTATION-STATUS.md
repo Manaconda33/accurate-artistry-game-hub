@@ -44,7 +44,7 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 - Manny approved Rear Driver Candidate 1 on 2026-08-16. `public/assets/characters/aa-02/driver/rear.png` is the prepared 512 x 512 PNG RGBA derivative; transparent alpha and normal-Git runtime treatment are verified.
 - Manny approved Steer-left Candidate 1 on 2026-08-16. `public/assets/characters/aa-02/driver/steer-left.png` is the prepared 512 x 512 PNG RGBA derivative; transparent alpha and normal-Git runtime treatment are verified.
 - Manny approved Steer-right Candidate 1 on 2026-08-16. `public/assets/characters/aa-02/driver/steer-right.png` is the prepared 512 x 512 PNG RGBA derivative; transparent alpha and normal-Git runtime treatment are verified.
-- The approved Lavi documentation, portrait, rear frame, steer-left frame, and steer-right frame are prepared for publication on branch `agent/lavi-approved-assets`.
+- The approved Lavi documentation, portrait, rear frame, steer-left frame, and steer-right frame are published on branch `agent/lavi-approved-assets` in draft PR #1.
 - No Slice 3 character implementation has begun beyond governance and intake preparation.
 
 ## Known defects
@@ -60,7 +60,7 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 
 ## Next recommended action
 
-Publish branch `agent/lavi-approved-assets` through the connected GitHub workflow, then prepare the hit-frame candidate.
+Review and merge draft PR #1 after its final CI run, then prepare the hit-frame candidate.
 
 ## Validation evidence
 
@@ -69,6 +69,7 @@ Local validation on 2026-08-16:
 - Lavi runtime assets: portrait is 256 x 256; rear, steer-left, and steer-right are 512 x 512. All four are sRGB RGBA PNGs with non-opaque alpha and transparent corner pixels at the PRD paths.
 - Asset policy: Git attributes resolve the four fixed-size runtime PNGs to normal Git while high-resolution character art, 3D formats, and production audio remain covered by LFS rules.
 - Roster ledger: twelve unique profiles are present, every profile totals 36 points, AA-02 is assigned to Lavi, and eleven profiles remain available.
+- Lavi publication checkpoint: GitHub CI run `31977753698` passed for remote commit `e78506b6424f50984161033f34d7fed623f3a740` in draft PR #1.
 - Typecheck: strict TypeScript project build passed with no diagnostics.
 - Lint: ESLint passed with zero warnings permitted.
 - Tests: 6 files and 14 tests passed under Vitest `4.1.10`.
