@@ -4,9 +4,9 @@ Accurate Artistry Game Hub is a modular HTML5 mini-game platform whose first ver
 
 ## Current state
 
-**Current slice:** Slice 2 - Drift Engine, Three-Tier Mini-Turbo & Multi-Surface Traction.
+**Current slice:** Slice 3 - AI Waypoint Navigation & Eight-Racer Grid.
 
-The current implementation includes the player-only Circuit Alpha time trial plus hop/drift entry, Blue/Orange/Purple charge tiers, release boosts, Mini-Turbo scaling, boost pads, ramp/stunt landing boost, playable off-road floors, a shorter manual-test course, and drift HUD/VFX/audio feedback. AI opponents, items, character selection, and competitive racing remain later slices.
+The current implementation adds a competitive three-lap Grand Prix with one player and seven spline-driven Rapier opponents, a starting countdown, live position ranking, relative-mass collision response, AI recovery, finish placement, and mobile-session touch controls. Drift, boost, stunt, checkpoint, surface, keyboard, and recovery behavior from the accepted earlier slices remains active. Character selection and items remain later slices.
 
 ## Live test build
 

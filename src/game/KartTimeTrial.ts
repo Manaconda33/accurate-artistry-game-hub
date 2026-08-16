@@ -3,11 +3,14 @@ import * as THREE from 'three';
 import { Howler } from 'howler';
 import { playDriftTierTone } from '../audio/driftTone';
 import { createKartTuning, sliceOneDriver, type SurfaceType } from '../config/kartTuning';
+import { AiDriver } from './ai/AiDriver';
 import { ChaseCamera } from './camera/ChaseCamera';
 import { FixedStepRunner } from './physics/FixedStepRunner';
 import { KartController, type DriveInput } from './physics/KartController';
 import type { DriftTier } from './physics/KartController';
+import { collisionImpulseShares } from './physics/KartCollision';
 import { LapTracker } from './race/LapTracker';
+import { RaceDirector, rankRacers, type RacerProgress } from './race/RaceDirector';
 import { CircuitAlpha } from './track/CircuitAlpha';
 import { createTrackScene } from './track/createTrackScene';
 
@@ -24,12 +27,32 @@ export interface HudState {
   driftCharge: number;
   boostActive: boolean;
   airborne: boolean;
+  position: number;
+  countdown: string;
+}
+
+export interface RaceResult {
+  time: number;
+  place: number;
+  standings: { name: string; place: number | null; time: number | null }[];
 }
 
 export interface TimeTrialOptions {
   canvas: HTMLCanvasElement;
   onHud: (state: HudState) => void;
-  onFinish: (time: number) => void;
+  onFinish: (result: RaceResult) => void;
+}
+
+interface AiRacer {
+  id: string;
+  name: string;
+  controller: KartController;
+  driver: AiDriver;
+  mesh: THREE.Group;
+  lapTracker: LapTracker;
+  progress: RacerProgress;
+  lastCheckpointOverlap: number;
+  recoveryCooldown: number;
 }
 
 export class KartTimeTrial {
@@ -38,11 +61,13 @@ export class KartTimeTrial {
   private readonly camera: THREE.PerspectiveCamera;
   private readonly track = new CircuitAlpha();
   private readonly lapTracker = new LapTracker();
+  private readonly raceDirector = new RaceDirector();
   private readonly fixedStep = new FixedStepRunner();
   private readonly pressed = new Set<string>();
   private readonly kartMesh = new THREE.Group();
   private readonly driftLights: THREE.Mesh[] = [];
   private readonly kart: KartController;
+  private readonly opponents: AiRacer[] = [];
   private readonly chaseCamera: ChaseCamera;
   private readonly position = new THREE.Vector3();
   private readonly forward = new THREE.Vector3();
@@ -59,6 +84,17 @@ export class KartTimeTrial {
   private fpsFrames = 0;
   private fps = 60;
   private lastToneTier: DriftTier = 'none';
+  private readonly touchPressed = new Set<string>();
+  private readonly playerProgress: RacerProgress = {
+    id: 'player',
+    lap: 0,
+    trackProgress: 0,
+    finished: false,
+    finishTime: null,
+    finishPlace: null,
+  };
+  private finishReported = false;
+  private readonly contactCooldowns = new Map<string, number>();
 
   public static async create(options: TimeTrialOptions): Promise<KartTimeTrial> {
     await RAPIER.init();
@@ -106,6 +142,7 @@ export class KartTimeTrial {
       yaw,
     );
     this.createKartVisual();
+    this.createOpponents(spawn, spawnTangent, yaw);
     this.lapTracker.reset(0);
     this.bindEvents();
     this.resize();
@@ -124,12 +161,18 @@ export class KartTimeTrial {
     this.renderer.dispose();
   }
 
+  public setTouchControl(control: string, pressed: boolean): void {
+    if (pressed) this.touchPressed.add(control);
+    else this.touchPressed.delete(control);
+    if (control === 'recover' && pressed) this.respawn();
+  }
+
   private readonly frame = (now: number): void => {
     const frameSeconds = Math.min((now - this.lastFrame) / 1000, 0.1);
     this.lastFrame = now;
     if (!this.paused) {
       this.fixedStep.advance(frameSeconds, this.simulate);
-      this.elapsed += frameSeconds;
+      this.elapsed = this.raceDirector.raceTime();
     }
 
     this.updateVisuals(frameSeconds);
@@ -139,25 +182,34 @@ export class KartTimeTrial {
   };
 
   private readonly simulate = (dt: number): void => {
+    this.raceDirector.advance(dt);
+    if (this.raceDirector.phase(this.playerProgress.finished) === 'countdown') {
+      this.world.step();
+      return;
+    }
     const position = this.kart.position(this.position);
     const projection = this.track.project(position);
     const input: DriveInput = {
-      throttle: this.isPressed('KeyW', 'ArrowUp')
-        ? 1
-        : this.isPressed('KeyS', 'ArrowDown')
-          ? -1
-          : 0,
-      steering: this.isPressed('KeyA', 'ArrowLeft')
-        ? 1
-        : this.isPressed('KeyD', 'ArrowRight')
-          ? -1
-          : 0,
+      throttle:
+        this.isPressed('KeyW', 'ArrowUp') || this.touchPressed.has('accelerate')
+          ? 1
+          : this.isPressed('KeyS', 'ArrowDown') || this.touchPressed.has('brake')
+            ? -1
+            : 0,
+      steering:
+        this.isPressed('KeyA', 'ArrowLeft') || this.touchPressed.has('left')
+          ? 1
+          : this.isPressed('KeyD', 'ArrowRight') || this.touchPressed.has('right')
+            ? -1
+            : 0,
       brake: false,
-      drift: this.isPressed('Space'),
+      drift: this.isPressed('Space') || this.touchPressed.has('drift'),
     };
 
     this.kart.update(input, projection.surface, dt);
+    this.updateOpponents(dt);
     this.world.step();
+    this.resolveKartContacts(dt);
 
     if (!this.kart.isFinite()) {
       this.respawn();
@@ -177,9 +229,33 @@ export class KartTimeTrial {
       if (accepted && checkpoint !== 0) {
         this.lastRecoveryIndex = this.track.checkpointIndices[checkpoint] ?? projection.index;
       }
-      if (this.lapTracker.snapshot().finished) this.options.onFinish(this.elapsed);
+      if (this.lapTracker.snapshot().finished)
+        this.raceDirector.registerFinish(this.playerProgress);
     }
     this.lastCheckpointOverlap = checkpoint;
+    const snapshot = this.lapTracker.snapshot();
+    this.playerProgress.lap = snapshot.lap;
+    this.playerProgress.trackProgress =
+      snapshot.lap === 0 && snapshot.nextCheckpoint === 1 && projection.progress > 0.8
+        ? 0
+        : projection.progress;
+    if (this.playerProgress.finished && !this.finishReported) {
+      this.finishReported = true;
+      const standings = this.currentStandings();
+      this.options.onFinish({
+        time: this.playerProgress.finishTime ?? this.elapsed,
+        place:
+          this.playerProgress.finishPlace ?? standings.findIndex(({ id }) => id === 'player') + 1,
+        standings: standings.map((racer) => ({
+          name:
+            racer.id === 'player'
+              ? 'YOU'
+              : (this.opponents.find(({ id }) => id === racer.id)?.name ?? racer.id),
+          place: racer.finishPlace,
+          time: racer.finishTime,
+        })),
+      });
+    }
   };
 
   private nearestCheckpoint(position: THREE.Vector3): number {
@@ -187,6 +263,82 @@ export class KartTimeTrial {
       if (position.distanceToSquared(this.track.checkpointPosition(index)) < 13 * 13) return index;
     }
     return -1;
+  }
+
+  private updateOpponents(dt: number): void {
+    const playerTotal = this.playerProgress.lap + this.playerProgress.trackProgress;
+    for (const opponent of this.opponents) {
+      opponent.recoveryCooldown = Math.max(0, opponent.recoveryCooldown - dt);
+      const position = opponent.controller.position();
+      const projection = this.track.project(position);
+      const snapshot = opponent.lapTracker.snapshot();
+      const opponentTotal = snapshot.lap + projection.progress;
+      const input = opponent.progress.finished
+        ? { throttle: 0, steering: 0, brake: true, drift: false }
+        : opponent.driver.input(
+            position,
+            opponent.controller.forward(),
+            opponent.controller.speedMetersPerSecond(),
+            playerTotal - opponentTotal,
+          );
+      opponent.controller.update(input, projection.surface, dt);
+
+      const checkpoint = this.nearestCheckpoint(position);
+      if (checkpoint !== -1 && checkpoint !== opponent.lastCheckpointOverlap) {
+        const forwardDot = opponent.controller.forward().dot(projection.tangent);
+        opponent.lapTracker.enterCheckpoint(checkpoint, forwardDot, this.raceDirector.raceTime());
+      }
+      opponent.lastCheckpointOverlap = checkpoint;
+      const nextSnapshot = opponent.lapTracker.snapshot();
+      opponent.progress.lap = nextSnapshot.lap;
+      opponent.progress.trackProgress =
+        nextSnapshot.lap === 0 && nextSnapshot.nextCheckpoint === 1 && projection.progress > 0.8
+          ? 0
+          : projection.progress;
+      if (nextSnapshot.finished) this.raceDirector.registerFinish(opponent.progress);
+
+      if ((projection.lateralDistance > 20 || position.y < -2) && opponent.recoveryCooldown === 0) {
+        const tangent = projection.tangent;
+        opponent.controller.respawn(
+          projection.point.clone().addScaledVector(tangent, 3),
+          Math.atan2(tangent.x, tangent.z),
+        );
+        opponent.recoveryCooldown = 1.5;
+      }
+    }
+  }
+
+  private resolveKartContacts(dt: number): void {
+    for (const [key, remaining] of this.contactCooldowns) {
+      const next = remaining - dt;
+      if (next <= 0) this.contactCooldowns.delete(key);
+      else this.contactCooldowns.set(key, next);
+    }
+
+    const racers = [
+      { id: 'player', controller: this.kart },
+      ...this.opponents.map(({ id, controller }) => ({ id, controller })),
+    ];
+    for (let first = 0; first < racers.length; first += 1) {
+      for (let second = first + 1; second < racers.length; second += 1) {
+        const a = racers[first];
+        const b = racers[second];
+        if (a === undefined || b === undefined) continue;
+        const key = `${a.id}:${b.id}`;
+        if (this.contactCooldowns.has(key)) continue;
+        const delta = a.controller.position().sub(b.controller.position()).setY(0);
+        if (delta.lengthSq() >= 2.35 * 2.35 || delta.lengthSq() < 0.001) continue;
+        const direction = delta.normalize();
+        const impulses = collisionImpulseShares(a.controller.mass(), b.controller.mass(), 55);
+        a.controller.applyArcadeCollisionImpulse(direction, impulses.first);
+        b.controller.applyArcadeCollisionImpulse(direction.multiplyScalar(-1), impulses.second);
+        this.contactCooldowns.set(key, 0.18);
+      }
+    }
+  }
+
+  private currentStandings(): RacerProgress[] {
+    return rankRacers([this.playerProgress, ...this.opponents.map(({ progress }) => progress)]);
   }
 
   private respawn(): void {
@@ -202,7 +354,18 @@ export class KartTimeTrial {
     const forward = this.kart.forward(this.forward);
     this.kartMesh.position.copy(position);
     this.kartMesh.rotation.y = Math.atan2(forward.x, forward.z);
-    this.chaseCamera.update(position, forward, this.pressed.has('KeyC'), dt);
+    this.chaseCamera.update(
+      position,
+      forward,
+      this.pressed.has('KeyC') || this.touchPressed.has('rear'),
+      dt,
+    );
+    for (const opponent of this.opponents) {
+      const opponentPosition = opponent.controller.position();
+      const opponentForward = opponent.controller.forward();
+      opponent.mesh.position.copy(opponentPosition);
+      opponent.mesh.rotation.y = Math.atan2(opponentForward.x, opponentForward.z);
+    }
     const feedback = this.kart.feedback();
     const color =
       feedback.driftTier === 'purple'
@@ -247,6 +410,8 @@ export class KartTimeTrial {
       driftCharge: feedback.chargeRatio,
       boostActive: feedback.boostActive,
       airborne: feedback.airborne,
+      position: this.currentStandings().findIndex(({ id }) => id === 'player') + 1,
+      countdown: this.raceDirector.countdownLabel(),
     });
   }
 
@@ -289,6 +454,68 @@ export class KartTimeTrial {
       this.kartMesh.add(spark);
     }
     this.scene.add(this.kartMesh);
+  }
+
+  private createOpponents(spawn: THREE.Vector3, tangent: THREE.Vector3, yaw: number): void {
+    const right = new THREE.Vector3(tangent.z, 0, -tangent.x);
+    const colors = [0xef476f, 0x06d6a0, 0x118ab2, 0xff9f1c, 0xe76f51, 0x7bdff2, 0xf15bb5];
+    for (let index = 0; index < 7; index += 1) {
+      const row = Math.floor(index / 2) + 1;
+      const side = index % 2 === 0 ? -1 : 1;
+      const position = spawn
+        .clone()
+        .addScaledVector(tangent, -row * 3.2)
+        .addScaledVector(right, side * 2.05);
+      const stats = { ...sliceOneDriver, speed: 5 + (index % 4), weight: 4 + (index % 5) };
+      const controller = new KartController(
+        this.world,
+        createKartTuning(stats),
+        stats,
+        position,
+        yaw,
+      );
+      const mesh = this.createOpponentVisual(colors[index] ?? 0xffffff);
+      this.scene.add(mesh);
+      this.opponents.push({
+        id: `ai-${String(index + 1)}`,
+        name: `RIVAL ${String(index + 1)}`,
+        controller,
+        driver: new AiDriver(this.track, {
+          laneOffset: side * (0.7 + row * 0.35),
+          pace: 0.28 + index * 0.09,
+          aggression: 0.2 + (index % 4) * 0.2,
+        }),
+        mesh,
+        lapTracker: new LapTracker(),
+        progress: {
+          id: `ai-${String(index + 1)}`,
+          lap: 0,
+          trackProgress: 0,
+          finished: false,
+          finishTime: null,
+          finishPlace: null,
+        },
+        lastCheckpointOverlap: -1,
+        recoveryCooldown: 0,
+      });
+    }
+  }
+
+  private createOpponentVisual(color: number): THREE.Group {
+    const group = new THREE.Group();
+    const chassis = new THREE.Mesh(
+      new THREE.BoxGeometry(1.45, 0.52, 2.35),
+      new THREE.MeshStandardMaterial({ color, metalness: 0.25, roughness: 0.38 }),
+    );
+    chassis.position.y = 0.15;
+    chassis.castShadow = true;
+    const canopy = new THREE.Mesh(
+      new THREE.BoxGeometry(0.85, 0.42, 0.75),
+      new THREE.MeshStandardMaterial({ color: 0x201729, roughness: 0.5 }),
+    );
+    canopy.position.set(0, 0.55, -0.15);
+    group.add(chassis, canopy);
+    return group;
   }
 
   private bindEvents(): void {

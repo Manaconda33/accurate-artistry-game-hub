@@ -62,6 +62,16 @@ Every slice done-check must record fresh evidence in `docs/IMPLEMENTATION-STATUS
 
 Code presence alone is not completion evidence.
 
+## Slice 3 manual matrix
+
+- Desktop/fine-pointer session: touch controls are absent; keyboard controls remain functional.
+- Mobile/coarse-pointer session: touch controls appear only in gameplay and support simultaneous accelerate-plus-steer and drift-plus-steer input.
+- Countdown prevents an early start and transitions through 3, 2, 1, and GO.
+- Exactly seven visible opponents join the player, live position changes during overtakes, and collisions do not produce sustained vibration.
+- AI racers follow the course, recover after displacement, overtake, and complete validated laps without player involvement.
+- Player completion records a placement from first through eighth and presents standings.
+- Drift tiers, boost pads, ramp/stunt boost, off-road floors, recovery, rear view, and three-lap validation regressions remain functional.
+
 ## Slice 0 evidence boundary
 
 Slice 0 validates only installation, typechecking, linting, unit testing, production build, the minimal app shell, repository organization, and CI. It does not validate rendering, physics, controls, AI, racing, items, audio playback, or performance requirements assigned to later slices.

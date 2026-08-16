@@ -2,7 +2,7 @@
 
 ## Current slice
 
-**Slice 2 - Drift Engine, Three-Tier Mini-Turbo & Multi-Surface Traction: complete and manually accepted**
+**Slice 3 - AI Waypoint Navigation, Eight-Racer Grid & Mobile Controls: implementation candidate**
 
 Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recovery, reverse-lap rejection, rear camera, and other checks on 2026-08-16. He approved the Slice 1 corrections and authorized Slice 2.
 
@@ -29,23 +29,23 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 
 ## Work in progress
 
-- None. Slice 3 remains locked pending explicit approval to begin.
+- Seven spline-driven AI racers, eight-racer grid, countdown, validated-progress ranking, finish placement, relative-mass collision impulses with contact cooldown, and mobile-only touch controls are implemented locally.
+- Automated validation, deployment evidence, and product-owner manual confirmation remain before Slice 3 can close.
 
 ## Known defects
 
-- None known within the accepted Slice 2 scope.
+- None identified by current automated validation. Full-race behavior and mobile multi-touch input require deployed manual confirmation.
 - The previously reported drift/Blue-pad freeze is resolved. Commit `10864b6eeee84056d01885b74b1b3fe6e97fd7f5` contains and regression-tests the exception-safe Web Audio repair.
 
 ## Deferred work
 
-- Seven AI racers, relative-mass kart-to-kart collision behavior, ranking, countdown, results placement, and competitive three-lap race: Slice 3.
 - Character selection/roster and avatar art pipeline: Slice 4.
-- Items and advanced collision responses: Slice 5.
+- Items, AI item use, and advanced collision responses: Slice 5. AI-004 is dependency-blocked until then.
 - Final HUD, production audio content, post-processing, production track art/elevation, and optimization: Slice 6.
 
 ## Next recommended action
 
-Begin Slice 3 only after Manny explicitly authorizes it.
+Validate and deploy the Slice 3 candidate, then run the desktop and mobile manual matrix. Do not begin Slice 4 until Manny confirms the checkpoint.
 
 ## Validation evidence
 
@@ -69,6 +69,11 @@ Local validation on 2026-08-16:
 - CI: GitHub Actions run `31968043110` passed for Slice 2 candidate `350248375ce34659b5580878aa34f256045a907b`, including clean install, typecheck, lint, 14 tests, production build, artifact upload, and Pages deployment.
 - Deployment: GitHub Pages deployment `5934663031` published candidate `350248375ce34659b5580878aa34f256045a907b` through the `github-pages` environment.
 - Live URL: `https://manaconda33.github.io/accurate-artistry-game-hub/` returned HTTPS 200. The HTML and current title/menu JavaScript, CSS, and lazy gameplay JavaScript assets each returned HTTP 200.
+- Slice 3 local candidate: strict typecheck, ESLint with zero warnings, formatting, and production build passed on 2026-08-16.
+- Slice 3 tests: 12 files and 25 tests passed with 71.49% statement, 66.38% branch, 74.64% function, and 73.82% line coverage.
+- AI route qualification: all seven configured AI profiles independently completed three checkpoint-validated Circuit Alpha laps under Rapier fixed-step simulation without player input and retained finite physics state.
+- Slice 3 unit evidence covers dynamic spline lookahead, bounded steering, off-line correction, five-percent rubber-band bounds, race countdown, validated-progress ranking, locked finish places, relative-mass collision shares, and mobile coarse-pointer session gating.
+- Slice 3 production build: Vite `8.2.1` passed; app-shell JavaScript is 13.54 kB gzip and the lazy Three.js/Rapier gameplay package is 1.234 MB gzip, within the PRD download budget.
 
 ## Last verified commit
 

@@ -201,6 +201,21 @@ export class KartController {
     return Math.hypot(velocity.x, velocity.z);
   }
 
+  public mass(): number {
+    return this.tuning.mass;
+  }
+
+  public applyArcadeCollisionImpulse(direction: THREE.Vector3, strength: number): void {
+    this.body.applyImpulse(
+      {
+        x: direction.x * strength,
+        y: 0,
+        z: direction.z * strength,
+      },
+      true,
+    );
+  }
+
   public forward(target = new THREE.Vector3()): THREE.Vector3 {
     return target.set(Math.sin(this.yaw), 0, Math.cos(this.yaw));
   }

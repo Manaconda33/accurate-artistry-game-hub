@@ -111,3 +111,15 @@ This log records approved or implementation-shaping decisions. Future sessions m
 - **Product impact:** Faster repeat testing, clearer route choice, playable off-road recovery, correct controls, and a finished-looking horizon.
 - **Implementation impact:** Track coordinates and distance documentation are scaled; surface projection tracks signed lateral offset; off-road controller logic enforces floors; track rendering adds an original procedural sky.
 - **Approval:** Manny’s Slice 1 manual confirmation and Slice 2 authorization.
+
+## ADR-009: Competitive race is Slice 3 and mobile controls are session-gated
+
+- **Date:** 2026-08-16
+- **Status:** Approved
+- **Context:** Repository continuity had already established the competitive eight-racer race as Slice 3, and Manny added mobile touch control to that authorized slice.
+- **Options considered:** Revert to the original PRD numbering; always render touch controls; render them only for coarse, no-hover primary input.
+- **Decision:** Preserve the repository’s active sequence: competitive race in Slice 3, roster in Slice 4, items in Slice 5, and final hardening in Slice 6. Render touch controls only when `(hover: none) and (pointer: coarse)` matches.
+- **Rationale:** Avoids invalidating completed checkpoints and keeps desktop gameplay uncluttered while enabling mobile play.
+- **Product impact:** Mobile players receive on-screen steering, throttle, brake/reverse, drift, rear-view, and recovery controls. Desktop users retain keyboard controls without a touch overlay.
+- **Implementation impact:** Input state accepts keyboard and pointer controls through the same fixed-step simulation. AI item use remains deferred until the Slice 5 item dependency exists.
+- **Approval:** Manny’s explicit Slice 3 authorization and mobile-control instruction.

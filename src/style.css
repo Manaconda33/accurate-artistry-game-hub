@@ -270,6 +270,11 @@ h2 {
   right: 1rem;
   text-align: right;
 }
+.position-hud {
+  top: 5.7rem;
+  right: 1rem;
+  text-align: right;
+}
 .bottom-left {
   bottom: 2.9rem;
   left: 1rem;
@@ -340,6 +345,20 @@ h2 {
   letter-spacing: 0.06em;
   box-shadow: 0 0 3rem rgb(255 68 36 / 45%);
 }
+.countdown {
+  position: absolute;
+  top: 34%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #f6d66a;
+  font-size: clamp(5rem, 18vw, 11rem);
+  font-weight: 1000;
+  line-height: 1;
+  text-shadow:
+    0 0 2rem #6c2ba7,
+    0 0.4rem 0 #321449;
+  pointer-events: none;
+}
 .game-help {
   position: absolute;
   left: 50%;
@@ -371,6 +390,84 @@ h2 {
   margin: 0 auto 1.5rem;
   font-size: 3rem;
   color: #f6d66a;
+}
+.standings {
+  max-height: 15rem;
+  margin: 1rem 0 1.5rem;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+  text-align: left;
+}
+.standings li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.45rem 0.25rem;
+  border-bottom: 1px solid rgb(255 255 255 / 10%);
+}
+.standings strong {
+  color: #f6d66a;
+}
+.touch-controls {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  touch-action: none;
+  user-select: none;
+}
+.touch-cluster {
+  position: absolute;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  display: flex;
+  gap: 0.65rem;
+  pointer-events: auto;
+}
+.steering-controls {
+  left: max(1rem, env(safe-area-inset-left));
+}
+.action-controls {
+  right: max(1rem, env(safe-area-inset-right));
+}
+.touch-controls button {
+  width: clamp(3.4rem, 12vw, 5rem);
+  height: clamp(3.4rem, 12vw, 5rem);
+  border: 2px solid rgb(255 255 255 / 38%);
+  border-radius: 50%;
+  color: #fff;
+  background: rgb(12 7 20 / 62%);
+  box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 32%);
+  backdrop-filter: blur(8px);
+  font-size: 1.25rem;
+  font-weight: 900;
+  touch-action: none;
+}
+.touch-controls button:active {
+  color: #170d21;
+  background: #f6d66a;
+}
+.touch-controls .touch-drift {
+  width: clamp(4.2rem, 14vw, 5.8rem);
+  border-radius: 1.4rem;
+  color: #e8c9ff;
+  font-size: 0.72rem;
+}
+.touch-utility {
+  position: absolute;
+  top: max(5.8rem, env(safe-area-inset-top));
+  left: 50%;
+  display: flex;
+  gap: 0.5rem;
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+.touch-utility button {
+  width: auto;
+  height: 2.4rem;
+  padding: 0 0.8rem;
+  border-radius: 999px;
+  font-size: 0.62rem;
 }
 .spinner {
   display: inline-block;
@@ -408,6 +505,23 @@ h2 {
   }
   .game-help {
     display: none;
+  }
+  .bottom-left {
+    bottom: 6.2rem;
+  }
+  .drift-panel {
+    bottom: 6.2rem;
+    width: min(18rem, 55vw);
+  }
+  .top-left,
+  .top-center,
+  .top-right,
+  .position-hud {
+    min-width: 5.5rem;
+    padding: 0.55rem 0.65rem;
+  }
+  .position-hud {
+    top: 4.9rem;
   }
 }
 
