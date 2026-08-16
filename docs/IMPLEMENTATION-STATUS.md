@@ -2,7 +2,7 @@
 
 ## Current slice
 
-**Slice 3 - Character Selection & Avatar Ingestion: intake stage**
+**Slice 3 - Character Selection & Avatar Ingestion: Lavi asset preparation**
 
 Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recovery, reverse-lap rejection, rear camera, and other checks on 2026-08-16. He approved the Slice 1 corrections and authorized Slice 2.
 
@@ -30,7 +30,21 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 ## Work in progress
 
 - Avatar intake and approval contract established for one-at-a-time character development.
-- Awaiting Manny’s first avatar package before assigning any identity, visual treatment, kart concept, or balance profile.
+- Lavi is the first avatar in intake. Their supplied personality, physical description, and Potato Kart reference are recorded in `docs/avatars/LAVI.md`.
+- Lavi's they/them pronouns, racing outfit, situational cheek grime, natural-potato kart body, and hidden-frame construction language are approved. The reference number `1` and `Potato Prix '24` treatment are excluded from canon.
+- Lavi's reference-matched light complexion, standard stud earrings, and realistic-yet-whimsical `Potato` art direction are approved.
+- Lavi's earrings are teal-blue studs. Their kart's final name is `Potato`, with approved russet skin, shallow eyes, dry soil, light scuffing, and two or three short rear sprouts. Rot, trailing roots, and an anthropomorphic face are prohibited.
+- Lavi's muted-green ribbed sweater, white rainbow-accented platform boots, and Potato's practical handmade hardware are approved. Consolidated character and kart lock candidates are ready for final review.
+- Manny approved Lavi's complete character and `Potato` kart locks on 2026-08-16, including simplification rules, no emblem, and limited technical adjustments that preserve the natural-potato silhouette.
+- Manny assigned AA-02 Feather Technician to Lavi on 2026-08-16: Speed 5, Acceleration 8, Weight 2, Handling 9, Mini-Turbo 8, and Traction 4.
+- `docs/ROSTER-MAPPING.md` now reserves AA-02 for Lavi and records all eleven remaining profiles as available. ADR-011 requires one-to-one allocation and duplicate-assignment validation.
+- Manny confirmed he created the supplied Lavi reference and permits its transformation into game assets. Production art must follow the PRD's polished, colorful, kinetic, high-contrast arcade style rather than the reference collage's pixel treatment.
+- `docs/assets/LAVI-ASSET-BRIEF.md` governs the approved portrait and later production deliverables.
+- Manny approved Lavi portrait Candidate 1 on 2026-08-16. `public/assets/characters/aa-02/portrait.png` is the prepared 256 x 256 PNG RGBA derivative; transparent alpha and normal-Git runtime treatment are verified.
+- Manny approved Rear Driver Candidate 1 on 2026-08-16. `public/assets/characters/aa-02/driver/rear.png` is the prepared 512 x 512 PNG RGBA derivative; transparent alpha and normal-Git runtime treatment are verified.
+- Manny approved Steer-left Candidate 1 on 2026-08-16. `public/assets/characters/aa-02/driver/steer-left.png` is the prepared 512 x 512 PNG RGBA derivative; transparent alpha and normal-Git runtime treatment are verified.
+- Manny approved Steer-right Candidate 1 on 2026-08-16. `public/assets/characters/aa-02/driver/steer-right.png` is the prepared 512 x 512 PNG RGBA derivative; transparent alpha and normal-Git runtime treatment are verified.
+- The approved Lavi documentation, portrait, rear frame, steer-left frame, and steer-right frame are prepared for publication on branch `agent/lavi-approved-assets`.
 - No Slice 3 character implementation has begun beyond governance and intake preparation.
 
 ## Known defects
@@ -46,12 +60,15 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 
 ## Next recommended action
 
-Receive and review the first avatar package using `docs/AVATAR-INTAKE.md`. Do not infer missing creative details or map the avatar to AA-01 through AA-12 without Manny’s approval.
+Publish branch `agent/lavi-approved-assets` through the connected GitHub workflow, then prepare the hit-frame candidate.
 
 ## Validation evidence
 
 Local validation on 2026-08-16:
 
+- Lavi runtime assets: portrait is 256 x 256; rear, steer-left, and steer-right are 512 x 512. All four are sRGB RGBA PNGs with non-opaque alpha and transparent corner pixels at the PRD paths.
+- Asset policy: Git attributes resolve the four fixed-size runtime PNGs to normal Git while high-resolution character art, 3D formats, and production audio remain covered by LFS rules.
+- Roster ledger: twelve unique profiles are present, every profile totals 36 points, AA-02 is assigned to Lavi, and eleven profiles remain available.
 - Typecheck: strict TypeScript project build passed with no diagnostics.
 - Lint: ESLint passed with zero warnings permitted.
 - Tests: 6 files and 14 tests passed under Vitest `4.1.10`.

@@ -52,7 +52,7 @@ Vite prints the local development URL when the server starts.
 - **Audio baseline:** Howler.js backed by Web Audio.
 - **Testing:** Vitest with jsdom and V8 coverage.
 - **Quality gates:** strict TypeScript, ESLint, Prettier, unit tests, production build, and GitHub Actions.
-- **Asset governance:** Git LFS for production 3D models, audio, and high-resolution character/kart/track raster assets.
+- **Asset governance:** Fixed-size runtime avatar PNGs live in normal Git. Git LFS remains required for production 3D models, audio, and high-resolution source art.
 - **Continuity:** repository documents are authoritative; Cowork/chat history is supplemental.
 
 The `src/game/` directories reserve PRD-defined system boundaries. Their presence is architectural scaffolding, not evidence that those systems are implemented.
@@ -77,9 +77,10 @@ The `src/game/` directories reserve PRD-defined system boundaries. Their presenc
 - [Current implementation status](docs/IMPLEMENTATION-STATUS.md)
 - [Testing and evidence requirements](docs/TESTING.md)
 - [Avatar intake and approval contract](docs/AVATAR-INTAKE.md)
+- [Roster profile allocation](docs/ROSTER-MAPPING.md)
 
 Future Cowork sessions must read these files before implementation, update them as decisions and evidence change, and execute only the currently approved slice.
 
 ## Binary asset policy
 
-`.gitattributes` routes production GLB/GLTF support binaries, common production audio formats, and high-resolution PNG/WebP assets in the character, kart, and track trees through Git LFS. Install Git LFS before adding matching files. Do not bypass or replace this policy without recording an approved decision in `docs/DECISIONS.md`.
+`.gitattributes` keeps the PRD's 256 x 256 avatar portraits and 512 x 512 driver frames in normal Git at their runtime paths. Production GLB/GLTF support binaries, common production audio formats, and high-resolution PNG/WebP source art remain in Git LFS. Do not place high-resolution masters in the runtime portrait or driver-frame paths. Policy changes require an approved record in `docs/DECISIONS.md`.
