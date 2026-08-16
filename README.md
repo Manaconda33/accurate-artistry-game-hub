@@ -4,9 +4,15 @@ Accurate Artistry Game Hub is a modular HTML5 mini-game platform whose first ver
 
 ## Current state
 
-**Current checkpoint:** Slice 0 - Repository & Project Bootstrap.
+**Current slice:** Slice 1 - Engine Setup, Basic Kart Physics, Keyboard Controls, Single Track Loop & Time Trial.
 
-The repository currently provides the technical foundation and a minimal app-shell proof only. It intentionally contains no kart physics, Circuit Alpha gameplay, drifting, AI, items, or other Slice 1+ implementation.
+The current implementation adds the player-only Circuit Alpha time trial: a fixed-step Rapier kart, keyboard controls, ordered checkpoints, surface behavior, recovery, timing, chase camera, and performance HUD. Drift, AI opponents, items, and competitive racing remain later slices.
+
+## Live test build
+
+[Open the latest GitHub Pages checkpoint](https://manaconda33.github.io/accurate-artistry-game-hub/)
+
+Every Slice 1+ checkpoint is deployed through the repository’s `github-pages` environment for product-owner manual confirmation.
 
 ## Local setup
 

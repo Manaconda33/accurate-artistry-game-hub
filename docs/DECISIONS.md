@@ -87,3 +87,15 @@ This log records approved or implementation-shaping decisions. Future sessions m
 - **Product impact:** The app confirms bootstrap status but is not a playable build.
 - **Implementation impact:** Architecture directories and dependencies exist; implementation remains deferred.
 - **Approval:** Manny’s Slice 0 execution instruction.
+
+## ADR-007: Every slice checkpoint requires a GitHub-hosted test deployment
+
+- **Date:** 2026-08-16
+- **Status:** Approved
+- **Context:** Automated evidence does not let the product owner manually confirm the playable result.
+- **Options considered:** Local-only preview; ad hoc external hosting; repeatable GitHub deployment environment.
+- **Decision:** Beginning with Slice 1, every slice checkpoint must deploy its production build through GitHub. GitHub Pages and the `github-pages` environment are the default. The checkpoint report must include the live URL.
+- **Rationale:** Keeps manual confirmation tied to versioned source and a repeatable repository workflow.
+- **Product impact:** Manny can test each playable checkpoint before authorizing the next slice.
+- **Implementation impact:** CI validates, packages, and deploys `dist/` after healthy pushes to `main`. Vite uses the repository Pages base path.
+- **Approval:** Manny’s Slice 1 authorization and deployment requirement.

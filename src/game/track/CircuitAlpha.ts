@@ -1,0 +1,98 @@
+import * as THREE from 'three';
+import type { SurfaceType } from '../../config/kartTuning';
+
+export interface TrackProjection {
+  index: number;
+  progress: number;
+  point: THREE.Vector3;
+  tangent: THREE.Vector3;
+  lateralDistance: number;
+  surface: SurfaceType;
+}
+
+export class CircuitAlpha {
+  public readonly roadHalfWidth = 6;
+  public readonly sampleCount = 384;
+  public readonly curve: THREE.CatmullRomCurve3;
+  public readonly samples: THREE.Vector3[];
+  public readonly tangents: THREE.Vector3[];
+  public readonly checkpointIndices: number[];
+
+  public constructor() {
+    const points = [
+      new THREE.Vector3(0, 0, -215),
+      new THREE.Vector3(150, 0, -205),
+      new THREE.Vector3(260, 0, -120),
+      new THREE.Vector3(275, 0, 20),
+      new THREE.Vector3(220, 0, 150),
+      new THREE.Vector3(100, 0, 225),
+      new THREE.Vector3(-35, 0, 235),
+      new THREE.Vector3(-175, 0, 205),
+      new THREE.Vector3(-265, 0, 105),
+      new THREE.Vector3(-275, 0, -35),
+      new THREE.Vector3(-210, 0, -160),
+      new THREE.Vector3(-95, 0, -215),
+    ];
+    points.forEach((point) => point.multiplyScalar(0.88));
+
+    this.curve = new THREE.CatmullRomCurve3(points, true, 'centripetal', 0.5);
+    this.samples = Array.from({ length: this.sampleCount }, (_, index) =>
+      this.curve.getPointAt(index / this.sampleCount),
+    );
+    this.tangents = Array.from({ length: this.sampleCount }, (_, index) =>
+      this.curve.getTangentAt(index / this.sampleCount).normalize(),
+    );
+    this.checkpointIndices = Array.from({ length: 12 }, (_, index) =>
+      Math.floor((index * this.sampleCount) / 12),
+    );
+  }
+
+  public project(position: THREE.Vector3): TrackProjection {
+    let nearestIndex = 0;
+    let nearestDistanceSq = Number.POSITIVE_INFINITY;
+
+    for (let index = 0; index < this.samples.length; index += 1) {
+      const sample = this.samples[index];
+      if (sample === undefined) continue;
+      const distanceSq = sample.distanceToSquared(position);
+      if (distanceSq < nearestDistanceSq) {
+        nearestDistanceSq = distanceSq;
+        nearestIndex = index;
+      }
+    }
+
+    const progress = nearestIndex / this.sampleCount;
+    const lateralDistance = Math.sqrt(nearestDistanceSq);
+    let surface: SurfaceType = lateralDistance <= this.roadHalfWidth ? 'asphalt' : 'grass';
+
+    if (progress >= 0.235 && progress <= 0.315 && lateralDistance <= this.roadHalfWidth + 2) {
+      surface = 'dirt';
+    } else if (
+      ((progress >= 0.445 && progress <= 0.458) || (progress >= 0.81 && progress <= 0.823)) &&
+      lateralDistance <= 4.5
+    ) {
+      surface = 'boost';
+    } else if (progress >= 0.49 && progress <= 0.51 && lateralDistance <= 4.5) {
+      surface = 'ramp';
+    }
+
+    return {
+      index: nearestIndex,
+      progress,
+      point: this.samples[nearestIndex]?.clone() ?? new THREE.Vector3(),
+      tangent: this.tangents[nearestIndex]?.clone() ?? new THREE.Vector3(0, 0, 1),
+      lateralDistance,
+      surface,
+    };
+  }
+
+  public checkpointPosition(index: number): THREE.Vector3 {
+    const sampleIndex = this.checkpointIndices[index] ?? 0;
+    return this.samples[sampleIndex]?.clone() ?? new THREE.Vector3();
+  }
+
+  public checkpointTangent(index: number): THREE.Vector3 {
+    const sampleIndex = this.checkpointIndices[index] ?? 0;
+    return this.tangents[sampleIndex]?.clone() ?? new THREE.Vector3(0, 0, 1);
+  }
+}

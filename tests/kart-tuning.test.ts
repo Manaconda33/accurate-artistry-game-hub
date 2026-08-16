@@ -1,0 +1,45 @@
+import { describe, expect, it } from 'vitest';
+import {
+  createKartTuning,
+  sliceOneDriver,
+  surfaceAccelerationMultiplier,
+  surfaceSpeedMultiplier,
+} from '../src/config/kartTuning';
+
+describe('kart tuning and surface behavior', () => {
+  it('maps character stats into finite physics values', () => {
+    const tuning = createKartTuning(sliceOneDriver);
+    for (const value of Object.values(tuning)) expect(Number.isFinite(value)).toBe(true);
+    expect(tuning.maxSpeed).toBeGreaterThan(23);
+    expect(tuning.mass).toBeGreaterThan(105);
+  });
+
+  it('makes grass slower than dirt and asphalt', () => {
+    const traction = sliceOneDriver.traction;
+    expect(surfaceSpeedMultiplier('grass', traction)).toBeLessThan(
+      surfaceSpeedMultiplier('dirt', traction),
+    );
+    expect(surfaceSpeedMultiplier('dirt', traction)).toBeLessThan(1);
+    expect(surfaceAccelerationMultiplier('grass', traction)).toBeLessThan(
+      surfaceAccelerationMultiplier('dirt', traction),
+    );
+  });
+
+  it('keeps a ten-minute fixed-step numeric soak finite', () => {
+    const tuning = createKartTuning(sliceOneDriver);
+    const dt = 1 / 60;
+    let speed = 0;
+    let yaw = 0;
+    let x = 0;
+    let z = 0;
+
+    for (let step = 0; step < 10 * 60 * 60; step += 1) {
+      const steering = Math.sin(step / 240) * tuning.steeringRate;
+      speed = Math.min(tuning.maxSpeed, speed + tuning.acceleration * dt);
+      yaw += steering * dt;
+      x += Math.sin(yaw) * speed * dt;
+      z += Math.cos(yaw) * speed * dt;
+      expect([speed, yaw, x, z].every(Number.isFinite)).toBe(true);
+    }
+  });
+});

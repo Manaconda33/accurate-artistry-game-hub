@@ -6,13 +6,17 @@
 
 High-Fidelity HTML5 Kart Racer Vertical Slice + Modular Mini-Game Hub
 
-Version 1.1 - Final
+Version 1.1 - Final approved baseline; working implementation amendment 1.2
 
 August 16, 2026
 
 Implementation starting point: Slice 0 - Repository & Project Bootstrap
 
 Durable source of truth: GitHub repository
+
+## Approved implementation amendment 1.2 - Manual confirmation deployments
+
+Approved August 16, 2026. Beginning with Slice 1, every slice checkpoint must include a testable deployment produced from the checkpoint source through a GitHub deployment environment, with GitHub Pages as the default implementation. A slice may not be presented for manual confirmation without the live deployment URL. Automated validation and CI remain required; the deployment adds product-owner manual confirmation rather than replacing other evidence. The repository must record the deployed commit, workflow result, URL, known manual-test limitations, and whether the next slice remains locked pending approval. This amendment changes delivery governance only and does not expand the gameplay scope assigned to any slice.
 
 # Contents
 

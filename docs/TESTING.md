@@ -34,8 +34,17 @@ GitHub Actions runs `.github/workflows/ci.yml` on pushes and pull requests targe
 5. Run ESLint with zero warnings allowed.
 6. Run Vitest once with coverage evidence.
 7. Produce a Vite production build.
+8. On a healthy push to `main`, publish `dist/` through the `github-pages` deployment environment.
 
 Any failed stage fails the workflow.
+
+## Manual confirmation deployment
+
+Every Slice 1+ checkpoint must provide a live GitHub deployment URL, normally:
+
+`https://manaconda33.github.io/accurate-artistry-game-hub/`
+
+The deployment must originate from the reported checkpoint commit after validation. The product owner uses it for manual confirmation. A passing deployment does not imply approval; the next slice remains locked until explicit approval is recorded.
 
 ## Evidence expectations
 
@@ -46,6 +55,8 @@ Every slice done-check must record fresh evidence in `docs/IMPLEMENTATION-STATUS
 - Production build result and generated output summary.
 - Manual browser/device evidence when the slice changes rendered behavior.
 - GitHub Actions workflow result for the checkpoint commit.
+- GitHub deployment environment, live URL, and deployed commit.
+- Manual confirmation scenarios appropriate to the slice.
 - Known defects, deferred checks, and environmental limitations.
 - Exact checkpoint commit SHA.
 

@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  base: '/accurate-artistry-game-hub/',
   test: {
     environment: 'jsdom',
     coverage: {
