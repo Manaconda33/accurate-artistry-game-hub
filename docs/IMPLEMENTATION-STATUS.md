@@ -2,7 +2,7 @@
 
 ## Current slice
 
-**Slice 0 - Repository & Project Bootstrap: locally complete; GitHub checkpoint verification in progress**
+**Slice 0 - Repository & Project Bootstrap: implementation complete; GitHub Actions verification in progress**
 
 The approved execution boundary excludes all Slice 1 physics and gameplay work.
 
@@ -22,7 +22,6 @@ The approved execution boundary excludes all Slice 1 physics and gameplay work.
 
 ## Work in progress
 
-- Publish the checkpoint commits to `main`.
 - Verify GitHub Actions for the final checkpoint commit.
 - Record the workflow result and checkpoint link in this file if a follow-up evidence-only update is needed.
 
@@ -55,4 +54,4 @@ Validated from a clean npm installation on 2026-08-16:
 
 ## Last verified commit
 
-Pending publication of the locally validated bootstrap commit. The final status-only checkpoint will identify that immutable source commit exactly.
+`db53ddff040e5fadb12c53b6ea7a6b839a404999` - locally validated immutable Slice 0 bootstrap source. The following status-only checkpoint records this evidence without changing application code or configuration.
