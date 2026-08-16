@@ -1,6 +1,7 @@
 import RAPIER from '@dimforge/rapier3d-compat';
 import * as THREE from 'three';
 import { Howler } from 'howler';
+import { playDriftTierTone } from '../audio/driftTone';
 import { createKartTuning, sliceOneDriver, type SurfaceType } from '../config/kartTuning';
 import { ChaseCamera } from './camera/ChaseCamera';
 import { FixedStepRunner } from './physics/FixedStepRunner';
@@ -215,7 +216,8 @@ export class KartTimeTrial {
       light.scale.setScalar(0.75 + feedback.chargeRatio * 1.4);
     }
     if (feedback.driftTier !== this.lastToneTier && feedback.driftTier !== 'none') {
-      this.playTierTone(feedback.driftTier);
+      const context = (Howler as unknown as { ctx?: AudioContext | null }).ctx;
+      playDriftTierTone(feedback.driftTier, context);
     }
     this.lastToneTier = feedback.driftTier;
   }
@@ -287,22 +289,6 @@ export class KartTimeTrial {
       this.kartMesh.add(spark);
     }
     this.scene.add(this.kartMesh);
-  }
-
-  private playTierTone(tier: DriftTier): void {
-    const context = Howler.ctx;
-    if (context.state !== 'running') return;
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
-    const frequency = tier === 'purple' ? 880 : tier === 'orange' ? 660 : 480;
-    oscillator.frequency.setValueAtTime(frequency, context.currentTime);
-    oscillator.type = 'sine';
-    gain.gain.setValueAtTime(0.0001, context.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.09, context.currentTime + 0.01);
-    gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.16);
-    oscillator.connect(gain).connect(context.destination);
-    oscillator.start();
-    oscillator.stop(context.currentTime + 0.18);
   }
 
   private bindEvents(): void {

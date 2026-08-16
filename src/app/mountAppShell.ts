@@ -1,4 +1,5 @@
 import { Howler } from 'howler';
+import { resumeAudioContext } from '../audio/driftTone';
 import type { HudState, KartTimeTrial as KartTimeTrialInstance } from '../game/KartTimeTrial';
 
 export const APP_TITLE = 'Accurate Artistry Game Hub';
@@ -17,7 +18,8 @@ export function mountAppShell(root: HTMLElement): void {
   let game: KartTimeTrialInstance | null = null;
 
   const unlockAudio = async (): Promise<void> => {
-    if (Howler.ctx.state === 'suspended') await Howler.ctx.resume();
+    const context = (Howler as unknown as { ctx?: AudioContext | null }).ctx;
+    await resumeAudioContext(context);
   };
 
   const renderTitle = (): void => {

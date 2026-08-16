@@ -2,7 +2,7 @@
 
 ## Current slice
 
-**Slice 2 - Drift Engine, Three-Tier Mini-Turbo & Multi-Surface Traction: complete; awaiting product-owner manual confirmation**
+**Slice 2 - Drift Engine, Three-Tier Mini-Turbo & Multi-Surface Traction: reopened for blocking defect repair**
 
 Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recovery, reverse-lap rejection, rear camera, and other checks on 2026-08-16. He approved the Slice 1 corrections and authorized Slice 2.
 
@@ -29,12 +29,13 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 
 ## Work in progress
 
-- None. Slice 3 remains locked pending Manny’s manual test and explicit approval.
+- A blocking freeze reported during drift charging and at the first Blue boost pad is being repaired and redeployed.
+- Slice 3 remains locked pending a successful Slice 2 manual retest and explicit approval.
 
 ## Known defects
 
-- None identified by automated validation.
-- Product-owner manual confirmation of the corrected Slice 1 experience and new Slice 2 drift behavior is pending the deployment.
+- Product-owner testing on 2026-08-16 found that gameplay could freeze when drift feedback or a Blue boost first activated. The shared Web Audio tier-tone path was not exception-safe; an audio error could abort the animation callback before it scheduled the next frame.
+- Blue, Orange, and Purple tier behavior, release boost selection, Mini-Turbo effects, drift feedback, and ramp/stunt boost remain manually unverified because this freeze blocked those checks.
 
 ## Deferred work
 
@@ -45,7 +46,7 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 
 ## Next recommended action
 
-Manny manually tests the deployed corrected track and all three drift tiers. Begin Slice 3 only after explicit approval.
+Deploy and validate the exception-safe audio repair, then have Manny repeat the blocked Slice 2 checks. Begin Slice 3 only after explicit approval.
 
 ## Validation evidence
 
