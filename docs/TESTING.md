@@ -62,7 +62,7 @@ Every slice done-check must record fresh evidence in `docs/IMPLEMENTATION-STATUS
 
 Code presence alone is not completion evidence.
 
-## Slice 3 manual matrix
+## Slice 4 AI/grid manual matrix
 
 - Desktop/fine-pointer session: touch controls are absent; keyboard controls remain functional.
 - Mobile/coarse-pointer session: touch controls appear only in gameplay and support simultaneous accelerate-plus-steer and drift-plus-steer input.

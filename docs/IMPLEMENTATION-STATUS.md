@@ -1,9 +1,8 @@
-docs/IMPLEMENTATION-STATUS.md 55ms (unchanged)
 # Implementation Status
 
 ## Current slice
 
-**Slice 3 - AI Waypoint Navigation, Eight-Racer Grid & Mobile Controls: implementation candidate**
+**Slice 3 - Character Selection & Avatar Ingestion: intake stage**
 
 Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recovery, reverse-lap rejection, rear camera, and other checks on 2026-08-16. He approved the Slice 1 corrections and authorized Slice 2.
 
@@ -30,23 +29,24 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 
 ## Work in progress
 
-- Seven spline-driven AI racers, eight-racer grid, countdown, validated-progress ranking, finish placement, relative-mass collision impulses with contact cooldown, and mobile-only touch controls are implemented locally.
-- Automated validation, deployment evidence, and product-owner manual confirmation remain before Slice 3 can close.
+- Avatar intake and approval contract established for one-at-a-time character development.
+- Awaiting Manny’s first avatar package before assigning any identity, visual treatment, kart concept, or balance profile.
+- No Slice 3 character implementation has begun beyond governance and intake preparation.
 
 ## Known defects
 
-- None identified by current automated validation. Full-race behavior and mobile multi-touch input require deployed manual confirmation.
+- Slice 4 AI is intentionally not strongly competitive yet; Manny won easily and accepted that limitation for now.
 - The previously reported drift/Blue-pad freeze is resolved. Commit `10864b6eeee84056d01885b74b1b3fe6e97fd7f5` contains and regression-tests the exception-safe Web Audio repair.
 
 ## Deferred work
 
-- Character selection/roster and avatar art pipeline: Slice 4.
+- Remaining Slice 3 work: twelve-slot manifest/schema, validator, selection UI, kart preview, sprite/fallback pipeline, approved roster mapping, and race handoff.
 - Items, AI item use, and advanced collision responses: Slice 5. AI-004 is dependency-blocked until then.
 - Final HUD, production audio content, post-processing, production track art/elevation, and optimization: Slice 6.
 
 ## Next recommended action
 
-Validate and deploy the Slice 3 candidate, then run the desktop and mobile manual matrix. Do not begin Slice 4 until Manny confirms the checkpoint.
+Receive and review the first avatar package using `docs/AVATAR-INTAKE.md`. Do not infer missing creative details or map the avatar to AA-01 through AA-12 without Manny’s approval.
 
 ## Validation evidence
 
@@ -70,14 +70,16 @@ Local validation on 2026-08-16:
 - CI: GitHub Actions run `31968043110` passed for Slice 2 candidate `350248375ce34659b5580878aa34f256045a907b`, including clean install, typecheck, lint, 14 tests, production build, artifact upload, and Pages deployment.
 - Deployment: GitHub Pages deployment `5934663031` published candidate `350248375ce34659b5580878aa34f256045a907b` through the `github-pages` environment.
 - Live URL: `https://manaconda33.github.io/accurate-artistry-game-hub/` returned HTTPS 200. The HTML and current title/menu JavaScript, CSS, and lazy gameplay JavaScript assets each returned HTTP 200.
-- Slice 3 local candidate: strict typecheck, ESLint with zero warnings, formatting, and production build passed on 2026-08-16.
-- Slice 3 tests: 12 files and 25 tests passed with 71.49% statement, 66.38% branch, 74.64% function, and 73.82% line coverage.
+- Early Slice 4 local candidate: strict typecheck, ESLint with zero warnings, formatting, and production build passed on 2026-08-16.
+- Early Slice 4 tests: 12 files and 25 tests passed with 71.49% statement, 66.38% branch, 74.64% function, and 73.82% line coverage.
 - AI route qualification: all seven configured AI profiles independently completed three checkpoint-validated Circuit Alpha laps under Rapier fixed-step simulation without player input and retained finite physics state.
-- Slice 3 unit evidence covers dynamic spline lookahead, bounded steering, off-line correction, five-percent rubber-band bounds, race countdown, validated-progress ranking, locked finish places, relative-mass collision shares, and mobile coarse-pointer session gating.
-- Slice 3 production build: Vite `8.2.1` passed; app-shell JavaScript is 13.54 kB gzip and the lazy Three.js/Rapier gameplay package is 1.234 MB gzip, within the PRD download budget.
-- Slice 3 candidate CI: GitHub Actions run `31970630840` passed for commit `6580cb02618d2809181cd33f99b7357be84b2f34`, including clean lockfile install, typecheck, lint, 25 tests, coverage, and production build.
-- Slice 3 deployment: GitHub Pages deployment `5935135220` successfully published the candidate through the `github-pages` environment at `https://manaconda33.github.io/accurate-artistry-game-hub/`.
+- Early Slice 4 unit evidence covers dynamic spline lookahead, bounded steering, off-line correction, five-percent rubber-band bounds, race countdown, validated-progress ranking, locked finish places, relative-mass collision shares, and mobile coarse-pointer session gating.
+- Early Slice 4 production build: Vite `8.2.1` passed; app-shell JavaScript is 13.54 kB gzip and the lazy Three.js/Rapier gameplay package is 1.234 MB gzip, within the PRD download budget.
+- Early Slice 4 candidate CI: GitHub Actions run `31970630840` passed for commit `6580cb02618d2809181cd33f99b7357be84b2f34`, including clean lockfile install, typecheck, lint, 25 tests, coverage, and production build.
+- Early Slice 4 deployment: GitHub Pages deployment `5935135220` successfully published the candidate through the `github-pages` environment at `https://manaconda33.github.io/accurate-artistry-game-hub/`.
+- Product-owner manual acceptance: desktop and mobile checks passed on 2026-08-16. Manny confirmed the AI racers/grid were functional; six AI profiles were observed running the track, and the player won easily. Low AI competitiveness is accepted for now.
+- Governance correction: the AI/grid checkpoint is classified as Slice 4 completed early. Slice 3 returns to Character Selection & Avatar Ingestion per PRD section 35.4.
 
 ## Last verified commit
 
-`6580cb02618d2809181cd33f99b7357be84b2f34` - validated and deployed Slice 3 implementation candidate. The following evidence-only checkpoint records CI/deployment evidence and re-runs the same workflow.
+`f608b91d63afb406e2fb404829298f3ff4f568db` - validated and deployed early Slice 4 AI/grid evidence checkpoint. The following governance checkpoint restores Slice 3 ordering and adds the avatar intake contract.

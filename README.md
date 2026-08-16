@@ -4,9 +4,9 @@ Accurate Artistry Game Hub is a modular HTML5 mini-game platform whose first ver
 
 ## Current state
 
-**Current slice:** Slice 3 - AI Waypoint Navigation & Eight-Racer Grid.
+**Current slice:** Slice 3 - Character Selection & Avatar Ingestion.
 
-The current implementation adds a competitive three-lap Grand Prix with one player and seven spline-driven Rapier opponents, a starting countdown, live position ranking, relative-mass collision response, AI recovery, finish placement, and mobile-session touch controls. Drift, boost, stunt, checkpoint, surface, keyboard, and recovery behavior from the accepted earlier slices remains active. Character selection and items remain later slices.
+The current implementation includes the competitive Grand Prix systems defined for Slice 4, which were completed early because of a documented sequencing error. Slice 3 has resumed in the PRD-defined order and begins with deliberate, one-at-a-time avatar intake and approval. No production identity, likeness, kart, or balance-slot mapping will be inferred. Items remain Slice 5.
 
 ## Live test build
 
@@ -76,6 +76,7 @@ The `src/game/` directories reserve PRD-defined system boundaries. Their presenc
 - [Architecture decisions](docs/DECISIONS.md)
 - [Current implementation status](docs/IMPLEMENTATION-STATUS.md)
 - [Testing and evidence requirements](docs/TESTING.md)
+- [Avatar intake and approval contract](docs/AVATAR-INTAKE.md)
 
 Future Cowork sessions must read these files before implementation, update them as decisions and evidence change, and execute only the currently approved slice.
 

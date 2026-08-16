@@ -115,7 +115,7 @@ This log records approved or implementation-shaping decisions. Future sessions m
 ## ADR-009: Competitive race is Slice 3 and mobile controls are session-gated
 
 - **Date:** 2026-08-16
-- **Status:** Approved
+- **Status:** Superseded by ADR-010
 - **Context:** Repository continuity had already established the competitive eight-racer race as Slice 3, and Manny added mobile touch control to that authorized slice.
 - **Options considered:** Revert to the original PRD numbering; always render touch controls; render them only for coarse, no-hover primary input.
 - **Decision:** Preserve the repository’s active sequence: competitive race in Slice 3, roster in Slice 4, items in Slice 5, and final hardening in Slice 6. Render touch controls only when `(hover: none) and (pointer: coarse)` matches.
@@ -123,3 +123,15 @@ This log records approved or implementation-shaping decisions. Future sessions m
 - **Product impact:** Mobile players receive on-screen steering, throttle, brake/reverse, drift, rear-view, and recovery controls. Desktop users retain keyboard controls without a touch overlay.
 - **Implementation impact:** Input state accepts keyboard and pointer controls through the same fixed-step simulation. AI item use remains deferred until the Slice 5 item dependency exists.
 - **Approval:** Manny’s explicit Slice 3 authorization and mobile-control instruction.
+
+## ADR-010: Restore PRD slice order and use one-avatar approval gates
+
+- **Date:** 2026-08-16
+- **Status:** Approved
+- **Context:** ADR-009 relied on an incorrect implementation-status entry instead of the PRD delivery section. AI/grid work was consequently executed before the PRD-defined character slice. Manny identified the mismatch and directed the project to continue following the PRD, with deliberate handling of each avatar.
+- **Options considered:** Renumber the PRD around completed work; discard the AI implementation; preserve it as early Slice 4 work and resume Slice 3 in the approved order.
+- **Decision:** Preserve the accepted AI/grid implementation as Slice 4 completed early. Restore Slice 3 to Character Selection & Avatar Ingestion. Process avatars individually through intake, review, approval, asset preparation, and roster mapping. Do not invent identity, character, visual, kart, or likeness details.
+- **Rationale:** Restores the approved governance baseline without wasting validated work and protects the character roster from rushed or inferred decisions.
+- **Product impact:** The current Grand Prix remains playable. Character selection will progress only as approved character packages become ready.
+- **Implementation impact:** `docs/AVATAR-INTAKE.md` governs character inputs. Generic schema, validation, fallback, and UI framework work may proceed only when it does not assign unapproved content. Final identity-to-balance-slot mapping remains an explicit approval gate.
+- **Approval:** Manny’s correction and instruction to continue the PRD slowly and accurately.
