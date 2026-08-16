@@ -48,7 +48,7 @@ Production assets follow PRD sections 2.1, 23, and 27:
 | Rear driver frame | 512 x 512 PNG, transparent, sRGB | Approved and prepared |
 | Steer-left frame | 512 x 512 PNG, transparent, sRGB | Approved and prepared |
 | Steer-right frame | 512 x 512 PNG, transparent, sRGB | Approved and prepared |
-| Hit frame | 512 x 512 PNG, transparent, sRGB | Not started |
+| Hit frame | 512 x 512 PNG, transparent, sRGB | Approved and prepared |
 | Victory frame | 512 x 512 PNG, transparent, sRGB | Not started |
 | Potato kart | GLB with PRD hierarchy and LOD budgets | Not started |
 
@@ -93,3 +93,14 @@ Generated concepts remain candidates until Manny approves them. Approval of the 
 - **Approval:** Manny approved the steer-right pose on 2026-08-16.
 - **Production derivative:** `public/assets/characters/aa-02/driver/steer-right.png`.
 - **Production validation:** 512 x 512 PNG RGBA in sRGB; non-opaque alpha and transparent corner verified; normal-Git runtime-asset treatment confirmed.
+
+## Hit candidate 1
+
+- **Generated:** 2026-08-16.
+- **Purpose:** Reusable impact-recoil pose for spinouts, explosive hits, and major collision stuns.
+- **Pose:** Rear seated crop with raised shoulders, ducked head, bouncing curls, and both hands thrown briefly away from the steering position. The reaction reads as surprised and kinetic without depicting injury.
+- **Source dimensions:** 1254 x 1254 px.
+- **File validation:** PNG RGBA in sRGB; alpha ranges from fully transparent to fully opaque, and the corner pixel is transparent. A checkerboard composite confirmed the cutout visually.
+- **Approval:** Manny approved Hit Candidate 1 on 2026-08-16.
+- **Production derivative:** `public/assets/characters/aa-02/driver/hit.png`.
+- **Production validation:** 512 x 512 PNG RGBA in sRGB; alpha ranges from fully transparent to fully opaque, the corner pixel is transparent, and normal-Git runtime-asset treatment is confirmed.
