@@ -59,7 +59,7 @@ export function mountAppShell(root: HTMLElement): void {
       <main class="screen compact-screen"><p class="eyebrow">Reference</p><h1>Controls</h1>
         <dl class="control-list">
           <div><dt>Accelerate</dt><dd>W / ↑</dd></div><div><dt>Brake &amp; reverse</dt><dd>S / ↓</dd></div>
-          <div><dt>Steer</dt><dd>A D / ← →</dd></div><div><dt>Brake</dt><dd>Space</dd></div>
+          <div><dt>Steer</dt><dd>A D / ← →</dd></div><div><dt>Drift</dt><dd>Space · Slice 2</dd></div>
           <div><dt>Rear camera</dt><dd>C</dd></div><div><dt>Recover kart</dt><dd>R</dd></div>
           <div><dt>Pause</dt><dd>Esc / P</dd></div>
         </dl>${button('Back', 'menu', 'primary')}</main>`;
@@ -91,7 +91,7 @@ export function mountAppShell(root: HTMLElement): void {
         <div id="wrong-way" class="warning" hidden>WRONG WAY</div>
         <div id="loading" class="loading-card"><span class="spinner"></span><h2>Initializing Circuit Alpha</h2><p>Loading Rapier physics and the procedural track…</p></div>
         <div id="finish" class="finish-card" hidden><p class="eyebrow">Time trial complete</p><h2 id="finish-time">0:00.00</h2>${button('Return to Hub', 'finish-menu', 'primary')}</div>
-        <div class="game-help">WASD / arrows drive · Space brake · C rear view · R recover · Esc pause</div>
+        <div class="game-help">WASD / arrows drive · S / Down brake &amp; reverse · C rear view · R recover · Esc pause</div>
       </section>`;
 
     const canvas = root.querySelector<HTMLCanvasElement>('#game-canvas');

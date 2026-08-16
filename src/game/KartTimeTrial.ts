@@ -143,7 +143,7 @@ export class KartTimeTrial {
         : this.isPressed('KeyD', 'ArrowRight')
           ? 1
           : 0,
-      brake: this.isPressed('Space'),
+      brake: false,
     };
 
     this.kart.update(input, projection.surface, dt);

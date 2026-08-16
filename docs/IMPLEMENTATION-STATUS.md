@@ -22,7 +22,7 @@ Manny approved Slice 1 on 2026-08-16 and added a standing requirement that every
 - TRACK-001: procedural Circuit Alpha is approximately 1.45 km and includes asphalt, dirt, grass, boost pads, and a ramp marker/blockout.
 - TRACK-002: twelve ordered checkpoints prevent shortcut lap completion.
 - TRACK-003: reverse finish crossing is rejected and sustained reverse alignment displays `WRONG WAY`.
-- A three-lap time trial, timer, speed/surface/lap HUD, chase camera, rear camera, performance overlay, pause input, and finish result are implemented.
+- A three-lap time trial, timer, speed/surface/lap HUD, chase camera, rear camera, performance overlay, pause input, and finish result are implemented. S/Down provides brake/reverse; Space remains reserved for the approved Slice 2 drift behavior.
 - The title/menu bundle is separated from the lazily loaded Three.js/Rapier gameplay bundle.
 - GitHub Pages deployment is integrated into CI through the `github-pages` environment.
 - PRD working copy amended to require a live GitHub deployment for every Slice 1+ checkpoint; ADR-007 records the decision.
