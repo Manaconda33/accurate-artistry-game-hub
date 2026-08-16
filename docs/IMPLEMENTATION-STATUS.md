@@ -1,3 +1,4 @@
+docs/IMPLEMENTATION-STATUS.md 55ms (unchanged)
 # Implementation Status
 
 ## Current slice
@@ -74,7 +75,9 @@ Local validation on 2026-08-16:
 - AI route qualification: all seven configured AI profiles independently completed three checkpoint-validated Circuit Alpha laps under Rapier fixed-step simulation without player input and retained finite physics state.
 - Slice 3 unit evidence covers dynamic spline lookahead, bounded steering, off-line correction, five-percent rubber-band bounds, race countdown, validated-progress ranking, locked finish places, relative-mass collision shares, and mobile coarse-pointer session gating.
 - Slice 3 production build: Vite `8.2.1` passed; app-shell JavaScript is 13.54 kB gzip and the lazy Three.js/Rapier gameplay package is 1.234 MB gzip, within the PRD download budget.
+- Slice 3 candidate CI: GitHub Actions run `31970630840` passed for commit `6580cb02618d2809181cd33f99b7357be84b2f34`, including clean lockfile install, typecheck, lint, 25 tests, coverage, and production build.
+- Slice 3 deployment: GitHub Pages deployment `5935135220` successfully published the candidate through the `github-pages` environment at `https://manaconda33.github.io/accurate-artistry-game-hub/`.
 
 ## Last verified commit
 
-`4ff50635d7a4e471f7718b2a910d905d34f5d7f2` - validated and deployed Slice 2 repair evidence checkpoint. The following evidence-only checkpoint records product-owner acceptance and re-runs the same CI/deployment workflow.
+`6580cb02618d2809181cd33f99b7357be84b2f34` - validated and deployed Slice 3 implementation candidate. The following evidence-only checkpoint records CI/deployment evidence and re-runs the same workflow.
