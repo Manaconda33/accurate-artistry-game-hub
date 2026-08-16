@@ -67,7 +67,7 @@ This log records approved or implementation-shaping decisions. Future sessions m
 ## ADR-005: Git LFS binary asset policy
 
 - **Date:** 2026-08-16
-- **Status:** Approved
+- **Status:** Superseded by ADR-012
 - **Context:** Large binary game assets must not pollute normal Git history.
 - **Options considered:** Normal Git blobs; external asset host; Git LFS.
 - **Decision:** Use Git LFS patterns in `.gitattributes` for GLB/GLTF support binaries, production audio, and high-resolution PNG/WebP assets in character, kart, and track asset trees.
@@ -135,3 +135,27 @@ This log records approved or implementation-shaping decisions. Future sessions m
 - **Product impact:** The current Grand Prix remains playable. Character selection will progress only as approved character packages become ready.
 - **Implementation impact:** `docs/AVATAR-INTAKE.md` governs character inputs. Generic schema, validation, fallback, and UI framework work may proceed only when it does not assign unapproved content. Final identity-to-balance-slot mapping remains an explicit approval gate.
 - **Approval:** Manny’s correction and instruction to continue the PRD slowly and accurately.
+
+## ADR-011: Use one-to-one roster profile allocation
+
+- **Date:** 2026-08-16
+- **Status:** Approved
+- **Context:** The twelve production characters need distinct driving identities, and Manny requested a durable record of every used archetype.
+- **Options considered:** Track assignments only inside individual avatar records; allow profiles to repeat; maintain a roster-wide one-to-one allocation ledger.
+- **Decision:** `docs/ROSTER-MAPPING.md` is the allocation source of truth. Each AA-01 through AA-12 profile may be assigned to one production character only. A locked profile becomes unavailable to later characters unless Manny explicitly approves a remap. The manifest validator must reject duplicate profile IDs and duplicate production-character assignments.
+- **Rationale:** A roster-wide ledger prevents accidental reuse and keeps all twelve characters statistically and behaviorally distinct.
+- **Product impact:** Every character receives a unique six-stat profile and recognizable driving feel.
+- **Implementation impact:** Avatar mapping records and the future manifest validator must agree with the ledger. Any remap updates the ledger, affected avatar records, decision log, and verification evidence.
+- **Approval:** Manny's instruction to track used archetypes and explicit approval assigning AA-02 Feather Technician to Lavi.
+
+## ADR-012: Keep fixed-size runtime avatar PNGs in normal Git
+
+- **Date:** 2026-08-16
+- **Status:** Approved
+- **Context:** ADR-005 described Git LFS for high-resolution raster art, but `.gitattributes` routed every character PNG through LFS, including the PRD's small runtime portrait and driver frames. The connected GitHub publication workflow cannot upload LFS objects.
+- **Options considered:** Keep all character PNGs in LFS; move all character PNGs to normal Git; exempt only the PRD-sized runtime portrait and driver-frame paths.
+- **Decision:** Store `portrait.png` at 256 x 256 and PNGs under each character's `driver/` directory at 512 x 512 in normal Git. Keep high-resolution source art, GLB/GLTF support binaries, production audio, and other high-resolution character, kart, and track PNG/WebP assets in Git LFS.
+- **Rationale:** The small runtime files can be delivered and reviewed directly without weakening the large-binary controls that protect repository history.
+- **Product impact:** Runtime URLs and the PRD folder layout remain unchanged.
+- **Implementation impact:** `.gitattributes` contains narrow exceptions for runtime avatar portraits and driver frames. High-resolution masters must not use those runtime paths.
+- **Approval:** Manny's explicit approval on 2026-08-16.

@@ -87,8 +87,12 @@ No later step implies approval of an earlier unresolved step.
 ## Batch rules
 
 - Work on one avatar at a time unless Manny explicitly authorizes a batch.
+- Before recommending a balance profile, review the full current ledger in `docs/ROSTER-MAPPING.md` and exclude every assigned profile.
+- Record every approved AA-profile allocation in `docs/ROSTER-MAPPING.md`.
+- Assign each AA-01 through AA-12 profile to no more than one character so all twelve characters retain distinct statistics and driving feel.
+- Treat an assigned profile as unavailable unless Manny explicitly approves a remap.
 - Unapproved avatars remain stable placeholder slots and must not block the generic fallback framework.
 - Approval of text does not imply approval of generated or transformed art.
 - Approval of visual art does not imply approval of a balance profile.
 - Original source files are retained; derived game assets must not silently replace them.
-- Production raster, audio, and GLB assets follow the repository Git LFS policy.
+- Store approved 256 x 256 portrait PNGs and 512 x 512 driver-frame PNGs at the PRD runtime paths under `public/assets/characters/<id>/` in normal Git. High-resolution source art, audio, and GLB assets follow the repository Git LFS policy.
