@@ -46,6 +46,7 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 - Manny approved Steer-right Candidate 1 on 2026-08-16. `public/assets/characters/aa-02/driver/steer-right.png` is the prepared 512 x 512 PNG RGBA derivative; transparent alpha and normal-Git runtime treatment are verified.
 - PR #1 merged the approved Lavi documentation, portrait, rear frame, steer-left frame, and steer-right frame into `main` at commit `0716d8fc63c192712c96874a60adb2ed12e427c5`.
 - Manny approved Hit Candidate 1 on 2026-08-16. `public/assets/characters/aa-02/driver/hit.png` is the prepared 512 x 512 PNG RGBA derivative. Its alpha ranges from fully transparent to fully opaque, the corner pixel is transparent, and normal-Git runtime treatment is verified.
+- Hit publication checkpoint: PR #2 passed GitHub CI run `31979696233` for remote commit `f670fa3ec65fea7fdb93f0b5a6fdc6bb0dbfb69a`.
 - No Slice 3 character implementation has begun beyond governance and intake preparation.
 
 ## Known defects
@@ -61,7 +62,7 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 
 ## Next recommended action
 
-Publish the approved hit-frame checkpoint, then prepare the victory-frame candidate.
+Prepare the victory-frame candidate.
 
 ## Validation evidence
 
@@ -72,6 +73,7 @@ Local validation on 2026-08-16:
 - Asset policy: Git attributes resolve the five fixed-size runtime PNGs to normal Git while high-resolution character art, 3D formats, and production audio remain covered by LFS rules.
 - Roster ledger: twelve unique profiles are present, every profile totals 36 points, AA-02 is assigned to Lavi, and eleven profiles remain available.
 - Lavi publication checkpoint: GitHub CI run `31977857986` passed for remote commit `15c39bd59e6952d41dc603460f4f100fc5ed01cc`; PR #1 merged it into `main` at `0716d8fc63c192712c96874a60adb2ed12e427c5`.
+- Lavi hit checkpoint: GitHub CI run `31979696233` passed for remote commit `f670fa3ec65fea7fdb93f0b5a6fdc6bb0dbfb69a` in PR #2.
 - Typecheck: strict TypeScript project build passed with no diagnostics.
 - Lint: ESLint passed with zero warnings permitted.
 - Tests: 6 files and 14 tests passed under Vitest `4.1.10`.
