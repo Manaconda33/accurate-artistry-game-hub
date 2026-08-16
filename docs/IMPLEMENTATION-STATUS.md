@@ -2,7 +2,7 @@
 
 ## Current slice
 
-**Slice 2 - Drift Engine, Three-Tier Mini-Turbo & Multi-Surface Traction: repaired; awaiting product-owner manual retest**
+**Slice 2 - Drift Engine, Three-Tier Mini-Turbo & Multi-Surface Traction: complete and manually accepted**
 
 Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recovery, reverse-lap rejection, rear camera, and other checks on 2026-08-16. He approved the Slice 1 corrections and authorized Slice 2.
 
@@ -29,13 +29,12 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 
 ## Work in progress
 
-- The blocking freeze reported during drift charging and at the first Blue boost pad has been repaired and deployed. The shared tier-tone path now treats unavailable, suspended, or throwing Web Audio contexts as non-fatal.
-- Slice 3 remains locked pending a successful Slice 2 manual retest and explicit approval.
+- None. Slice 3 remains locked pending explicit approval to begin.
 
 ## Known defects
 
-- Product-owner testing on 2026-08-16 found that gameplay could freeze when drift feedback or a Blue boost first activated. The shared Web Audio tier-tone path was not exception-safe; an audio error could abort the animation callback before it scheduled the next frame. Commit `10864b6eeee84056d01885b74b1b3fe6e97fd7f5` contains and regression-tests that failure path.
-- Blue, Orange, and Purple tier behavior, release boost selection, Mini-Turbo effects, drift feedback, and ramp/stunt boost remain manually unverified because this freeze blocked those checks.
+- None known within the accepted Slice 2 scope.
+- The previously reported drift/Blue-pad freeze is resolved. Commit `10864b6eeee84056d01885b74b1b3fe6e97fd7f5` contains and regression-tests the exception-safe Web Audio repair.
 
 ## Deferred work
 
@@ -46,7 +45,7 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 
 ## Next recommended action
 
-Manny repeats the blocked Slice 2 checks against the deployed repair. Begin Slice 3 only after successful manual confirmation and explicit approval.
+Begin Slice 3 only after Manny explicitly authorizes it.
 
 ## Validation evidence
 
@@ -65,10 +64,12 @@ Local validation on 2026-08-16:
 - Formatting: Prettier check passed for all governed files.
 - Blocking-freeze repair validation: 7 files and 17 tests passed, including missing-context, thrown-Web-Audio, and rejected-resume regression cases. Typecheck, lint, production build, and formatting also passed locally.
 - Repair CI: GitHub Actions run `31969384244` passed for commit `10864b6eeee84056d01885b74b1b3fe6e97fd7f5` and published GitHub Pages deployment `5934890606`.
+- Product-owner manual acceptance: Manny confirmed on 2026-08-16 that the repaired deployment passed all previously blocked checks, including the first Blue boost pad, all three drift tiers, highest-tier release boost, Mini-Turbo effects, HUD/wheel/tone feedback, and ramp landing stunt boost.
+- Evidence checkpoint CI: GitHub Actions run `31969502068` passed for commit `4ff50635d7a4e471f7718b2a910d905d34f5d7f2` and published successful GitHub Pages deployment `5934911724`.
 - CI: GitHub Actions run `31968043110` passed for Slice 2 candidate `350248375ce34659b5580878aa34f256045a907b`, including clean install, typecheck, lint, 14 tests, production build, artifact upload, and Pages deployment.
 - Deployment: GitHub Pages deployment `5934663031` published candidate `350248375ce34659b5580878aa34f256045a907b` through the `github-pages` environment.
 - Live URL: `https://manaconda33.github.io/accurate-artistry-game-hub/` returned HTTPS 200. The HTML and current title/menu JavaScript, CSS, and lazy gameplay JavaScript assets each returned HTTP 200.
 
 ## Last verified commit
 
-`10864b6eeee84056d01885b74b1b3fe6e97fd7f5` - validated and deployed Slice 2 blocking-freeze repair. The following evidence-only checkpoint changes only this status record and re-runs the same CI/deployment workflow.
+`4ff50635d7a4e471f7718b2a910d905d34f5d7f2` - validated and deployed Slice 2 repair evidence checkpoint. The following evidence-only checkpoint records product-owner acceptance and re-runs the same CI/deployment workflow.
