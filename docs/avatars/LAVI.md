@@ -1,12 +1,12 @@
 # Avatar intake: Lavi
 
 - **Intake date:** 2026-08-16
-- **Current phase:** Approved asset publication, then hit-frame preparation
+- **Current phase:** Hit-frame publication, then victory-frame preparation
 - **Intake status:** Approved
 - **Character lock:** Approved by Manny on 2026-08-16
 - **Kart lock:** Approved by Manny on 2026-08-16
 - **Balance mapping lock:** AA-02 Feather Technician, approved by Manny on 2026-08-16
-- **Asset approval:** Portrait, rear driver frame, steer-left frame, and steer-right frame approved and prepared
+- **Asset approval:** Portrait, rear driver frame, steer-left frame, steer-right frame, and hit frame approved and prepared
 - **Implementation verification:** Not started
 
 This record captures Manny's written description and the supplied reference image. Image observations remain reference-only unless they appear in an approved lock. Lavi is assigned stable roster ID `aa-02` and balance profile AA-02 Feather Technician.
@@ -109,7 +109,7 @@ These details are observations, not approved locks:
 | 512 x 512 rear driver frame | Approved and prepared | `public/assets/characters/aa-02/driver/rear.png`; RGBA and normal-Git runtime treatment verified. |
 | 512 x 512 steer-left frame | Approved and prepared | `public/assets/characters/aa-02/driver/steer-left.png`; RGBA and normal-Git runtime treatment verified. |
 | 512 x 512 steer-right frame | Approved and prepared | `public/assets/characters/aa-02/driver/steer-right.png`; RGBA and normal-Git runtime treatment verified. |
-| 512 x 512 hit frame | Not started | Required. |
+| 512 x 512 hit frame | Approved and prepared | `public/assets/characters/aa-02/driver/hit.png`; RGBA transparency and normal-Git runtime treatment verified. |
 | 512 x 512 victory frame | Not started | Required. |
 | Kart GLB or approved fallback | Not started | Preferred GLB hierarchy is defined in PRD section 11.9. |
 | Source and rights record | Approved | Manny created the supplied reference and approved its transformation into game assets on 2026-08-16. |
@@ -124,4 +124,4 @@ These details are observations, not approved locks:
 
 ## Next approval questions
 
-Publish the approved Lavi documentation and four completed image assets to the repository. After publication succeeds, prepare the hit-frame candidate.
+Publish the approved hit frame and its evidence. After publication succeeds, prepare the victory-frame candidate.
