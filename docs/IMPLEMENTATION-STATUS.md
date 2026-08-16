@@ -2,7 +2,7 @@
 
 ## Current slice
 
-**Slice 0 - Repository & Project Bootstrap: implementation complete; GitHub Actions verification in progress**
+**Slice 0 - Repository & Project Bootstrap: complete; awaiting product-owner approval**
 
 The approved execution boundary excludes all Slice 1 physics and gameplay work.
 
@@ -22,8 +22,7 @@ The approved execution boundary excludes all Slice 1 physics and gameplay work.
 
 ## Work in progress
 
-- Verify GitHub Actions for the final checkpoint commit.
-- Record the workflow result and checkpoint link in this file if a follow-up evidence-only update is needed.
+- None. Slice 1 remains intentionally locked pending explicit product-owner approval.
 
 ## Known defects
 
@@ -50,7 +49,7 @@ Validated from a clean npm installation on 2026-08-16:
 - Production build: Vite `8.2.1` passed; 6 modules transformed; output includes `dist/index.html` plus hashed CSS and JavaScript assets.
 - Formatting: Prettier check passed for all governed files.
 - Scope audit: no Three.js scene, Rapier world, Howler playback, kart, track, race, AI, item, camera, or gameplay implementation exists.
-- CI: pending publication of the final checkpoint commit.
+- CI: GitHub Actions run `31965420073` passed for checkpoint candidate `268276af4621bc42f3cbf0732e63c92b26aade32`, executing `npm ci`, typecheck, lint, CI tests, and production build in order. The final evidence-only status commit changes no application, dependency, test, build, or CI configuration.
 
 ## Last verified commit
 
