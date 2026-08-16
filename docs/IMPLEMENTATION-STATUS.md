@@ -2,7 +2,7 @@
 
 ## Current slice
 
-**Slice 2 - Drift Engine, Three-Tier Mini-Turbo & Multi-Surface Traction: implementation complete; deployment verification in progress**
+**Slice 2 - Drift Engine, Three-Tier Mini-Turbo & Multi-Surface Traction: complete; awaiting product-owner manual confirmation**
 
 Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recovery, reverse-lap rejection, rear camera, and other checks on 2026-08-16. He approved the Slice 1 corrections and authorized Slice 2.
 
@@ -29,9 +29,7 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 
 ## Work in progress
 
-- Publish the Slice 2 checkpoint candidate.
-- Verify GitHub Actions and the GitHub Pages deployment.
-- Provide the live URL and manual confirmation checklist.
+- None. Slice 3 remains locked pending Manny’s manual test and explicit approval.
 
 ## Known defects
 
@@ -64,8 +62,10 @@ Local validation on 2026-08-16:
 - Coverage: 69.84% statements, 64.60% branches, 66.66% functions, and 72.01% lines across instrumented test targets.
 - Production build: Vite `8.2.1` passed; title/menu JavaScript is 12.70 kB gzip and the lazily loaded Three.js/Rapier gameplay package is 1.20 MB gzip, inside PRD download budgets.
 - Formatting: Prettier check passed for all governed files.
-- CI and GitHub Pages: pending checkpoint publication.
+- CI: GitHub Actions run `31968043110` passed for Slice 2 candidate `350248375ce34659b5580878aa34f256045a907b`, including clean install, typecheck, lint, 14 tests, production build, artifact upload, and Pages deployment.
+- Deployment: GitHub Pages deployment `5934663031` published candidate `350248375ce34659b5580878aa34f256045a907b` through the `github-pages` environment.
+- Live URL: `https://manaconda33.github.io/accurate-artistry-game-hub/` returned HTTPS 200. The HTML and current title/menu JavaScript, CSS, and lazy gameplay JavaScript assets each returned HTTP 200.
 
 ## Last verified commit
 
-`74f43f0ab3ce736cb3febbdcccc054046bf58187` - deployed Slice 1 checkpoint before the approved gap-close and Slice 2 work.
+`350248375ce34659b5580878aa34f256045a907b` - validated and deployed Slice 2 implementation candidate. The following evidence-only checkpoint changes only this status record and re-runs the same CI/deployment workflow.
