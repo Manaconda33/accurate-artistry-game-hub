@@ -1,0 +1,58 @@
+# Manaconda asset brief
+
+## Authority and source
+
+- Character, The Wayfinder, and AA-09 Technical Cruiser were approved by Manny on 2026-08-16.
+- Manny supplied the reference and approved transforming it into production game assets.
+- The reference supplies identity and general kart-racing context only. Its pixel/comic collage treatment, vehicle geometry, green palette, course-map graphic, number 42, and Manaco Prix '24 text are not production-art requirements.
+- Keep original source unchanged; derived candidates and production files have separate filenames and approval states.
+
+## Production style
+
+- Polished, colorful, kinetic, high-contrast Accurate Artistry presentation.
+- Original visual language; no copied character, vehicle, UI, pixel-art, or comic-panel treatment.
+- A 2D illustrated driver must sit convincingly within a stylized 3D kart, with race-scene-consistent lighting.
+
+## Locked character identity
+
+- Rugged Latino scholar-explorer in his forties: weathered olive skin, dark gray-streaked curls, thick well-kept beard, sharp observant eyes, rectangular blue glasses.
+- Driftwood Crest: two root-like branches emerge at the temples, stay distinct from hair and above the ears, then flow strictly backward along Z toward the backpack. Tiny white blossoms permitted. Never sideways, antler-like, crown-like, or hairline-grown.
+- Worn layered leather armor, durable travel clothing, indigo scarf, deep-purple tassels, and a large pack of ancient tomes, maps, notes, and gear.
+- Paprika is a small red fox kit tucked into the scarf or resting at the neck/shoulder. Do not obscure face, glasses, steering hands, or kart silhouette.
+- Small-scale read: glasses, backward crest, gray-streaked hair/beard, indigo scarf, leather silhouette, red fox. Fine blossoms, book titles, tooling, and map writing may simplify.
+
+## The Wayfinder
+
+- Compact arcane overland expedition kart built from scholar-explorer field equipment, not a conventional race shell.
+- Battle-worn dark hardwood and weathered leather panels over compact aged copper/brass mechanical frame; low, protected, recessed cockpit.
+- Copper-cube navigation core behind protective grille; subtle navigational glow only.
+- Palette: dark walnut, worn leather, aged copper/brass, indigo cloth, muted parchment tan, restrained core glow.
+- Details: mini field satchel behind cockpit, short capped expedition-tube exhausts, detachable scroll/map case.
+- Prohibited: copied map graphic, unexplained 42, Manaco Prix '24, real racing marks, glossy supercar bodywork, towering cargo, or a green carved duplicate of the supplied reference.
+
+## Portrait candidate 1
+
+- First visual approval anchor before seated driver-state art or GLB.
+- Square, genuinely transparent background; head, shoulders, upper torso, readable backward crest, Paprika visible without crowding face.
+- Expression: calmly alert, quietly curious, burdened but capable—not grimly angry.
+- Clear near 48 px: glasses, face, beard/curls, indigo scarf, crest direction, fox.
+- No text, logos, watermark, kart, racing number, border, pixel art, sideways crest branches, generic antlers, standalone-fox composition, or cartographic text.
+
+## Required production deliverables
+
+| Asset | Format | Approval |
+| --- | --- | --- |
+| Portrait | 256 x 256 transparent PNG, sRGB, straight alpha | Candidate pending |
+| Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB | Candidates pending |
+| The Wayfinder | GLB with PRD hierarchy and LOD budgets | Candidate pending |
+
+Each candidate needs Manny's approval. Portrait approval does not approve driver states or the GLB.
+
+## Runtime delivery requirements
+
+- Derivatives live at public/assets/characters/aa-09/: portrait.png, five driver PNGs, and LFS-governed GLBs.
+- Manifest URLs use a controlled base-aware revision whenever stable runtime bytes change.
+- Pages materializes LFS, passes git lfs fsck, and rejects an LFS pointer or invalid glTF binary signature before deployment.
+- Runtime preloads rear, steer-left, steer-right, hit, and victory; rear stays visible on optional-frame failure.
+- Chase and rear cameras must confirm the nose and steering wheel face forward of Manaconda. Any axis correction applies only to the visual root and is recorded.
+- Acceptance requires desktop and mobile confirmation of portrait, production kart, all five driver states, and orientation.

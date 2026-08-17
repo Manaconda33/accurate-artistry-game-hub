@@ -1,0 +1,55 @@
+# Avatar intake: Manaconda
+
+- **Intake date:** 2026-08-16
+- **Current phase:** Character, kart, and balance locks approved; asset brief prepared
+- **Intake status:** Approved
+- **Character lock:** Approved by Manny on 2026-08-16
+- **Kart lock:** *The Wayfinder*, approved by Manny on 2026-08-16
+- **Balance mapping lock:** AA-09 Technical Cruiser, approved by Manny on 2026-08-16
+- **Asset approval:** Not started
+- **Implementation verification:** Not started
+
+This record preserves Manny's supplied writing and racing image as a source reference. The image is approved for transformation into production game assets; its green explorer kart remains an example, not a visual lock.
+
+## Identity and visual locks
+
+- **Stable internal ID:** aa-09
+- Rugged Latino scholar-explorer in his forties; weathered olive skin, dark gray-streaked curls, thick well-kept beard, sharp observant eyes, and signature rectangular blue glasses.
+- Worn layered leather armor, durable expedition clothes, indigo scarf, deep-purple tassels, and a large pack of ancient tomes, maps, notes, and field gear.
+- **Driftwood Crest:** two root-like branches emerge from the temples, remain separate from hair and above the ears, then flow strictly backward along the Z-axis toward the backpack. They may carry tiny white blossoms. Never sideways, antler-like, crowning the face, or growing from the hairline.
+- **Paprika:** a small loyal red fox kit tucked into the scarf or resting at the neck/shoulder. Never obscure Manaconda's face, glasses, steering hands, or kart silhouette.
+- At small scale retain glasses, backward crest, gray-streaked hair/beard, indigo scarf, leather silhouette, and red-fox companion. Fine blossoms, book titles, armor tooling, and map writing may simplify.
+
+## The Wayfinder: locked kart
+
+- Compact arcane overland expedition kart assembled from a scholar-explorer's field equipment, not a conventional race shell.
+- Battle-worn dark hardwood and weathered leather panels over a compact aged copper/brass mechanical frame; low, protected, recessed cockpit.
+- Simplified copper-cube navigation core behind a small protective grille, with a subtle glow only.
+- Palette: dark walnut, worn leather, aged copper/brass, indigo cloth, muted parchment tan, restrained core glow.
+- Signature details: mini field satchel behind cockpit, short side-mounted capped expedition-tube exhausts, detachable scroll/map case.
+- The steering wheel must visibly sit in front of Manaconda in chase view, with no clipping of driver, Paprika, scarf, crest, glasses, or pack.
+- Prohibited: copied map graphic, unexplained 42, Manaco Prix '24 text, real racing marks, glossy supercar bodywork, towering cargo, or a green carved duplicate of the reference kart.
+
+## Gameplay and roster mapping
+
+- **Driving feel:** composed route-reading cruiser—stable at useful speed, capable of deliberate corrections, neither twitchy nor tank-like.
+- **Assigned profile:** AA-09 Technical Cruiser — Speed 7 / Acceleration 6 / Weight 6 / Handling 6 / Mini-Turbo 6 / Traction 5.
+- **Rationale:** Speed 7 supports journeying momentum; evenly capable middle values reward deliberation; Weight 6 gives the equipped field vehicle substance; Traction 5 keeps a meaningful off-road weakness.
+- **Approval:** Manny approved AA-09 on 2026-08-16.
+
+## Required assets
+
+| Asset | Required format | Status |
+| --- | --- | --- |
+| Portrait | 256 x 256 transparent PNG, sRGB, straight alpha | Briefed; candidate pending |
+| Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB | Briefed; candidates pending |
+| The Wayfinder | GLB with PRD hierarchy and LOD budgets | Briefed; candidate pending |
+
+## Approval record
+
+- Character lock, kart lock, balance mapping, and source transformation: approved.
+- Individual art candidates, GLB, runtime integration, and deployment: separately pending approval.
+
+## Next action
+
+Generate the portrait candidate for approval before driver-state or Wayfinder-GLB candidate work.

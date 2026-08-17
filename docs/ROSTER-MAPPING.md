@@ -39,7 +39,7 @@ Stat order is Speed / Acceleration / Weight / Handling / Mini-Turbo / Traction.
 | AA-06   | Grip Specialist     | Medium        | 6 / 6 / 5 / 7 / 5 / 7  | Available | -         | -      | -                 |
 | AA-07   | High-Speed Cruiser  | Cruiser       | 8 / 6 / 7 / 5 / 4 / 6  | Available | -         | -      | -                 |
 | AA-08   | Turbo Bruiser       | Cruiser       | 7 / 5 / 7 / 4 / 8 / 5  | Available | -         | -      | -                 |
-| AA-09   | Technical Cruiser   | Cruiser       | 7 / 6 / 6 / 6 / 6 / 5  | Available | -         | -      | -                 |
+| AA-09   | Technical Cruiser   | Cruiser       | 7 / 6 / 6 / 6 / 6 / 5  | Assigned  | Manaconda | The Wayfinder | Manny, 2026-08-16 |
 | AA-10   | Straight-Line Heavy | Heavyweight   | 10 / 4 / 9 / 3 / 4 / 6 | Available | -         | -      | -                 |
 | AA-11   | Collision Tank      | Heavyweight   | 8 / 4 / 10 / 3 / 5 / 6 | Available | -         | -      | -                 |
 | AA-12   | All-Surface Heavy   | Heavyweight   | 8 / 5 / 8 / 4 / 4 / 7  | Available | -         | -      | -                 |
@@ -49,3 +49,8 @@ Stat order is Speed / Acceleration / Weight / Handling / Mini-Turbo / Traction.
 ### AA-02: Lavi / Potato
 
 Lavi's intended driving identity is nimble, responsive, and technical. Acceleration 8, Handling 9, and Mini-Turbo 8 reward quick reactions, precise lines, and controlled drifting. Speed 5, Weight 2, and Traction 4 keep the profile distinct: Lavi gives up collision resistance, off-road forgiveness, and top-end speed in exchange for immediate control. Manny approved the mapping on 2026-08-16.
+
+
+### AA-09: Manaconda / The Wayfinder
+
+Manaconda is a prepared, heavily equipped explorer whose driving identity is composed route-reading rather than twitchy reflexes or brute force. Speed 7 preserves journeying momentum; the four middle values at 6 reward deliberate all-round competence; Weight 6 gives the equipped field vehicle substance without making it a heavyweight; and Traction 5 retains a real off-road weakness. Manny approved the mapping on 2026-08-16.
