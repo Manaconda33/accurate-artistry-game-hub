@@ -38,6 +38,8 @@ GitHub Actions runs `.github/workflows/ci.yml` on pushes and pull requests targe
 
 Any failed stage fails the workflow.
 
+The production checkout must use `lfs: true`, run `git lfs fsck`, and execute the runtime-asset signature gate through `npm run build`. A pointer file in any required runtime GLB path must fail the build rather than silently deploying a fallback kart.
+
 ## Restricted Work LFS publication
 
 When direct Git/LFS push is blocked, follow `docs/LFS-PUBLISHING.md`. A valid checkpoint requires:

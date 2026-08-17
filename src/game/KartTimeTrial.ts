@@ -449,6 +449,7 @@ export class KartTimeTrial {
       }
     }
     this.createFallbackKartVisual();
+    this.addDriverSprite();
   }
 
   private addDriverSprite(): void {
