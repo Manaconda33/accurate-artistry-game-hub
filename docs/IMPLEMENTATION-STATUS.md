@@ -49,7 +49,11 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 - Hit publication checkpoint: PR #2 passed GitHub CI run `31979696233` for remote commit `f670fa3ec65fea7fdb93f0b5a6fdc6bb0dbfb69a`.
 - PR #2 merged the approved hit frame and its evidence into `main` at commit `14a45ca0e4eca11b91715c99c33d8dd60035a3d2` after final CI run `31979774258` passed.
 - Manny approved the corrected Victory Candidate 1 on 2026-08-16. `public/assets/characters/aa-02/driver/victory.png` is the prepared 512 x 512 PNG RGBA derivative. Its alpha ranges from fully transparent to fully opaque, the corner pixel is transparent, and normal-Git runtime treatment is verified.
-- Lavi's portrait and all five PRD-required driver frames are now approved and prepared. Potato's 3D asset remains outstanding.
+- Lavi's portrait and all five PRD-required driver frames are now approved and prepared.
+- Manny approved Potato LOD0 Candidate 4 on 2026-08-16 after direct external-viewer review. The final kart uses a continuous opaque potato body with a sculpted cockpit, embedded eyes and scuffs, three rooted rear sprouts, and four visible axles connecting the wheel hubs.
+- Potato's production package is prepared at the PRD character path: `kart.glb` is LOD0 with 9,552 triangles, `kart-lod1.glb` has 5,528, and `kart-lod2.glb` has 3,086. All three use four materials and the required thirteen-node kart hierarchy.
+- The three Potato GLBs are governed by Git LFS. `tools/assets/build_lavi_potato.py` preserves the procedural source used to reproduce and validate each level.
+- The roster ledger was reviewed for this checkpoint. AA-02 remains uniquely assigned to Lavi / Potato, and the eleven other profiles remain available for later characters.
 - Victory publication checkpoint: PR #3 passed GitHub CI run `31980324500` for remote commit `d793263de4cf12a396673974cf6eb0e6af97c514`.
 - No Slice 3 character implementation has begun beyond governance and intake preparation.
 
@@ -66,7 +70,7 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 
 ## Next recommended action
 
-Publish Lavi's completed 2D asset set, then begin Potato's 3D asset preparation.
+Begin Slice 3 manifest/schema and selection-flow implementation using Lavi's complete approved asset package, AA-02 mapping, rotating Potato preview, driver-sprite mounts, and race handoff.
 
 ## Validation evidence
 
@@ -79,6 +83,10 @@ Local validation on 2026-08-16:
 - Lavi publication checkpoint: GitHub CI run `31977857986` passed for remote commit `15c39bd59e6952d41dc603460f4f100fc5ed01cc`; PR #1 merged it into `main` at `0716d8fc63c192712c96874a60adb2ed12e427c5`.
 - Lavi hit checkpoint: GitHub CI run `31979696233` passed for remote commit `f670fa3ec65fea7fdb93f0b5a6fdc6bb0dbfb69a` in PR #2.
 - Lavi victory checkpoint: GitHub CI run `31980324500` passed for remote commit `d793263de4cf12a396673974cf6eb0e6af97c514` in PR #3.
+- Potato GLB validation: LOD0, LOD1, and LOD2 are valid glTF 2.0 binary containers with declared byte lengths matching file size, four opaque materials, meters, negative-Z forward metadata, and the exact thirteen-node PRD hierarchy.
+- Potato geometry budgets: LOD0 is 9,552 / 25,000 triangles; LOD1 is 5,528 / 12,000; LOD2 is 3,086 / 5,000.
+- Potato construction validation: the LOD0 potato surface retains its complete 5,184-triangle body topology; the cockpit is sculpted into that surface without deleted upper-body faces. Four axle meshes overlap the potato body and wheel hubs.
+- Potato asset policy: `git check-attr` resolves all three GLBs to the LFS filter. Runtime avatar PNG exceptions remain in normal Git.
 - Typecheck: strict TypeScript project build passed with no diagnostics.
 - Lint: ESLint passed with zero warnings permitted.
 - Tests: 6 files and 14 tests passed under Vitest `4.1.10`.
