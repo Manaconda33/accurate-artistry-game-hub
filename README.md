@@ -76,6 +76,7 @@ The `src/game/` directories reserve PRD-defined system boundaries. Their presenc
 - [Architecture decisions](docs/DECISIONS.md)
 - [Current implementation status](docs/IMPLEMENTATION-STATUS.md)
 - [Testing and evidence requirements](docs/TESTING.md)
+- [Restricted Work Git LFS publication](docs/LFS-PUBLISHING.md)
 - [Avatar intake and approval contract](docs/AVATAR-INTAKE.md)
 - [Roster profile allocation](docs/ROSTER-MAPPING.md)
 
@@ -84,3 +85,5 @@ Future Cowork sessions must read these files before implementation, update them 
 ## Binary asset policy
 
 `.gitattributes` keeps the PRD's 256 x 256 avatar portraits and 512 x 512 driver frames in normal Git at their runtime paths. Production GLB/GLTF support binaries, common production audio formats, and high-resolution PNG/WebP source art remain in Git LFS. Do not place high-resolution masters in the runtime portrait or driver-frame paths. Policy changes require an approved record in `docs/DECISIONS.md`.
+
+When a hosted Work shell cannot reach GitHub, `docs/LFS-PUBLISHING.md` defines the approved GitHub Actions fallback for assets that committed source can reproduce byte-for-byte. Other LFS assets require an authenticated external handoff.
