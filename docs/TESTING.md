@@ -86,6 +86,19 @@ Code presence alone is not completion evidence.
 - Player completion records a placement from first through eighth and presents standings.
 - Drift tiers, boost pads, ramp/stunt boost, off-road floors, recovery, rear view, and three-lap validation regressions remain functional.
 
+## Slice 3 Character Select and Lavi manual matrix
+
+- Hub `Start Grand Prix` opens Character Select rather than starting the race immediately.
+- Exactly twelve slots render; Lavi displays the approved portrait and all other unfinished identities display intentional monogram placeholders.
+- Selecting any slot updates its name, descriptor, six statistics, kart label, selected state, and race button without layout clipping.
+- Lavi remains the default selection and `Race as Lavi` loads Potato rather than the procedural fallback kart.
+- Potato reads as one opaque natural russet body with a continuous sculpted cockpit, rooted rear sprouts, connected wheels/axles, and no body clipping or translucency.
+- Lavi's rear driver artwork sits convincingly in the cockpit without floating, clipping, or obscuring the kart silhouette.
+- Lavi's AA-02 profile feels nimble and responsive and remains the controlled player kart throughout the race.
+- Selecting a placeholder profile starts the same race with a monogram/fallback kart and that profile's statistics; it does not borrow Lavi's identity or final art.
+- Simulated missing portrait replaces the image with the correct monogram; simulated missing GLB loads the fallback kart and does not crash or change physics.
+- Desktop and mobile layouts expose all twelve slots, detail panel, back action, and race action without horizontal scrolling or controls hidden outside the viewport.
+
 ## Slice 0 evidence boundary
 
 Slice 0 validates only installation, typechecking, linting, unit testing, production build, the minimal app shell, repository organization, and CI. It does not validate rendering, physics, controls, AI, racing, items, audio playback, or performance requirements assigned to later slices.
