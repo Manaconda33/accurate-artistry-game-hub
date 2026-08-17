@@ -2,22 +2,26 @@
 
 ## Current slice
 
-**Slice 3 - Character Selection & Avatar Ingestion: Lavi runtime integration candidate**
+**Slice 3 - Character Selection & Avatar Ingestion: Lavi production checkpoint accepted**
 
 The approved Lavi package is now connected to a twelve-slot Character Select scaffold. Lavi is the default production entry; all other slots deliberately retain monogram portraits, fallback karts, and unassigned community identities until their one-at-a-time approval gates are complete.
 
-## Slice 3 Lavi integration candidate
+## Slice 3 Lavi production checkpoint
 
 - Character Select now sits between the Hub and Grand Prix and renders exactly twelve roster slots on desktop and mobile layouts.
 - `src/characters/manifest.ts` owns the typed manifest, twelve distinct 36-point profiles, validation, stable IDs, asset state, portrait/kart URLs, and safe unknown-ID fallback.
 - Lavi is stable ID `aa-02`, maps to the approved Feather Technician profile, displays the approved portrait, and passes their selected statistics into `KartController` tuning.
-- Lavi loads the approved `kart.glb` Potato model at race startup, normalizes it to the current race scale, enables mesh shadows, and mounts the approved rear driver sprite. Drift feedback remains attached to the runtime kart group.
+- Lavi loads the approved `kart.glb` Potato model at race startup, normalizes it to the current race scale, enables mesh shadows, and mounts the approved state-selected driver sprite. Drift feedback remains attached to the runtime kart group.
 - The eleven not-yet-approved roster identities use visible `AA` monograms and the existing procedural fallback kart. No placeholder assigns or implies a community identity.
 - Missing portraits replace themselves with the correct monogram. A missing production kart is caught and replaced by the fallback kart without changing the selected physics profile or crashing race startup.
 - Strict TypeScript and ESLint passed on 2026-08-16. Vitest passed 13 files and 42 tests with 76.72% statements, 72.16% branches, 82.55% functions, and 79.00% lines.
 - Vite `8.2.1` production build passed. The title/menu package is 14.91 kB gzip and the lazy Three.js/Rapier gameplay package is 1.256 MB gzip, inside the PRD download budget. The built public asset tree contains the materialized 358,036-byte Potato GLB rather than an LFS pointer.
-- Rendered QA limitation: the Work cloud browser blocks loopback preview URLs, so local visual inspection could not be completed in this environment. GitHub Pages deployment, actual Character Select screenshots, Lavi/Potato placement review, steering-state review, and product-owner manual driving confirmation remain required before this checkpoint can pass its done-check.
-- Status: **PARTIAL**. Source implementation and automated evidence pass; deployment and rendered/manual evidence remain open. Slice 3 remains active and the next slice remains locked.
+- Pages materializes LFS during checkout, runs `git lfs fsck`, and invokes `tools/verify-runtime-assets.mjs`; the three Potato GLBs must begin with the binary `glTF` signature or the production build fails. Lavi runtime URLs include the controlled `lavi-runtime-20260816-3` revision query to defeat stale pointer responses at stable public paths.
+- The runtime preloads rear, steer-left, steer-right, hit, and victory. Steering selects the matching frame; collision and finish states override it; rear remains visible if an optional frame fails to load.
+- Potato's model root rotates 180 degrees around local Y only, aligning its visual positive-Z authoring with the race runtime’s negative-Z forward. Physics, camera, checkpoints, mounts, and input stay unchanged.
+- GitHub Pages run `31986673349` successfully deployed final orientation correction commit `660e42d85a618e8f27eaea3a91a0c4f1fcc9c699` on 2026-08-16.
+- Manny manually confirmed the final live mobile checkpoint: Potato loaded, Lavi's steering frames worked, and the steering wheel faced forward of Lavi. His acceptance was recorded as “Perfect.”
+- Status: **PASS — Lavi production checkpoint accepted.** Slice 3 remains active because eleven identities and their one-at-a-time approval packages are still incomplete; this acceptance does not authorize the next PRD slice.
 
 ### Failed deployment evidence and corrective action
 
@@ -39,7 +43,7 @@ The approved Lavi package is now connected to a twelve-slot Character Select sca
 - Manny's next mobile test confirmed Potato now loads and Lavi's state sprites work. The kart visual is reversed: its steering wheel appears behind Lavi from the driving camera.
 - Root cause: Potato's approved GLB is visually authored with forward along positive Z, while the game runtime applies its forward direction along negative Z.
 - Correction: rotate Potato's visual root 180° around local Y during load. Kart physics, checkpoints, input, camera, mount hierarchy, and Lavi's billboard sprite remain unchanged.
-- Status remains **CORRECTION IN PROGRESS** until a fresh mobile screenshot confirms the steering wheel faces forward of Lavi.
+- Final result: resolved by commit `660e42d85a618e8f27eaea3a91a0c4f1fcc9c699`; Manny's live mobile confirmation accepted the corrected visual orientation.
 
 Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recovery, reverse-lap rejection, rear camera, and other checks on 2026-08-16. He approved the Slice 1 corrections and authorized Slice 2.
 

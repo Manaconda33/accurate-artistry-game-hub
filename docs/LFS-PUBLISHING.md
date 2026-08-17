@@ -35,3 +35,9 @@ This bridge does not apply to arbitrary high-resolution art, audio, or models wi
 ## First verified use
 
 Lavi's Potato kart established this procedure on 2026-08-16. GitHub Actions run `31983718813` rebuilt all three GLBs, matched the approved hashes, uploaded three LFS objects, deleted the runner cache, fetched the objects from GitHub, and passed `git lfs fsck`.
+
+## Runtime Pages delivery
+
+Uploading a valid LFS object is not proof that the deployed game can use it. Any Pages workflow that builds runtime GLBs must check out with `lfs: true`, run `git lfs fsck`, and invoke the repository’s binary-signature gate before publishing `dist/`. The gate must reject an LFS pointer at a required runtime path.
+
+When bytes at a public runtime path change, update that character package’s controlled asset revision (or use a new filename) before requesting manual confirmation. A correct build can otherwise be masked by a browser or edge-cache response for an older bad object. Record the materialization run, deployment run, deployed commit, asset revision, and manual device result in `docs/IMPLEMENTATION-STATUS.md`.

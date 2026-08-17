@@ -65,7 +65,7 @@ Generated concepts remain candidates until Manny approves them. Approval of the 
 - **LOD2:** `public/assets/characters/aa-02/kart-lod2.glb`; 3,086 triangles.
 - **Hierarchy validation:** All three files contain `KartRoot`, `Chassis`, `AccentMesh`, `SteeringWheel`, `Wheel_FL`, `Wheel_FR`, `Wheel_RL`, `Wheel_RR`, `Exhaust_L`, `Exhaust_R`, `DriverMount`, `ItemMountRear`, and `ItemMountForward`.
 - **Material validation:** Four principal materials; every material explicitly uses opaque rendering.
-- **Coordinate validation:** glTF 2.0 GLB, meters, Y-up, and local forward along negative Z.
+- **Coordinate validation:** glTF 2.0 GLB, meters, and Y-up. Direct live runtime review established that its rendered visual forward reads as positive Z against this game’s negative-Z race forward; see the runtime integration record below.
 - **Repository treatment:** All three GLBs follow the repository Git LFS policy. The reproducible procedural source is `tools/assets/build_lavi_potato.py`.
 
 ## Portrait candidate 1
@@ -130,3 +130,11 @@ Generated concepts remain candidates until Manny approves them. Approval of the 
 - **Approval:** Manny approved the corrected Victory Candidate 1 on 2026-08-16.
 - **Production derivative:** `public/assets/characters/aa-02/driver/victory.png`.
 - **Production validation:** 512 x 512 PNG RGBA in sRGB; alpha ranges from fully transparent to fully opaque, the corner pixel is transparent, and normal-Git runtime-asset treatment is confirmed.
+
+## Runtime delivery and integration record
+
+- **Controlled revision:** `lavi-runtime-20260816-3`. Public runtime URLs combine Vite’s base URL with this query revision. Change it whenever Potato or Lavi’s delivered runtime bytes change at a stable path.
+- **LFS deployment rule:** the Pages build materializes LFS, passes `git lfs fsck`, and runs `tools/verify-runtime-assets.mjs`; all three Potato GLBs must have the `glTF` binary signature before deployment.
+- **Driver runtime contract:** preload rear, steer-left, steer-right, hit, and victory; retain rear if an optional frame cannot load. Visual left/right, collision-hit, and player-finish select their matching approved frame.
+- **Visual alignment:** load-time `model.rotation.y = Math.PI` corrects Potato’s visual root to the game’s negative-Z forward direction. It is not a physics, camera, checkpoint, or mount-coordinate change.
+- **Live acceptance:** Manny confirmed Potato loading, steering-state artwork, and correct steering-wheel-forward orientation in the mobile GitHub Pages build on 2026-08-16.

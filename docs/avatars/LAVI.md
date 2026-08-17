@@ -7,7 +7,7 @@
 - **Kart lock:** Approved by Manny on 2026-08-16
 - **Balance mapping lock:** AA-02 Feather Technician, approved by Manny on 2026-08-16
 - **Asset approval:** Portrait, all five driver frames, and Potato's three-LOD GLB package approved and prepared
-- **Implementation verification:** Asset package verified; manifest and runtime integration not started
+- **Implementation verification:** Approved portrait, Potato, and all five driver states are live in the Character Select and race runtime. Manny confirmed the corrected live mobile result on 2026-08-16.
 
 This record captures Manny's written description and the supplied reference image. Image observations remain reference-only unless they appear in an approved lock. Lavi is assigned stable roster ID `aa-02` and balance profile AA-02 Feather Technician.
 
@@ -117,6 +117,14 @@ These details are observations, not approved locks:
 | 512 x 512 victory frame        | Approved and prepared | `public/assets/characters/aa-02/driver/victory.png`; RGBA transparency and normal-Git runtime treatment verified.                                                                                             |
 | Potato kart GLB package        | Approved and prepared | LOD0: `public/assets/characters/aa-02/kart.glb`; LOD1: `kart-lod1.glb`; LOD2: `kart-lod2.glb`. GLB 2.0, opaque four-material treatment, PRD hierarchy, and triangle budgets verified. Stored through Git LFS. |
 | Source and rights record       | Approved              | Manny created the supplied reference and approved its transformation into game assets on 2026-08-16.                                                                                                          |
+
+## Runtime integration record
+
+- **Asset revision:** `lavi-runtime-20260816-3`. All runtime paths are built with Vite’s base URL and this controlled revision query so a stale Pages/browser response cannot reuse the pre-materialization GLB pointer.
+- **Deployment integrity:** Pages checks out LFS, passes `git lfs fsck`, and `tools/verify-runtime-assets.mjs` requires the three Potato files to begin with the binary `glTF` signature before build output is deployed.
+- **Driver-frame mapping:** rear is the default and safe fallback; visual left selects `steer-left`, visual right selects `steer-right`, a brief collision cooldown selects `hit`, and player finish selects `victory`.
+- **Visual-axis adjustment:** Potato’s actual rendered forward is positive Z while this race runtime moves forward along negative Z. The load path applies `model.rotation.y = Math.PI` to Potato’s visual root only. Physics, checkpoints, input, camera, mount hierarchy, and driver billboard coordinates remain unchanged.
+- **Manual acceptance:** Manny confirmed the production Potato loads, driver steering states render, and the steering wheel is forward of Lavi in the live mobile race on 2026-08-16.
 
 ## Current reference
 
