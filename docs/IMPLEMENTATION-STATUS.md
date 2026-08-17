@@ -34,6 +34,13 @@ The approved Lavi package is now connected to a twelve-slot Character Select sca
 - Sprite correction: runtime preloads the five approved Lavi frames and selects rear, left, right, collision-hit, or victory texture without allowing an unloaded optional frame to blank the driver.
 - Status remains **FAILED / CORRECTION IN PROGRESS** until Manny confirms Potato and steering states on the newly deployed cache-busted checkpoint.
 
+### Third manual-failure report and corrective action
+
+- Manny's next mobile test confirmed Potato now loads and Lavi's state sprites work. The kart visual is reversed: its steering wheel appears behind Lavi from the driving camera.
+- Root cause: Potato's approved GLB is visually authored with forward along positive Z, while the game runtime applies its forward direction along negative Z.
+- Correction: rotate Potato's visual root 180° around local Y during load. Kart physics, checkpoints, input, camera, mount hierarchy, and Lavi's billboard sprite remain unchanged.
+- Status remains **CORRECTION IN PROGRESS** until a fresh mobile screenshot confirms the steering wheel faces forward of Lavi.
+
 Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recovery, reverse-lap rejection, rear camera, and other checks on 2026-08-16. He approved the Slice 1 corrections and authorized Slice 2.
 
 ## Slice 1 gap-close completed

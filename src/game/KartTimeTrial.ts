@@ -435,6 +435,9 @@ export class KartTimeTrial {
       try {
         const gltf = await new GLTFLoader().loadAsync(this.options.character.kart);
         const model = gltf.scene;
+        // Potato's exported visual forward is +Z while the race runtime uses -Z forward.
+        // Keep physics untouched and align only the approved visual asset.
+        model.rotation.y = Math.PI;
         const bounds = new THREE.Box3().setFromObject(model);
         const size = bounds.getSize(new THREE.Vector3());
         const scale = 2.9 / Math.max(size.x, size.z, 0.001);

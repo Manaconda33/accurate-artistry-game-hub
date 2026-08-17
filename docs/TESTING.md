@@ -95,6 +95,7 @@ Code presence alone is not completion evidence.
 - Selecting any slot updates its name, descriptor, six statistics, kart label, selected state, and race button without layout clipping.
 - Lavi remains the default selection and `Race as Lavi` loads Potato rather than the procedural fallback kart.
 - Potato reads as one opaque natural russet body with a continuous sculpted cockpit, rooted rear sprouts, connected wheels/axles, and no body clipping or translucency.
+- Potato's steering wheel sits in front of Lavi, and its intended nose faces the race direction; a rear-camera check confirms the visual alignment is not reversed.
 - Lavi's rear driver artwork sits convincingly in the cockpit without floating, clipping, or obscuring the kart silhouette.
 - Holding visual left/right steering switches Lavi to the matching approved steer-left/steer-right frame within two rendered frames; releasing steering restores the rear frame.
 - Collision impulse selects the approved hit frame briefly, and a completed player race selects the approved victory frame.
