@@ -171,3 +171,15 @@ This log records approved or implementation-shaping decisions. Future sessions m
 - **Product impact:** None. Runtime paths and asset contents remain unchanged.
 - **Implementation impact:** Every bridge workflow is temporary, branch-scoped, permission-limited, hash-gated, and ineligible for assets without deterministic committed source. Non-reproducible assets still require an authenticated external Git/LFS handoff.
 - **Approval:** Manny's explicit approval after the Lavi Potato bridge passed on 2026-08-16.
+
+## ADR-014: Launch Character Select with one production driver and governed fallbacks
+
+- **Date:** 2026-08-16
+- **Status:** Approved
+- **Context:** Manny requested an efficient playable proof of Lavi and Potato while pausing the remaining one-character-at-a-time asset intake. Slice 3 still requires the complete twelve-slot framework and missing-asset resilience.
+- **Options considered:** Hard-code Lavi directly into the race; wait for all twelve final portraits and karts; build the complete selection framework with Lavi as the first production entry and explicit fallbacks elsewhere.
+- **Decision:** Character Select renders all twelve stable profile slots. Lavi is the default production entry and loads their approved portrait, driver art, Potato GLB, and AA-02 statistics. Other slots remain visibly provisional, use monogram portraits and the fallback kart, and do not receive community identities until their individual approval gates are complete.
+- **Rationale:** Proves the approved hybrid 2D/3D asset pipeline now, preserves the PRD scaffold, and avoids reworking the selection path as each later character arrives.
+- **Product impact:** Players can select Lavi and enter the current eight-racer Grand Prix in Potato. The remaining slots are functional for physics/fallback testing without misrepresenting unfinished characters.
+- **Implementation impact:** A typed manifest and validator become the character source of truth; the selected stats configure player physics; portrait and kart load failures degrade safely.
+- **Approval:** Manny's instruction on 2026-08-16 to pause additional character asset work, implement Lavi in the current build, and create portrait placeholders/scaffolding for the rest.

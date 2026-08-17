@@ -2,6 +2,7 @@ import { Howler } from 'howler';
 import { resumeAudioContext } from '../audio/driftTone';
 import type { HudState, KartTimeTrial as KartTimeTrialInstance } from '../game/KartTimeTrial';
 import { isMobileSession } from './mobileSession';
+import { characterById, characterManifest, type CharacterDefinition } from '../characters/manifest';
 
 export const APP_TITLE = 'Accurate Artistry Game Hub';
 
@@ -17,6 +18,7 @@ function button(label: string, action: string, className = ''): string {
 
 export function mountAppShell(root: HTMLElement): void {
   let game: KartTimeTrialInstance | null = null;
+  let selectedCharacter = characterById('aa-02');
 
   const unlockAudio = async (): Promise<void> => {
     const context = (Howler as unknown as { ctx?: AudioContext | null }).ctx;
@@ -83,6 +85,64 @@ export function mountAppShell(root: HTMLElement): void {
     }
   };
 
+  const statRows = (character: CharacterDefinition): string =>
+    Object.entries(character.stats)
+      .map(
+        ([name, value]) =>
+          `<div><span>${name === 'miniTurbo' ? 'Mini-Turbo' : name}</span><i><b style="width:${String(value * 10)}%"></b></i><strong>${String(value)}</strong></div>`,
+      )
+      .join('');
+
+  const portrait = (character: CharacterDefinition, alt = ''): string =>
+    character.portrait === undefined
+      ? `<span class="portrait-fallback">${character.initials}</span>`
+      : `<img data-character-portrait data-initials="${character.initials}" src="${character.portrait}" alt="${alt}" />`;
+
+  const bindPortraitFallbacks = (): void => {
+    for (const image of root.querySelectorAll<HTMLImageElement>('[data-character-portrait]')) {
+      image.addEventListener(
+        'error',
+        () => {
+          const fallback = document.createElement('span');
+          fallback.className = 'portrait-fallback';
+          fallback.textContent = image.dataset.initials ?? 'AA';
+          image.replaceWith(fallback);
+        },
+        { once: true },
+      );
+    }
+  };
+
+  const renderCharacterSelect = (): void => {
+    root.innerHTML = `
+      <main class="screen character-select-screen">
+        <header><p class="eyebrow">Circuit Alpha Grand Prix</p><h1>Choose your driver</h1></header>
+        <div class="character-select-layout">
+          <section class="character-grid" aria-label="Twelve character roster slots">
+            ${characterManifest
+              .map(
+                (character) => `
+              <button class="character-card${character.id === selectedCharacter.id ? ' selected' : ''}" data-character="${character.id}" style="--character-accent:${character.accent}" aria-pressed="${String(character.id === selectedCharacter.id)}">
+                ${portrait(character)}
+                <span class="character-card-copy"><strong>${character.displayName}</strong><small>${character.assetState === 'production' ? character.descriptor : 'Portrait pending'}</small></span>
+              </button>`,
+              )
+              .join('')}
+          </section>
+          <aside class="character-detail" style="--character-accent:${selectedCharacter.accent}">
+            <div class="detail-portrait">${portrait(selectedCharacter, selectedCharacter.displayName)}</div>
+            <p class="eyebrow">${selectedCharacter.assetState === 'production' ? 'Production driver' : 'Roster placeholder'}</p>
+            <h2>${selectedCharacter.displayName}</h2><p>${selectedCharacter.descriptor}</p>
+            <div class="stat-list">${statRows(selectedCharacter)}</div>
+            <p class="kart-label">Kart <strong>${selectedCharacter.id === 'aa-02' ? 'Potato' : 'Fallback prototype'}</strong></p>
+            ${button(`Race as ${selectedCharacter.displayName}`, 'confirm-character', 'primary')}
+          </aside>
+        </div>
+        ${button('Back to Hub', 'menu')}
+      </main>`;
+    bindPortraitFallbacks();
+  };
+
   const renderGame = async (): Promise<void> => {
     const touchControls = isMobileSession()
       ? `<div id="touch-controls" class="touch-controls" aria-label="Touch driving controls">
@@ -144,6 +204,7 @@ export function mountAppShell(root: HTMLElement): void {
     };
     game = await KartTimeTrial.create({
       canvas,
+      character: selectedCharacter,
       onHud: updateHud,
       onFinish: (result) => {
         getElement('#finish').hidden = false;
@@ -190,12 +251,20 @@ export function mountAppShell(root: HTMLElement): void {
     if (action === 'enter' || action === 'menu') renderMenu();
     if (action === 'controls') renderControls();
     if (action === 'settings') renderSettings();
-    if (action === 'play') void renderGame();
+    if (action === 'play') renderCharacterSelect();
+    if (action === 'confirm-character') void renderGame();
     if (action === 'finish-menu') {
       game?.dispose();
       game = null;
       renderMenu();
     }
+  });
+
+  root.addEventListener('click', (event) => {
+    const target = (event.target as HTMLElement).closest<HTMLElement>('[data-character]');
+    if (target === null) return;
+    selectedCharacter = characterById(target.dataset.character ?? '');
+    renderCharacterSelect();
   });
 
   renderTitle();

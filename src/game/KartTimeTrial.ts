@@ -1,5 +1,6 @@
 import RAPIER from '@dimforge/rapier3d-compat';
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Howler } from 'howler';
 import { playDriftTierTone } from '../audio/driftTone';
 import { createKartTuning, sliceOneDriver, type SurfaceType } from '../config/kartTuning';
@@ -13,6 +14,7 @@ import { LapTracker } from './race/LapTracker';
 import { RaceDirector, rankRacers, type RacerProgress } from './race/RaceDirector';
 import { CircuitAlpha } from './track/CircuitAlpha';
 import { createTrackScene } from './track/createTrackScene';
+import type { CharacterDefinition } from '../characters/manifest';
 
 export interface HudState {
   lap: number;
@@ -39,6 +41,7 @@ export interface RaceResult {
 
 export interface TimeTrialOptions {
   canvas: HTMLCanvasElement;
+  character: CharacterDefinition;
   onHud: (state: HudState) => void;
   onFinish: (result: RaceResult) => void;
 }
@@ -98,7 +101,9 @@ export class KartTimeTrial {
 
   public static async create(options: TimeTrialOptions): Promise<KartTimeTrial> {
     await RAPIER.init();
-    return new KartTimeTrial(options);
+    const game = new KartTimeTrial(options);
+    await game.createKartVisual();
+    return game;
   }
 
   private constructor(private readonly options: TimeTrialOptions) {
@@ -136,12 +141,11 @@ export class KartTimeTrial {
     const yaw = Math.atan2(spawnTangent.x, spawnTangent.z);
     this.kart = new KartController(
       this.world,
-      createKartTuning(sliceOneDriver),
-      sliceOneDriver,
+      createKartTuning(options.character.stats),
+      options.character.stats,
       spawn,
       yaw,
     );
-    this.createKartVisual();
     this.createOpponents(spawn, spawnTangent, yaw);
     this.lapTracker.reset(0);
     this.bindEvents();
@@ -415,7 +419,64 @@ export class KartTimeTrial {
     });
   }
 
-  private createKartVisual(): void {
+  private async createKartVisual(): Promise<void> {
+    if (this.options.character.kart !== undefined) {
+      try {
+        const gltf = await new GLTFLoader().loadAsync(this.options.character.kart);
+        const model = gltf.scene;
+        const bounds = new THREE.Box3().setFromObject(model);
+        const size = bounds.getSize(new THREE.Vector3());
+        const scale = 2.9 / Math.max(size.x, size.z, 0.001);
+        model.scale.setScalar(scale);
+        bounds.setFromObject(model);
+        model.position.y = -bounds.min.y - 0.42;
+        model.traverse((object) => {
+          if (object instanceof THREE.Mesh) {
+            object.castShadow = true;
+            object.receiveShadow = true;
+          }
+        });
+        this.kartMesh.add(model);
+        this.addDriverSprite();
+        this.addDriftLights();
+        this.scene.add(this.kartMesh);
+        return;
+      } catch (error) {
+        console.warn(
+          `Could not load ${this.options.character.displayName}'s kart; using fallback.`,
+          error,
+        );
+      }
+    }
+    this.createFallbackKartVisual();
+  }
+
+  private addDriverSprite(): void {
+    const driver = this.options.character.driver;
+    if (driver === undefined) return;
+    const texture = new THREE.TextureLoader().load(driver.rear);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true }));
+    sprite.name = 'DriverSprite';
+    sprite.scale.set(1.45, 1.45, 1);
+    sprite.position.set(0, 0.95, -0.12);
+    this.kartMesh.add(sprite);
+  }
+
+  private addDriftLights(): void {
+    for (const x of [-0.72, 0.72]) {
+      const spark = new THREE.Mesh(
+        new THREE.SphereGeometry(0.16, 8, 6),
+        new THREE.MeshBasicMaterial({ color: 0x38bdf8 }),
+      );
+      spark.position.set(x, -0.08, -1.15);
+      spark.visible = false;
+      this.driftLights.push(spark);
+      this.kartMesh.add(spark);
+    }
+  }
+
+  private createFallbackKartVisual(): void {
     const chassis = new THREE.Mesh(
       new THREE.BoxGeometry(1.5, 0.55, 2.45),
       new THREE.MeshStandardMaterial({ color: 0x63328b, metalness: 0.42, roughness: 0.3 }),
@@ -443,16 +504,7 @@ export class KartTimeTrial {
         this.kartMesh.add(wheel);
       }
     }
-    for (const x of [-0.72, 0.72]) {
-      const spark = new THREE.Mesh(
-        new THREE.SphereGeometry(0.16, 8, 6),
-        new THREE.MeshBasicMaterial({ color: 0x38bdf8 }),
-      );
-      spark.position.set(x, -0.08, -1.15);
-      spark.visible = false;
-      this.driftLights.push(spark);
-      this.kartMesh.add(spark);
-    }
+    this.addDriftLights();
     this.scene.add(this.kartMesh);
   }
 

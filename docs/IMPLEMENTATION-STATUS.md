@@ -2,7 +2,22 @@
 
 ## Current slice
 
-**Slice 3 - Character Selection & Avatar Ingestion: Lavi asset preparation**
+**Slice 3 - Character Selection & Avatar Ingestion: Lavi runtime integration candidate**
+
+The approved Lavi package is now connected to a twelve-slot Character Select scaffold. Lavi is the default production entry; all other slots deliberately retain monogram portraits, fallback karts, and unassigned community identities until their one-at-a-time approval gates are complete.
+
+## Slice 3 Lavi integration candidate
+
+- Character Select now sits between the Hub and Grand Prix and renders exactly twelve roster slots on desktop and mobile layouts.
+- `src/characters/manifest.ts` owns the typed manifest, twelve distinct 36-point profiles, validation, stable IDs, asset state, portrait/kart URLs, and safe unknown-ID fallback.
+- Lavi is stable ID `aa-02`, maps to the approved Feather Technician profile, displays the approved portrait, and passes their selected statistics into `KartController` tuning.
+- Lavi loads the approved `kart.glb` Potato model at race startup, normalizes it to the current race scale, enables mesh shadows, and mounts the approved rear driver sprite. Drift feedback remains attached to the runtime kart group.
+- The eleven not-yet-approved roster identities use visible `AA` monograms and the existing procedural fallback kart. No placeholder assigns or implies a community identity.
+- Missing portraits replace themselves with the correct monogram. A missing production kart is caught and replaced by the fallback kart without changing the selected physics profile or crashing race startup.
+- Strict TypeScript and ESLint passed on 2026-08-16. Vitest passed 13 files and 42 tests with 76.72% statements, 72.16% branches, 82.55% functions, and 79.00% lines.
+- Vite `8.2.1` production build passed. The title/menu package is 14.91 kB gzip and the lazy Three.js/Rapier gameplay package is 1.256 MB gzip, inside the PRD download budget. The built public asset tree contains the materialized 358,036-byte Potato GLB rather than an LFS pointer.
+- Rendered QA limitation: the Work cloud browser blocks loopback preview URLs, so local visual inspection could not be completed in this environment. GitHub Pages deployment, actual Character Select screenshots, Lavi/Potato placement review, steering-state review, and product-owner manual driving confirmation remain required before this checkpoint can pass its done-check.
+- Status: **PARTIAL**. Source implementation and automated evidence pass; deployment and rendered/manual evidence remain open. Slice 3 remains active and the next slice remains locked.
 
 Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recovery, reverse-lap rejection, rear camera, and other checks on 2026-08-16. He approved the Slice 1 corrections and authorized Slice 2.
 
