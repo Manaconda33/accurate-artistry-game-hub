@@ -38,6 +38,20 @@ GitHub Actions runs `.github/workflows/ci.yml` on pushes and pull requests targe
 
 Any failed stage fails the workflow.
 
+## Restricted Work LFS publication
+
+When direct Git/LFS push is blocked, follow `docs/LFS-PUBLISHING.md`. A valid checkpoint requires:
+
+- A committed deterministic builder and pinned dependencies.
+- SHA-256 checks matching every approved LFS object ID.
+- An unchanged-pointer check after the runner regenerates and stages the files.
+- A successful object-ID-only LFS upload.
+- A fetch from GitHub after the runner deletes its local LFS cache.
+- A passing `git lfs fsck` after that fetch.
+- Removal of the temporary workflow before review or merge.
+
+The bridge is not valid evidence for a binary that cannot be reproduced byte-for-byte from committed source.
+
 ## Manual confirmation deployment
 
 Every Slice 1+ checkpoint must provide a live GitHub deployment URL, normally:
