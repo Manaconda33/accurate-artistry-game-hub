@@ -53,6 +53,8 @@ Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recov
 - Manny approved Potato LOD0 Candidate 4 on 2026-08-16 after direct external-viewer review. The final kart uses a continuous opaque potato body with a sculpted cockpit, embedded eyes and scuffs, three rooted rear sprouts, and four visible axles connecting the wheel hubs.
 - Potato's production package is prepared at the PRD character path: `kart.glb` is LOD0 with 9,552 triangles, `kart-lod1.glb` has 5,528, and `kart-lod2.glb` has 3,086. All three use four materials and the required thirteen-node kart hierarchy.
 - The three Potato GLBs are governed by Git LFS. `tools/assets/build_lavi_potato.py` preserves the procedural source used to reproduce and validate each level.
+- LFS materialization checkpoint: GitHub Actions run `31983718813` rebuilt all three GLBs, matched the approved object IDs, uploaded 3/3 LFS objects, deleted its local object cache, fetched the objects from GitHub, and passed `git lfs fsck`.
+- ADR-013 and `docs/LFS-PUBLISHING.md` make this temporary GitHub Actions bridge the default fallback for reproducible LFS assets when a hosted Work shell cannot push directly. Assets without deterministic committed source still require an authenticated external Git/LFS handoff.
 - The roster ledger was reviewed for this checkpoint. AA-02 remains uniquely assigned to Lavi / Potato, and the eleven other profiles remain available for later characters.
 - Victory publication checkpoint: PR #3 passed GitHub CI run `31980324500` for remote commit `d793263de4cf12a396673974cf6eb0e6af97c514`.
 - No Slice 3 character implementation has begun beyond governance and intake preparation.
@@ -87,6 +89,7 @@ Local validation on 2026-08-16:
 - Potato geometry budgets: LOD0 is 9,552 / 25,000 triangles; LOD1 is 5,528 / 12,000; LOD2 is 3,086 / 5,000.
 - Potato construction validation: the LOD0 potato surface retains its complete 5,184-triangle body topology; the cockpit is sculpted into that surface without deleted upper-body faces. Four axle meshes overlap the potato body and wheel hubs.
 - Potato asset policy: `git check-attr` resolves all three GLBs to the LFS filter. Runtime avatar PNG exceptions remain in normal Git.
+- Potato LFS publication: GitHub Actions run `31983718813` passed every build, SHA-256, pointer-preservation, upload, fetch-back, and `git lfs fsck` step for object IDs `5d3d570e21759d0f77f2bc7cf88085e43b1b8c1be75a3ef0299f8fac83ef0ad2`, `f74cc0e67de68d5b1f06a21dd3b9436521dfa0e7027f94ee9315ab6f107335ce`, and `e1df4c501328d2709fb6793269e6a48a930bf7a7ce75eb0b6152765c46d0e758`.
 - Typecheck: strict TypeScript project build passed with no diagnostics.
 - Lint: ESLint passed with zero warnings permitted.
 - Tests: 6 files and 14 tests passed under Vitest `4.1.10`.
