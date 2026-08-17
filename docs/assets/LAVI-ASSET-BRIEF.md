@@ -42,17 +42,31 @@ Production assets follow PRD sections 2.1, 23, and 27:
 
 ## Required production deliverables
 
-| Asset | Required format | Approval state |
-|---|---|---|
-| Portrait | 256 x 256 PNG, transparent, sRGB, straight alpha | Approved and prepared |
-| Rear driver frame | 512 x 512 PNG, transparent, sRGB | Approved and prepared |
-| Steer-left frame | 512 x 512 PNG, transparent, sRGB | Approved and prepared |
-| Steer-right frame | 512 x 512 PNG, transparent, sRGB | Approved and prepared |
-| Hit frame | 512 x 512 PNG, transparent, sRGB | Approved and prepared |
-| Victory frame | 512 x 512 PNG, transparent, sRGB | Approved and prepared |
-| Potato kart | GLB with PRD hierarchy and LOD budgets | Not started |
+| Asset             | Required format                                  | Approval state        |
+| ----------------- | ------------------------------------------------ | --------------------- |
+| Portrait          | 256 x 256 PNG, transparent, sRGB, straight alpha | Approved and prepared |
+| Rear driver frame | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
+| Steer-left frame  | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
+| Steer-right frame | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
+| Hit frame         | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
+| Victory frame     | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
+| Potato kart       | GLB with PRD hierarchy and LOD budgets           | Approved and prepared |
 
 Generated concepts remain candidates until Manny approves them. Approval of the portrait does not automatically approve the five driver states or Potato's 3D asset.
+
+## Potato 3D candidate 4
+
+- **Generated and approved:** 2026-08-16.
+- **Purpose:** Character-specific production kart for Lavi, including three distance-detail levels.
+- **Approval:** Manny approved LOD0 Candidate 4 after reviewing the GLB directly in an external mobile 3D viewer.
+- **Final corrections:** The approved model replaced deleted cockpit geometry with a depression sculpted into the continuous potato surface, embedded all eyes and scuffs, rooted the three sprouts inside the body, forced opaque material rendering, and added four visible axle stubs that overlap the body and wheel hubs.
+- **LOD0:** `public/assets/characters/aa-02/kart.glb`; 9,552 triangles.
+- **LOD1:** `public/assets/characters/aa-02/kart-lod1.glb`; 5,528 triangles.
+- **LOD2:** `public/assets/characters/aa-02/kart-lod2.glb`; 3,086 triangles.
+- **Hierarchy validation:** All three files contain `KartRoot`, `Chassis`, `AccentMesh`, `SteeringWheel`, `Wheel_FL`, `Wheel_FR`, `Wheel_RL`, `Wheel_RR`, `Exhaust_L`, `Exhaust_R`, `DriverMount`, `ItemMountRear`, and `ItemMountForward`.
+- **Material validation:** Four principal materials; every material explicitly uses opaque rendering.
+- **Coordinate validation:** glTF 2.0 GLB, meters, Y-up, and local forward along negative Z.
+- **Repository treatment:** All three GLBs follow the repository Git LFS policy. The reproducible procedural source is `tools/assets/build_lavi_potato.py`.
 
 ## Portrait candidate 1
 

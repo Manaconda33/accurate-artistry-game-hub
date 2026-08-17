@@ -1,13 +1,13 @@
 # Avatar intake: Lavi
 
 - **Intake date:** 2026-08-16
-- **Current phase:** Complete 2D driver set, then Potato 3D preparation
+- **Current phase:** Approved 2D and 3D asset package; Slice 3 runtime integration next
 - **Intake status:** Approved
 - **Character lock:** Approved by Manny on 2026-08-16
 - **Kart lock:** Approved by Manny on 2026-08-16
 - **Balance mapping lock:** AA-02 Feather Technician, approved by Manny on 2026-08-16
-- **Asset approval:** Portrait and all five driver frames approved and prepared
-- **Implementation verification:** Not started
+- **Asset approval:** Portrait, all five driver frames, and Potato's three-LOD GLB package approved and prepared
+- **Implementation verification:** Asset package verified; manifest and runtime integration not started
 
 This record captures Manny's written description and the supplied reference image. Image observations remain reference-only unless they appear in an approved lock. Lavi is assigned stable roster ID `aa-02` and balance profile AA-02 Feather Technician.
 
@@ -72,9 +72,13 @@ These details are observations, not approved locks:
 - Four exposed black tires with simple dark hubs.
 - Minimal mechanical hardware, including a steering wheel and short exhaust pipes.
 
-### Still unresolved
+### Approved 3D construction
 
-- Construction details needed to support the GLB hierarchy, wheel movement, steering wheel, exhaust, driver mount, and item mounts.
+- Potato uses a continuous opaque russet body sculpted downward into a recessed matte-black cockpit. The final mesh does not remove the upper potato surface or use a separate cockpit wall that can clip through it.
+- Three rear sprouts and all shallow eyes and scuffs intersect the potato surface. Four visible dark-metal axle stubs overlap both the hidden chassis area and wheel hubs.
+- The required `KartRoot` hierarchy includes `Chassis`, `AccentMesh`, `SteeringWheel`, all four named wheel nodes, both exhaust nodes, `DriverMount`, `ItemMountRear`, and `ItemMountForward`.
+- Manny approved LOD0 Candidate 4 on 2026-08-16 after direct GLB review. The approval includes its continuous upper body, sculpted cockpit, embedded details, rooted sprouts, and connected wheels.
+- Production LOD budgets are 9,552 triangles for LOD0, 5,528 for LOD1, and 3,086 for LOD2. Every level uses four principal materials and the same required hierarchy.
 
 ### Approved kart lock
 
@@ -103,16 +107,16 @@ These details are observations, not approved locks:
 
 ## Required asset states
 
-| Asset | Status | Notes |
-|---|---|---|
-| 256 x 256 transparent portrait | Approved and prepared | `public/assets/characters/aa-02/portrait.png`; RGBA and normal-Git runtime treatment verified. |
-| 512 x 512 rear driver frame | Approved and prepared | `public/assets/characters/aa-02/driver/rear.png`; RGBA and normal-Git runtime treatment verified. |
-| 512 x 512 steer-left frame | Approved and prepared | `public/assets/characters/aa-02/driver/steer-left.png`; RGBA and normal-Git runtime treatment verified. |
-| 512 x 512 steer-right frame | Approved and prepared | `public/assets/characters/aa-02/driver/steer-right.png`; RGBA and normal-Git runtime treatment verified. |
-| 512 x 512 hit frame | Approved and prepared | `public/assets/characters/aa-02/driver/hit.png`; RGBA transparency and normal-Git runtime treatment verified. |
-| 512 x 512 victory frame | Approved and prepared | `public/assets/characters/aa-02/driver/victory.png`; RGBA transparency and normal-Git runtime treatment verified. |
-| Kart GLB or approved fallback | Not started | Preferred GLB hierarchy is defined in PRD section 11.9. |
-| Source and rights record | Approved | Manny created the supplied reference and approved its transformation into game assets on 2026-08-16. |
+| Asset                          | Status                | Notes                                                                                                                                                                                                         |
+| ------------------------------ | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 256 x 256 transparent portrait | Approved and prepared | `public/assets/characters/aa-02/portrait.png`; RGBA and normal-Git runtime treatment verified.                                                                                                                |
+| 512 x 512 rear driver frame    | Approved and prepared | `public/assets/characters/aa-02/driver/rear.png`; RGBA and normal-Git runtime treatment verified.                                                                                                             |
+| 512 x 512 steer-left frame     | Approved and prepared | `public/assets/characters/aa-02/driver/steer-left.png`; RGBA and normal-Git runtime treatment verified.                                                                                                       |
+| 512 x 512 steer-right frame    | Approved and prepared | `public/assets/characters/aa-02/driver/steer-right.png`; RGBA and normal-Git runtime treatment verified.                                                                                                      |
+| 512 x 512 hit frame            | Approved and prepared | `public/assets/characters/aa-02/driver/hit.png`; RGBA transparency and normal-Git runtime treatment verified.                                                                                                 |
+| 512 x 512 victory frame        | Approved and prepared | `public/assets/characters/aa-02/driver/victory.png`; RGBA transparency and normal-Git runtime treatment verified.                                                                                             |
+| Potato kart GLB package        | Approved and prepared | LOD0: `public/assets/characters/aa-02/kart.glb`; LOD1: `kart-lod1.glb`; LOD2: `kart-lod2.glb`. GLB 2.0, opaque four-material treatment, PRD hierarchy, and triangle budgets verified. Stored through Git LFS. |
+| Source and rights record       | Approved              | Manny created the supplied reference and approved its transformation into game assets on 2026-08-16.                                                                                                          |
 
 ## Current reference
 
@@ -122,6 +126,6 @@ These details are observations, not approved locks:
 - **Repository treatment:** Not committed as a production asset. The image remains a landscape concept reference, not one of the required transparent portrait, driver-frame, or GLB deliverables.
 - **Asset brief:** `docs/assets/LAVI-ASSET-BRIEF.md`.
 
-## Next approval questions
+## Next implementation action
 
-Publish the completed 2D asset set and its evidence. After publication succeeds, begin Potato's 3D asset preparation.
+Add Lavi to the Slice 3 character manifest and selection flow, load `kart.glb` as Potato's primary model, and connect the approved driver sprites, mount nodes, balance profile, and preview behavior. LOD1 and LOD2 are prepared for the later distance-switching implementation.
