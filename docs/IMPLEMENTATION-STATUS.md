@@ -19,6 +19,13 @@ The approved Lavi package is now connected to a twelve-slot Character Select sca
 - Rendered QA limitation: the Work cloud browser blocks loopback preview URLs, so local visual inspection could not be completed in this environment. GitHub Pages deployment, actual Character Select screenshots, Lavi/Potato placement review, steering-state review, and product-owner manual driving confirmation remain required before this checkpoint can pass its done-check.
 - Status: **PARTIAL**. Source implementation and automated evidence pass; deployment and rendered/manual evidence remain open. Slice 3 remains active and the next slice remains locked.
 
+### Failed deployment evidence and corrective action
+
+- Manny's 2026-08-16 mobile test showed the purple procedural player kart with no Lavi sprite. This failed the required Lavi/Potato runtime acceptance check.
+- Root cause: `.github/workflows/ci.yml` checked out production with `lfs: false`. The Pages build therefore copied the text pointer for `kart.glb` instead of the approved 358,036-byte GLB. `GLTFLoader` rejected the pointer and activated the fallback kart. Lavi's sprite was mounted only after a successful GLB load, so the same failure also removed the driver.
+- Correction: production checkout now materializes LFS and runs `git lfs fsck`. The build runs `tools/verify-runtime-assets.mjs` and fails unless all three Potato runtime files begin with the binary glTF signature. Lavi's driver sprite is also mounted when a kart falls back, keeping independent asset failures independent.
+- Status remains **FAILED / CORRECTION IN PROGRESS** until a fresh Pages deployment proves Potato and Lavi render on Manny's device.
+
 Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recovery, reverse-lap rejection, rear camera, and other checks on 2026-08-16. He approved the Slice 1 corrections and authorized Slice 2.
 
 ## Slice 1 gap-close completed
