@@ -25,7 +25,7 @@ describe('character manifest', () => {
     const lavi = characterById('aa-02');
     expect(lavi.displayName).toBe('Lavi');
     expect(lavi.assetState).toBe('production');
-    expect(lavi.kart).toContain('/aa-02/kart.glb');
+    expect(lavi.kart).toContain('/assets/characters/aa-02/kart.glb');
     expect(lavi.stats).toEqual({
       speed: 5,
       acceleration: 8,
