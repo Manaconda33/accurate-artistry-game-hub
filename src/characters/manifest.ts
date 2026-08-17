@@ -30,6 +30,8 @@ export interface CharacterDefinition {
 
 export const STAT_TOTAL = 36;
 
+const assetUrl = (path: string): string => `${import.meta.env.BASE_URL}${path}`;
+
 const lavi: CharacterDefinition = {
   id: 'aa-02',
   displayName: 'Lavi',
@@ -37,14 +39,14 @@ const lavi: CharacterDefinition = {
   initials: 'LV',
   accent: '#ef7f46',
   assetState: 'production',
-  portrait: '/assets/characters/aa-02/portrait.png',
-  kart: '/assets/characters/aa-02/kart.glb',
+  portrait: assetUrl('assets/characters/aa-02/portrait.png'),
+  kart: assetUrl('assets/characters/aa-02/kart.glb'),
   driver: {
-    rear: '/assets/characters/aa-02/driver/rear.png',
-    steerLeft: '/assets/characters/aa-02/driver/steer-left.png',
-    steerRight: '/assets/characters/aa-02/driver/steer-right.png',
-    hit: '/assets/characters/aa-02/driver/hit.png',
-    victory: '/assets/characters/aa-02/driver/victory.png',
+    rear: assetUrl('assets/characters/aa-02/driver/rear.png'),
+    steerLeft: assetUrl('assets/characters/aa-02/driver/steer-left.png'),
+    steerRight: assetUrl('assets/characters/aa-02/driver/steer-right.png'),
+    hit: assetUrl('assets/characters/aa-02/driver/hit.png'),
+    victory: assetUrl('assets/characters/aa-02/driver/victory.png'),
   },
   stats: { speed: 5, acceleration: 8, weight: 2, handling: 9, miniTurbo: 8, traction: 4 },
 };
