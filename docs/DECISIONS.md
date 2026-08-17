@@ -183,3 +183,15 @@ This log records approved or implementation-shaping decisions. Future sessions m
 - **Product impact:** Players can select Lavi and enter the current eight-racer Grand Prix in Potato. The remaining slots are functional for physics/fallback testing without misrepresenting unfinished characters.
 - **Implementation impact:** A typed manifest and validator become the character source of truth; the selected stats configure player physics; portrait and kart load failures degrade safely.
 - **Approval:** Manny's instruction on 2026-08-16 to pause additional character asset work, implement Lavi in the current build, and create portrait placeholders/scaffolding for the rest.
+
+## ADR-015: Treat deployed character assets as a cache-versioned visual contract
+
+- **Date:** 2026-08-16
+- **Status:** Approved
+- **Context:** Lavi’s initial production deployment silently used an LFS pointer and fell back to a procedural kart. After materialization was repaired, a cached response still served the stale path, and the runtime initially mounted only the rear driver frame. The correctly delivered Potato then revealed an authored forward-axis mismatch in the chase camera.
+- **Options considered:** Trust source/asset validation only; weaken the asset policy by committing binaries to normal Git; make each correction local to Lavi; establish a reusable deployment and visual-integration contract.
+- **Decision:** Required runtime GLBs are materialized and signature-verified before Pages deployment; public asset URLs use a controlled revision when bytes change; all five driver frames are preloaded and state-selected with rear fallback; and every kart passes chase/rear orientation checks. Authored-axis correction is a documented visual-root transform only.
+- **Rationale:** These gates catch the exact failures that source review, LFS upload evidence, and a static rear sprite cannot catch, without changing the approved asset policy or gameplay coordinate system.
+- **Product impact:** A selected character reliably appears in their approved kart with responsive visual state artwork and correct driving orientation on the live build.
+- **Implementation impact:** CI, manifest URL construction, runtime sprite selection, manual QA, character records, and asset briefs all carry explicit evidence. A runtime fallback remains resilience behavior, never successful production-art evidence.
+- **Approval:** Manny’s Lavi runtime confirmation and instruction on 2026-08-16 to record the learned process in the main repository.

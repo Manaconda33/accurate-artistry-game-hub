@@ -104,6 +104,17 @@ Code presence alone is not completion evidence.
 - Simulated missing portrait replaces the image with the correct monogram; simulated missing GLB loads the fallback kart and does not crash or change physics.
 - Desktop and mobile layouts expose all twelve slots, detail panel, back action, and race action without horizontal scrolling or controls hidden outside the viewport.
 
+## Required runtime character-asset contract
+
+Run this matrix for every future production character, in addition to its slice-specific checks:
+
+- CI uses an LFS-materialized checkout, passes `git lfs fsck`, and the production build rejects a pointer or bad binary signature at each required kart path.
+- The deployed response uses the current controlled asset revision (or changed filename), not a cached response from an earlier object.
+- The selected production kart loads in the live deployment; a fallback kart is evidence of a failed delivery check, not a passing degraded experience.
+- All five approved driver states are preloaded. Rear is the safe fallback; visual left/right select the matching steer frame, hit overrides steering briefly, and victory overrides normal driving after the player finishes.
+- Chase and rear cameras confirm the kart’s nose and steering wheel face forward of the driver. Any visual-root rotation or other axis correction is recorded in that character’s record and asset brief.
+- A product-owner test on desktop and mobile confirms the portrait, controlled kart, driver states, and orientation. Record the tested deployment, commit, browser/device result, and limitations in implementation status.
+
 ## Slice 0 evidence boundary
 
 Slice 0 validates only installation, typechecking, linting, unit testing, production build, the minimal app shell, repository organization, and CI. It does not validate rendering, physics, controls, AI, racing, items, audio playback, or performance requirements assigned to later slices.

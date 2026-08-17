@@ -15,6 +15,16 @@ This document governs Slice 3 character work. Each of the twelve avatars is deve
 
 No later step implies approval of an earlier unresolved step.
 
+## Runtime integration handoff
+
+Before an approved package is marked ready, the implementer must record and verify:
+
+- A base-aware, controlled revision for every public runtime asset URL. Change that revision (or the filename) whenever bytes at a stable URL change.
+- Production LFS materialization: `lfs: true` checkout, `git lfs fsck`, and a build-time binary-signature check for every required GLB.
+- A driver-frame selector that preloads rear, steer-left, steer-right, hit, and victory frames. Steering must select the matching visual-side frame; collision and finish states must take precedence; a frame-load failure must retain the rear frame rather than blanking the driver.
+- Chase- and rear-camera verification of kart nose, steering wheel, driver, cockpit, wheel, and mount orientation. Correct an authored-axis mismatch only at the visual root and record the exact transform; gameplay physics and coordinates remain canonical.
+- Fresh desktop and mobile manual confirmation that the selected production kart—not the fallback—renders and remains controlled through the race.
+
 ## Per-avatar intake template
 
 ### Identity

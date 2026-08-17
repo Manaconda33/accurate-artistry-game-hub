@@ -6,7 +6,7 @@
 
 High-Fidelity HTML5 Kart Racer Vertical Slice + Modular Mini-Game Hub
 
-Version 1.1 - Final approved baseline; working implementation amendment 1.4
+Version 1.1 - Final approved baseline; working implementation amendment 1.5
 
 August 16, 2026
 
@@ -25,6 +25,10 @@ Approved August 16, 2026 after product-owner manual confirmation of Slice 1. Cir
 ## Approved implementation amendment 1.4 - Mobile race controls and slice-order correction
 
 Approved August 16, 2026 with product-owner authorization to add mobile controls, then corrected after product-owner review of the PRD sequence. The original delivery order in sections 35.4-35.6 remains authoritative: Slice 3 is Character Selection & Avatar Ingestion; Slice 4 is AI Waypoint Navigation & Eight-Racer Grid; Slice 5 is Items; final presentation and hardening remain Slice 6. AI/grid work was executed early because repository status incorrectly labeled it Slice 3. That completed work is retained and recorded as an out-of-order Slice 4 checkpoint rather than renumbering the PRD. Touch controls are an approved addition to Slice 4 and must render only when the browser reports a coarse primary pointer with no hover capability. They must support steering, acceleration, brake/reverse, drift, rear view, and recovery without removing keyboard controls. Desktop/fine-pointer sessions must not show the touch overlay. Because the item system is not implemented until Slice 5, AI-004 item use remains dependency-blocked. This amendment supersedes the earlier statement that mobile touch controls are outside the vertical slice but does not supersede the original slice numbering.
+
+## Approved implementation amendment 1.5 - Runtime character asset delivery contract
+
+Approved August 16, 2026 after Lavi’s production integration was manually confirmed on mobile. Every character package delivered through `public/assets/characters/` must be validated in the deployed build, not only in source. Production Pages checkout must materialize Git LFS objects, pass `git lfs fsck`, and fail the build if a required GLB is an LFS pointer or lacks its expected binary signature. Stable public asset paths must use a base-aware controlled revision query or a changed filename whenever their bytes change, so browser and edge caches cannot reuse a previously bad response. The runtime must preload and select the approved rear, steer-left, steer-right, hit, and victory driver frames while retaining a visible rear-frame fallback. Each kart must be visually inspected from chase and rear cameras; if its authored forward axis disagrees with the runtime, a documented visual-root transform may correct it without altering physics, checkpoints, input, or camera coordinates. This amendment adds repeatable delivery and acceptance evidence to Slice 3; it does not approve any unapproved avatar identity or begin the next slice.
 
 # Contents
 
