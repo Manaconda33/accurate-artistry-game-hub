@@ -30,7 +30,10 @@ export interface CharacterDefinition {
 
 export const STAT_TOTAL = 36;
 
-const assetUrl = (path: string): string => `${import.meta.env.BASE_URL}${path}`;
+export const LAVI_ASSET_REVISION = 'lavi-runtime-20260816-3';
+
+const assetUrl = (path: string): string =>
+  `${import.meta.env.BASE_URL}${path}?v=${LAVI_ASSET_REVISION}`;
 
 const lavi: CharacterDefinition = {
   id: 'aa-02',

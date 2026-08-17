@@ -16,6 +16,8 @@ import { CircuitAlpha } from './track/CircuitAlpha';
 import { createTrackScene } from './track/createTrackScene';
 import type { CharacterDefinition } from '../characters/manifest';
 
+type DriverFrame = 'rear' | 'steerLeft' | 'steerRight' | 'hit' | 'victory';
+
 export interface HudState {
   lap: number;
   speedKph: number;
@@ -88,6 +90,11 @@ export class KartTimeTrial {
   private fps = 60;
   private lastToneTier: DriftTier = 'none';
   private readonly touchPressed = new Set<string>();
+  private readonly driverTextures = new Map<DriverFrame, THREE.Texture>();
+  private driverSprite: THREE.Sprite | null = null;
+  private activeDriverFrame: DriverFrame = 'rear';
+  private driverHitSeconds = 0;
+  private playerSteering = 0;
   private readonly playerProgress: RacerProgress = {
     id: 'player',
     lap: 0,
@@ -209,6 +216,8 @@ export class KartTimeTrial {
       brake: false,
       drift: this.isPressed('Space') || this.touchPressed.has('drift'),
     };
+    this.playerSteering = input.steering;
+    this.driverHitSeconds = Math.max(0, this.driverHitSeconds - dt);
 
     this.kart.update(input, projection.surface, dt);
     this.updateOpponents(dt);
@@ -336,6 +345,7 @@ export class KartTimeTrial {
         const impulses = collisionImpulseShares(a.controller.mass(), b.controller.mass(), 55);
         a.controller.applyArcadeCollisionImpulse(direction, impulses.first);
         b.controller.applyArcadeCollisionImpulse(direction.multiplyScalar(-1), impulses.second);
+        if (a.id === 'player' || b.id === 'player') this.driverHitSeconds = 0.32;
         this.contactCooldowns.set(key, 0.18);
       }
     }
@@ -387,6 +397,7 @@ export class KartTimeTrial {
       playDriftTierTone(feedback.driftTier, context);
     }
     this.lastToneTier = feedback.driftTier;
+    this.updateDriverSprite();
   }
 
   private updateHud(frameSeconds: number): void {
@@ -455,13 +466,67 @@ export class KartTimeTrial {
   private addDriverSprite(): void {
     const driver = this.options.character.driver;
     if (driver === undefined) return;
-    const texture = new THREE.TextureLoader().load(driver.rear);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true }));
+    const loader = new THREE.TextureLoader();
+    const paths: Record<DriverFrame, string> = {
+      rear: driver.rear,
+      steerLeft: driver.steerLeft,
+      steerRight: driver.steerRight,
+      hit: driver.hit,
+      victory: driver.victory,
+    };
+    const rearTexture = loader.load(paths.rear);
+    rearTexture.colorSpace = THREE.SRGBColorSpace;
+    this.driverTextures.set('rear', rearTexture);
+    for (const [frame, path] of Object.entries(paths) as [DriverFrame, string][]) {
+      if (frame === 'rear') continue;
+      loader.load(
+        path,
+        (texture) => {
+          texture.colorSpace = THREE.SRGBColorSpace;
+          this.driverTextures.set(frame, texture);
+          if (this.activeDriverFrame === frame) this.applyDriverFrame(frame);
+        },
+        undefined,
+        () => {
+          console.warn(
+            `Could not load ${this.options.character.displayName}'s ${frame} driver frame.`,
+          );
+        },
+      );
+    }
+    const sprite = new THREE.Sprite(
+      new THREE.SpriteMaterial({ map: rearTexture, transparent: true, depthWrite: false }),
+    );
     sprite.name = 'DriverSprite';
     sprite.scale.set(1.45, 1.45, 1);
     sprite.position.set(0, 0.95, -0.12);
     this.kartMesh.add(sprite);
+    this.driverSprite = sprite;
+  }
+
+  private updateDriverSprite(): void {
+    if (this.driverSprite === null) return;
+    const desired: DriverFrame = this.playerProgress.finished
+      ? 'victory'
+      : this.driverHitSeconds > 0
+        ? 'hit'
+        : this.playerSteering > 0.15
+          ? 'steerLeft'
+          : this.playerSteering < -0.15
+            ? 'steerRight'
+            : 'rear';
+    this.applyDriverFrame(desired);
+  }
+
+  private applyDriverFrame(frame: DriverFrame): void {
+    const texture = this.driverTextures.get(frame) ?? this.driverTextures.get('rear');
+    if (this.driverSprite === null || texture === undefined) return;
+    const material = this.driverSprite.material;
+    if (material.map !== texture) {
+      material.map = texture;
+      material.needsUpdate = true;
+    }
+    this.activeDriverFrame = frame;
   }
 
   private addDriftLights(): void {
