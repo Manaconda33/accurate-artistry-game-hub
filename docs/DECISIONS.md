@@ -159,3 +159,15 @@ This log records approved or implementation-shaping decisions. Future sessions m
 - **Product impact:** Runtime URLs and the PRD folder layout remain unchanged.
 - **Implementation impact:** `.gitattributes` contains narrow exceptions for runtime avatar portraits and driver frames. High-resolution masters must not use those runtime paths.
 - **Approval:** Manny's explicit approval on 2026-08-16.
+
+## ADR-013: Use a GitHub Actions bridge for reproducible LFS assets in restricted Work environments
+
+- **Date:** 2026-08-16
+- **Status:** Approved
+- **Context:** The connected GitHub app can write normal Git objects but cannot upload Git LFS objects. Hosted Work shells may also block direct GitHub network access, so a temporary deploy key cannot complete the push.
+- **Options considered:** Store the binaries in normal Git; require a manual external push for every LFS asset; use a repository-scoped GitHub Actions runner to regenerate and upload deterministic assets.
+- **Decision:** Use the procedure in `docs/LFS-PUBLISHING.md` as the default fallback when direct Git/LFS push is unavailable and committed source can reproduce the approved binary byte-for-byte. Upload only pre-approved object IDs, fetch them back from GitHub, run `git lfs fsck`, record the evidence, and remove the temporary workflow before review or merge.
+- **Rationale:** GitHub's runner can reach the LFS service without exposing personal credentials or weakening the repository's binary policy.
+- **Product impact:** None. Runtime paths and asset contents remain unchanged.
+- **Implementation impact:** Every bridge workflow is temporary, branch-scoped, permission-limited, hash-gated, and ineligible for assets without deterministic committed source. Non-reproducible assets still require an authenticated external Git/LFS handoff.
+- **Approval:** Manny's explicit approval after the Lavi Potato bridge passed on 2026-08-16.
