@@ -26,6 +26,14 @@ The approved Lavi package is now connected to a twelve-slot Character Select sca
 - Correction: production checkout now materializes LFS and runs `git lfs fsck`. The build runs `tools/verify-runtime-assets.mjs` and fails unless all three Potato runtime files begin with the binary glTF signature. Lavi's driver sprite is also mounted when a kart falls back, keeping independent asset failures independent.
 - Status remains **FAILED / CORRECTION IN PROGRESS** until a fresh Pages deployment proves Potato and Lavi render on Manny's device.
 
+### Second manual-failure report and corrective action
+
+- Manny's follow-up mobile test on 2026-08-16 still showed the fallback kart. Lavi's clean rear driver frame rendered, but steering never changed the artwork. Victory was not tested.
+- The sprite finding is confirmed: the initial runtime integration created only `rear.png`; no code selected `steer-left.png` or `steer-right.png` during gameplay.
+- Potato correction: every Lavi runtime URL now includes a controlled asset revision query, preventing a browser or Pages edge cache from reusing an earlier GLB pointer response at the stable public filename. The existing LFS checkout, `git lfs fsck`, and binary-signature build gate remain required.
+- Sprite correction: runtime preloads the five approved Lavi frames and selects rear, left, right, collision-hit, or victory texture without allowing an unloaded optional frame to blank the driver.
+- Status remains **FAILED / CORRECTION IN PROGRESS** until Manny confirms Potato and steering states on the newly deployed cache-busted checkpoint.
+
 Manny manually confirmed Slice 1 lap counting, boost pads, grass slowdown, recovery, reverse-lap rejection, rear camera, and other checks on 2026-08-16. He approved the Slice 1 corrections and authorized Slice 2.
 
 ## Slice 1 gap-close completed

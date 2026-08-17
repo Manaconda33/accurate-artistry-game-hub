@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   characterById,
   characterManifest,
+  LAVI_ASSET_REVISION,
   statValues,
   STAT_TOTAL,
   validateCharacterManifest,
@@ -25,7 +26,9 @@ describe('character manifest', () => {
     const lavi = characterById('aa-02');
     expect(lavi.displayName).toBe('Lavi');
     expect(lavi.assetState).toBe('production');
-    expect(lavi.kart).toContain('/assets/characters/aa-02/kart.glb');
+    expect(lavi.kart).toContain(`/assets/characters/aa-02/kart.glb?v=${LAVI_ASSET_REVISION}`);
+    expect(lavi.driver?.steerLeft).toContain(`?v=${LAVI_ASSET_REVISION}`);
+    expect(lavi.driver?.steerRight).toContain(`?v=${LAVI_ASSET_REVISION}`);
     expect(lavi.stats).toEqual({
       speed: 5,
       acceleration: 8,

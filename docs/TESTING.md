@@ -96,6 +96,8 @@ Code presence alone is not completion evidence.
 - Lavi remains the default selection and `Race as Lavi` loads Potato rather than the procedural fallback kart.
 - Potato reads as one opaque natural russet body with a continuous sculpted cockpit, rooted rear sprouts, connected wheels/axles, and no body clipping or translucency.
 - Lavi's rear driver artwork sits convincingly in the cockpit without floating, clipping, or obscuring the kart silhouette.
+- Holding visual left/right steering switches Lavi to the matching approved steer-left/steer-right frame within two rendered frames; releasing steering restores the rear frame.
+- Collision impulse selects the approved hit frame briefly, and a completed player race selects the approved victory frame.
 - Lavi's AA-02 profile feels nimble and responsive and remains the controlled player kart throughout the race.
 - Selecting a placeholder profile starts the same race with a monogram/fallback kart and that profile's statistics; it does not borrow Lavi's identity or final art.
 - Simulated missing portrait replaces the image with the correct monogram; simulated missing GLB loads the fallback kart and does not crash or change physics.
