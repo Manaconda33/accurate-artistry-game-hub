@@ -6,6 +6,14 @@
 
 The approved Lavi package is now connected to a twelve-slot Character Select scaffold. Lavi is the default production entry; all other slots deliberately retain monogram portraits, fallback karts, and unassigned community identities until their one-at-a-time approval gates are complete.
 
+## Slice 3 Manaconda intake and locks
+
+- Manny supplied Manaconda's written character description and reference on 2026-08-16. The intake is recorded at docs/avatars/MANACONDA.md.
+- Manaconda's character lock, original The Wayfinder kart, AA-09 Technical Cruiser profile, and source-transformation permission are approved. The green kart in the supplied image is an example, not the final direction.
+- aa-09 is uniquely allocated to Manaconda in docs/ROSTER-MAPPING.md. The production brief is docs/assets/MANACONDA-ASSET-BRIEF.md.
+- No production art, GLB, runtime integration, or deployment has yet been approved or implemented.
+- Status: **LOCKED — portrait candidate preparation next.**
+
 ## Slice 3 Lavi production checkpoint
 
 - Character Select now sits between the Hub and Grand Prix and renders exactly twelve roster slots on desktop and mobile layouts.
