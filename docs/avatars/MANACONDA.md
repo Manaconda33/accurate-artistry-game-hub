@@ -1,12 +1,12 @@
 # Avatar intake: Manaconda
 
 - **Intake date:** 2026-08-16
-- **Current phase:** Character, kart, and balance locks approved; asset brief prepared
+- **Current phase:** Driver-art package approved and prepared; Wayfinder production pending
 - **Intake status:** Approved
 - **Character lock:** Approved by Manny on 2026-08-16
 - **Kart lock:** *The Wayfinder*, approved by Manny on 2026-08-16
 - **Balance mapping lock:** AA-09 Technical Cruiser, approved by Manny on 2026-08-16
-- **Asset approval:** Not started
+- **Asset approval:** Portrait and all five driver states approved by Manny on 2026-08-20
 - **Implementation verification:** Not started
 
 This record preserves Manny's supplied writing and racing image as a source reference. The image is approved for transformation into production game assets; its green explorer kart remains an example, not a visual lock.
@@ -41,15 +41,16 @@ This record preserves Manny's supplied writing and racing image as a source refe
 
 | Asset | Required format | Status |
 | --- | --- | --- |
-| Portrait | 256 x 256 transparent PNG, sRGB, straight alpha | Briefed; candidate pending |
-| Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB | Briefed; candidates pending |
+| Portrait | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared |
+| Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB | Approved and prepared |
 | The Wayfinder | GLB with PRD hierarchy and LOD budgets | Briefed; candidate pending |
 
 ## Approval record
 
 - Character lock, kart lock, balance mapping, and source transformation: approved.
-- Individual art candidates, GLB, runtime integration, and deployment: separately pending approval.
+- Portrait, rear, steer-left, steer-right, hit, and victory: approved by Manny on 2026-08-20 and prepared at the PRD runtime paths.
+- The Wayfinder GLB, runtime integration, deployment, and live desktop/mobile verification remain separately pending.
 
 ## Next action
 
-Generate the portrait candidate for approval before driver-state or Wayfinder-GLB candidate work.
+Begin The Wayfinder GLB candidate workflow; do not begin runtime integration until its separate approval gate is complete.
