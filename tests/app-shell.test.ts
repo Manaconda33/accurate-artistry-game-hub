@@ -31,6 +31,11 @@ describe('Slice 0 app shell', () => {
     root.querySelector<HTMLElement>('[data-character="aa-09"]')?.click();
     expect(root.textContent).toContain('Race as Manaconda');
     expect(root.textContent).toContain('The Wayfinder');
+
+    root.querySelector<HTMLElement>('[data-character="aa-11"]')?.click();
+    expect(root.textContent).toContain('Race as Accu');
+    expect(root.textContent).toContain('Pink Precision');
+    expect(root.textContent).toContain('Perfect aim. Maximum armor.');
   });
 
   it('replaces a failed production portrait with the character monogram', () => {

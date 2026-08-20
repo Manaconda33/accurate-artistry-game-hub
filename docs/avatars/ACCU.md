@@ -1,14 +1,14 @@
 # Avatar intake: Accu
 
 - **Intake date:** 2026-08-20
-- **Current phase:** Driver art and Pink Precision production package approved and prepared; runtime integration pending
+- **Current phase:** Runtime integration prepared; deployment and product-owner verification pending
 - **Intake status:** Approved
 - **Character lock:** Approved by Manny on 2026-08-20
 - **Kart lock:** _Pink Precision_, approved by Manny on 2026-08-20
 - **Balance mapping lock:** AA-11 Collision Tank, approved by Manny on 2026-08-20
 - **Asset approval:** Portrait and all five driver states approved by Manny on 2026-08-20
 - **Kart-model approval:** Pink Precision Candidate 1 approved by Manny on 2026-08-20
-- **Implementation verification:** Not started
+- **Implementation verification:** Automated checks prepared; live desktop/mobile verification pending
 
 Manny created the supplied Accu reference art and approved transforming it into production game assets. The attached pink-hat design is Accu's canonical appearance for this game and supersedes earlier descriptions that conflict with it.
 
@@ -38,19 +38,21 @@ Manny created the supplied Accu reference art and approved transforming it into 
 
 ## Required assets
 
-| Asset                                           | Required format                                 | Status                     |
-| ----------------------------------------------- | ----------------------------------------------- | -------------------------- |
-| Portrait                                        | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared      |
-| Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB                 | Approved and prepared      |
-| Pink Precision                                  | GLB with PRD hierarchy and LOD budgets          | Approved and prepared      |
+| Asset                                           | Required format                                 | Status                |
+| ----------------------------------------------- | ----------------------------------------------- | --------------------- |
+| Portrait                                        | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared |
+| Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB                 | Approved and prepared |
+| Pink Precision                                  | GLB with PRD hierarchy and LOD budgets          | Approved and prepared |
 
 ## Approval record
 
 - Character lock, kart lock, balance mapping, emblem direction, and source transformation: approved.
 - Portrait, rear, steer-left, steer-right, hit, and victory: approved by Manny on 2026-08-20 and prepared at the PRD runtime paths.
 - Pink Precision Candidate 1 is the approved production LOD0. Its deterministic LOD package is prepared at `public/assets/characters/aa-11/{kart,kart-lod1,kart-lod2}.glb`.
-- Manifest/runtime integration, deployment, and live desktop/mobile verification remain separately pending.
+- The manifest maps Accu to AA-11, Pink Precision, all five approved driver frames, and controlled revision `accu-runtime-20260820-1`.
+- Pink Precision is authored with native negative-Z forward, so its visual-root yaw remains `0` and does not alter physics or camera coordinates.
+- Deployment and live desktop/mobile verification remain pending.
 
 ## Next action
 
-Publish and fetch-verify the three Pink Precision LFS objects, then begin the separate runtime-integration checkpoint.
+Deploy the runtime-integration checkpoint and complete the Accu / Pink Precision manual matrix on desktop and mobile.

@@ -125,6 +125,16 @@ Run this matrix for every future production character, in addition to its slice-
 - The selected AA-09 profile remains 7 / 6 / 6 / 6 / 6 / 5 throughout the race.
 - Desktop and mobile both load the controlled `manaconda-runtime-20260820-1` URLs rather than cached pre-integration assets.
 
+## Accu / Pink Precision manual matrix
+
+- AA-11 renders Accu's approved portrait and identifies the kart as Pink Precision rather than a placeholder or fallback prototype.
+- `Race as Accu` loads Pink Precision and the approved rear driver frame. The compact armored hull, continuous treads, cannon, and heart-bullseye emblem remain visible.
+- Accu sits inside the cockpit without floating or clipping. The 3D steering wheel stays in front of her and does not conflict with the driver art.
+- Visual left/right steering selects the matching approved frame; collision selects hit briefly; finishing selects victory.
+- Chase and rear cameras confirm the cannon and nose point forward while the antennae and exhausts remain behind Accu. No visual-root rotation is applied.
+- The selected AA-11 profile remains 8 / 4 / 10 / 3 / 5 / 6 throughout the race.
+- Desktop and mobile both load the controlled `accu-runtime-20260820-1` URLs rather than cached pre-integration assets.
+
 ## Slice 0 evidence boundary
 
 Slice 0 validates only installation, typechecking, linting, unit testing, production build, the minimal app shell, repository organization, and CI. It does not validate rendering, physics, controls, AI, racing, items, audio playback, or performance requirements assigned to later slices.

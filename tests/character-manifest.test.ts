@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  ACCU_ASSET_REVISION,
   characterById,
   characterManifest,
   LAVI_ASSET_REVISION,
@@ -36,6 +37,28 @@ describe('character manifest', () => {
       handling: 6,
       miniTurbo: 6,
       traction: 5,
+    });
+  });
+
+  it('maps Accu to Pink Precision and the approved AA-11 profile', () => {
+    const accu = characterById('aa-11');
+    expect(accu.displayName).toBe('Accu');
+    expect(accu.descriptor).toBe('Perfect aim. Maximum armor.');
+    expect(accu.assetState).toBe('production');
+    expect(accu.kart).toContain(`/assets/characters/aa-11/kart.glb?v=${ACCU_ASSET_REVISION}`);
+    expect(accu.kartVisualYaw).toBe(0);
+    expect(accu.driver?.rear).toContain(`?v=${ACCU_ASSET_REVISION}`);
+    expect(accu.driver?.steerLeft).toContain(`?v=${ACCU_ASSET_REVISION}`);
+    expect(accu.driver?.steerRight).toContain(`?v=${ACCU_ASSET_REVISION}`);
+    expect(accu.driver?.hit).toContain(`?v=${ACCU_ASSET_REVISION}`);
+    expect(accu.driver?.victory).toContain(`?v=${ACCU_ASSET_REVISION}`);
+    expect(accu.stats).toEqual({
+      speed: 8,
+      acceleration: 4,
+      weight: 10,
+      handling: 3,
+      miniTurbo: 5,
+      traction: 6,
     });
   });
 

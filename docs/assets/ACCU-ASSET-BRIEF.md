@@ -62,3 +62,11 @@
 - Runtime preloads all five driver states and retains rear as the safe fallback.
 - Chase and rear cameras must confirm Pink Precision's nose, cannon, controls, and treads face the correct direction. Any axis correction applies only to the visual root and is recorded.
 - Acceptance requires desktop and mobile confirmation of Accu's portrait, production kart, all five driver states, and orientation.
+
+## Runtime integration checkpoint
+
+- Controlled asset revision: `accu-runtime-20260820-1`.
+- The character manifest selects Accu's approved portrait, Pink Precision LOD0, and all five driver frames for AA-11.
+- Pink Precision uses native negative-Z forward with `kartVisualYaw: 0`; this leaves physics, checkpoints, controls, and cameras unchanged.
+- The production signature gate includes all three Pink Precision GLBs. A pointer or invalid GLB at any required path fails the build.
+- Deployment and product-owner desktop/mobile confirmation remain required before the integration checkpoint can pass.

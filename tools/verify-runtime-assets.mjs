@@ -7,6 +7,9 @@ const runtimeGlbs = [
   'public/assets/characters/aa-09/kart.glb',
   'public/assets/characters/aa-09/kart-lod1.glb',
   'public/assets/characters/aa-09/kart-lod2.glb',
+  'public/assets/characters/aa-11/kart.glb',
+  'public/assets/characters/aa-11/kart-lod1.glb',
+  'public/assets/characters/aa-11/kart-lod2.glb',
 ];
 
 for (const path of runtimeGlbs) {
