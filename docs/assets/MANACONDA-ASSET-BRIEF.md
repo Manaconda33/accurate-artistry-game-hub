@@ -78,6 +78,6 @@ Each candidate needs Manny's approval. Manny approved the portrait, all five dri
 
 - Controlled revision: `manaconda-runtime-20260820-1` on the portrait, Wayfinder, and all five driver URLs.
 - Manifest identity: AA-09 production character `Manaconda`, `Technical Cruiser`, The Wayfinder, approved 7 / 6 / 6 / 6 / 6 / 5 statistics.
-- Visual-root yaw: zero. The Wayfinder is authored with negative-Z forward and must not inherit Potato's 180-degree correction.
+- Visual-root yaw: 180 degrees around local Y. Although the GLB declares negative-Z forward, the deployed chase camera proved the grille/navigation core faced backward at zero yaw. Runtime visual evidence is authoritative; physics coordinates remain unchanged.
 - The production build signature gate covers all three AA-09 GLBs in addition to Lavi's package.
-- Automated validation and live desktop/mobile confirmation remain pending.
+- Portrait, Wayfinder loading, duplicate-wheel treatment, and steering states passed Manny's live mobile check at merge commit `63f2af05ba4a8631594786f2d4ea171b5278778a`; corrected orientation confirmation remains pending.

@@ -23,7 +23,7 @@ describe('character manifest', () => {
     expect(manaconda.kart).toContain(
       `/assets/characters/aa-09/kart.glb?v=${MANACONDA_ASSET_REVISION}`,
     );
-    expect(manaconda.kartVisualYaw).toBe(0);
+    expect(manaconda.kartVisualYaw).toBe(Math.PI);
     expect(manaconda.driver?.rear).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
     expect(manaconda.driver?.steerLeft).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
     expect(manaconda.driver?.steerRight).toContain(`?v=${MANACONDA_ASSET_REVISION}`);

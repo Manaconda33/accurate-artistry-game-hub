@@ -7,7 +7,7 @@
 - **Kart lock:** *The Wayfinder*, approved by Manny on 2026-08-16
 - **Balance mapping lock:** AA-09 Technical Cruiser, approved by Manny on 2026-08-16
 - **Asset approval:** Portrait, all five driver states, and wheel-free Wayfinder GLBs approved by Manny on 2026-08-20
-- **Implementation verification:** Automated validation pending; live desktop/mobile confirmation pending
+- **Implementation verification:** Portrait, kart loading, wheel treatment, and steering states passed live mobile review; orientation correction pending redeployment
 
 This record preserves Manny's supplied writing and racing image as a source reference. The image is approved for transformation into production game assets; its green explorer kart remains an example, not a visual lock.
 
@@ -51,8 +51,9 @@ This record preserves Manny's supplied writing and racing image as a source refe
 - Portrait, rear, steer-left, steer-right, hit, and victory: approved by Manny on 2026-08-20 and prepared at the PRD runtime paths.
 - Manny approved the wheel-free Wayfinder LOD0, LOD1, and LOD2 package on 2026-08-20. The required `SteeringWheel` hierarchy node remains as an empty runtime anchor because all approved Manaconda driver frames already contain the visible wheel.
 - The AA-09 manifest entry now selects Manaconda's portrait, five driver states, Wayfinder GLB, Technical Cruiser statistics, and controlled `manaconda-runtime-20260820-1` asset revision.
-- Wayfinder is natively authored with negative-Z forward and therefore uses zero visual-root yaw. Potato's separate 180-degree correction remains confined to Lavi's package.
-- Deployment and live desktop/mobile verification remain pending.
+- The first deployed integration at merge commit `63f2af05ba4a8631594786f2d4ea171b5278778a` passed portrait, Wayfinder loading, duplicate-wheel, and steering-state checks on Manny's mobile device. The chase-camera check failed because the navigation grille faced backward.
+- Runtime camera evidence supersedes the GLB metadata assumption: Wayfinder requires a 180-degree visual-root yaw to align its grille/navigation core with race forward. This transform changes only the rendered model; physics, controls, checkpoints, camera, and driver sprite remain unchanged.
+- Corrected deployment and live orientation confirmation remain pending.
 
 ## Next action
 

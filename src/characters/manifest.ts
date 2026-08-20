@@ -66,7 +66,7 @@ const manaconda: CharacterDefinition = {
   assetState: 'production',
   portrait: assetUrl('assets/characters/aa-09/portrait.png', MANACONDA_ASSET_REVISION),
   kart: assetUrl('assets/characters/aa-09/kart.glb', MANACONDA_ASSET_REVISION),
-  kartVisualYaw: 0,
+  kartVisualYaw: Math.PI,
   driver: {
     rear: assetUrl('assets/characters/aa-09/driver/rear.png', MANACONDA_ASSET_REVISION),
     steerLeft: assetUrl(
