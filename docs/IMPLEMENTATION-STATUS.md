@@ -6,6 +6,16 @@
 
 The approved Lavi package is now connected to a twelve-slot Character Select scaffold. Lavi is the default production entry; all other slots deliberately retain monogram portraits, fallback karts, and unassigned community identities until their one-at-a-time approval gates are complete.
 
+## Slice 3 Accu intake and locks
+
+- Manny supplied Accu's canonical game references and confirmed he created them and permits their transformation into game assets.
+- Accu's character lock, Pink Precision kart direction, original heart-bullseye emblem, and AA-11 Collision Tank mapping are approved.
+- `aa-11` is uniquely allocated to Accu in `docs/ROSTER-MAPPING.md`. Her intake and production brief are `docs/avatars/ACCU.md` and `docs/assets/ACCU-ASSET-BRIEF.md`.
+- Manny approved the portrait and all five driver-state PNGs on 2026-08-20. Runtime derivatives are stored at `public/assets/characters/aa-11/`.
+- Portrait is 256 x 256; rear, steer-left, steer-right, hit, and victory are 512 x 512. All six are sRGB RGBA PNGs with genuine transparency and transparent corner pixels.
+- Pink Precision GLB, manifest/runtime integration, deployment, and live verification remain pending.
+- Status: **DRIVER ART PASS — approved and prepared; Pink Precision production next.**
+
 ## Slice 3 Manaconda intake and locks
 
 - Manny supplied Manaconda's written character description and reference on 2026-08-16. The intake is recorded at docs/avatars/MANACONDA.md.
@@ -127,8 +137,10 @@ Begin Slice 3 manifest/schema and selection-flow implementation using Lavi's com
 
 ## Validation evidence
 
+- Accu runtime PNG validation on 2026-08-20: portrait is 256 x 256; all five driver states are 512 x 512; every file is sRGB RGBA with alpha spanning transparent to opaque and a fully transparent corner pixel. Manny approved the final six-file package.
 - Manaconda runtime PNG validation on 2026-08-20: portrait is 256 x 256; all five driver states are 512 x 512; every file is sRGB RGBA with alpha spanning transparent to opaque and a fully transparent corner pixel. Dark-blue and parchment-gold composites were visually reviewed after checkerboard extraction; Manny approved the final six-file set.
-Local validation on 2026-08-16:
+
+### Local validation on 2026-08-16
 
 - Lavi runtime assets: portrait is 256 x 256; rear, steer-left, steer-right, hit, and victory are 512 x 512. All six are sRGB RGBA PNGs with non-opaque alpha and transparent corner pixels at the PRD paths.
 - Hit transparency: source and runtime alpha both range from 0 to 1. The runtime corner pixel is `srgba(0,0,0,0)`, and a checkerboard composite shows the background through the cutout.
