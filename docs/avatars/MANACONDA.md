@@ -1,13 +1,13 @@
 # Avatar intake: Manaconda
 
 - **Intake date:** 2026-08-16
-- **Current phase:** Driver-art package approved and prepared; Wayfinder production pending
+- **Current phase:** Driver-art and Wayfinder packages approved; runtime integration staged for validation
 - **Intake status:** Approved
 - **Character lock:** Approved by Manny on 2026-08-16
 - **Kart lock:** *The Wayfinder*, approved by Manny on 2026-08-16
 - **Balance mapping lock:** AA-09 Technical Cruiser, approved by Manny on 2026-08-16
-- **Asset approval:** Portrait and all five driver states approved by Manny on 2026-08-20
-- **Implementation verification:** Not started
+- **Asset approval:** Portrait, all five driver states, and wheel-free Wayfinder GLBs approved by Manny on 2026-08-20
+- **Implementation verification:** Automated validation pending; live desktop/mobile confirmation pending
 
 This record preserves Manny's supplied writing and racing image as a source reference. The image is approved for transformation into production game assets; its green explorer kart remains an example, not a visual lock.
 
@@ -43,14 +43,17 @@ This record preserves Manny's supplied writing and racing image as a source refe
 | --- | --- | --- |
 | Portrait | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared |
 | Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB | Approved and prepared |
-| The Wayfinder | GLB with PRD hierarchy and LOD budgets | Briefed; candidate pending |
+| The Wayfinder | GLB with PRD hierarchy and LOD budgets | Approved and prepared |
 
 ## Approval record
 
 - Character lock, kart lock, balance mapping, and source transformation: approved.
 - Portrait, rear, steer-left, steer-right, hit, and victory: approved by Manny on 2026-08-20 and prepared at the PRD runtime paths.
-- The Wayfinder GLB, runtime integration, deployment, and live desktop/mobile verification remain separately pending.
+- Manny approved the wheel-free Wayfinder LOD0, LOD1, and LOD2 package on 2026-08-20. The required `SteeringWheel` hierarchy node remains as an empty runtime anchor because all approved Manaconda driver frames already contain the visible wheel.
+- The AA-09 manifest entry now selects Manaconda's portrait, five driver states, Wayfinder GLB, Technical Cruiser statistics, and controlled `manaconda-runtime-20260820-1` asset revision.
+- Wayfinder is natively authored with negative-Z forward and therefore uses zero visual-root yaw. Potato's separate 180-degree correction remains confined to Lavi's package.
+- Deployment and live desktop/mobile verification remain pending.
 
 ## Next action
 
-Begin The Wayfinder GLB candidate workflow; do not begin runtime integration until its separate approval gate is complete.
+Validate the integrated package, deploy the checkpoint, and verify character selection, kart loading, sprite placement/states, and orientation on desktop and mobile.

@@ -3,6 +3,7 @@ import {
   characterById,
   characterManifest,
   LAVI_ASSET_REVISION,
+  MANACONDA_ASSET_REVISION,
   statValues,
   STAT_TOTAL,
   validateCharacterManifest,
@@ -13,6 +14,29 @@ describe('character manifest', () => {
     expect(validateCharacterManifest()).toEqual([]);
     expect(characterManifest).toHaveLength(12);
     expect(new Set(characterManifest.map(({ id }) => id)).size).toBe(12);
+  });
+
+  it('maps Manaconda to the approved production package and AA-09 profile', () => {
+    const manaconda = characterById('aa-09');
+    expect(manaconda.displayName).toBe('Manaconda');
+    expect(manaconda.assetState).toBe('production');
+    expect(manaconda.kart).toContain(
+      `/assets/characters/aa-09/kart.glb?v=${MANACONDA_ASSET_REVISION}`,
+    );
+    expect(manaconda.kartVisualYaw).toBe(0);
+    expect(manaconda.driver?.rear).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
+    expect(manaconda.driver?.steerLeft).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
+    expect(manaconda.driver?.steerRight).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
+    expect(manaconda.driver?.hit).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
+    expect(manaconda.driver?.victory).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
+    expect(manaconda.stats).toEqual({
+      speed: 7,
+      acceleration: 6,
+      weight: 6,
+      handling: 6,
+      miniTurbo: 6,
+      traction: 5,
+    });
   });
 
   it.each(characterManifest.map((character) => [character.id, character.stats] as const))(

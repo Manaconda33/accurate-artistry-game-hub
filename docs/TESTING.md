@@ -115,6 +115,16 @@ Run this matrix for every future production character, in addition to its slice-
 - Chase and rear cameras confirm the kart’s nose and steering wheel face forward of the driver. Any visual-root rotation or other axis correction is recorded in that character’s record and asset brief.
 - A product-owner test on desktop and mobile confirms the portrait, controlled kart, driver states, and orientation. Record the tested deployment, commit, browser/device result, and limitations in implementation status.
 
+## Manaconda / Wayfinder manual matrix
+
+- AA-09 renders Manaconda's approved portrait and identifies the kart as The Wayfinder rather than a placeholder or fallback prototype.
+- `Race as Manaconda` loads the wheel-free Wayfinder and the approved rear driver frame; no second modeled steering wheel appears.
+- Manaconda sits within the recessed cockpit without floating or clipping, and the wheel contained in each driver frame reads in front of him.
+- Visual left/right steering selects the matching approved frame; collision selects hit briefly; finishing selects victory.
+- Chase and rear cameras confirm Wayfinder's grille/navigation core points forward and the rear satchel/twin exhausts remain behind Manaconda. No 180-degree visual correction is applied.
+- The selected AA-09 profile remains 7 / 6 / 6 / 6 / 6 / 5 throughout the race.
+- Desktop and mobile both load the controlled `manaconda-runtime-20260820-1` URLs rather than cached pre-integration assets.
+
 ## Slice 0 evidence boundary
 
 Slice 0 validates only installation, typechecking, linting, unit testing, production build, the minimal app shell, repository organization, and CI. It does not validate rendering, physics, controls, AI, racing, items, audio playback, or performance requirements assigned to later slices.
