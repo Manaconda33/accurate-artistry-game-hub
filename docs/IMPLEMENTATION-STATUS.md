@@ -16,6 +16,7 @@ The approved Lavi package is now connected to a twelve-slot Character Select sca
 - Manny approved the wheel-free Wayfinder LOD0, LOD1, and LOD2 package on 2026-08-20. Its empty `SteeringWheel` node preserves the required hierarchy without duplicating the visible wheel already included in every approved driver frame.
 - The deterministic builder is `tools/assets/build_manaconda_wayfinder.py`. The approved models use four materials, negative-Z forward metadata, the exact thirteen-node hierarchy, and remain below all LOD triangle limits.
 - Wayfinder SHA-256/LFS object IDs: LOD0 `5498567abf25339b2a9f876f2bb81079d263c80afeea4a7c1b0181a36fdfd446`; LOD1 `9465ca4cb7d75c9a80c30ac09414c94bf35c95e82a26784735376df736191390`; LOD2 `4a2e2a43c147bd7fca0ae07edd7fbf612ac067e47f185b87431290de36e45fe0`.
+- LFS materialization checkpoint: GitHub Actions run `32428889465` rebuilt all three approved GLBs, matched their object IDs, proved pointer stability, uploaded 3/3 objects, deleted its local LFS cache, fetched the branch objects, and passed `git lfs fsck`. Follow-up CI run `32428954493` materialized LFS and passed the full repository validation.
 - Manifest/runtime integration and deployment remain pending.
 - Status: **ASSET PACKAGE PASS — driver art and Wayfinder approved and prepared; runtime integration next.**
 
