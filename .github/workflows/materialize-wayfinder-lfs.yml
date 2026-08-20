@@ -1,0 +1,50 @@
+name: Materialize approved Wayfinder LFS objects
+
+on:
+  push:
+    branches:
+      - agent/manaconda-wayfinder-assets
+    paths:
+      - .github/workflows/materialize-wayfinder-lfs.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+          ref: agent/manaconda-wayfinder-assets
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned builder dependencies
+        run: python -m pip install numpy==2.3.5 matplotlib==3.10.8
+      - name: Rebuild approved Wayfinder models
+        env:
+          MPLBACKEND: Agg
+        run: |
+          WAYFINDER_LOD=LOD0 WAYFINDER_OUT=public/assets/characters/aa-09/kart.glb WAYFINDER_SKIP_PREVIEW=1 python tools/assets/build_manaconda_wayfinder.py
+          WAYFINDER_LOD=LOD1 WAYFINDER_OUT=public/assets/characters/aa-09/kart-lod1.glb WAYFINDER_SKIP_PREVIEW=1 python tools/assets/build_manaconda_wayfinder.py
+          WAYFINDER_LOD=LOD2 WAYFINDER_OUT=public/assets/characters/aa-09/kart-lod2.glb WAYFINDER_SKIP_PREVIEW=1 python tools/assets/build_manaconda_wayfinder.py
+      - name: Verify approved object IDs and pointer stability
+        run: |
+          echo "5498567abf25339b2a9f876f2bb81079d263c80afeea4a7c1b0181a36fdfd446  public/assets/characters/aa-09/kart.glb" | sha256sum -c -
+          echo "9465ca4cb7d75c9a80c30ac09414c94bf35c95e82a26784735376df736191390  public/assets/characters/aa-09/kart-lod1.glb" | sha256sum -c -
+          echo "4a2e2a43c147bd7fca0ae07edd7fbf612ac067e47f185b87431290de36e45fe0  public/assets/characters/aa-09/kart-lod2.glb" | sha256sum -c -
+          git add -- public/assets/characters/aa-09/kart.glb public/assets/characters/aa-09/kart-lod1.glb public/assets/characters/aa-09/kart-lod2.glb
+          git diff --cached --exit-code
+      - name: Upload only approved LFS objects
+        run: |
+          git lfs push origin --object-id 5498567abf25339b2a9f876f2bb81079d263c80afeea4a7c1b0181a36fdfd446
+          git lfs push origin --object-id 9465ca4cb7d75c9a80c30ac09414c94bf35c95e82a26784735376df736191390
+          git lfs push origin --object-id 4a2e2a43c147bd7fca0ae07edd7fbf612ac067e47f185b87431290de36e45fe0
+      - name: Fetch back and verify
+        run: |
+          rm -rf .git/lfs/objects
+          git lfs fetch origin agent/manaconda-wayfinder-assets
+          git lfs fsck
