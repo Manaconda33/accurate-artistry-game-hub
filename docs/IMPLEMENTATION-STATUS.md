@@ -13,8 +13,10 @@ The approved Lavi package is now connected to a twelve-slot Character Select sca
 - `aa-11` is uniquely allocated to Accu in `docs/ROSTER-MAPPING.md`. Her intake and production brief are `docs/avatars/ACCU.md` and `docs/assets/ACCU-ASSET-BRIEF.md`.
 - Manny approved the portrait and all five driver-state PNGs on 2026-08-20. Runtime derivatives are stored at `public/assets/characters/aa-11/`.
 - Portrait is 256 x 256; rear, steer-left, steer-right, hit, and victory are 512 x 512. All six are sRGB RGBA PNGs with genuine transparency and transparent corner pixels.
-- Pink Precision GLB, manifest/runtime integration, deployment, and live verification remain pending.
-- Status: **DRIVER ART PASS — approved and prepared; Pink Precision production next.**
+- Manny approved Pink Precision Candidate 1 on 2026-08-20. The deterministic production package preserves that model as LOD0 and derives LOD1 and LOD2 with 4,156 / 2,700 / 1,804 triangles, four opaque materials, the required 13-node hierarchy, and negative-Z forward metadata.
+- Approved GLB object IDs: LOD0 `6e3f8cb6d1bdee7f5b315a7c154bd45fd0f4d6ac9b2e6445b9d85d81959ff958`; LOD1 `9f481cf854d47ec330e5909d5003353376c471cd37562d79410c20e3f824f9c7`; LOD2 `792b8f8bf1d359b3ae464003f0fa9432de5c391d8bd18ac8f84535593d9ba820`.
+- Git LFS upload and fetch-back verification, manifest/runtime integration, deployment, and live verification remain pending.
+- Status: **KART MODEL PASS — approved and prepared; LFS publication next.**
 
 ## Slice 3 Manaconda intake and locks
 
