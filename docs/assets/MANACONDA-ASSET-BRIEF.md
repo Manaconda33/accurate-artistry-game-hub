@@ -44,9 +44,17 @@
 | --- | --- | --- |
 | Portrait | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared 2026-08-20 |
 | Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB | Approved and prepared 2026-08-20 |
-| The Wayfinder | GLB with PRD hierarchy and LOD budgets | Candidate pending |
+| The Wayfinder | GLB with PRD hierarchy and LOD budgets | Approved and prepared 2026-08-20 |
 
-Each candidate needs Manny's approval. Manny approved the portrait and all five driver-state derivatives on 2026-08-20. The Wayfinder GLB remains separately pending.
+Each candidate needs Manny's approval. Manny approved the portrait, all five driver-state derivatives, and the wheel-free Wayfinder GLB package on 2026-08-20.
+
+## Approved Wayfinder checkpoint
+
+- Runtime paths: `public/assets/characters/aa-09/{kart.glb,kart-lod1.glb,kart-lod2.glb}`.
+- LOD0 is 9,312 triangles and 305,148 bytes; LOD1 is 4,576 triangles and 168,860 bytes; LOD2 is 2,312 triangles and 100,092 bytes.
+- All three are deterministic glTF 2.0 binary containers with four materials, meters, negative-Z forward metadata, and the exact thirteen-node PRD hierarchy.
+- The visible steering-wheel mesh is intentionally absent because the approved 2D driver frames contain the wheel. The required `SteeringWheel` node is retained without a mesh as a compatibility anchor.
+- SHA-256/LFS object IDs: LOD0 `5498567abf25339b2a9f876f2bb81079d263c80afeea4a7c1b0181a36fdfd446`; LOD1 `9465ca4cb7d75c9a80c30ac09414c94bf35c95e82a26784735376df736191390`; LOD2 `4a2e2a43c147bd7fca0ae07edd7fbf612ac067e47f185b87431290de36e45fe0`.
 
 ## Approved driver-art checkpoint
 

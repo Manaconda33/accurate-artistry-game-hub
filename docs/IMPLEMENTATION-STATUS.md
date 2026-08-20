@@ -13,8 +13,11 @@ The approved Lavi package is now connected to a twelve-slot Character Select sca
 - aa-09 is uniquely allocated to Manaconda in docs/ROSTER-MAPPING.md. The production brief is docs/assets/MANACONDA-ASSET-BRIEF.md.
 - Manny approved the production portrait and all five driver-state PNGs on 2026-08-20. The prepared runtime derivatives are stored at `public/assets/characters/aa-09/`.
 - Portrait is 256 x 256; rear, steer-left, steer-right, hit, and victory are 512 x 512. All six are sRGB RGBA PNGs with genuine transparency and transparent corner pixels.
-- The Wayfinder GLB, manifest/runtime integration, and deployment remain pending.
-- Status: **DRIVER ART PASS — approved and prepared; Wayfinder production next.**
+- Manny approved the wheel-free Wayfinder LOD0, LOD1, and LOD2 package on 2026-08-20. Its empty `SteeringWheel` node preserves the required hierarchy without duplicating the visible wheel already included in every approved driver frame.
+- The deterministic builder is `tools/assets/build_manaconda_wayfinder.py`. The approved models use four materials, negative-Z forward metadata, the exact thirteen-node hierarchy, and remain below all LOD triangle limits.
+- Wayfinder SHA-256/LFS object IDs: LOD0 `5498567abf25339b2a9f876f2bb81079d263c80afeea4a7c1b0181a36fdfd446`; LOD1 `9465ca4cb7d75c9a80c30ac09414c94bf35c95e82a26784735376df736191390`; LOD2 `4a2e2a43c147bd7fca0ae07edd7fbf612ac067e47f185b87431290de36e45fe0`.
+- Manifest/runtime integration and deployment remain pending.
+- Status: **ASSET PACKAGE PASS — driver art and Wayfinder approved and prepared; runtime integration next.**
 
 ## Slice 3 Lavi production checkpoint
 
