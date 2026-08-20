@@ -1,12 +1,13 @@
 # Avatar intake: Accu
 
 - **Intake date:** 2026-08-20
-- **Current phase:** Driver-art package approved and prepared; Pink Precision production pending
+- **Current phase:** Driver art and Pink Precision production package approved and prepared; runtime integration pending
 - **Intake status:** Approved
 - **Character lock:** Approved by Manny on 2026-08-20
 - **Kart lock:** _Pink Precision_, approved by Manny on 2026-08-20
 - **Balance mapping lock:** AA-11 Collision Tank, approved by Manny on 2026-08-20
 - **Asset approval:** Portrait and all five driver states approved by Manny on 2026-08-20
+- **Kart-model approval:** Pink Precision Candidate 1 approved by Manny on 2026-08-20
 - **Implementation verification:** Not started
 
 Manny created the supplied Accu reference art and approved transforming it into production game assets. The attached pink-hat design is Accu's canonical appearance for this game and supersedes earlier descriptions that conflict with it.
@@ -41,14 +42,15 @@ Manny created the supplied Accu reference art and approved transforming it into 
 | ----------------------------------------------- | ----------------------------------------------- | -------------------------- |
 | Portrait                                        | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared      |
 | Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB                 | Approved and prepared      |
-| Pink Precision                                  | GLB with PRD hierarchy and LOD budgets          | Briefed; candidate pending |
+| Pink Precision                                  | GLB with PRD hierarchy and LOD budgets          | Approved and prepared      |
 
 ## Approval record
 
 - Character lock, kart lock, balance mapping, emblem direction, and source transformation: approved.
 - Portrait, rear, steer-left, steer-right, hit, and victory: approved by Manny on 2026-08-20 and prepared at the PRD runtime paths.
-- Pink Precision GLB, manifest/runtime integration, deployment, and live desktop/mobile verification remain separately pending.
+- Pink Precision Candidate 1 is the approved production LOD0. Its deterministic LOD package is prepared at `public/assets/characters/aa-11/{kart,kart-lod1,kart-lod2}.glb`.
+- Manifest/runtime integration, deployment, and live desktop/mobile verification remain separately pending.
 
 ## Next action
 
-Begin the Pink Precision GLB candidate workflow; do not begin runtime integration until its separate approval gate is complete.
+Publish and fetch-verify the three Pink Precision LFS objects, then begin the separate runtime-integration checkpoint.

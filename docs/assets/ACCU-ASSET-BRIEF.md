@@ -35,7 +35,17 @@
 | ----------------------------------------------- | ----------------------------------------------- | -------------------------------- |
 | Portrait                                        | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared 2026-08-20 |
 | Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB                 | Approved and prepared 2026-08-20 |
-| Pink Precision                                  | GLB with PRD hierarchy and LOD budgets          | Candidate pending                |
+| Pink Precision                                  | GLB with PRD hierarchy and LOD budgets          | Approved and prepared 2026-08-20 |
+
+## Approved Pink Precision model checkpoint
+
+- Candidate 1 is the approved production silhouette: low armored hull, continuous tread loops, compact cockpit, forward cannon, rear antennae and exhausts, and the original heart-bullseye nose emblem.
+- The approved LOD0 geometry is frozen byte-for-byte in the deterministic builder. LOD1 and LOD2 reduce curved segments, tread pads, and internal road wheels without changing the locked silhouette or mount layout.
+- All three GLBs use negative Z as forward, four opaque materials, and the required 13-node kart hierarchy.
+- LOD0: 4,156 triangles, SHA-256 `6e3f8cb6d1bdee7f5b315a7c154bd45fd0f4d6ac9b2e6445b9d85d81959ff958`.
+- LOD1: 2,700 triangles, SHA-256 `9f481cf854d47ec330e5909d5003353376c471cd37562d79410c20e3f824f9c7`.
+- LOD2: 1,804 triangles, SHA-256 `792b8f8bf1d359b3ae464003f0fa9432de5c391d8bd18ac8f84535593d9ba820`.
+- The SHA-256 values are also the Git LFS object IDs and must match during publication and fetch-back verification.
 
 ## Approved driver-art checkpoint
 
