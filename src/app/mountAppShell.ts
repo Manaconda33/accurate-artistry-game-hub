@@ -114,6 +114,12 @@ export function mountAppShell(root: HTMLElement): void {
   };
 
   const renderCharacterSelect = (): void => {
+    const kartName =
+      selectedCharacter.id === 'aa-02'
+        ? 'Potato'
+        : selectedCharacter.id === 'aa-09'
+          ? 'The Wayfinder'
+          : 'Fallback prototype';
     root.innerHTML = `
       <main class="screen character-select-screen">
         <header><p class="eyebrow">Circuit Alpha Grand Prix</p><h1>Choose your driver</h1></header>
@@ -134,7 +140,7 @@ export function mountAppShell(root: HTMLElement): void {
             <p class="eyebrow">${selectedCharacter.assetState === 'production' ? 'Production driver' : 'Roster placeholder'}</p>
             <h2>${selectedCharacter.displayName}</h2><p>${selectedCharacter.descriptor}</p>
             <div class="stat-list">${statRows(selectedCharacter)}</div>
-            <p class="kart-label">Kart <strong>${selectedCharacter.id === 'aa-02' ? 'Potato' : 'Fallback prototype'}</strong></p>
+            <p class="kart-label">Kart <strong>${kartName}</strong></p>
             ${button(`Race as ${selectedCharacter.displayName}`, 'confirm-character', 'primary')}
           </aside>
         </div>

@@ -73,3 +73,11 @@ Each candidate needs Manny's approval. Manny approved the portrait, all five dri
 - Runtime preloads rear, steer-left, steer-right, hit, and victory; rear stays visible on optional-frame failure.
 - Chase and rear cameras must confirm the nose and steering wheel face forward of Manaconda. Any axis correction applies only to the visual root and is recorded.
 - Acceptance requires desktop and mobile confirmation of portrait, production kart, all five driver states, and orientation.
+
+## Runtime integration checkpoint
+
+- Controlled revision: `manaconda-runtime-20260820-1` on the portrait, Wayfinder, and all five driver URLs.
+- Manifest identity: AA-09 production character `Manaconda`, `Technical Cruiser`, The Wayfinder, approved 7 / 6 / 6 / 6 / 6 / 5 statistics.
+- Visual-root yaw: zero. The Wayfinder is authored with negative-Z forward and must not inherit Potato's 180-degree correction.
+- The production build signature gate covers all three AA-09 GLBs in addition to Lavi's package.
+- Automated validation and live desktop/mobile confirmation remain pending.

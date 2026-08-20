@@ -18,6 +18,7 @@ export interface CharacterDefinition {
   assetState: CharacterAssetState;
   portrait?: string;
   kart?: string;
+  kartVisualYaw?: number;
   driver?: {
     rear: string;
     steerLeft: string;
@@ -31,9 +32,10 @@ export interface CharacterDefinition {
 export const STAT_TOTAL = 36;
 
 export const LAVI_ASSET_REVISION = 'lavi-runtime-20260816-3';
+export const MANACONDA_ASSET_REVISION = 'manaconda-runtime-20260820-1';
 
-const assetUrl = (path: string): string =>
-  `${import.meta.env.BASE_URL}${path}?v=${LAVI_ASSET_REVISION}`;
+const assetUrl = (path: string, revision: string): string =>
+  `${import.meta.env.BASE_URL}${path}?v=${revision}`;
 
 const lavi: CharacterDefinition = {
   id: 'aa-02',
@@ -42,20 +44,51 @@ const lavi: CharacterDefinition = {
   initials: 'LV',
   accent: '#ef7f46',
   assetState: 'production',
-  portrait: assetUrl('assets/characters/aa-02/portrait.png'),
-  kart: assetUrl('assets/characters/aa-02/kart.glb'),
+  portrait: assetUrl('assets/characters/aa-02/portrait.png', LAVI_ASSET_REVISION),
+  kart: assetUrl('assets/characters/aa-02/kart.glb', LAVI_ASSET_REVISION),
+  kartVisualYaw: Math.PI,
   driver: {
-    rear: assetUrl('assets/characters/aa-02/driver/rear.png'),
-    steerLeft: assetUrl('assets/characters/aa-02/driver/steer-left.png'),
-    steerRight: assetUrl('assets/characters/aa-02/driver/steer-right.png'),
-    hit: assetUrl('assets/characters/aa-02/driver/hit.png'),
-    victory: assetUrl('assets/characters/aa-02/driver/victory.png'),
+    rear: assetUrl('assets/characters/aa-02/driver/rear.png', LAVI_ASSET_REVISION),
+    steerLeft: assetUrl('assets/characters/aa-02/driver/steer-left.png', LAVI_ASSET_REVISION),
+    steerRight: assetUrl('assets/characters/aa-02/driver/steer-right.png', LAVI_ASSET_REVISION),
+    hit: assetUrl('assets/characters/aa-02/driver/hit.png', LAVI_ASSET_REVISION),
+    victory: assetUrl('assets/characters/aa-02/driver/victory.png', LAVI_ASSET_REVISION),
   },
   stats: { speed: 5, acceleration: 8, weight: 2, handling: 9, miniTurbo: 8, traction: 4 },
 };
 
+const manaconda: CharacterDefinition = {
+  id: 'aa-09',
+  displayName: 'Manaconda',
+  descriptor: 'Technical Cruiser',
+  initials: 'MN',
+  accent: '#5546c8',
+  assetState: 'production',
+  portrait: assetUrl('assets/characters/aa-09/portrait.png', MANACONDA_ASSET_REVISION),
+  kart: assetUrl('assets/characters/aa-09/kart.glb', MANACONDA_ASSET_REVISION),
+  kartVisualYaw: 0,
+  driver: {
+    rear: assetUrl('assets/characters/aa-09/driver/rear.png', MANACONDA_ASSET_REVISION),
+    steerLeft: assetUrl(
+      'assets/characters/aa-09/driver/steer-left.png',
+      MANACONDA_ASSET_REVISION,
+    ),
+    steerRight: assetUrl(
+      'assets/characters/aa-09/driver/steer-right.png',
+      MANACONDA_ASSET_REVISION,
+    ),
+    hit: assetUrl('assets/characters/aa-09/driver/hit.png', MANACONDA_ASSET_REVISION),
+    victory: assetUrl(
+      'assets/characters/aa-09/driver/victory.png',
+      MANACONDA_ASSET_REVISION,
+    ),
+  },
+  stats: { speed: 7, acceleration: 6, weight: 6, handling: 6, miniTurbo: 6, traction: 5 },
+};
+
 export const characterManifest: readonly CharacterDefinition[] = [
   lavi,
+  manaconda,
   ...[
     ['aa-01', 'AA 01', 'Balanced Pilot', 'A1', '#9b7cff', [6, 6, 6, 6, 6, 6]],
     ['aa-03', 'AA 03', 'Grip Specialist', 'A3', '#58c6a8', [5, 6, 5, 8, 5, 7]],
@@ -64,7 +97,6 @@ export const characterManifest: readonly CharacterDefinition[] = [
     ['aa-06', 'AA 06', 'Road Bruiser', 'A6', '#e45c75', [7, 4, 9, 4, 5, 7]],
     ['aa-07', 'AA 07', 'Top-Speed Ace', 'A7', '#b76be2', [9, 4, 6, 5, 5, 7]],
     ['aa-08', 'AA 08', 'Off-Road Scout', 'A8', '#79b84a', [6, 5, 6, 5, 6, 8]],
-    ['aa-09', 'AA 09', 'Turbo Tactician', 'A9', '#ec769f', [6, 6, 4, 6, 9, 5]],
     ['aa-10', 'AA 10', 'Heavy Cruiser', '10', '#c9824e', [8, 3, 9, 4, 4, 8]],
     ['aa-11', 'AA 11', 'Technical All-Rounder', '11', '#4fc3cf', [6, 7, 5, 7, 6, 5]],
     ['aa-12', 'AA 12', 'Momentum Driver', '12', '#d56b55', [8, 5, 8, 4, 5, 6]],

@@ -435,9 +435,10 @@ export class KartTimeTrial {
       try {
         const gltf = await new GLTFLoader().loadAsync(this.options.character.kart);
         const model = gltf.scene;
-        // Potato's exported visual forward is +Z while the race runtime uses -Z forward.
-        // Keep physics untouched and align only the approved visual asset.
-        model.rotation.y = Math.PI;
+        // Keep physics untouched and apply only the character package's
+        // documented visual-axis correction. Potato needs PI; Wayfinder is
+        // authored with the runtime's native -Z forward and needs zero.
+        model.rotation.y = this.options.character.kartVisualYaw ?? 0;
         const bounds = new THREE.Box3().setFromObject(model);
         const size = bounds.getSize(new THREE.Vector3());
         const scale = 2.9 / Math.max(size.x, size.z, 0.001);
