@@ -31,10 +31,12 @@ The approved Lavi package is now connected to a twelve-slot Character Select sca
 - Wayfinder SHA-256/LFS object IDs: LOD0 `5498567abf25339b2a9f876f2bb81079d263c80afeea4a7c1b0181a36fdfd446`; LOD1 `9465ca4cb7d75c9a80c30ac09414c94bf35c95e82a26784735376df736191390`; LOD2 `4a2e2a43c147bd7fca0ae07edd7fbf612ac067e47f185b87431290de36e45fe0`.
 - LFS materialization checkpoint: GitHub Actions run `32428889465` rebuilt all three approved GLBs, matched their object IDs, proved pointer stability, uploaded 3/3 objects, deleted its local LFS cache, fetched the branch objects, and passed `git lfs fsck`. Follow-up CI run `32428954493` materialized LFS and passed the full repository validation.
 - AA-09 is now staged as a production manifest entry named Manaconda with the approved portrait, Wayfinder, five driver states, Technical Cruiser statistics, and controlled `manaconda-runtime-20260820-1` revision.
-- Runtime visual yaw is now character-specific: Lavi retains Potato's documented 180-degree visual-only correction, while Wayfinder uses zero rotation because it is authored with native negative-Z forward.
+- Runtime visual yaw is character-specific. Lavi retains Potato's documented 180-degree visual-only correction. Wayfinder also requires 180 degrees: its metadata suggested native negative-Z forward, but Manny's deployed chase-camera test proved the grille/navigation core faced backward at zero yaw.
 - Character Select labels AA-09 as Manaconda and The Wayfinder. The runtime asset signature gate now requires all three AA-09 GLBs.
-- Automated validation, deployment, and live desktop/mobile confirmation remain pending.
-- Status: **INTEGRATION STAGED — validation and product-owner live confirmation next.**
+- Merge commit `63f2af05ba4a8631594786f2d4ea171b5278778a` deployed through successful Actions run `32429960640`. Manny's mobile test passed selection, portrait, production kart loading, duplicate-wheel removal, and left/right driver frames; orientation failed because the navigation grille faced the chase camera.
+- The orientation hotfix rotates only Wayfinder's visual root by 180 degrees. Physics, controls, checkpoints, camera coordinates, and driver sprites remain unchanged.
+- Corrected deployment and product-owner orientation confirmation remain pending.
+- Status: **MANUAL CHECK PARTIAL PASS — orientation correction in progress.**
 
 ## Slice 3 Lavi production checkpoint
 
