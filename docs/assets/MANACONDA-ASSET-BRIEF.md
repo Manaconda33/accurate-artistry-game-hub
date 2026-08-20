@@ -42,11 +42,20 @@
 
 | Asset | Format | Approval |
 | --- | --- | --- |
-| Portrait | 256 x 256 transparent PNG, sRGB, straight alpha | Candidate pending |
-| Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB | Candidates pending |
+| Portrait | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared 2026-08-20 |
+| Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB | Approved and prepared 2026-08-20 |
 | The Wayfinder | GLB with PRD hierarchy and LOD budgets | Candidate pending |
 
-Each candidate needs Manny's approval. Portrait approval does not approve driver states or the GLB.
+Each candidate needs Manny's approval. Manny approved the portrait and all five driver-state derivatives on 2026-08-20. The Wayfinder GLB remains separately pending.
+
+## Approved driver-art checkpoint
+
+- Runtime paths: `public/assets/characters/aa-09/portrait.png` and `public/assets/characters/aa-09/driver/{rear,steer-left,steer-right,hit,victory}.png`.
+- Portrait is 256 x 256; each driver state is 512 x 512.
+- All six files are sRGB RGBA PNGs with genuine transparency, alpha spanning 0 to 1, and transparent corner pixels.
+- Dark and light background composites were visually checked after deterministic checkerboard extraction.
+- Crest continuity is locked across states: two independent temple roots, never a central growth or sideways antlers.
+- Paprika remains on the same physical shoulder across rear and steering states.
 
 ## Runtime delivery requirements
 

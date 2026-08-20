@@ -11,8 +11,10 @@ The approved Lavi package is now connected to a twelve-slot Character Select sca
 - Manny supplied Manaconda's written character description and reference on 2026-08-16. The intake is recorded at docs/avatars/MANACONDA.md.
 - Manaconda's character lock, original The Wayfinder kart, AA-09 Technical Cruiser profile, and source-transformation permission are approved. The green kart in the supplied image is an example, not the final direction.
 - aa-09 is uniquely allocated to Manaconda in docs/ROSTER-MAPPING.md. The production brief is docs/assets/MANACONDA-ASSET-BRIEF.md.
-- No production art, GLB, runtime integration, or deployment has yet been approved or implemented.
-- Status: **LOCKED — portrait candidate preparation next.**
+- Manny approved the production portrait and all five driver-state PNGs on 2026-08-20. The prepared runtime derivatives are stored at `public/assets/characters/aa-09/`.
+- Portrait is 256 x 256; rear, steer-left, steer-right, hit, and victory are 512 x 512. All six are sRGB RGBA PNGs with genuine transparency and transparent corner pixels.
+- The Wayfinder GLB, manifest/runtime integration, and deployment remain pending.
+- Status: **DRIVER ART PASS — approved and prepared; Wayfinder production next.**
 
 ## Slice 3 Lavi production checkpoint
 
@@ -125,6 +127,7 @@ Begin Slice 3 manifest/schema and selection-flow implementation using Lavi's com
 
 ## Validation evidence
 
+- Manaconda runtime PNG validation on 2026-08-20: portrait is 256 x 256; all five driver states are 512 x 512; every file is sRGB RGBA with alpha spanning transparent to opaque and a fully transparent corner pixel. Dark-blue and parchment-gold composites were visually reviewed after checkerboard extraction; Manny approved the final six-file set.
 Local validation on 2026-08-16:
 
 - Lavi runtime assets: portrait is 256 x 256; rear, steer-left, steer-right, hit, and victory are 512 x 512. All six are sRGB RGBA PNGs with non-opaque alpha and transparent corner pixels at the PRD paths.
