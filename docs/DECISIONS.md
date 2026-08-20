@@ -195,3 +195,15 @@ This log records approved or implementation-shaping decisions. Future sessions m
 - **Product impact:** A selected character reliably appears in their approved kart with responsive visual state artwork and correct driving orientation on the live build.
 - **Implementation impact:** CI, manifest URL construction, runtime sprite selection, manual QA, character records, and asset briefs all carry explicit evidence. A runtime fallback remains resilience behavior, never successful production-art evidence.
 - **Approval:** Manny’s Lavi runtime confirmation and instruction on 2026-08-16 to record the learned process in the main repository.
+
+## ADR-016: Lock Accu to Pink Precision and AA-11
+
+- **Date:** 2026-08-20
+- **Status:** Approved
+- **Context:** Accu's canonical game reference differs from an earlier written description, and the supplied tank reference included licensed-character branding that is not appropriate for production.
+- **Options considered:** Preserve the earlier character description; reproduce the branded miniature tank; use the canonical pink-hat appearance with an original compact tank-inspired kart.
+- **Decision:** The supplied pink-hat portrait defines Accu's canonical game appearance. Her kart is Pink Precision, a compact pink tank-inspired racer with working treads and cannon, carrying an original heart-shaped bullseye and central sparkle. Accu receives AA-11 Collision Tank.
+- **Rationale:** The decision follows Manny's authored reference, preserves the approved cute-versus-armored concept, removes licensed branding, and gives Accu a distinct heavyweight role.
+- **Product impact:** Accu reads as a precise, friendly armored specialist with the descriptor “Perfect aim. Maximum armor.”
+- **Implementation impact:** `aa-11` is uniquely allocated; the approved portrait and five driver frames live in normal Git. Pink Precision's GLB and runtime integration remain separately approval-gated.
+- **Approval:** Manny's explicit approvals on 2026-08-20.
