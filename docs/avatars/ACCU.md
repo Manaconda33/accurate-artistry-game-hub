@@ -50,7 +50,7 @@ Manny created the supplied Accu reference art and approved transforming it into 
 - Portrait, rear, steer-left, steer-right, hit, and victory: approved by Manny on 2026-08-20 and prepared at the PRD runtime paths.
 - Pink Precision Candidate 1 is the approved production LOD0. Its deterministic LOD package is prepared at `public/assets/characters/aa-11/{kart,kart-lod1,kart-lod2}.glb`.
 - The manifest maps Accu to AA-11, Pink Precision, all five approved driver frames, and controlled revision `accu-runtime-20260820-1`.
-- Pink Precision is authored with native negative-Z forward, so its visual-root yaw remains `0` and does not alter physics or camera coordinates.
+- Pink Precision declares negative-Z authored forward. Manny's live chase-camera test proved that this runtime requires the shared `NEGATIVE_Z_KART_VISUAL_YAW` (`Math.PI`) visual-root correction. Physics, checkpoints, controls, driver sprites, and camera coordinates remain unchanged.
 - Deployment and live desktop/mobile verification remain pending.
 
 ## Next action

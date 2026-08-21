@@ -67,6 +67,6 @@
 
 - Controlled asset revision: `accu-runtime-20260820-1`.
 - The character manifest selects Accu's approved portrait, Pink Precision LOD0, and all five driver frames for AA-11.
-- Pink Precision uses native negative-Z forward with `kartVisualYaw: 0`; this leaves physics, checkpoints, controls, and cameras unchanged.
+- Pink Precision declares negative-Z authored forward and therefore uses the runtime's enforced `NEGATIVE_Z_KART_VISUAL_YAW` (`Math.PI`). The transform affects only the model root; physics, checkpoints, controls, driver sprites, and cameras remain unchanged.
 - The production signature gate includes all three Pink Precision GLBs. A pointer or invalid GLB at any required path fails the build.
 - Deployment and product-owner desktop/mobile confirmation remain required before the integration checkpoint can pass.

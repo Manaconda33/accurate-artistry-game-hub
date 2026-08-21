@@ -18,7 +18,8 @@ The approved Lavi package is now connected to a twelve-slot Character Select sca
 - GitHub Actions run `32429947766` rebuilt all three approved GLBs, matched their object IDs, proved pointer stability, uploaded only those objects, deleted the runner's local LFS cache, fetched the branch objects back, and passed `git lfs fsck`.
 - Manifest/runtime integration, deployment, and live verification remain pending.
 - The runtime integration maps AA-11 to Accu, Pink Precision, the 8 / 4 / 10 / 3 / 5 / 6 profile, and all five approved driver frames under controlled revision `accu-runtime-20260820-1`.
-- Pink Precision uses native negative-Z forward with zero visual-root yaw. The build signature gate now requires all three AA-11 GLBs.
+- Manny's first live mobile chase-camera test found Pink Precision reversed: the cannon and heart-bullseye nose faced the chase camera. The earlier zero-yaw interpretation was incorrect.
+- Pink Precision now uses the shared `NEGATIVE_Z_KART_VISUAL_YAW` (`Math.PI`) correction. All production kart GLBs must declare `extras.forward: "-Z"`; the manifest validator rejects any production kart that does not use the shared correction, and the runtime-asset gate rejects missing or conflicting forward metadata.
 - Local validation on 2026-08-20 passed typecheck, ESLint with zero warnings, 44 Vitest tests across 13 files, the nine-GLB runtime signature gate, and the Vite production build. The existing large gameplay-chunk advisory remains non-blocking.
 - Deployment and product-owner desktop/mobile verification remain pending.
 - Status: **RUNTIME INTEGRATION PREPARED — automated validation and deployment next.**

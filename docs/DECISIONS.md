@@ -207,3 +207,15 @@ This log records approved or implementation-shaping decisions. Future sessions m
 - **Product impact:** Accu reads as a precise, friendly armored specialist with the descriptor “Perfect aim. Maximum armor.”
 - **Implementation impact:** `aa-11` is uniquely allocated; the approved portrait and five driver frames live in normal Git. Pink Precision's GLB and runtime integration remain separately approval-gated.
 - **Approval:** Manny's explicit approvals on 2026-08-20.
+
+## ADR-017: Enforce one production-kart orientation contract
+
+- **Date:** 2026-08-20
+- **Status:** Approved correction
+- **Context:** Potato, The Wayfinder, and Pink Precision each shipped backward on their first live chase-camera test. Builder metadata and character-specific interpretation repeatedly produced the wrong visual yaw.
+- **Options considered:** Continue correcting each character after deployment; remove forward metadata; require one authored-forward convention and one runtime transform for every production kart.
+- **Decision:** Every production kart GLB must declare `extras.forward: "-Z"`. Every production manifest entry with a kart must use the shared `NEGATIVE_Z_KART_VISUAL_YAW` (`Math.PI`) visual-root correction. CI parses each required GLB's JSON chunk to verify the metadata, and manifest validation rejects a production kart with a different yaw.
+- **Rationale:** One checked convention removes character-by-character guessing and catches the mismatch before deployment. Live chase/rear review remains required because camera evidence is the final visual authority.
+- **Product impact:** Production karts consistently point away from the chase camera, with their steering controls ahead of the driver and rear details behind.
+- **Implementation impact:** Kart builders, GLB validation, manifest entries, tests, character records, and manual matrices use the same convention. The correction never changes physics, checkpoints, controls, driver sprites, or camera coordinates.
+- **Approval:** Manny's instruction on 2026-08-20 to correct Pink Precision and prevent the repeated orientation failure.

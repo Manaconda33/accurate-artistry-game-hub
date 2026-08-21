@@ -20,6 +20,18 @@ for (const path of runtimeGlbs) {
     if (signature.toString('ascii') !== 'glTF') {
       throw new Error(`${path} is not a materialized GLB. Check Git LFS checkout.`);
     }
+    const chunkHeader = Buffer.alloc(8);
+    await file.read(chunkHeader, 0, chunkHeader.length, 12);
+    const jsonLength = chunkHeader.readUInt32LE(0);
+    if (chunkHeader.subarray(4).toString('ascii') !== 'JSON') {
+      throw new Error(`${path} does not begin with a glTF JSON chunk.`);
+    }
+    const jsonChunk = Buffer.alloc(jsonLength);
+    await file.read(jsonChunk, 0, jsonLength, 20);
+    const gltf = JSON.parse(jsonChunk.toString('utf8'));
+    if (gltf.extras?.forward !== '-Z') {
+      throw new Error(`${path} must declare extras.forward as -Z.`);
+    }
   } finally {
     await file.close();
   }

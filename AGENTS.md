@@ -9,6 +9,7 @@ For character work:
 - Keep each AA profile unique unless Manny approves a remap.
 - Treat deployed character art as an integration contract: use base-aware, revisioned runtime URLs for public assets; preload and select rear, steer-left, steer-right, hit, and victory frames; and preserve a visible rear-frame fallback if an optional frame fails.
 - Verify each approved kart in the actual chase and rear cameras. If a visual-root transform is needed to align the asset with runtime forward, keep physics and gameplay coordinates unchanged and record the transform in the character record and asset brief.
+- All production kart GLBs must declare `extras.forward: "-Z"`. In this runtime that convention requires the shared `NEGATIVE_Z_KART_VISUAL_YAW` (`Math.PI`) visual-root correction. Do not assign a character-specific zero yaw or infer orientation from builder labels. The manifest validator and runtime-asset gate must reject violations before deployment.
 
 For binary assets:
 

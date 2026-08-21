@@ -30,6 +30,10 @@ export interface CharacterDefinition {
 }
 
 export const STAT_TOTAL = 36;
+// Every production kart is authored and validated with glTF metadata
+// `extras.forward: "-Z"`. KartMesh's chase-camera visual convention is the
+// opposite, so the visual root must rotate PI without touching physics.
+export const NEGATIVE_Z_KART_VISUAL_YAW = Math.PI;
 
 export const LAVI_ASSET_REVISION = 'lavi-runtime-20260816-3';
 export const MANACONDA_ASSET_REVISION = 'manaconda-runtime-20260820-1';
@@ -47,7 +51,7 @@ const lavi: CharacterDefinition = {
   assetState: 'production',
   portrait: assetUrl('assets/characters/aa-02/portrait.png', LAVI_ASSET_REVISION),
   kart: assetUrl('assets/characters/aa-02/kart.glb', LAVI_ASSET_REVISION),
-  kartVisualYaw: Math.PI,
+  kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
   driver: {
     rear: assetUrl('assets/characters/aa-02/driver/rear.png', LAVI_ASSET_REVISION),
     steerLeft: assetUrl('assets/characters/aa-02/driver/steer-left.png', LAVI_ASSET_REVISION),
@@ -67,7 +71,7 @@ const manaconda: CharacterDefinition = {
   assetState: 'production',
   portrait: assetUrl('assets/characters/aa-09/portrait.png', MANACONDA_ASSET_REVISION),
   kart: assetUrl('assets/characters/aa-09/kart.glb', MANACONDA_ASSET_REVISION),
-  kartVisualYaw: Math.PI,
+  kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
   driver: {
     rear: assetUrl('assets/characters/aa-09/driver/rear.png', MANACONDA_ASSET_REVISION),
     steerLeft: assetUrl('assets/characters/aa-09/driver/steer-left.png', MANACONDA_ASSET_REVISION),
@@ -90,7 +94,7 @@ const accu: CharacterDefinition = {
   assetState: 'production',
   portrait: assetUrl('assets/characters/aa-11/portrait.png', ACCU_ASSET_REVISION),
   kart: assetUrl('assets/characters/aa-11/kart.glb', ACCU_ASSET_REVISION),
-  kartVisualYaw: 0,
+  kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
   driver: {
     rear: assetUrl('assets/characters/aa-11/driver/rear.png', ACCU_ASSET_REVISION),
     steerLeft: assetUrl('assets/characters/aa-11/driver/steer-left.png', ACCU_ASSET_REVISION),
@@ -153,6 +157,13 @@ export function validateCharacterManifest(
     const total = values.reduce((sum, value) => sum + value, 0);
     if (total !== STAT_TOTAL)
       errors.push(`${character.id} totals ${String(total)}, not ${String(STAT_TOTAL)}.`);
+    if (
+      character.assetState === 'production' &&
+      character.kart !== undefined &&
+      character.kartVisualYaw !== NEGATIVE_Z_KART_VISUAL_YAW
+    ) {
+      errors.push(`${character.id} production kart must use the enforced negative-Z visual yaw.`);
+    }
   }
   return errors;
 }
