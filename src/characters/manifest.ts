@@ -40,6 +40,7 @@ export const LAVI_ASSET_REVISION = 'lavi-runtime-20260816-3';
 export const MANACONDA_ASSET_REVISION = 'manaconda-runtime-20260820-1';
 export const ACCU_ASSET_REVISION = 'accu-runtime-20260820-1';
 export const KRAKEN_ASSET_REVISION = 'kraken-runtime-20260821-1';
+export const CLEO_ASSET_REVISION = 'cleo-runtime-20260821-1';
 
 const assetUrl = (path: string, revision: string): string =>
   `${import.meta.env.BASE_URL}${path}?v=${revision}`;
@@ -128,16 +129,37 @@ const kraken: CharacterDefinition = {
   stats: { speed: 6, acceleration: 7, weight: 5, handling: 6, miniTurbo: 9, traction: 3 },
 };
 
+const cleo: CharacterDefinition = {
+  id: 'aa-06',
+  displayName: 'Cleo',
+  descriptor: 'Steady hands. Flawless lines.',
+  initials: 'CL',
+  accent: '#d79a35',
+  assetState: 'production',
+  portrait: assetUrl('assets/characters/aa-06/portrait.png', CLEO_ASSET_REVISION),
+  kart: assetUrl('assets/characters/aa-06/kart.glb', CLEO_ASSET_REVISION),
+  kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  driver: {
+    rear: assetUrl('assets/characters/aa-06/driver/rear.png', CLEO_ASSET_REVISION),
+    front: assetUrl('assets/characters/aa-06/driver/front.png', CLEO_ASSET_REVISION),
+    steerLeft: assetUrl('assets/characters/aa-06/driver/steer-left.png', CLEO_ASSET_REVISION),
+    steerRight: assetUrl('assets/characters/aa-06/driver/steer-right.png', CLEO_ASSET_REVISION),
+    hit: assetUrl('assets/characters/aa-06/driver/hit.png', CLEO_ASSET_REVISION),
+    victory: assetUrl('assets/characters/aa-06/driver/victory.png', CLEO_ASSET_REVISION),
+  },
+  stats: { speed: 6, acceleration: 6, weight: 5, handling: 7, miniTurbo: 5, traction: 7 },
+};
+
 export const characterManifest: readonly CharacterDefinition[] = [
   lavi,
   manaconda,
   accu,
   kraken,
+  cleo,
   ...[
     ['aa-01', 'AA 01', 'Balanced Pilot', 'A1', '#9b7cff', [6, 6, 6, 6, 6, 6]],
     ['aa-03', 'AA 03', 'Grip Specialist', 'A3', '#58c6a8', [5, 6, 5, 8, 5, 7]],
     ['aa-04', 'AA 04', 'Launch Expert', 'A4', '#f3b84b', [6, 9, 3, 7, 7, 4]],
-    ['aa-06', 'AA 06', 'Road Bruiser', 'A6', '#e45c75', [7, 4, 9, 4, 5, 7]],
     ['aa-07', 'AA 07', 'Top-Speed Ace', 'A7', '#b76be2', [9, 4, 6, 5, 5, 7]],
     ['aa-08', 'AA 08', 'Off-Road Scout', 'A8', '#79b84a', [6, 5, 6, 5, 6, 8]],
     ['aa-10', 'AA 10', 'Heavy Cruiser', '10', '#c9824e', [8, 3, 9, 4, 4, 8]],
