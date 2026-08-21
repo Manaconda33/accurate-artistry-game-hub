@@ -33,6 +33,7 @@ export const STAT_TOTAL = 36;
 
 export const LAVI_ASSET_REVISION = 'lavi-runtime-20260816-3';
 export const MANACONDA_ASSET_REVISION = 'manaconda-runtime-20260820-1';
+export const ACCU_ASSET_REVISION = 'accu-runtime-20260820-1';
 
 const assetUrl = (path: string, revision: string): string =>
   `${import.meta.env.BASE_URL}${path}?v=${revision}`;
@@ -69,26 +70,41 @@ const manaconda: CharacterDefinition = {
   kartVisualYaw: Math.PI,
   driver: {
     rear: assetUrl('assets/characters/aa-09/driver/rear.png', MANACONDA_ASSET_REVISION),
-    steerLeft: assetUrl(
-      'assets/characters/aa-09/driver/steer-left.png',
-      MANACONDA_ASSET_REVISION,
-    ),
+    steerLeft: assetUrl('assets/characters/aa-09/driver/steer-left.png', MANACONDA_ASSET_REVISION),
     steerRight: assetUrl(
       'assets/characters/aa-09/driver/steer-right.png',
       MANACONDA_ASSET_REVISION,
     ),
     hit: assetUrl('assets/characters/aa-09/driver/hit.png', MANACONDA_ASSET_REVISION),
-    victory: assetUrl(
-      'assets/characters/aa-09/driver/victory.png',
-      MANACONDA_ASSET_REVISION,
-    ),
+    victory: assetUrl('assets/characters/aa-09/driver/victory.png', MANACONDA_ASSET_REVISION),
   },
   stats: { speed: 7, acceleration: 6, weight: 6, handling: 6, miniTurbo: 6, traction: 5 },
+};
+
+const accu: CharacterDefinition = {
+  id: 'aa-11',
+  displayName: 'Accu',
+  descriptor: 'Perfect aim. Maximum armor.',
+  initials: 'AC',
+  accent: '#ec4d91',
+  assetState: 'production',
+  portrait: assetUrl('assets/characters/aa-11/portrait.png', ACCU_ASSET_REVISION),
+  kart: assetUrl('assets/characters/aa-11/kart.glb', ACCU_ASSET_REVISION),
+  kartVisualYaw: 0,
+  driver: {
+    rear: assetUrl('assets/characters/aa-11/driver/rear.png', ACCU_ASSET_REVISION),
+    steerLeft: assetUrl('assets/characters/aa-11/driver/steer-left.png', ACCU_ASSET_REVISION),
+    steerRight: assetUrl('assets/characters/aa-11/driver/steer-right.png', ACCU_ASSET_REVISION),
+    hit: assetUrl('assets/characters/aa-11/driver/hit.png', ACCU_ASSET_REVISION),
+    victory: assetUrl('assets/characters/aa-11/driver/victory.png', ACCU_ASSET_REVISION),
+  },
+  stats: { speed: 8, acceleration: 4, weight: 10, handling: 3, miniTurbo: 5, traction: 6 },
 };
 
 export const characterManifest: readonly CharacterDefinition[] = [
   lavi,
   manaconda,
+  accu,
   ...[
     ['aa-01', 'AA 01', 'Balanced Pilot', 'A1', '#9b7cff', [6, 6, 6, 6, 6, 6]],
     ['aa-03', 'AA 03', 'Grip Specialist', 'A3', '#58c6a8', [5, 6, 5, 8, 5, 7]],
@@ -98,7 +114,6 @@ export const characterManifest: readonly CharacterDefinition[] = [
     ['aa-07', 'AA 07', 'Top-Speed Ace', 'A7', '#b76be2', [9, 4, 6, 5, 5, 7]],
     ['aa-08', 'AA 08', 'Off-Road Scout', 'A8', '#79b84a', [6, 5, 6, 5, 6, 8]],
     ['aa-10', 'AA 10', 'Heavy Cruiser', '10', '#c9824e', [8, 3, 9, 4, 4, 8]],
-    ['aa-11', 'AA 11', 'Technical All-Rounder', '11', '#4fc3cf', [6, 7, 5, 7, 6, 5]],
     ['aa-12', 'AA 12', 'Momentum Driver', '12', '#d56b55', [8, 5, 8, 4, 5, 6]],
   ].map(([id, displayName, descriptor, initials, accent, values]) => {
     const [speed, acceleration, weight, handling, miniTurbo, traction] = values as [
