@@ -117,6 +117,15 @@ Run this matrix for every future production character, in addition to its slice-
 - Chase and rear cameras confirm the kart’s nose and steering wheel face forward of the driver. Any visual-root rotation or other axis correction is recorded in that character’s record and asset brief.
 - Every production GLB declares `extras.forward: "-Z"`, and every production manifest entry uses `NEGATIVE_Z_KART_VISUAL_YAW`. Automated checks must fail if either side of this orientation contract changes independently.
 - A product-owner test on desktop and mobile confirms the portrait, controlled kart, driver states, and orientation. Record the tested deployment, commit, browser/device result, and limitations in implementation status.
+
+## Mobile finish-state matrix
+
+- Completing a race adds the `is-finished` state to the game shell before results become visible.
+- Lap, time, speed, position, surface, performance, drift guidance, game help, and touch-driving controls leave the finished mobile view.
+- The results card docks to the top of a portrait viewport and stays within 42% of the viewport height.
+- Standings scroll inside their own compact region; they do not expand the card over the kart or victory driver frame.
+- The lower chase-camera area remains unobstructed so the selected character's victory pose is visible.
+- The results card stays above all retired touch targets, and Return to Hub remains reachable without scrolling the page.
 - After the player finishes, the compact results panel leaves the live kart and victory pose clearly visible while all eight standings remain reachable.
 
 ## Manaconda / Wayfinder manual matrix
