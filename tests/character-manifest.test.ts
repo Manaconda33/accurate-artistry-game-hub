@@ -95,6 +95,7 @@ describe('character manifest', () => {
     expect(cleo.assetState).toBe('production');
     expect(cleo.kart).toContain(`/assets/characters/aa-06/kart.glb?v=${CLEO_ASSET_REVISION}`);
     expect(cleo.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(cleo.driverSpritePosition).toEqual([0, 0.9, -0.72]);
     expect(cleo.driver?.rear).toContain(`?v=${CLEO_ASSET_REVISION}`);
     expect(cleo.driver?.front).toContain(`?v=${CLEO_ASSET_REVISION}`);
     expect(cleo.driver?.steerLeft).toContain(`?v=${CLEO_ASSET_REVISION}`);

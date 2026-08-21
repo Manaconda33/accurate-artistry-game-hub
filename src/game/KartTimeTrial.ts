@@ -502,7 +502,7 @@ export class KartTimeTrial {
     );
     sprite.name = 'DriverSprite';
     sprite.scale.set(1.45, 1.45, 1);
-    sprite.position.set(0, 0.95, -0.12);
+    sprite.position.set(...(this.options.character.driverSpritePosition ?? [0, 0.95, -0.12]));
     this.kartMesh.add(sprite);
     this.driverSprite = sprite;
   }
@@ -653,7 +653,7 @@ export class KartTimeTrial {
               new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false }),
             );
             sprite.scale.set(1.45, 1.45, 1);
-            sprite.position.set(0, 0.95, -0.12);
+            sprite.position.set(...(character.driverSpritePosition ?? [0, 0.95, -0.12]));
             group.add(sprite);
           }
         },

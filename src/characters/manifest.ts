@@ -19,6 +19,7 @@ export interface CharacterDefinition {
   portrait?: string;
   kart?: string;
   kartVisualYaw?: number;
+  driverSpritePosition?: readonly [number, number, number];
   driver?: {
     rear: string;
     front?: string;
@@ -139,6 +140,7 @@ const cleo: CharacterDefinition = {
   portrait: assetUrl('assets/characters/aa-06/portrait.png', CLEO_ASSET_REVISION),
   kart: assetUrl('assets/characters/aa-06/kart.glb', CLEO_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  driverSpritePosition: [0, 0.9, -0.72],
   driver: {
     rear: assetUrl('assets/characters/aa-06/driver/rear.png', CLEO_ASSET_REVISION),
     front: assetUrl('assets/characters/aa-06/driver/front.png', CLEO_ASSET_REVISION),
