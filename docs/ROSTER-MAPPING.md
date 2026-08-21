@@ -29,20 +29,20 @@ Do not reserve or mark a profile `Assigned` before Manny approves the mapping. I
 
 Stat order is Speed / Acceleration / Weight / Handling / Mini-Turbo / Traction.
 
-| Profile | Archetype           | Class         | Stats                  | Status    | Character | Kart           | Approval          |
-| ------- | ------------------- | ------------- | ---------------------- | --------- | --------- | -------------- | ----------------- |
-| AA-01   | Feather Sprinter    | Featherweight | 6 / 9 / 2 / 8 / 7 / 4  | Available | -         | -              | -                 |
-| AA-02   | Feather Technician  | Featherweight | 5 / 8 / 2 / 9 / 8 / 4  | Assigned  | Lavi      | Potato         | Manny, 2026-08-16 |
-| AA-03   | Feather Dirt Ace    | Featherweight | 5 / 8 / 3 / 7 / 6 / 7  | Available | -         | -              | -                 |
-| AA-04   | Balanced Racer      | Medium        | 7 / 7 / 5 / 7 / 5 / 5  | Available | -         | -              | -                 |
-| AA-05   | Drift Specialist    | Medium        | 6 / 7 / 5 / 6 / 9 / 3  | Available | -         | -              | -                 |
-| AA-06   | Grip Specialist     | Medium        | 6 / 6 / 5 / 7 / 5 / 7  | Available | -         | -              | -                 |
-| AA-07   | High-Speed Cruiser  | Cruiser       | 8 / 6 / 7 / 5 / 4 / 6  | Available | -         | -              | -                 |
-| AA-08   | Turbo Bruiser       | Cruiser       | 7 / 5 / 7 / 4 / 8 / 5  | Available | -         | -              | -                 |
-| AA-09   | Technical Cruiser   | Cruiser       | 7 / 6 / 6 / 6 / 6 / 5  | Assigned  | Manaconda | The Wayfinder  | Manny, 2026-08-16 |
-| AA-10   | Straight-Line Heavy | Heavyweight   | 10 / 4 / 9 / 3 / 4 / 6 | Available | -         | -              | -                 |
-| AA-11   | Collision Tank      | Heavyweight   | 8 / 4 / 10 / 3 / 5 / 6 | Assigned  | Accu      | Pink Precision | Manny, 2026-08-20 |
-| AA-12   | All-Surface Heavy   | Heavyweight   | 8 / 5 / 8 / 4 / 4 / 7  | Available | -         | -              | -                 |
+| Profile | Archetype           | Class         | Stats                  | Status    | Character | Kart                | Approval          |
+| ------- | ------------------- | ------------- | ---------------------- | --------- | --------- | ------------------- | ----------------- |
+| AA-01   | Feather Sprinter    | Featherweight | 6 / 9 / 2 / 8 / 7 / 4  | Available | -         | -                   | -                 |
+| AA-02   | Feather Technician  | Featherweight | 5 / 8 / 2 / 9 / 8 / 4  | Assigned  | Lavi      | Potato              | Manny, 2026-08-16 |
+| AA-03   | Feather Dirt Ace    | Featherweight | 5 / 8 / 3 / 7 / 6 / 7  | Available | -         | -                   | -                 |
+| AA-04   | Balanced Racer      | Medium        | 7 / 7 / 5 / 7 / 5 / 5  | Available | -         | -                   | -                 |
+| AA-05   | Drift Specialist    | Medium        | 6 / 7 / 5 / 6 / 9 / 3  | Assigned  | Kraken    | The Abyssal Drifter | Manny, 2026-08-21 |
+| AA-06   | Grip Specialist     | Medium        | 6 / 6 / 5 / 7 / 5 / 7  | Available | -         | -                   | -                 |
+| AA-07   | High-Speed Cruiser  | Cruiser       | 8 / 6 / 7 / 5 / 4 / 6  | Available | -         | -                   | -                 |
+| AA-08   | Turbo Bruiser       | Cruiser       | 7 / 5 / 7 / 4 / 8 / 5  | Available | -         | -                   | -                 |
+| AA-09   | Technical Cruiser   | Cruiser       | 7 / 6 / 6 / 6 / 6 / 5  | Assigned  | Manaconda | The Wayfinder       | Manny, 2026-08-16 |
+| AA-10   | Straight-Line Heavy | Heavyweight   | 10 / 4 / 9 / 3 / 4 / 6 | Available | -         | -                   | -                 |
+| AA-11   | Collision Tank      | Heavyweight   | 8 / 4 / 10 / 3 / 5 / 6 | Assigned  | Accu      | Pink Precision      | Manny, 2026-08-20 |
+| AA-12   | All-Surface Heavy   | Heavyweight   | 8 / 5 / 8 / 4 / 4 / 7  | Available | -         | -                   | -                 |
 
 ## Locked mapping rationale
 
@@ -57,3 +57,7 @@ Manaconda is a prepared, heavily equipped explorer whose driving identity is com
 ### AA-11: Accu / Pink Precision
 
 Accu's compact tank-inspired kart is the roster's collision specialist. Weight 10 and Handling 3 reward committed lines and contact rather than quick corrections. Speed 8 keeps Pink Precision threatening once it builds momentum, while Acceleration 4 makes mistakes costly. Mini-Turbo 5 and Traction 6 preserve basic race usability without weakening the heavyweight identity. Manny approved the mapping on 2026-08-20.
+
+### AA-05: Kraken / The Abyssal Drifter
+
+Kraken is the roster's dedicated drift specialist. Mini-Turbo 9 rewards deliberate drift chains and repeated boost conversion. Acceleration 7 helps him recover momentum between corners, while Speed 6, Weight 5, and Handling 6 keep the profile controlled rather than twitchy. Traction 3 is the defining weakness: poor lines and off-road mistakes cost meaningful time. Manny approved the mapping on 2026-08-21.
