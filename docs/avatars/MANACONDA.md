@@ -7,7 +7,7 @@
 - **Kart lock:** *The Wayfinder*, approved by Manny on 2026-08-16
 - **Balance mapping lock:** AA-09 Technical Cruiser, approved by Manny on 2026-08-16
 - **Asset approval:** Portrait, all five driver states, and wheel-free Wayfinder GLBs approved by Manny on 2026-08-20
-- **Implementation verification:** Portrait, kart loading, wheel treatment, and steering states passed live mobile review; orientation correction pending redeployment
+- **Implementation verification:** Live mobile production checkpoint accepted; separate desktop evidence not yet recorded
 
 This record preserves Manny's supplied writing and racing image as a source reference. The image is approved for transformation into production game assets; its green explorer kart remains an example, not a visual lock.
 
@@ -53,8 +53,9 @@ This record preserves Manny's supplied writing and racing image as a source refe
 - The AA-09 manifest entry now selects Manaconda's portrait, five driver states, Wayfinder GLB, Technical Cruiser statistics, and controlled `manaconda-runtime-20260820-1` asset revision.
 - The first deployed integration at merge commit `63f2af05ba4a8631594786f2d4ea171b5278778a` passed portrait, Wayfinder loading, duplicate-wheel, and steering-state checks on Manny's mobile device. The chase-camera check failed because the navigation grille faced backward.
 - Runtime camera evidence supersedes the GLB metadata assumption: Wayfinder requires a 180-degree visual-root yaw to align its grille/navigation core with race forward. This transform changes only the rendered model; physics, controls, checkpoints, camera, and driver sprite remain unchanged.
-- Corrected deployment and live orientation confirmation remain pending.
+- Orientation hotfix merge `b88eb635bf928e52a5e34ad218b938fcd7610cfc` deployed through successful Actions run `32430647474`. Manny confirmed on mobile that the navigation grille now faces race-forward with the satchel and exhausts behind him.
+- The live mobile production package is accepted. A separate desktop check remains unrecorded under the cross-platform acceptance matrix.
 
 ## Next action
 
-Validate the integrated package, deploy the checkpoint, and verify character selection, kart loading, sprite placement/states, and orientation on desktop and mobile.
+Retain the accepted mobile package on main and record a desktop confirmation when that platform is next tested.

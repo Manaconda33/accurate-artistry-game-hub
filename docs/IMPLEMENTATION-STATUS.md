@@ -39,8 +39,9 @@ The approved Lavi package is now connected to a twelve-slot Character Select sca
 - Character Select labels AA-09 as Manaconda and The Wayfinder. The runtime asset signature gate now requires all three AA-09 GLBs.
 - Merge commit `63f2af05ba4a8631594786f2d4ea171b5278778a` deployed through successful Actions run `32429960640`. Manny's mobile test passed selection, portrait, production kart loading, duplicate-wheel removal, and left/right driver frames; orientation failed because the navigation grille faced the chase camera.
 - The orientation hotfix rotates only Wayfinder's visual root by 180 degrees. Physics, controls, checkpoints, camera coordinates, and driver sprites remain unchanged.
-- Corrected deployment and product-owner orientation confirmation remain pending.
-- Status: **MANUAL CHECK PARTIAL PASS — orientation correction in progress.**
+- Orientation hotfix merge `b88eb635bf928e52a5e34ad218b938fcd7610cfc` deployed through successful Actions run `32430647474`. Manny confirmed the corrected live mobile view: the navigation grille faces race-forward and the satchel/exhausts remain behind Manaconda.
+- Live mobile acceptance is complete for selection, portrait, production kart loading, duplicate-wheel removal, left/right driver states, and orientation. Separate desktop evidence remains unrecorded.
+- Status: **MOBILE PRODUCTION PASS — accepted; desktop confirmation pending when tested.**
 
 ## Slice 3 Lavi production checkpoint
 
