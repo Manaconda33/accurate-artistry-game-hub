@@ -6,7 +6,7 @@
 - Runtime ID: `aa-06`
 - Balance profile: AA-06 Grip Specialist
 - Kart: The Gilded Stitch
-- Package status: approved production package prepared; live verification pending
+- Package status: approved production package; live accepted
 
 ## Canonical character lock
 
@@ -65,4 +65,4 @@ The production model must declare `extras.forward: "-Z"` and use the shared `NEG
 
 ## Integration gate
 
-The approved package is prepared under controlled revision `cleo-runtime-20260821-1`. Do not merge the production manifest activation until the three GLBs are materialized through Git LFS and repository CI passes. Live selection, orientation, driver-state, and unique-opponent checks remain required after deployment.
+Complete. The approved GLBs are materialized through Git LFS, the runtime asset gate passes, AA-06 is active in the production manifest, and Manny accepted the live package on 2026-08-21. Cleo is selectable with the correct portrait, descriptor, and stats; The Gilded Stitch loads with its needle apparatus race-forward; front, rear, steering, hit, and victory states render; Cleo appears no more than once as an AI opponent; and the corrected driver mount places her inside the rear cockpit with the steering wheel ahead.
