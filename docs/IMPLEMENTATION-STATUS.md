@@ -4,6 +4,17 @@
 
 **Slice 3 - Character Selection & Avatar Ingestion: Lavi production checkpoint accepted**
 
+## Slice 3 Kraken intake and locks
+
+- Manny confirmed the supplied racing sheet as Kraken's definitive game likeness and The Abyssal Drifter as the definitive kart design on 2026-08-21.
+- Kraken is locked to AA-05 Drift Specialist: 6 / 7 / 5 / 6 / 9 / 3. `aa-05` is uniquely allocated in `docs/ROSTER-MAPPING.md`.
+- The approved character record and production brief are `docs/avatars/KRAKEN.md` and `docs/assets/KRAKEN-ASSET-BRIEF.md`.
+- Manny approved the portrait, front driver frame, neutral chase frame, steer-left, steer-right, hit, chase-camera victory, and front-view victory art.
+- Runtime derivatives are stored at `public/assets/characters/aa-05/`. The portrait is 256 x 256; all seven driver frames are 512 x 512. Every file is an sRGB RGBA PNG with genuine transparency.
+- Driver frames contain no kart or steering-wheel geometry. Chase-camera states preserve a forward-facing seated lower body; the victory frame turns Kraken's torso toward the viewer without rotating his hips into a full about-face.
+- The Abyssal Drifter GLB package, production manifest activation, deployment, and live desktop/mobile verification remain pending.
+- Status: **DRIVER ART CHECKPOINT PREPARED — kart production next after merge.**
+
 ## Mobile finish-state correction
 
 - Manny's mobile completion screenshot showed the desktop-centered standings card covering the play field and Accu's victory pose while obsolete HUD and touch-driving controls remained visible.

@@ -231,3 +231,15 @@ This log records approved or implementation-shaping decisions. Future sessions m
 - **Product impact:** Characters and their karts can appear as recognizable AI opponents, race lineups vary, and the player's finish animation remains visible.
 - **Implementation impact:** Roster selection is a tested sample-without-replacement operation. AI visuals load from the same manifest contract as the player. Front art becomes the sixth required driver state but remains approval-gated for existing characters until created.
 - **Approval:** Manny's instruction on 2026-08-20.
+
+## ADR-019: Lock Kraken to The Abyssal Drifter and AA-05
+
+- **Date:** 2026-08-21
+- **Status:** Approved
+- **Context:** Kraken's supplied racing sheet established both his definitive game likeness and a living Cthulhu-inspired kart. The character package also required a unique remaining balance profile before runtime paths could be assigned.
+- **Options considered:** Treat the sheet as loose inspiration; retain earlier hair and clothing notes; use the sheet as definitive and map Kraken to the available drift-specialist profile.
+- **Decision:** The supplied racing sheet defines Kraken's short cropped hair, pointed ears, green eyes, burgundy shirt, and controlled expression. His kart is The Abyssal Drifter, preserving the sheet's orange eyes, toothed maw, indigo-purple shell, cyan bioluminescence, copper trim, tentacle bodywork, and turbine-like wheels. Kraken receives AA-05 Drift Specialist.
+- **Rationale:** The decision follows Manny's authored reference and gives Kraken a distinct race identity built around drift-chain execution. Mini-Turbo 9 is balanced by Traction 3 and moderate speed, weight, and handling.
+- **Product impact:** Kraken will play as a medium-class drift specialist with a high reward for sustained cornering technique and a clear penalty for off-road mistakes.
+- **Implementation impact:** `aa-05` is uniquely allocated. The approved portrait, front frame, five chase-camera states, and separate front-victory frame live in normal Git. Production manifest activation remains gated on The Abyssal Drifter GLB package, LFS materialization, and live visual verification.
+- **Approval:** Manny's explicit character, kart, art, and AA-05 approvals on 2026-08-21.
