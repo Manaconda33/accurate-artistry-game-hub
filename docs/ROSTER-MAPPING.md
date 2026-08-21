@@ -36,7 +36,7 @@ Stat order is Speed / Acceleration / Weight / Handling / Mini-Turbo / Traction.
 | AA-03   | Feather Dirt Ace    | Featherweight | 5 / 8 / 3 / 7 / 6 / 7  | Available | -         | -                   | -                 |
 | AA-04   | Balanced Racer      | Medium        | 7 / 7 / 5 / 7 / 5 / 5  | Available | -         | -                   | -                 |
 | AA-05   | Drift Specialist    | Medium        | 6 / 7 / 5 / 6 / 9 / 3  | Assigned  | Kraken    | The Abyssal Drifter | Manny, 2026-08-21 |
-| AA-06   | Grip Specialist     | Medium        | 6 / 6 / 5 / 7 / 5 / 7  | Available | -         | -                   | -                 |
+| AA-06   | Grip Specialist     | Medium        | 6 / 6 / 5 / 7 / 5 / 7  | Assigned  | Cleo      | The Gilded Stitch   | Manny, 2026-08-21 |
 | AA-07   | High-Speed Cruiser  | Cruiser       | 8 / 6 / 7 / 5 / 4 / 6  | Available | -         | -                   | -                 |
 | AA-08   | Turbo Bruiser       | Cruiser       | 7 / 5 / 7 / 4 / 8 / 5  | Available | -         | -                   | -                 |
 | AA-09   | Technical Cruiser   | Cruiser       | 7 / 6 / 6 / 6 / 6 / 5  | Assigned  | Manaconda | The Wayfinder       | Manny, 2026-08-16 |
@@ -61,3 +61,7 @@ Accu's compact tank-inspired kart is the roster's collision specialist. Weight 1
 ### AA-05: Kraken / The Abyssal Drifter
 
 Kraken is the roster's dedicated drift specialist. Mini-Turbo 9 rewards deliberate drift chains and repeated boost conversion. Acceleration 7 helps him recover momentum between corners, while Speed 6, Weight 5, and Handling 6 keep the profile controlled rather than twitchy. Traction 3 is the defining weakness: poor lines and off-road mistakes cost meaningful time. Manny approved the mapping on 2026-08-21.
+
+### AA-06: Cleo / The Gilded Stitch
+
+Cleo is the roster's medium-class grip specialist. Handling 7 and Traction 7 reward precise, stable lines and make ordinary cornering and surface transitions forgiving. Speed 6, Acceleration 6, and Weight 5 keep her balanced, while Mini-Turbo 5 prevents her from replacing Kraken's drift-focused boost identity. Manny approved the mapping on 2026-08-21.
