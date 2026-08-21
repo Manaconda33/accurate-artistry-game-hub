@@ -57,9 +57,9 @@ Manny supplied the definitive character-and-kart reference and directed its use 
 - Driver art: Approved
 - Runtime PNG preparation: Complete
 - Kart GLB: Approved and prepared in three deterministic LODs
-- Manifest production integration: Prepared under controlled revision `kraken-runtime-20260821-1`
-- Live verification: Pending complete character-and-kart package
+- Manifest production integration: Complete under controlled revision `kraken-runtime-20260821-1`
+- Live verification: Accepted by Manny on 2026-08-21
 
 ## Next action
 
-Materialize the approved GLBs through Git LFS, pass the runtime asset gate, deploy the production manifest, and complete desktop/mobile player and AI verification.
+Kraken's production package is complete. Continue the governed one-character-at-a-time avatar intake workflow with the next approved racer.
