@@ -1,4 +1,5 @@
 name: Materialize approved Gilded Stitch LFS objects
+# Temporary branch-scoped bridge; remove before review and merge.
 
 on:
   push:
