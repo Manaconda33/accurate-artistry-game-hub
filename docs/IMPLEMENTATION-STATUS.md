@@ -17,8 +17,8 @@
 - GLB object IDs: LOD0 `4a28349e51b0f6936a67bc8160d1b627fb9f77144ab063368e863d644e64a5c9`; LOD1 `c000af29a53fa79810d759b460f7a6a3b72c2f1605b9ff300245c080a95a8bfe`; LOD2 `ca73a74e96ff58769abc83db3b8662b498445144f28497b58213d71022e13546`.
 - The branch-scoped Actions bridge rebuilt the three approved hashes, preserved their committed pointers, uploaded only those object IDs, and fetched them back. Follow-up CI run `32514042610` checked out LFS, passed `git lfs fsck`, verified all twelve runtime GLBs, ran 50 tests, and completed the production build. The temporary workflow was then removed before merge.
 - AA-05 is staged as a production manifest entry with Kraken's approved art, The Abyssal Drifter, Drift Specialist statistics, front-camera frame, and controlled revision `kraken-runtime-20260821-1`.
-- LFS materialization, deployment, and live desktop/mobile selection, player race, AI appearance, driver-state, and orientation verification remain pending.
-- Status: **APPROVED PRODUCTION PACKAGE PREPARED — LFS and deployment checks next.**
+- Manny completed the live product-owner acceptance check on 2026-08-21. Kraken was selectable with the correct portrait and stats; The Abyssal Drifter loaded instead of the fallback; its maw and orange eyes faced race-forward; rear, front, steering, hit, and victory frames rendered correctly; and Kraken appeared no more than once as an AI opponent when not selected.
+- Status: **LIVE ACCEPTED — KRAKEN PRODUCTION INTEGRATION COMPLETE.**
 
 ## Mobile finish-state correction
 
