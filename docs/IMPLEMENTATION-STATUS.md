@@ -2,7 +2,7 @@
 
 ## Current slice
 
-**Slice 3 - Character Selection & Avatar Ingestion: Cleo production package prepared; LFS and live verification pending**
+**Slice 3 - Character Selection & Avatar Ingestion: Cleo production checkpoint accepted**
 
 ## Slice 3 Cleo intake and driver-art checkpoint
 
@@ -20,7 +20,8 @@
 - Repository CI, deployment, and product-owner live visual checks remain approval-gated.
 - Manny's first live check passed Cleo's selection data, kart loading, race-forward needle apparatus, all driver states, and unique AI appearance. It failed cockpit integration: the generic sprite position placed Cleo ahead of the rear-biased cockpit, making the steering wheel appear behind her.
 - Correction: AA-06 now declares kart-group driver position `[0, 0.9, -0.72]`. Runtime kart-forward is positive Z, so this negative-Z offset moves Cleo rearward. Player and AI sprite creation both consume the character-specific mount, placing her in the cockpit while keeping the steering wheel ahead. No kart geometry, orientation, physics, camera, or approved art changed.
-- Status: **LIVE ACCEPTANCE PARTIAL — COCKPIT-MOUNT CORRECTION IN PROGRESS.**
+- Manny confirmed the corrected live build on 2026-08-21. Cleo now sits inside The Gilded Stitch's rear cockpit with the steering wheel ahead of her. Together with the first live check, selection data, production kart loading, race-forward orientation, front/rear/steering/hit/victory states, and unique AI appearance all pass.
+- Status: **LIVE ACCEPTED — CLEO PRODUCTION INTEGRATION COMPLETE.**
 
 ## Slice 3 Kraken intake and locks
 

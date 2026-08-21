@@ -54,10 +54,11 @@ Manny supplied the definitive character-and-kart reference, confirmed that he cr
 - Driver art: Approved
 - Runtime PNG preparation: Complete
 - Kart GLB: Approved and prepared in three deterministic LODs
-- Manifest production integration: Prepared under controlled revision `cleo-runtime-20260821-1`; live verification pending
+- Manifest production integration: Complete under controlled revision `cleo-runtime-20260821-1`
+- Live verification: Accepted by Manny on 2026-08-21
 
 The runtime driver sprite uses the character-specific kart-group position `[0, 0.9, -0.72]`, placing Cleo in the rear-biased cockpit with the steering wheel ahead of her rather than behind her back.
 
 ## Next action
 
-Publish and materialize The Gilded Stitch's three LFS objects, verify the deployed runtime package, and complete Cleo's live selection, orientation, state-art, and unique-opponent acceptance checks.
+Cleo's production package is complete. Continue the governed one-character-at-a-time avatar intake workflow with the next approved racer.
