@@ -2,7 +2,7 @@
 
 ## Current slice
 
-**Slice 3 - Character Selection & Avatar Ingestion: Cleo driver-art checkpoint approved; kart production pending**
+**Slice 3 - Character Selection & Avatar Ingestion: Cleo production package prepared; LFS and live verification pending**
 
 ## Slice 3 Cleo intake and driver-art checkpoint
 
@@ -12,8 +12,13 @@
 - Manny approved the portrait, front driver frame, neutral chase frame, steer-left, steer-right, hit, and chase-camera victory art.
 - Runtime derivatives are stored at `public/assets/characters/aa-06/`. The portrait is 256 x 256; all six driver frames are 512 x 512. Every file is an sRGB RGBA PNG with alpha spanning transparent to opaque and a transparent corner pixel.
 - Driver frames contain no kart or steering-wheel geometry. Chase-camera states preserve a seated lower body; the victory frame turns Cleo toward the viewer without becoming a front-facing driving frame.
-- The Gilded Stitch's three production GLBs, LFS materialization, controlled asset revision, manifest activation, and live visual checks remain approval-gated.
-- Status: **DRIVER ART APPROVED — KART PRODUCTION NEXT.**
+- Manny approved The Gilded Stitch LOD0 Candidate 3 after direct interactive GLB review. The approved design moves Cleo's cockpit rearward, uses one connected steering wheel, exposes the front needle and presser-foot assembly, clears all four wooden spool wheels from the chassis, and replaces floating decorative dots with continuous gold inlays attached to the navy side panels.
+- The deterministic builder is `tools/assets/build_cleo_gilded_stitch.py`. LOD0/1/2 contain 12,812 / 10,396 / 4,780 triangles, four opaque materials, the required thirteen-node hierarchy, and negative-Z forward metadata.
+- GLB object IDs: LOD0 `453ebc42da5745f7f5251323cd7a38a79add6538ee39dc9e512570c1c9905150`; LOD1 `a9013591726b3bbb43b102d3707fe9da24f2e1e8de24c929bbc6405e28357002`; LOD2 `3578b62d3c9fa332adb2b1ae7addb1d2b56201c7c8491a1075e847ff18caa79e`.
+- The branch-scoped Actions bridge rebuilt all three approved hashes, preserved their committed pointers, uploaded only those object IDs, and completed fetch-back verification. A clean `git lfs fetch origin agent/cleo-gilded-stitch` followed by `git lfs fsck` passed before the temporary workflow was removed.
+- AA-06 is prepared as a production manifest entry with Cleo's approved portrait and six driver states, The Gilded Stitch, Grip Specialist statistics, front-camera frame, and controlled revision `cleo-runtime-20260821-1`.
+- Repository CI, deployment, and product-owner live visual checks remain approval-gated.
+- Status: **LFS VERIFIED — REPOSITORY CI NEXT.**
 
 ## Slice 3 Kraken intake and locks
 

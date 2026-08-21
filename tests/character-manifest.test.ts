@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   ACCU_ASSET_REVISION,
+  CLEO_ASSET_REVISION,
   characterById,
   characterManifest,
   LAVI_ASSET_REVISION,
@@ -84,6 +85,29 @@ describe('character manifest', () => {
       handling: 6,
       miniTurbo: 9,
       traction: 3,
+    });
+  });
+
+  it('maps Cleo to The Gilded Stitch and the approved AA-06 profile', () => {
+    const cleo = characterById('aa-06');
+    expect(cleo.displayName).toBe('Cleo');
+    expect(cleo.descriptor).toBe('Steady hands. Flawless lines.');
+    expect(cleo.assetState).toBe('production');
+    expect(cleo.kart).toContain(`/assets/characters/aa-06/kart.glb?v=${CLEO_ASSET_REVISION}`);
+    expect(cleo.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(cleo.driver?.rear).toContain(`?v=${CLEO_ASSET_REVISION}`);
+    expect(cleo.driver?.front).toContain(`?v=${CLEO_ASSET_REVISION}`);
+    expect(cleo.driver?.steerLeft).toContain(`?v=${CLEO_ASSET_REVISION}`);
+    expect(cleo.driver?.steerRight).toContain(`?v=${CLEO_ASSET_REVISION}`);
+    expect(cleo.driver?.hit).toContain(`?v=${CLEO_ASSET_REVISION}`);
+    expect(cleo.driver?.victory).toContain(`?v=${CLEO_ASSET_REVISION}`);
+    expect(cleo.stats).toEqual({
+      speed: 6,
+      acceleration: 6,
+      weight: 5,
+      handling: 7,
+      miniTurbo: 5,
+      traction: 7,
     });
   });
 

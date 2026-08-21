@@ -53,9 +53,9 @@ Manny supplied the definitive character-and-kart reference, confirmed that he cr
 - Balance mapping: Approved, AA-06
 - Driver art: Approved
 - Runtime PNG preparation: Complete
-- Kart GLB: Not started
-- Manifest production integration: Deferred until the approved kart package is complete
+- Kart GLB: Approved and prepared in three deterministic LODs
+- Manifest production integration: Prepared under controlled revision `cleo-runtime-20260821-1`; live verification pending
 
 ## Next action
 
-Develop The Gilded Stitch as a three-LOD GLB package, secure direct 3D approval, validate the production orientation contract, and only then activate Cleo in the production manifest.
+Publish and materialize The Gilded Stitch's three LFS objects, verify the deployed runtime package, and complete Cleo's live selection, orientation, state-art, and unique-opponent acceptance checks.
