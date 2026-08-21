@@ -6,7 +6,7 @@
 - Runtime ID: `aa-05`
 - Balance profile: AA-05 Drift Specialist
 - Kart: The Abyssal Drifter
-- Package status: driver art approved; kart production pending
+- Package status: approved production package prepared; live verification pending
 
 ## Canonical character lock
 
@@ -56,8 +56,14 @@ The production model must declare `extras.forward: "-Z"` and use the shared `NEG
 - Portrait: 256 x 256, sRGB RGBA, transparent
 - Seven driver frames: 512 x 512, sRGB RGBA, transparent
 - Approved art contains no steering wheel or kart geometry
-- Kart GLB, LODs, triangle counts, hierarchy, LFS object IDs, and live orientation: pending
+- Manny approved LOD0 Candidate 3 on 2026-08-21 after reviewing the GLB directly in the interactive 3D viewer.
+- The approved steering assembly keeps the rim clear of the shell, mounts its column on the nose-facing side, and connects through an indigo-purple dashboard housing.
+- Runtime paths: `public/assets/characters/aa-05/{kart,kart-lod1,kart-lod2}.glb`.
+- Triangle counts: LOD0 18,724; LOD1 9,588; LOD2 4,376.
+- All three files use four opaque materials, the exact thirteen-node hierarchy, meters, and `extras.forward: "-Z"`.
+- SHA-256/LFS object IDs: LOD0 `4a28349e51b0f6936a67bc8160d1b627fb9f77144ab063368e863d644e64a5c9`; LOD1 `c000af29a53fa79810d759b460f7a6a3b72c2f1605b9ff300245c080a95a8bfe`; LOD2 `ca73a74e96ff58769abc83db3b8662b498445144f28497b58213d71022e13546`.
+- Live selection, player race, AI appearance, driver-state, and orientation evidence: pending deployment.
 
 ## Integration gate
 
-Do not mark `aa-05` as a production manifest entry until The Abyssal Drifter is approved, its three GLBs are materialized through Git LFS, the runtime asset gate passes, and desktop/mobile selection and race checks confirm the approved kart rather than the fallback.
+The approved package may enter the production manifest after all three GLBs are materialized through Git LFS and the runtime asset gate passes. Do not mark live acceptance complete until desktop/mobile selection and race checks confirm the approved kart rather than the fallback.

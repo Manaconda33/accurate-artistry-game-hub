@@ -18,7 +18,7 @@ Earlier visual notes describing a different hairstyle or more ornate gothic clot
 - Kart lock: Approved by Manny on 2026-08-21
 - Design authority: the supplied Kraken racing sheet is definitive
 
-The Abyssal Drifter is a living Cthulhu-inspired kart with an indigo and purple body, cyan bioluminescence, orange eyes, a toothed front maw, copper trim, tentacle bodywork, and turbine-like wheels. The approved reference controls its silhouette and signature details. Production GLB work remains pending.
+The Abyssal Drifter is a living Cthulhu-inspired kart with an indigo and purple body, cyan bioluminescence, orange eyes, a toothed front maw, copper trim, tentacle bodywork, and turbine-like wheels. The approved reference controls its silhouette and signature details. Manny approved LOD0 Candidate 3 on 2026-08-21. Its corrected steering wheel is separated from the shell and connected by a nose-side column and organic dashboard housing.
 
 ## Gameplay mapping
 
@@ -56,10 +56,10 @@ Manny supplied the definitive character-and-kart reference and directed its use 
 - Balance mapping: Approved, AA-05
 - Driver art: Approved
 - Runtime PNG preparation: Complete
-- Kart GLB: Pending
-- Manifest production integration: Pending kart completion
+- Kart GLB: Approved and prepared in three deterministic LODs
+- Manifest production integration: Prepared under controlled revision `kraken-runtime-20260821-1`
 - Live verification: Pending complete character-and-kart package
 
 ## Next action
 
-Build and approve The Abyssal Drifter GLB package under the shared negative-Z orientation contract. After kart approval and LFS materialization, connect Kraken to the production manifest, selection UI, player race handoff, and unique AI roster.
+Materialize the approved GLBs through Git LFS, pass the runtime asset gate, deploy the production manifest, and complete desktop/mobile player and AI verification.
