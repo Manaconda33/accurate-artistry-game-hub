@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Howler } from 'howler';
 import { playDriftTierTone } from '../audio/driftTone';
-import { createKartTuning, sliceOneDriver, type SurfaceType } from '../config/kartTuning';
+import { createKartTuning, type SurfaceType } from '../config/kartTuning';
 import { AiDriver } from './ai/AiDriver';
 import { ChaseCamera } from './camera/ChaseCamera';
 import { FixedStepRunner } from './physics/FixedStepRunner';
@@ -14,9 +14,10 @@ import { LapTracker } from './race/LapTracker';
 import { RaceDirector, rankRacers, type RacerProgress } from './race/RaceDirector';
 import { CircuitAlpha } from './track/CircuitAlpha';
 import { createTrackScene } from './track/createTrackScene';
-import type { CharacterDefinition } from '../characters/manifest';
+import { characterManifest, type CharacterDefinition } from '../characters/manifest';
+import { selectAiRoster } from '../characters/raceRoster';
 
-type DriverFrame = 'rear' | 'steerLeft' | 'steerRight' | 'hit' | 'victory';
+type DriverFrame = 'rear' | 'front' | 'steerLeft' | 'steerRight' | 'hit' | 'victory';
 
 export interface HudState {
   lap: number;
@@ -95,6 +96,7 @@ export class KartTimeTrial {
   private activeDriverFrame: DriverFrame = 'rear';
   private driverHitSeconds = 0;
   private playerSteering = 0;
+  private rearViewActive = false;
   private readonly playerProgress: RacerProgress = {
     id: 'player',
     lap: 0,
@@ -368,12 +370,8 @@ export class KartTimeTrial {
     const forward = this.kart.forward(this.forward);
     this.kartMesh.position.copy(position);
     this.kartMesh.rotation.y = Math.atan2(forward.x, forward.z);
-    this.chaseCamera.update(
-      position,
-      forward,
-      this.pressed.has('KeyC') || this.touchPressed.has('rear'),
-      dt,
-    );
+    this.rearViewActive = this.pressed.has('KeyC') || this.touchPressed.has('rear');
+    this.chaseCamera.update(position, forward, this.rearViewActive, dt);
     for (const opponent of this.opponents) {
       const opponentPosition = opponent.controller.position();
       const opponentForward = opponent.controller.forward();
@@ -471,18 +469,19 @@ export class KartTimeTrial {
     const driver = this.options.character.driver;
     if (driver === undefined) return;
     const loader = new THREE.TextureLoader();
-    const paths: Record<DriverFrame, string> = {
+    const paths: Partial<Record<DriverFrame, string>> = {
       rear: driver.rear,
+      front: driver.front,
       steerLeft: driver.steerLeft,
       steerRight: driver.steerRight,
       hit: driver.hit,
       victory: driver.victory,
     };
-    const rearTexture = loader.load(paths.rear);
+    const rearTexture = loader.load(driver.rear);
     rearTexture.colorSpace = THREE.SRGBColorSpace;
     this.driverTextures.set('rear', rearTexture);
-    for (const [frame, path] of Object.entries(paths) as [DriverFrame, string][]) {
-      if (frame === 'rear') continue;
+    for (const [frame, path] of Object.entries(paths) as [DriverFrame, string | undefined][]) {
+      if (frame === 'rear' || path === undefined) continue;
       loader.load(
         path,
         (texture) => {
@@ -514,11 +513,13 @@ export class KartTimeTrial {
       ? 'victory'
       : this.driverHitSeconds > 0
         ? 'hit'
-        : this.playerSteering > 0.15
-          ? 'steerLeft'
-          : this.playerSteering < -0.15
-            ? 'steerRight'
-            : 'rear';
+        : this.rearViewActive
+          ? 'front'
+          : this.playerSteering > 0.15
+            ? 'steerLeft'
+            : this.playerSteering < -0.15
+              ? 'steerRight'
+              : 'rear';
     this.applyDriverFrame(desired);
   }
 
@@ -580,15 +581,17 @@ export class KartTimeTrial {
 
   private createOpponents(spawn: THREE.Vector3, tangent: THREE.Vector3, yaw: number): void {
     const right = new THREE.Vector3(tangent.z, 0, -tangent.x);
-    const colors = [0xef476f, 0x06d6a0, 0x118ab2, 0xff9f1c, 0xe76f51, 0x7bdff2, 0xf15bb5];
+    const aiRoster = selectAiRoster(characterManifest, this.options.character.id, 7);
     for (let index = 0; index < 7; index += 1) {
+      const character = aiRoster[index];
+      if (character === undefined) continue;
       const row = Math.floor(index / 2) + 1;
       const side = index % 2 === 0 ? -1 : 1;
       const position = spawn
         .clone()
         .addScaledVector(tangent, -row * 3.2)
         .addScaledVector(right, side * 2.05);
-      const stats = { ...sliceOneDriver, speed: 5 + (index % 4), weight: 4 + (index % 5) };
+      const stats = character.stats;
       const controller = new KartController(
         this.world,
         createKartTuning(stats),
@@ -596,11 +599,11 @@ export class KartTimeTrial {
         position,
         yaw,
       );
-      const mesh = this.createOpponentVisual(colors[index] ?? 0xffffff);
+      const mesh = this.createOpponentVisual(character);
       this.scene.add(mesh);
       this.opponents.push({
         id: `ai-${String(index + 1)}`,
-        name: `RIVAL ${String(index + 1)}`,
+        name: character.displayName,
         controller,
         driver: new AiDriver(this.track, {
           laneOffset: side * (0.7 + row * 0.35),
@@ -623,11 +626,49 @@ export class KartTimeTrial {
     }
   }
 
-  private createOpponentVisual(color: number): THREE.Group {
+  private createOpponentVisual(character: CharacterDefinition): THREE.Group {
     const group = new THREE.Group();
+    if (character.kart !== undefined) {
+      void new GLTFLoader().loadAsync(character.kart).then(
+        (gltf) => {
+          const model = gltf.scene;
+          model.rotation.y = character.kartVisualYaw ?? 0;
+          const bounds = new THREE.Box3().setFromObject(model);
+          const size = bounds.getSize(new THREE.Vector3());
+          model.scale.setScalar(2.9 / Math.max(size.x, size.z, 0.001));
+          bounds.setFromObject(model);
+          model.position.y = -bounds.min.y - 0.42;
+          model.traverse((object) => {
+            if (object instanceof THREE.Mesh) {
+              object.castShadow = true;
+              object.receiveShadow = true;
+            }
+          });
+          group.clear();
+          group.add(model);
+          if (character.driver !== undefined) {
+            const texture = new THREE.TextureLoader().load(character.driver.rear);
+            texture.colorSpace = THREE.SRGBColorSpace;
+            const sprite = new THREE.Sprite(
+              new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false }),
+            );
+            sprite.scale.set(1.45, 1.45, 1);
+            sprite.position.set(0, 0.95, -0.12);
+            group.add(sprite);
+          }
+        },
+        () => {
+          console.warn(`Could not load AI kart for ${character.displayName}; using fallback.`);
+        },
+      );
+    }
     const chassis = new THREE.Mesh(
       new THREE.BoxGeometry(1.45, 0.52, 2.35),
-      new THREE.MeshStandardMaterial({ color, metalness: 0.25, roughness: 0.38 }),
+      new THREE.MeshStandardMaterial({
+        color: new THREE.Color(character.accent),
+        metalness: 0.25,
+        roughness: 0.38,
+      }),
     );
     chassis.position.y = 0.15;
     chassis.castShadow = true;

@@ -512,27 +512,29 @@ h2 {
 .finish-card {
   position: absolute;
   top: 50%;
-  left: 50%;
-  width: min(28rem, calc(100% - 2rem));
-  transform: translate(-50%, -50%);
-  padding: 2rem;
+  right: 1rem;
+  width: min(20rem, calc(100% - 2rem));
+  max-height: calc(100% - 2rem);
+  transform: translateY(-50%);
+  padding: 1.25rem;
   border: 1px solid rgb(255 255 255 / 18%);
   border-radius: 1.2rem;
   text-align: center;
-  background: rgb(17 9 27 / 93%);
+  background: rgb(17 9 27 / 84%);
+  backdrop-filter: blur(8px);
   box-shadow: 0 2rem 8rem #000;
 }
 .loading-card p {
   color: #cfc4d6;
 }
 .finish-card h2 {
-  margin: 0 auto 1.5rem;
-  font-size: 3rem;
+  margin: 0 auto 0.5rem;
+  font-size: 2.25rem;
   color: #f6d66a;
 }
 .standings {
-  max-height: 15rem;
-  margin: 1rem 0 1.5rem;
+  max-height: 11rem;
+  margin: 0.75rem 0 1rem;
   padding: 0;
   overflow-y: auto;
   list-style: none;

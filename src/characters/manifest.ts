@@ -21,6 +21,7 @@ export interface CharacterDefinition {
   kartVisualYaw?: number;
   driver?: {
     rear: string;
+    front?: string;
     steerLeft: string;
     steerRight: string;
     hit: string;
