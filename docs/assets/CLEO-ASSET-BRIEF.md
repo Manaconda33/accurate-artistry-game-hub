@@ -61,6 +61,7 @@ The production model must declare `extras.forward: "-Z"` and use the shared `NEG
 - Triangle counts: LOD0 12,812; LOD1 10,396; LOD2 4,780.
 - All three files use four opaque materials, the exact thirteen-node hierarchy, meters, and `extras.forward: "-Z"`.
 - SHA-256/LFS object IDs: LOD0 `453ebc42da5745f7f5251323cd7a38a79add6538ee39dc9e512570c1c9905150`; LOD1 `a9013591726b3bbb43b102d3707fe9da24f2e1e8de24c929bbc6405e28357002`; LOD2 `3578b62d3c9fa332adb2b1ae7addb1d2b56201c7c8491a1075e847ff18caa79e`.
+- Runtime driver placement: Cleo uses character-specific sprite position `[0, 0.9, -0.72]` in the kart group. Runtime kart-forward is positive Z, so the negative-Z offset moves her rearward into The Gilded Stitch's approved cockpit and leaves its steering wheel ahead of her. The same placement applies to player and AI instances.
 
 ## Integration gate
 

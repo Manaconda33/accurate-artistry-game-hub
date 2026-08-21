@@ -18,7 +18,9 @@
 - The branch-scoped Actions bridge rebuilt all three approved hashes, preserved their committed pointers, uploaded only those object IDs, and completed fetch-back verification. A clean `git lfs fetch origin agent/cleo-gilded-stitch` followed by `git lfs fsck` passed before the temporary workflow was removed.
 - AA-06 is prepared as a production manifest entry with Cleo's approved portrait and six driver states, The Gilded Stitch, Grip Specialist statistics, front-camera frame, and controlled revision `cleo-runtime-20260821-1`.
 - Repository CI, deployment, and product-owner live visual checks remain approval-gated.
-- Status: **LFS VERIFIED — REPOSITORY CI NEXT.**
+- Manny's first live check passed Cleo's selection data, kart loading, race-forward needle apparatus, all driver states, and unique AI appearance. It failed cockpit integration: the generic sprite position placed Cleo ahead of the rear-biased cockpit, making the steering wheel appear behind her.
+- Correction: AA-06 now declares kart-group driver position `[0, 0.9, -0.72]`. Runtime kart-forward is positive Z, so this negative-Z offset moves Cleo rearward. Player and AI sprite creation both consume the character-specific mount, placing her in the cockpit while keeping the steering wheel ahead. No kart geometry, orientation, physics, camera, or approved art changed.
+- Status: **LIVE ACCEPTANCE PARTIAL — COCKPIT-MOUNT CORRECTION IN PROGRESS.**
 
 ## Slice 3 Kraken intake and locks
 
