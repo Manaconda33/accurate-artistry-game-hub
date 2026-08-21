@@ -219,3 +219,15 @@ This log records approved or implementation-shaping decisions. Future sessions m
 - **Product impact:** Production karts consistently point away from the chase camera, with their steering controls ahead of the driver and rear details behind.
 - **Implementation impact:** Kart builders, GLB validation, manifest entries, tests, character records, and manual matrices use the same convention. The correction never changes physics, checkpoints, controls, driver sprites, or camera coordinates.
 - **Approval:** Manny's instruction on 2026-08-20 to correct Pink Precision and prevent the repeated orientation failure.
+
+## ADR-018: Use unique manifest identities for every race grid
+
+- **Date:** 2026-08-20
+- **Status:** Approved
+- **Context:** The AI grid used seven generic procedural rivals even after production characters and karts became available. The reverse camera also lacked character art facing the camera, and the centered finish card obscured the player's victory pose.
+- **Options considered:** Keep generic AI visuals; always force every production identity into each race; sample the manifest without replacement and load production packages when selected.
+- **Decision:** Each race excludes the player and randomly samples seven unique manifest identities. Production selections load their approved kart and rear driver art; unfinished selections use the governed fallback. Every production package adds a separately approved `front.png` for front-facing camera views. Results dock away from the center of the race view.
+- **Rationale:** The grid now reflects the growing roster without duplicates or a fixed lineup, while unfinished identities remain honest placeholders. A dedicated front frame preserves character anatomy and cockpit continuity. The compact results treatment keeps the victory artwork visible.
+- **Product impact:** Characters and their karts can appear as recognizable AI opponents, race lineups vary, and the player's finish animation remains visible.
+- **Implementation impact:** Roster selection is a tested sample-without-replacement operation. AI visuals load from the same manifest contract as the player. Front art becomes the sixth required driver state but remains approval-gated for existing characters until created.
+- **Approval:** Manny's instruction on 2026-08-20.

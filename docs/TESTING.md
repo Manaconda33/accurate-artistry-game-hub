@@ -84,6 +84,8 @@ Code presence alone is not completion evidence.
 - Mobile/coarse-pointer session: touch controls appear only in gameplay and support simultaneous accelerate-plus-steer and drift-plus-steer input.
 - Countdown prevents an early start and transitions through 3, 2, 1, and GO.
 - Exactly seven visible opponents join the player, live position changes during overtakes, and collisions do not produce sustained vibration.
+- The player identity is absent from the AI grid, all seven AI identities are unique, and repeated races vary the sampled roster.
+- A sampled production identity displays its approved kart and rear driver frame. A sampled unfinished identity remains an explicit fallback and never borrows another character's art.
 - AI racers follow the course, recover after displacement, overtake, and complete validated laps without player involvement.
 - Player completion records a placement from first through eighth and presents standings.
 - Drift tiers, boost pads, ramp/stunt boost, off-road floors, recovery, rear view, and three-lap validation regressions remain functional.
@@ -111,10 +113,11 @@ Run this matrix for every future production character, in addition to its slice-
 - CI uses an LFS-materialized checkout, passes `git lfs fsck`, and the production build rejects a pointer or bad binary signature at each required kart path.
 - The deployed response uses the current controlled asset revision (or changed filename), not a cached response from an earlier object.
 - The selected production kart loads in the live deployment; a fallback kart is evidence of a failed delivery check, not a passing degraded experience.
-- All five approved driver states are preloaded. Rear is the safe fallback; visual left/right select the matching steer frame, hit overrides steering briefly, and victory overrides normal driving after the player finishes.
+- All six approved driver states are preloaded. Rear is the safe fallback; the reverse camera selects front, visual left/right select the matching steer frame, hit overrides steering briefly, and victory overrides normal driving after the player finishes.
 - Chase and rear cameras confirm the kart’s nose and steering wheel face forward of the driver. Any visual-root rotation or other axis correction is recorded in that character’s record and asset brief.
 - Every production GLB declares `extras.forward: "-Z"`, and every production manifest entry uses `NEGATIVE_Z_KART_VISUAL_YAW`. Automated checks must fail if either side of this orientation contract changes independently.
 - A product-owner test on desktop and mobile confirms the portrait, controlled kart, driver states, and orientation. Record the tested deployment, commit, browser/device result, and limitations in implementation status.
+- After the player finishes, the compact results panel leaves the live kart and victory pose clearly visible while all eight standings remain reachable.
 
 ## Manaconda / Wayfinder manual matrix
 

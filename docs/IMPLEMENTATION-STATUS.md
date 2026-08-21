@@ -4,6 +4,13 @@
 
 **Slice 3 - Character Selection & Avatar Ingestion: Lavi production checkpoint accepted**
 
+## August 20 roster-grid and finish-presentation amendment
+
+- PRD amendment 1.6 adds a separately approved 512 x 512 `front.png` to every production character package for camera views facing the front of the kart. Existing approved art remains unchanged; front candidates for Lavi, Manaconda, and Accu are pending.
+- The AI grid now samples seven unique manifest identities after excluding the player. Production selections load their approved kart and rear driver frame; unfinished selections retain the governed fallback.
+- The finish panel is docked to the right, reduced in size, and partially translucent so the live kart and victory pose remain visible. All eight standings remain scrollable.
+- Local validation passed on 2026-08-20: strict TypeScript, ESLint with zero warnings, 48 Vitest tests across 14 files, nine materialized runtime GLBs, and the Vite production build. Desktop/mobile live confirmation remains required before this amendment can pass.
+
 The approved Lavi package is now connected to a twelve-slot Character Select scaffold. Lavi is the default production entry; all other slots deliberately retain monogram portraits, fallback karts, and unassigned community identities until their one-at-a-time approval gates are complete.
 
 ## Slice 3 Accu intake and locks

@@ -6,7 +6,7 @@
 
 High-Fidelity HTML5 Kart Racer Vertical Slice + Modular Mini-Game Hub
 
-Version 1.1 - Final approved baseline; working implementation amendment 1.5
+Version 1.1 - Final approved baseline; working implementation amendment 1.6
 
 August 16, 2026
 
@@ -29,6 +29,10 @@ Approved August 16, 2026 with product-owner authorization to add mobile controls
 ## Approved implementation amendment 1.5 - Runtime character asset delivery contract
 
 Approved August 16, 2026 after Lavi’s production integration was manually confirmed on mobile. Every character package delivered through `public/assets/characters/` must be validated in the deployed build, not only in source. Production Pages checkout must materialize Git LFS objects, pass `git lfs fsck`, and fail the build if a required GLB is an LFS pointer or lacks its expected binary signature. Stable public asset paths must use a base-aware controlled revision query or a changed filename whenever their bytes change, so browser and edge caches cannot reuse a previously bad response. The runtime must preload and select the approved rear, steer-left, steer-right, hit, and victory driver frames while retaining a visible rear-frame fallback. Each kart must be visually inspected from chase and rear cameras; if its authored forward axis disagrees with the runtime, a documented visual-root transform may correct it without altering physics, checkpoints, input, or camera coordinates. This amendment adds repeatable delivery and acceptance evidence to Slice 3; it does not approve any unapproved avatar identity or begin the next slice.
+
+## Approved implementation amendment 1.6 - Front driver art, character AI grid, and visible victory pose
+
+Approved August 20, 2026. Every production character package must add `front.png`, a 512 x 512 transparent front-facing seated driver frame used when the race camera faces the front of that character's kart. The existing five approved frames remain valid; front art is separately approval-gated and may not be inferred, mirrored, or substituted as approved production art. Each race randomly selects seven unique AI identities from the manifest after excluding the player's identity. No character may appear more than once in one race. An AI identity with production assets must load its approved kart and rear driver frame; unfinished identities retain the governed fallback kart and monogram treatment. The finish presentation must leave the live race view and player victory pose visible instead of covering the central play area. These requirements refine Slice 3 asset delivery, the already-completed-early Slice 4 grid, and Slice 6 results presentation without changing the eight-racer count.
 
 # Contents
 
@@ -669,6 +673,8 @@ Pause freezes player, AI, projectiles, timers, lap timer, and item roulette. Mus
 
 Results must include all eight racers and finishing times.
 
+The results panel must be docked away from the center of the live race view, remain compact enough to preserve a clear view of the player's kart and victory pose, and keep all eight standings reachable by scrolling when required.
+
 # 11. Character & Avatar Pipeline Specification
 
 ## 11.1 Roster Philosophy
@@ -772,9 +778,11 @@ PNG
 transparent  
 sRGB  
   
-Required: rear.png / steer-left.png / steer-right.png / hit.png / victory.png
+Required: rear.png / front.png / steer-left.png / steer-right.png / hit.png / victory.png
 
 Rear is the default seated driving frame. Left and right trigger on hard steering or corresponding drift. Hit triggers for spinout, explosive hit, or major collision stun. Victory triggers after finish, on podium, and optionally for a major Purple Burst boost.
+
+Front is the seated view used only when the camera faces the front of the kart. It must preserve character identity, cockpit placement, steering-hand continuity, and kart occlusion. Front art requires its own product-owner approval and may not be created by mirroring another frame.
 
 ## 11.6 Sprite Atlas
 
@@ -802,7 +810,7 @@ Driver sprite is rendered on a kart-mounted plane parented to DriverMount. It fo
 
 ## 11.8 Rear-View Camera
 
-C activates a backward-looking camera. The reverse camera does not require a dedicated front-facing driver frame. Camera placement should avoid making the player sprite dominate the view or expose missing front artwork.
+C activates a backward-looking camera. While the camera faces the front of the player's kart, the runtime uses the approved front-facing driver frame. Before that frame is approved, the runtime must use a clearly recorded provisional fallback without presenting it as final art. Camera placement should keep the driver seated in the cockpit and preserve the kart silhouette.
 
 ## 11.9 3D Kart Specification
 
@@ -2087,6 +2095,10 @@ Turn the time trial into a complete competitive race.
 - all eight racers receive finish positions
 
 - repeated races show meaningful order variation
+
+- seven AI identities are sampled from the available roster without duplicating the player or each other
+
+- every sampled production identity loads its approved kart and rear driver frame; sampled unfinished identities use governed fallbacks
 
 ### Evidence Required
 
