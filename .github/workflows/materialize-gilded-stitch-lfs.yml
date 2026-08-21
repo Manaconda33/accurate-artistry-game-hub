@@ -1,0 +1,50 @@
+name: Materialize approved Gilded Stitch LFS objects
+
+on:
+  push:
+    branches:
+      - agent/cleo-gilded-stitch
+    paths:
+      - .github/workflows/materialize-gilded-stitch-lfs.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+          ref: agent/cleo-gilded-stitch
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned builder dependencies
+        run: python -m pip install numpy==2.3.5 matplotlib==3.10.8
+      - name: Rebuild approved Gilded Stitch models
+        env:
+          MPLBACKEND: Agg
+        run: |
+          GILDED_STITCH_LOD=LOD0 GILDED_STITCH_OUT=public/assets/characters/aa-06/kart.glb GILDED_STITCH_SKIP_PREVIEW=1 python tools/assets/build_cleo_gilded_stitch.py
+          GILDED_STITCH_LOD=LOD1 GILDED_STITCH_OUT=public/assets/characters/aa-06/kart-lod1.glb GILDED_STITCH_SKIP_PREVIEW=1 python tools/assets/build_cleo_gilded_stitch.py
+          GILDED_STITCH_LOD=LOD2 GILDED_STITCH_OUT=public/assets/characters/aa-06/kart-lod2.glb GILDED_STITCH_SKIP_PREVIEW=1 python tools/assets/build_cleo_gilded_stitch.py
+      - name: Verify approved object IDs and pointer stability
+        run: |
+          echo "453ebc42da5745f7f5251323cd7a38a79add6538ee39dc9e512570c1c9905150  public/assets/characters/aa-06/kart.glb" | sha256sum -c -
+          echo "a9013591726b3bbb43b102d3707fe9da24f2e1e8de24c929bbc6405e28357002  public/assets/characters/aa-06/kart-lod1.glb" | sha256sum -c -
+          echo "3578b62d3c9fa332adb2b1ae7addb1d2b56201c7c8491a1075e847ff18caa79e  public/assets/characters/aa-06/kart-lod2.glb" | sha256sum -c -
+          git add -- public/assets/characters/aa-06/kart.glb public/assets/characters/aa-06/kart-lod1.glb public/assets/characters/aa-06/kart-lod2.glb
+          git diff --cached --exit-code
+      - name: Upload only approved LFS objects
+        run: |
+          git lfs push origin --object-id 453ebc42da5745f7f5251323cd7a38a79add6538ee39dc9e512570c1c9905150
+          git lfs push origin --object-id a9013591726b3bbb43b102d3707fe9da24f2e1e8de24c929bbc6405e28357002
+          git lfs push origin --object-id 3578b62d3c9fa332adb2b1ae7addb1d2b56201c7c8491a1075e847ff18caa79e
+      - name: Fetch back and verify
+        run: |
+          rm -rf .git/lfs/objects
+          git lfs fetch origin agent/cleo-gilded-stitch
+          git lfs fsck
