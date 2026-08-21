@@ -4,6 +4,12 @@
 
 **Slice 3 - Character Selection & Avatar Ingestion: Lavi production checkpoint accepted**
 
+## Mobile finish-state correction
+
+- Manny's mobile completion screenshot showed the desktop-centered standings card covering the play field and Accu's victory pose while obsolete HUD and touch-driving controls remained visible.
+- The finished game shell now retires driving HUD and controls, docks a compact results card to the top of portrait viewports, constrains standings to an internal scroll region, and preserves the lower chase-camera area for the victory frame.
+- Automated validation covers the required `is-finished` state. Deployment and product-owner mobile confirmation remain pending.
+
 ## August 20 roster-grid and finish-presentation amendment
 
 - PRD amendment 1.6 adds a separately approved 512 x 512 `front.png` to every production character package for camera views facing the front of the kart. Existing approved art remains unchanged; front candidates for Lavi, Manaconda, and Accu are pending.

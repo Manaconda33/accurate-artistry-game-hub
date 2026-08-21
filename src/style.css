@@ -524,6 +524,15 @@ h2 {
   backdrop-filter: blur(8px);
   box-shadow: 0 2rem 8rem #000;
 }
+.finish-card {
+  z-index: 6;
+}
+.game-shell.is-finished .hud,
+.game-shell.is-finished .drift-panel,
+.game-shell.is-finished .game-help,
+.game-shell.is-finished .touch-controls {
+  display: none;
+}
 .loading-card p {
   color: #cfc4d6;
 }
@@ -675,6 +684,43 @@ h2 {
   }
   .position-hud {
     top: 4.9rem;
+  }
+  .game-shell.is-finished .finish-card {
+    display: flex;
+    flex-direction: column;
+    top: max(0.75rem, env(safe-area-inset-top));
+    right: auto;
+    left: 50%;
+    width: min(30rem, calc(100% - 1.5rem));
+    max-height: min(42vh, 22rem);
+    transform: translateX(-50%);
+    overflow: hidden;
+    padding: 0.7rem 0.9rem 0.85rem;
+    border-radius: 1rem;
+  }
+  .game-shell.is-finished .finish-card .eyebrow {
+    margin-bottom: 0.15rem;
+  }
+  .game-shell.is-finished .finish-card h2 {
+    margin-bottom: 0.1rem;
+    font-size: clamp(1.8rem, 9vw, 2.5rem);
+  }
+  .game-shell.is-finished .finish-card > p:not(.eyebrow) {
+    margin: 0.15rem 0;
+  }
+  .game-shell.is-finished .standings {
+    min-height: 0;
+    max-height: min(7.5rem, 17vh);
+    margin: 0.4rem 0 0.55rem;
+  }
+  .game-shell.is-finished .standings li {
+    padding: 0.25rem;
+    font-size: 0.82rem;
+  }
+  .game-shell.is-finished .finish-card .menu-button {
+    width: auto;
+    min-height: 2.6rem;
+    padding: 0.55rem 1.2rem;
   }
 }
 

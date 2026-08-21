@@ -6,6 +6,10 @@ import { characterById, characterManifest, type CharacterDefinition } from '../c
 
 export const APP_TITLE = 'Accurate Artistry Game Hub';
 
+export function markGameFinished(shell: HTMLElement): void {
+  shell.classList.add('is-finished');
+}
+
 function formatTime(seconds: number): string {
   const minutes = Math.floor(seconds / 60);
   const remainder = seconds - minutes * 60;
@@ -215,6 +219,8 @@ export function mountAppShell(root: HTMLElement): void {
       character: selectedCharacter,
       onHud: updateHud,
       onFinish: (result) => {
+        const gameShell = getElement('.game-shell');
+        markGameFinished(gameShell);
         getElement('#finish').hidden = false;
         const suffix =
           result.place === 1 ? 'st' : result.place === 2 ? 'nd' : result.place === 3 ? 'rd' : 'th';

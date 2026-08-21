@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { APP_TITLE, mountAppShell } from '../src/app/mountAppShell';
+import { APP_TITLE, markGameFinished, mountAppShell } from '../src/app/mountAppShell';
 
 describe('Slice 0 app shell', () => {
   it('mounts the product title without entering gameplay', () => {
@@ -48,5 +48,14 @@ describe('Slice 0 app shell', () => {
     expect(root.querySelector('[data-character="aa-02"] .portrait-fallback')?.textContent).toBe(
       'LV',
     );
+  });
+
+  it('marks the game shell so finished-race controls can clear the victory view', () => {
+    const shell = document.createElement('section');
+    shell.className = 'game-shell';
+
+    markGameFinished(shell);
+
+    expect(shell.classList.contains('is-finished')).toBe(true);
   });
 });
