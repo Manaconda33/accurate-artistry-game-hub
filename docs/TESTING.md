@@ -113,6 +113,7 @@ Run this matrix for every future production character, in addition to its slice-
 - The selected production kart loads in the live deployment; a fallback kart is evidence of a failed delivery check, not a passing degraded experience.
 - All five approved driver states are preloaded. Rear is the safe fallback; visual left/right select the matching steer frame, hit overrides steering briefly, and victory overrides normal driving after the player finishes.
 - Chase and rear cameras confirm the kart’s nose and steering wheel face forward of the driver. Any visual-root rotation or other axis correction is recorded in that character’s record and asset brief.
+- Every production GLB declares `extras.forward: "-Z"`, and every production manifest entry uses `NEGATIVE_Z_KART_VISUAL_YAW`. Automated checks must fail if either side of this orientation contract changes independently.
 - A product-owner test on desktop and mobile confirms the portrait, controlled kart, driver states, and orientation. Record the tested deployment, commit, browser/device result, and limitations in implementation status.
 
 ## Manaconda / Wayfinder manual matrix

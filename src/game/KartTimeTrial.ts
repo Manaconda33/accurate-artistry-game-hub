@@ -435,9 +435,9 @@ export class KartTimeTrial {
       try {
         const gltf = await new GLTFLoader().loadAsync(this.options.character.kart);
         const model = gltf.scene;
-        // Keep physics untouched and apply only the character package's
-        // documented visual-axis correction. Potato needs PI; Wayfinder is
-        // authored with the runtime's native -Z forward and needs zero.
+        // Keep physics untouched and apply only the manifest's enforced
+        // visual-axis correction. Production GLBs use `extras.forward: -Z`;
+        // this visual root requires PI to face away from the chase camera.
         model.rotation.y = this.options.character.kartVisualYaw ?? 0;
         const bounds = new THREE.Box3().setFromObject(model);
         const size = bounds.getSize(new THREE.Vector3());

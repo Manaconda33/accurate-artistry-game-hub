@@ -5,6 +5,7 @@ import {
   characterManifest,
   LAVI_ASSET_REVISION,
   MANACONDA_ASSET_REVISION,
+  NEGATIVE_Z_KART_VISUAL_YAW,
   statValues,
   STAT_TOTAL,
   validateCharacterManifest,
@@ -24,7 +25,7 @@ describe('character manifest', () => {
     expect(manaconda.kart).toContain(
       `/assets/characters/aa-09/kart.glb?v=${MANACONDA_ASSET_REVISION}`,
     );
-    expect(manaconda.kartVisualYaw).toBe(Math.PI);
+    expect(manaconda.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
     expect(manaconda.driver?.rear).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
     expect(manaconda.driver?.steerLeft).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
     expect(manaconda.driver?.steerRight).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
@@ -46,7 +47,7 @@ describe('character manifest', () => {
     expect(accu.descriptor).toBe('Perfect aim. Maximum armor.');
     expect(accu.assetState).toBe('production');
     expect(accu.kart).toContain(`/assets/characters/aa-11/kart.glb?v=${ACCU_ASSET_REVISION}`);
-    expect(accu.kartVisualYaw).toBe(0);
+    expect(accu.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
     expect(accu.driver?.rear).toContain(`?v=${ACCU_ASSET_REVISION}`);
     expect(accu.driver?.steerLeft).toContain(`?v=${ACCU_ASSET_REVISION}`);
     expect(accu.driver?.steerRight).toContain(`?v=${ACCU_ASSET_REVISION}`);
@@ -88,5 +89,14 @@ describe('character manifest', () => {
 
   it('falls back to Lavi for an unknown selection id', () => {
     expect(characterById('missing').id).toBe('aa-02');
+  });
+
+  it('rejects a production kart that bypasses the enforced orientation contract', () => {
+    const invalid = characterManifest.map((character) =>
+      character.id === 'aa-11' ? { ...character, kartVisualYaw: 0 } : character,
+    );
+    expect(validateCharacterManifest(invalid)).toContain(
+      'aa-11 production kart must use the enforced negative-Z visual yaw.',
+    );
   });
 });
