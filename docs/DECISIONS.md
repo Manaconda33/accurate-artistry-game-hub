@@ -243,3 +243,15 @@ This log records approved or implementation-shaping decisions. Future sessions m
 - **Product impact:** Kraken will play as a medium-class drift specialist with a high reward for sustained cornering technique and a clear penalty for off-road mistakes.
 - **Implementation impact:** `aa-05` is uniquely allocated. The approved portrait, front frame, five chase-camera states, and separate front-victory frame live in normal Git. Production manifest activation remains gated on The Abyssal Drifter GLB package, LFS materialization, and live visual verification.
 - **Approval:** Manny's explicit character, kart, art, and AA-05 approvals on 2026-08-21.
+
+## ADR-020: Lock Cleo to The Gilded Stitch and AA-06
+
+- **Date:** 2026-08-21
+- **Status:** Approved
+- **Context:** Cleo's supplied racing sheet establishes her definitive game likeness and an ornate sewing-machine-inspired kart. Her package also requires a unique available balance profile before runtime paths can be assigned.
+- **Options considered:** Treat the sheet as loose inspiration; choose a speed- or drift-led profile; use the sheet as definitive and map Cleo to the available grip-specialist profile.
+- **Decision:** The supplied sheet and approved derivatives define Cleo's brown braided high bun, green eyes, tortoiseshell glasses, gold earrings, navy floral blouse, and tailored trousers. Her kart is The Gilded Stitch, preserving the sheet's navy-and-gold sewing-machine silhouette, floral scrollwork, wooden spool wheels, and sewing-hardware details. Cleo receives AA-06 Grip Specialist.
+- **Rationale:** The decision follows Manny's authored reference and translates Cleo's precision-craft theme into stable, line-focused handling. Handling 7 and Traction 7 provide the core strength without encroaching on the roster's acceleration, drift, speed, or heavyweight specialists.
+- **Product impact:** Cleo will play as a composed medium-class grip specialist with the descriptor “Steady hands. Flawless lines.”
+- **Implementation impact:** `aa-06` is uniquely allocated. The approved portrait, front frame, and five chase-camera states live in normal Git. Production manifest activation remains gated on The Gilded Stitch GLB package, LFS materialization, and live visual verification.
+- **Approval:** Manny's explicit character, kart, art, and AA-06 approvals on 2026-08-21.

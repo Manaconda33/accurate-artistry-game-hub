@@ -2,7 +2,18 @@
 
 ## Current slice
 
-**Slice 3 - Character Selection & Avatar Ingestion: Lavi production checkpoint accepted**
+**Slice 3 - Character Selection & Avatar Ingestion: Cleo driver-art checkpoint approved; kart production pending**
+
+## Slice 3 Cleo intake and driver-art checkpoint
+
+- Manny confirmed the supplied racing sheet as Cleo's definitive game likeness and The Gilded Stitch as the definitive kart design on 2026-08-21. He confirmed that he created or controls the reference and authorized its transformation into game assets.
+- Cleo uses she/her pronouns and is locked to AA-06 Grip Specialist: 6 / 6 / 5 / 7 / 5 / 7. `aa-06` is uniquely allocated in `docs/ROSTER-MAPPING.md`.
+- The approved character record and production brief are `docs/avatars/CLEO.md` and `docs/assets/CLEO-ASSET-BRIEF.md`.
+- Manny approved the portrait, front driver frame, neutral chase frame, steer-left, steer-right, hit, and chase-camera victory art.
+- Runtime derivatives are stored at `public/assets/characters/aa-06/`. The portrait is 256 x 256; all six driver frames are 512 x 512. Every file is an sRGB RGBA PNG with alpha spanning transparent to opaque and a transparent corner pixel.
+- Driver frames contain no kart or steering-wheel geometry. Chase-camera states preserve a seated lower body; the victory frame turns Cleo toward the viewer without becoming a front-facing driving frame.
+- The Gilded Stitch's three production GLBs, LFS materialization, controlled asset revision, manifest activation, and live visual checks remain approval-gated.
+- Status: **DRIVER ART APPROVED — KART PRODUCTION NEXT.**
 
 ## Slice 3 Kraken intake and locks
 
