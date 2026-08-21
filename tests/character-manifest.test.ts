@@ -4,6 +4,7 @@ import {
   characterById,
   characterManifest,
   LAVI_ASSET_REVISION,
+  KRAKEN_ASSET_REVISION,
   MANACONDA_ASSET_REVISION,
   NEGATIVE_Z_KART_VISUAL_YAW,
   statValues,
@@ -60,6 +61,29 @@ describe('character manifest', () => {
       handling: 3,
       miniTurbo: 5,
       traction: 6,
+    });
+  });
+
+  it('maps Kraken to The Abyssal Drifter and the approved AA-05 profile', () => {
+    const kraken = characterById('aa-05');
+    expect(kraken.displayName).toBe('Kraken');
+    expect(kraken.descriptor).toBe('Drift Specialist');
+    expect(kraken.assetState).toBe('production');
+    expect(kraken.kart).toContain(`/assets/characters/aa-05/kart.glb?v=${KRAKEN_ASSET_REVISION}`);
+    expect(kraken.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(kraken.driver?.rear).toContain(`?v=${KRAKEN_ASSET_REVISION}`);
+    expect(kraken.driver?.front).toContain(`?v=${KRAKEN_ASSET_REVISION}`);
+    expect(kraken.driver?.steerLeft).toContain(`?v=${KRAKEN_ASSET_REVISION}`);
+    expect(kraken.driver?.steerRight).toContain(`?v=${KRAKEN_ASSET_REVISION}`);
+    expect(kraken.driver?.hit).toContain(`?v=${KRAKEN_ASSET_REVISION}`);
+    expect(kraken.driver?.victory).toContain(`?v=${KRAKEN_ASSET_REVISION}`);
+    expect(kraken.stats).toEqual({
+      speed: 6,
+      acceleration: 7,
+      weight: 5,
+      handling: 6,
+      miniTurbo: 9,
+      traction: 3,
     });
   });
 

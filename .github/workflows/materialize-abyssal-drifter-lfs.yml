@@ -1,0 +1,50 @@
+name: Materialize approved Abyssal Drifter LFS objects
+
+on:
+  push:
+    branches:
+      - feat/kraken-production-integration
+    paths:
+      - .github/workflows/materialize-abyssal-drifter-lfs.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+          ref: feat/kraken-production-integration
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned builder dependencies
+        run: python -m pip install numpy==2.3.5 matplotlib==3.10.8
+      - name: Rebuild approved Abyssal Drifter models
+        env:
+          MPLBACKEND: Agg
+        run: |
+          ABYSSAL_LOD=LOD0 ABYSSAL_OUT=public/assets/characters/aa-05/kart.glb ABYSSAL_SKIP_PREVIEW=1 python tools/assets/build_kraken_abyssal_drifter.py
+          ABYSSAL_LOD=LOD1 ABYSSAL_OUT=public/assets/characters/aa-05/kart-lod1.glb ABYSSAL_SKIP_PREVIEW=1 python tools/assets/build_kraken_abyssal_drifter.py
+          ABYSSAL_LOD=LOD2 ABYSSAL_OUT=public/assets/characters/aa-05/kart-lod2.glb ABYSSAL_SKIP_PREVIEW=1 python tools/assets/build_kraken_abyssal_drifter.py
+      - name: Verify approved object IDs and pointer stability
+        run: |
+          echo "4a28349e51b0f6936a67bc8160d1b627fb9f77144ab063368e863d644e64a5c9  public/assets/characters/aa-05/kart.glb" | sha256sum -c -
+          echo "c000af29a53fa79810d759b460f7a6a3b72c2f1605b9ff300245c080a95a8bfe  public/assets/characters/aa-05/kart-lod1.glb" | sha256sum -c -
+          echo "ca73a74e96ff58769abc83db3b8662b498445144f28497b58213d71022e13546  public/assets/characters/aa-05/kart-lod2.glb" | sha256sum -c -
+          git add -- public/assets/characters/aa-05/kart.glb public/assets/characters/aa-05/kart-lod1.glb public/assets/characters/aa-05/kart-lod2.glb
+          git diff --cached --exit-code
+      - name: Upload only approved LFS objects
+        run: |
+          git lfs push origin --object-id 4a28349e51b0f6936a67bc8160d1b627fb9f77144ab063368e863d644e64a5c9
+          git lfs push origin --object-id c000af29a53fa79810d759b460f7a6a3b72c2f1605b9ff300245c080a95a8bfe
+          git lfs push origin --object-id ca73a74e96ff58769abc83db3b8662b498445144f28497b58213d71022e13546
+      - name: Fetch back and verify
+        run: |
+          rm -rf .git/lfs/objects
+          git lfs fetch origin feat/kraken-production-integration
+          git lfs fsck
