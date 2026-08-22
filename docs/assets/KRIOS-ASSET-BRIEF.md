@@ -6,7 +6,7 @@
 - Runtime ID: `aa-10`
 - Balance profile: AA-10 Straight-Line Heavy
 - Kart: The Hornbreaker
-- Package status: complete approved 2D package; kart production pending
+- Package status: complete approved 2D package; approved deterministic kart package staged for repository validation
 
 ## Canonical character lock
 
@@ -51,6 +51,16 @@ The supplied Krios racing sheet is definitive. Preserve:
 - twin rear exhausts with visible flame
 - dominant straight-line presence rather than a tall armored vehicle
 
+## Runtime GLB contract
+
+| Path | LOD | Triangles | Materials | Nodes | SHA-256 / LFS OID |
+| --- | --- | ---: | ---: | ---: | --- |
+| `public/assets/characters/aa-10/kart.glb` | LOD0 | 14,568 | 4 | 13 | `906cdddd34e8b4270e9c99d334639f2bf7a372cceb22abbb1edaaf15ad8c38a9` |
+| `public/assets/characters/aa-10/kart-lod1.glb` | LOD1 | 7,746 | 4 | 13 | `986f6c355401d45ae7ff85f13391de48f3db6d2b5b2b47ed10f5ced7708061f0` |
+| `public/assets/characters/aa-10/kart-lod2.glb` | LOD2 | 4,050 | 4 | 13 | `62a3993c11b4c38eebe0d73f7a9b713fcdb1467578ea5429b188ea40e164fa76` |
+
+All three files are deterministic outputs of `tools/assets/build_krios_hornbreaker.py`. Each GLB uses meters, declares `extras.forward: "-Z"`, and contains the required kart root, chassis, accent, steering, four wheel, two exhaust, driver mount, and two item mount nodes. Candidate 7—including the integrated, sealed horn-housing yoke—is the approved visual lock.
+
 ## Current verification
 
 - Portrait: 256 x 256, sRGB RGBA, transparent
@@ -65,6 +75,10 @@ The supplied Krios racing sheet is definitive. Preserve:
 - Runtime PNGs resolve to normal Git rather than Git LFS
 - Manny approved portrait, front, rear, steer-left, steer-right, hit, and victory art on 2026-08-22
 - Full package validation confirms the portrait is 256 x 256 and all six driver frames are 512 x 512, sRGB RGBA, alpha range 0-1, with transparent corner pixels
+- Manny approved Hornbreaker Candidate 7 on 2026-08-22
+- Clean repeat builds matched all three approved hashes byte-for-byte
+- GLB structure, triangle limits, material limit, required node set, meters, and `-Z` orientation metadata passed local validation
+- LFS pointers and deterministic builder are staged on `feature/krios-hornbreaker-3d`; repository materialization CI remains the activation gate
 
 ## Integration gate
 
