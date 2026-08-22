@@ -42,6 +42,7 @@ export const MANACONDA_ASSET_REVISION = 'manaconda-runtime-20260820-1';
 export const ACCU_ASSET_REVISION = 'accu-runtime-20260820-1';
 export const KRAKEN_ASSET_REVISION = 'kraken-runtime-20260821-1';
 export const CLEO_ASSET_REVISION = 'cleo-runtime-20260821-1';
+export const KRIOS_ASSET_REVISION = 'krios-runtime-20260822-1';
 
 const assetUrl = (path: string, revision: string): string =>
   `${import.meta.env.BASE_URL}${path}?v=${revision}`;
@@ -152,19 +153,40 @@ const cleo: CharacterDefinition = {
   stats: { speed: 6, acceleration: 6, weight: 5, handling: 7, miniTurbo: 5, traction: 7 },
 };
 
+const krios: CharacterDefinition = {
+  id: 'aa-10',
+  displayName: 'Krios',
+  descriptor: 'Straight-Line Heavy',
+  initials: 'KI',
+  accent: '#d63b24',
+  assetState: 'production',
+  portrait: assetUrl('assets/characters/aa-10/portrait.png', KRIOS_ASSET_REVISION),
+  kart: assetUrl('assets/characters/aa-10/kart.glb', KRIOS_ASSET_REVISION),
+  kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  driver: {
+    rear: assetUrl('assets/characters/aa-10/driver/rear.png', KRIOS_ASSET_REVISION),
+    front: assetUrl('assets/characters/aa-10/driver/front.png', KRIOS_ASSET_REVISION),
+    steerLeft: assetUrl('assets/characters/aa-10/driver/steer-left.png', KRIOS_ASSET_REVISION),
+    steerRight: assetUrl('assets/characters/aa-10/driver/steer-right.png', KRIOS_ASSET_REVISION),
+    hit: assetUrl('assets/characters/aa-10/driver/hit.png', KRIOS_ASSET_REVISION),
+    victory: assetUrl('assets/characters/aa-10/driver/victory.png', KRIOS_ASSET_REVISION),
+  },
+  stats: { speed: 10, acceleration: 4, weight: 9, handling: 3, miniTurbo: 4, traction: 6 },
+};
+
 export const characterManifest: readonly CharacterDefinition[] = [
   lavi,
   manaconda,
   accu,
   kraken,
   cleo,
+  krios,
   ...[
     ['aa-01', 'AA 01', 'Balanced Pilot', 'A1', '#9b7cff', [6, 6, 6, 6, 6, 6]],
     ['aa-03', 'AA 03', 'Grip Specialist', 'A3', '#58c6a8', [5, 6, 5, 8, 5, 7]],
     ['aa-04', 'AA 04', 'Launch Expert', 'A4', '#f3b84b', [6, 9, 3, 7, 7, 4]],
     ['aa-07', 'AA 07', 'Top-Speed Ace', 'A7', '#b76be2', [9, 4, 6, 5, 5, 7]],
     ['aa-08', 'AA 08', 'Off-Road Scout', 'A8', '#79b84a', [6, 5, 6, 5, 6, 8]],
-    ['aa-10', 'AA 10', 'Heavy Cruiser', '10', '#c9824e', [8, 3, 9, 4, 4, 8]],
     ['aa-12', 'AA 12', 'Momentum Driver', '12', '#d56b55', [8, 5, 8, 4, 5, 6]],
   ].map(([id, displayName, descriptor, initials, accent, values]) => {
     const [speed, acceleration, weight, handling, miniTurbo, traction] = values as [
