@@ -255,3 +255,16 @@ This log records approved or implementation-shaping decisions. Future sessions m
 - **Product impact:** Cleo will play as a composed medium-class grip specialist with the descriptor “Steady hands. Flawless lines.”
 - **Implementation impact:** `aa-06` is uniquely allocated. The approved portrait, front frame, and five chase-camera states live in normal Git. Production manifest activation remains gated on The Gilded Stitch GLB package, LFS materialization, and live visual verification.
 - **Approval:** Manny's explicit character, kart, art, and AA-06 approvals on 2026-08-21.
+
+
+## ADR-021: Lock Krios to AA-10 and The Hornbreaker
+
+- **Date:** 2026-08-22
+- **Status:** Approved
+- **Context:** Krios required a unique remaining balance profile and a governed definitive kart identity before production asset work.
+- **Options considered:** AA-10 Straight-Line Heavy; AA-12 All-Surface Heavy; AA-08 Turbo Bruiser.
+- **Decision:** Assign Krios to AA-10 Straight-Line Heavy (10 / 4 / 9 / 3 / 4 / 6) and lock his definitive kart as The Hornbreaker.
+- **Rationale:** High speed and weight establish the approved dominant heavyweight identity; low acceleration and handling provide an honest weakness profile and avoid overlap with drift- or traction-focused racers.
+- **Product impact:** Krios plays as a momentum-based track bully with exceptional straight-line pressure.
+- **Implementation impact:** `aa-10` becomes unavailable to later characters. Krios assets use `public/assets/characters/aa-10/`.
+- **Approval:** Manny approved the mapping, kart design, and kart name on 2026-08-22.
