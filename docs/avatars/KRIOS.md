@@ -33,8 +33,9 @@ Manny approved the following art on 2026-08-22:
 
 - `portrait.png`: definitive selectable portrait
 - `driver/front.png`: front-camera neutral driving frame
+- `driver/rear.png`: neutral chase-camera driving frame
 
-Both runtime derivatives are sRGB RGBA PNGs with genuine transparency. The portrait is 256 x 256 and the front frame is 512 x 512. The character layer contains no kart or steering-wheel geometry.
+All approved runtime derivatives are sRGB RGBA PNGs with genuine transparency. The portrait is 256 x 256; the front and rear frames are 512 x 512. Character layers contain no kart or steering-wheel geometry.
 
 ## Provenance and transformation
 
@@ -49,6 +50,7 @@ Manny supplied the definitive Krios character-and-kart reference, confirmed that
 - Balance mapping: Approved, AA-10
 - Portrait: Approved
 - Front driver frame: Approved
+- Rear driver frame: Approved
 - Remaining driver art: In progress
 - Kart GLB: Not started
 - Manifest production integration: Not started
@@ -56,4 +58,4 @@ Manny supplied the definitive Krios character-and-kart reference, confirmed that
 
 ## Next action
 
-Produce and approve the neutral rear chase-camera driver frame, then continue steer-left, steer-right, hit, and victory in order.
+Produce and approve steer-left, then continue steer-right, hit, and victory in order.

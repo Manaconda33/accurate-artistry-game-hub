@@ -55,8 +55,9 @@ The supplied Krios racing sheet is definitive. Preserve:
 
 - Portrait: 256 x 256, sRGB RGBA, transparent
 - Front driver frame: 512 x 512, sRGB RGBA, transparent
-- Both files have alpha spanning fully transparent to fully opaque and a fully transparent corner pixel
-- Approved front art contains no steering wheel or kart geometry
+- Rear driver frame: 512 x 512, sRGB RGBA, transparent
+- All approved files have alpha spanning fully transparent to fully opaque and a fully transparent corner pixel
+- Approved front and rear art contain no steering wheel or kart geometry
 - Runtime PNGs resolve to normal Git rather than Git LFS
 
 ## Integration gate
