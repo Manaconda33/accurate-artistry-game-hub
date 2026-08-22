@@ -2,7 +2,18 @@
 
 ## Current slice
 
-**Slice 3 - Character Selection & Avatar Ingestion: Cleo production checkpoint accepted**
+**Slice 3 - Character Selection & Avatar Ingestion: Krios driver-art production in progress**
+
+## Slice 3 Krios intake and driver-art checkpoint
+
+- Manny approved Krios's definitive character lock, The Hornbreaker's definitive kart design, source transformation rights, and AA-10 Straight-Line Heavy mapping on 2026-08-22.
+- Krios uses he/him pronouns and is locked to AA-10: 10 / 4 / 9 / 3 / 4 / 6. `aa-10` is uniquely allocated in `docs/ROSTER-MAPPING.md`.
+- The approved character record and production brief are `docs/avatars/KRIOS.md` and `docs/assets/KRIOS-ASSET-BRIEF.md`.
+- Manny approved the definitive portrait and the separately composed front driver frame.
+- Runtime derivatives are stored at `public/assets/characters/aa-10/`. The portrait is 256 x 256 and the front frame is 512 x 512. Both are sRGB RGBA PNGs with genuine transparency and transparent corner pixels.
+- The front frame contains no kart or steering-wheel geometry and preserves a seated, two-handed neutral driving pose.
+- Rear, steer-left, steer-right, hit, victory, kart GLBs, manifest activation, CI, deployment, and live verification remain pending.
+- Status: **IN PROGRESS — PORTRAIT AND FRONT FRAME APPROVED.**
 
 ## Slice 3 Cleo intake and driver-art checkpoint
 

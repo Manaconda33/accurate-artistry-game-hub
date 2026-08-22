@@ -40,7 +40,7 @@ Stat order is Speed / Acceleration / Weight / Handling / Mini-Turbo / Traction.
 | AA-07   | High-Speed Cruiser  | Cruiser       | 8 / 6 / 7 / 5 / 4 / 6  | Available | -         | -                   | -                 |
 | AA-08   | Turbo Bruiser       | Cruiser       | 7 / 5 / 7 / 4 / 8 / 5  | Available | -         | -                   | -                 |
 | AA-09   | Technical Cruiser   | Cruiser       | 7 / 6 / 6 / 6 / 6 / 5  | Assigned  | Manaconda | The Wayfinder       | Manny, 2026-08-16 |
-| AA-10   | Straight-Line Heavy | Heavyweight   | 10 / 4 / 9 / 3 / 4 / 6 | Available | -         | -                   | -                 |
+| AA-10   | Straight-Line Heavy | Heavyweight   | 10 / 4 / 9 / 3 / 4 / 6 | Assigned  | Krios     | The Hornbreaker     | Manny, 2026-08-22 |
 | AA-11   | Collision Tank      | Heavyweight   | 8 / 4 / 10 / 3 / 5 / 6 | Assigned  | Accu      | Pink Precision      | Manny, 2026-08-20 |
 | AA-12   | All-Surface Heavy   | Heavyweight   | 8 / 5 / 8 / 4 / 4 / 7  | Available | -         | -                   | -                 |
 
@@ -65,3 +65,8 @@ Kraken is the roster's dedicated drift specialist. Mini-Turbo 9 rewards delibera
 ### AA-06: Cleo / The Gilded Stitch
 
 Cleo is the roster's medium-class grip specialist. Handling 7 and Traction 7 reward precise, stable lines and make ordinary cornering and surface transitions forgiving. Speed 6, Acceleration 6, and Weight 5 keep her balanced, while Mini-Turbo 5 prevents her from replacing Kraken's drift-focused boost identity. Manny approved the mapping on 2026-08-21.
+
+
+### AA-10: Krios / The Hornbreaker
+
+Krios is the roster's straight-line heavyweight bully. Speed 10 and Weight 9 give The Hornbreaker dominant momentum and collision presence. Acceleration 4 and Handling 3 make recovery and tight corrections deliberately costly, while Mini-Turbo 4 prevents overlap with drift-focused racers. Traction 6 keeps the kart usable without turning Krios into the all-surface heavy. Manny approved the mapping on 2026-08-22.
