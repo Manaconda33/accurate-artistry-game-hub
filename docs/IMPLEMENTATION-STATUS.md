@@ -262,3 +262,19 @@ Begin Slice 3 manifest/schema and selection-flow implementation using Lavi's com
 ## Last verified commit
 
 `f608b91d63afb406e2fb404829298f3ff4f568db` - validated and deployed early Slice 4 AI/grid evidence checkpoint. The following governance checkpoint restores Slice 3 ordering and adds the avatar intake contract.
+
+
+## Krios / The Hornbreaker 3D production gate (2026-08-22)
+
+- Manny approved Hornbreaker Candidate 7 as the definitive kart model.
+- Deterministic builder: `tools/assets/build_krios_hornbreaker.py`.
+- LOD0 `kart.glb`: 14,568 triangles, 4 materials, 13 required nodes, `-Z` forward; LFS OID `906cdddd34e8b4270e9c99d334639f2bf7a372cceb22abbb1edaaf15ad8c38a9`.
+- LOD1 `kart-lod1.glb`: 7,746 triangles, 4 materials, 13 required nodes, `-Z` forward; LFS OID `986f6c355401d45ae7ff85f13391de48f3db6d2b5b2b47ed10f5ced7708061f0`.
+- LOD2 `kart-lod2.glb`: 4,050 triangles, 4 materials, 13 required nodes, `-Z` forward; LFS OID `62a3993c11b4c38eebe0d73f7a9b713fcdb1467578ea5429b188ea40e164fa76`.
+- Clean repeat builds matched all approved hashes byte-for-byte.
+- The approved temporary branch-scoped LFS bridge uploaded only those object IDs, deleted the runner cache, fetched the objects back, and passed `git lfs fsck`; the workflow was then removed.
+- Inactive-manifest CI run `32590997172` (#80) passed LFS materialization, typecheck, lint, tests, and production build.
+- AA-10 was activated in the production manifest only after run #80 passed.
+- Active-manifest CI run `32591092941` (#82) passed LFS materialization, the Krios manifest contract, the full test suite, and production build.
+- Branch: `feature/krios-hornbreaker-3d`. PR: #30. Merge remains gated on Manny's explicit approval.
+- Post-merge gates remain: Pages deployment, selectable/playable check, correct kart orientation, all driver states, victory visibility, and one unique Krios AI opponent when not selected.

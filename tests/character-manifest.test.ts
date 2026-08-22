@@ -6,6 +6,7 @@ import {
   characterManifest,
   LAVI_ASSET_REVISION,
   KRAKEN_ASSET_REVISION,
+  KRIOS_ASSET_REVISION,
   MANACONDA_ASSET_REVISION,
   NEGATIVE_Z_KART_VISUAL_YAW,
   statValues,
@@ -109,6 +110,31 @@ describe('character manifest', () => {
       handling: 7,
       miniTurbo: 5,
       traction: 7,
+    });
+  });
+
+  it('maps Krios to The Hornbreaker and the approved AA-10 profile', () => {
+    const krios = characterById('aa-10');
+    expect(krios.displayName).toBe('Krios');
+    expect(krios.descriptor).toBe('Straight-Line Heavy');
+    expect(krios.assetState).toBe('production');
+    expect(krios.kart).toContain(
+      `/assets/characters/aa-10/kart.glb?v=${KRIOS_ASSET_REVISION}`,
+    );
+    expect(krios.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(krios.driver?.rear).toContain(`?v=${KRIOS_ASSET_REVISION}`);
+    expect(krios.driver?.front).toContain(`?v=${KRIOS_ASSET_REVISION}`);
+    expect(krios.driver?.steerLeft).toContain(`?v=${KRIOS_ASSET_REVISION}`);
+    expect(krios.driver?.steerRight).toContain(`?v=${KRIOS_ASSET_REVISION}`);
+    expect(krios.driver?.hit).toContain(`?v=${KRIOS_ASSET_REVISION}`);
+    expect(krios.driver?.victory).toContain(`?v=${KRIOS_ASSET_REVISION}`);
+    expect(krios.stats).toEqual({
+      speed: 10,
+      acceleration: 4,
+      weight: 9,
+      handling: 3,
+      miniTurbo: 4,
+      traction: 6,
     });
   });
 

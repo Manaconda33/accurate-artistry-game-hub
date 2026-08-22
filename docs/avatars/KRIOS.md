@@ -60,10 +60,17 @@ Manny supplied the definitive Krios character-and-kart reference, confirmed that
 - Hit frame: Approved
 - Victory frame: Approved
 - Complete 2D package validation: Passed
-- Kart GLB: Not started
-- Manifest production integration: Not started
+- Kart GLB design: Approved by Manny on 2026-08-22 (Hornbreaker Candidate 7)
+- Deterministic GLB package: Generated and locally validated
+- LOD0: 14,568 triangles / 4 materials / 13 required nodes / `extras.forward: "-Z"`
+- LOD1: 7,746 triangles / 4 materials / 13 required nodes / `extras.forward: "-Z"`
+- LOD2: 4,050 triangles / 4 materials / 13 required nodes / `extras.forward: "-Z"`
+- LFS object publication: Passed; three approved objects uploaded and fetch-back verified
+- Inactive-package materialization gate: Passed, CI run `32590997172` (#80)
+- Manifest production integration: Active on `feature/krios-hornbreaker-3d`
+- Active-package CI gate: Passed, CI run `32591092941` (#82)
 - Live verification: Not started
 
 ## Next action
 
-Begin The Hornbreaker's governed 3D kart model preparation. Do not activate AA-10 in the production manifest until the kart LOD package, repository validation, deployment, and live acceptance gates pass.
+Review PR #30 and obtain Manny's explicit merge approval. After merge and Pages deployment, complete live selection, kart orientation, driver-state, victory, and unique AI-opponent checks before closing Krios's production integration.
