@@ -6,7 +6,7 @@
 - Runtime ID: `aa-10`
 - Balance profile: AA-10 Straight-Line Heavy
 - Kart: The Hornbreaker
-- Package status: complete approved 2D package; approved deterministic kart package staged for repository validation
+- Package status: complete approved 2D and deterministic kart packages; LFS materialization and manifest CI passed on the feature branch
 
 ## Canonical character lock
 
@@ -78,7 +78,10 @@ All three files are deterministic outputs of `tools/assets/build_krios_hornbreak
 - Manny approved Hornbreaker Candidate 7 on 2026-08-22
 - Clean repeat builds matched all three approved hashes byte-for-byte
 - GLB structure, triangle limits, material limit, required node set, meters, and `-Z` orientation metadata passed local validation
-- LFS pointers and deterministic builder are staged on `feature/krios-hornbreaker-3d`; repository materialization CI remains the activation gate
+- LFS objects were uploaded and fetch-back verified by the temporary branch-scoped publication bridge, which was removed before review
+- Inactive-package CI run `32590997172` (#80) proved all three GLBs materialize and pass `git lfs fsck`, typecheck, lint, tests, and production build
+- AA-10 was activated only after run #80 passed
+- Active-package CI run `32591092941` (#82) passed LFS verification, the explicit Krios manifest contract, the full suite, and production build
 
 ## Integration gate
 
