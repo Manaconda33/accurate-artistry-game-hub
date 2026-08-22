@@ -65,10 +65,12 @@ Manny supplied the definitive Krios character-and-kart reference, confirmed that
 - LOD0: 14,568 triangles / 4 materials / 13 required nodes / `extras.forward: "-Z"`
 - LOD1: 7,746 triangles / 4 materials / 13 required nodes / `extras.forward: "-Z"`
 - LOD2: 4,050 triangles / 4 materials / 13 required nodes / `extras.forward: "-Z"`
-- LFS object publication: Staged on `feature/krios-hornbreaker-3d`; repository fetch-back and CI gate pending
-- Manifest production integration: Intentionally inactive until materialization CI passes
+- LFS object publication: Passed; three approved objects uploaded and fetch-back verified
+- Inactive-package materialization gate: Passed, CI run `32590997172` (#80)
+- Manifest production integration: Active on `feature/krios-hornbreaker-3d`
+- Active-package CI gate: Passed, CI run `32591092941` (#82)
 - Live verification: Not started
 
 ## Next action
 
-Complete the repository materialization CI gate for all three approved GLBs. Only after that gate passes, activate AA-10 in the production manifest and run the full CI suite. Deployment and Manny's live selection, orientation, driver-state, and AI-opponent checks remain post-merge gates.
+Review PR #30 and obtain Manny's explicit merge approval. After merge and Pages deployment, complete live selection, kart orientation, driver-state, victory, and unique AI-opponent checks before closing Krios's production integration.
