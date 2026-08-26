@@ -1,9 +1,15 @@
 # Cleo avatar record
 
+## Production status
+
+**Archived / inactive as of 2026-08-26.** Manny retired Cleo from the active production roster while explicitly preserving her approved character, kart, runtime assets, deterministic source, and acceptance evidence for possible future restoration.
+
+Cleo is not currently selectable and cannot appear as an AI opponent. Her complete package remains durable in the repository and is indexed by `docs/CHARACTER-ARCHIVE.md`.
+
 ## Identity
 
 - Display name: Cleo
-- Stable internal ID: `aa-06`
+- Historical runtime ID: `aa-06`
 - Pronouns: she/her
 - Selection descriptor: Steady hands. Flawless lines.
 - Character lock: Approved by Manny on 2026-08-21
@@ -18,14 +24,17 @@ Cleo is a composed craftswoman with green eyes, tortoiseshell glasses, gold drop
 
 The Gilded Stitch is a sewing-machine-inspired kart with an ornate navy-and-gold body, engraved floral scrollwork, warm wooden spool wheels, a visible needle-like steering column, and sewing-hardware construction details. Its production 3D interpretation must preserve the recognizable sewing-machine silhouette and decorative craft language without sacrificing cockpit clearance or race readability.
 
-## Gameplay mapping
+## Historical gameplay mapping
 
-- Profile: AA-06 Grip Specialist
+- Former profile: AA-06 Grip Specialist
 - Class: Medium
 - Stats: Speed 6 / Acceleration 6 / Weight 5 / Handling 7 / Mini-Turbo 5 / Traction 7
-- Mapping lock: Approved by Manny on 2026-08-21
+- Mapping approved by Manny on 2026-08-21
+- Mapping released on archive: 2026-08-26
 
-Cleo rewards clean, repeatable lines. Handling 7 and Traction 7 make The Gilded Stitch stable and forgiving through ordinary corners and mixed surfaces. Moderate speed, acceleration, weight, and Mini-Turbo keep her from displacing the roster's dedicated sprinters, drifters, or heavyweights.
+Cleo rewarded clean, repeatable lines. Handling 7 and Traction 7 made The Gilded Stitch stable and forgiving through ordinary corners and mixed surfaces. Moderate speed, acceleration, weight, and Mini-Turbo kept her from displacing the roster's dedicated sprinters, drifters, or heavyweights.
+
+AA-06 is available for a future approved active character assignment. If Cleo is restored later, her balance profile must be explicitly confirmed at that time rather than assumed from this historical mapping.
 
 ## Approved driver art
 
@@ -45,20 +54,22 @@ All runtime derivatives are sRGB RGBA PNGs with genuine transparency. The portra
 
 Manny supplied the definitive character-and-kart reference, confirmed that he created or controls it, and authorized its transformation into game assets. Approved generated derivatives preserve Cleo's likeness and were resized into the PRD runtime contract. High-resolution working renders are not stored in the fixed-size runtime paths.
 
-## Approval status
+## Historical production acceptance
 
 - Intake: Approved
 - Character lock: Approved
 - Kart design lock: Approved
-- Balance mapping: Approved, AA-06
+- Former balance mapping: Approved, AA-06
 - Driver art: Approved
 - Runtime PNG preparation: Complete
 - Kart GLB: Approved and prepared in three deterministic LODs
-- Manifest production integration: Complete under controlled revision `cleo-runtime-20260821-1`
-- Live verification: Accepted by Manny on 2026-08-21
+- Previous manifest production integration: Complete under controlled revision `cleo-runtime-20260821-1`
+- Previous live verification: Accepted by Manny on 2026-08-21
 
-The runtime driver sprite uses the character-specific kart-group position `[0, 0.9, -0.72]`, placing Cleo in the rear-biased cockpit with the steering wheel ahead of her rather than behind her back.
+The historical runtime driver sprite position `[0, 0.9, -0.72]` placed Cleo in the rear-biased cockpit with the steering wheel ahead of her rather than behind her back. This integration detail remains preserved in the exported `archivedCleo` definition.
 
-## Next action
+## Archive and restoration
 
-Cleo's production package is complete. Continue the governed one-character-at-a-time avatar intake workflow with the next approved racer.
+No approved Cleo asset is deleted. The runtime package remains under `public/assets/characters/aa-06/`, The Gilded Stitch builder remains at `tools/assets/build_cleo_gilded_stitch.py`, and the full package inventory and GLB object IDs are recorded in `docs/CHARACTER-ARCHIVE.md`.
+
+Do not reactivate Cleo, reuse her likeness, or treat historical live acceptance as current deployment evidence without Manny's explicit restoration approval and a fresh validation/deployment pass.

@@ -1,16 +1,17 @@
 # Roster profile allocation
 
-This ledger is the source of truth for mapping approved Accurate Artistry characters to the twelve fixed PRD balance profiles. Each AA profile may be assigned to one character only. An assigned profile is unavailable to every later character unless Manny explicitly approves a remap.
+This ledger is the source of truth for mapping approved Accurate Artistry characters to the twelve fixed PRD balance profiles. Each AA profile may be assigned to one active production character only. An assigned profile is unavailable to every later character unless Manny explicitly approves a remap or retires the assigned character from production.
 
 ## Allocation rules
 
-- Every production character must use one AA-01 through AA-12 profile.
-- Each profile may be assigned once.
-- Each character may hold one profile.
+- Every active production character must use one AA-01 through AA-12 profile.
+- Each profile may be assigned once among active production characters.
+- Each active production character may hold one profile.
 - Character appearance or personality may inform discussion but cannot determine a mapping without an approved driving-feel decision.
 - A locked mapping records the character, kart, rationale, approval date, and governing decision.
-- The manifest validator must reject duplicate profile IDs or duplicate production-character assignments.
-- Remapping a locked profile requires Manny's approval and updates to this ledger, the affected avatar records, `docs/DECISIONS.md`, and implementation evidence.
+- When Manny retires a character from production, the profile returns to `Available` unless he explicitly reserves it. Historical mapping and package details remain in `docs/CHARACTER-ARCHIVE.md` and the character records.
+- The manifest validator must reject duplicate profile IDs or duplicate active production-character assignments.
+- Remapping a locked active profile requires Manny's approval and updates to this ledger, the affected avatar records, `docs/DECISIONS.md`, and implementation evidence.
 
 ## Required review and update sequence
 
@@ -36,7 +37,7 @@ Stat order is Speed / Acceleration / Weight / Handling / Mini-Turbo / Traction.
 | AA-03   | Feather Dirt Ace    | Featherweight | 5 / 8 / 3 / 7 / 6 / 7  | Available | -         | -                   | -                 |
 | AA-04   | Balanced Racer      | Medium        | 7 / 7 / 5 / 7 / 5 / 5  | Available | -         | -                   | -                 |
 | AA-05   | Drift Specialist    | Medium        | 6 / 7 / 5 / 6 / 9 / 3  | Assigned  | Kraken    | The Abyssal Drifter | Manny, 2026-08-21 |
-| AA-06   | Grip Specialist     | Medium        | 6 / 6 / 5 / 7 / 5 / 7  | Assigned  | Cleo      | The Gilded Stitch   | Manny, 2026-08-21 |
+| AA-06   | Grip Specialist     | Medium        | 6 / 6 / 5 / 7 / 5 / 7  | Available | -         | -                   | -                 |
 | AA-07   | High-Speed Cruiser  | Cruiser       | 8 / 6 / 7 / 5 / 4 / 6  | Available | -         | -                   | -                 |
 | AA-08   | Turbo Bruiser       | Cruiser       | 7 / 5 / 7 / 4 / 8 / 5  | Available | -         | -                   | -                 |
 | AA-09   | Technical Cruiser   | Cruiser       | 7 / 6 / 6 / 6 / 6 / 5  | Assigned  | Manaconda | The Wayfinder       | Manny, 2026-08-16 |
@@ -62,11 +63,12 @@ Accu's compact tank-inspired kart is the roster's collision specialist. Weight 1
 
 Kraken is the roster's dedicated drift specialist. Mini-Turbo 9 rewards deliberate drift chains and repeated boost conversion. Acceleration 7 helps him recover momentum between corners, while Speed 6, Weight 5, and Handling 6 keep the profile controlled rather than twitchy. Traction 3 is the defining weakness: poor lines and off-road mistakes cost meaningful time. Manny approved the mapping on 2026-08-21.
 
-### AA-06: Cleo / The Gilded Stitch
-
-Cleo is the roster's medium-class grip specialist. Handling 7 and Traction 7 reward precise, stable lines and make ordinary cornering and surface transitions forgiving. Speed 6, Acceleration 6, and Weight 5 keep her balanced, while Mini-Turbo 5 prevents her from replacing Kraken's drift-focused boost identity. Manny approved the mapping on 2026-08-21.
-
-
 ### AA-10: Krios / The Hornbreaker
 
 Krios is the roster's straight-line heavyweight bully. Speed 10 and Weight 9 give The Hornbreaker dominant momentum and collision presence. Acceleration 4 and Handling 3 make recovery and tight corrections deliberately costly, while Mini-Turbo 4 prevents overlap with drift-focused racers. Traction 6 keeps the kart usable without turning Krios into the all-surface heavy. Manny approved the mapping on 2026-08-22.
+
+## Historical archived mappings
+
+### AA-06: Cleo / The Gilded Stitch
+
+Manny approved Cleo for AA-06 on 2026-08-21. Handling 7 and Traction 7 supported her precision-craft, stable-line identity while moderate remaining values kept her distinct from the drift and heavyweight specialists. Manny retired Cleo from production on 2026-08-26 while preserving her complete approved package for possible restoration. AA-06 is therefore available again. See `docs/CHARACTER-ARCHIVE.md` for the durable archive and restoration gate.
