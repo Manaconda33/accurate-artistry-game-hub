@@ -30,6 +30,7 @@ Implemented on branch `agent/archive-cleo-production`:
 
 - Cleo is no longer included in active `characterManifest`.
 - AA-06 is restored to a generic governed placeholder, so Cleo is not selectable by the player and cannot be sampled into the seven-racer AI grid.
+- Character Select no longer hard-codes AA-06 to The Gilded Stitch; the placeholder shows `AA 06`, `Roster placeholder`, and `Fallback prototype` with no Cleo-specific production copy.
 - The complete former Cleo production definition remains exported as `archivedCleo`, retaining the approved asset paths, controlled revision, kart orientation, driver-state mapping, AA-06 historical statistics, and character-specific driver mount `[0, 0.9, -0.72]`.
 - `public/assets/characters/aa-06/` is intentionally preserved. No Cleo portrait, driver frame, GLB, or LFS object was deleted or moved.
 - `tools/assets/build_cleo_gilded_stitch.py` remains the deterministic source for The Gilded Stitch.
@@ -56,21 +57,19 @@ Cleo may return only after explicit Manny approval. Restoration requires a curre
 
 ## Validation status for Cleo retirement checkpoint
 
-Automated contract changes are committed on the branch, including a manifest test that proves:
+Automated contract coverage proves:
 
 - AA-06 is an active placeholder with no Cleo portrait, kart, or driver assets;
 - no active manifest identity is named Cleo;
-- the archived Cleo definition still resolves the preserved package and cockpit mount.
+- the archived Cleo definition still resolves the preserved package and cockpit mount;
+- Character Select renders AA-06 as a placeholder and does not expose `Cleo` or `The Gilded Stitch` production copy.
 
-Full repository validation and PR CI are **pending** at this checkpoint. Required gate before merge:
+PR #31 validation history:
 
-1. Git LFS materialized checkout and `git lfs fsck`.
-2. Strict TypeScript typecheck.
-3. ESLint with zero warnings.
-4. Vitest CI suite.
-5. Runtime GLB signature/orientation gate.
-6. Vite production build.
-7. GitHub Actions success on the pull request.
+- Initial CI run `32995795985` correctly failed at the test stage. LFS verification, typecheck, and lint had already passed. The failing UI regression exposed a remaining hard-coded AA-06 → The Gilded Stitch label in Character Select.
+- That production reference was removed and the app-shell test was updated to require `AA 06`, `Roster placeholder`, and `Fallback prototype`, and to reject visible `Cleo` / `The Gilded Stitch` copy for AA-06.
+- Corrected CI run `32996003591` on head `ad060371c5da8de1f1cfa0c992d41fe6850494e2` passed Git LFS runtime verification, strict TypeScript typecheck, ESLint, the Vitest CI suite, and the production build.
+- The final documentation-only head after recording this evidence must also receive a green PR check before merge.
 
 After merge, the `main` deployment must be checked to confirm AA-06 presents as a placeholder and Cleo does not appear in Character Select or AI selection. Product-owner manual confirmation remains the final rendered-behavior gate.
 
@@ -89,7 +88,7 @@ After merge, the `main` deployment must be checked to confirm AA-06 presents as 
 
 ## Next recommended action
 
-Complete CI and live validation for the Cleo retirement checkpoint. Once confirmed, continue the next approved Slice 3 character package. Do not begin Slice 5 or otherwise reorder the PRD roadmap without Manny approval.
+Merge PR #31 after its final head CI passes, then validate the deployed Character Select and race AI behavior. Once Manny confirms the live result, continue the next approved Slice 3 character package. Do not begin Slice 5 or otherwise reorder the PRD roadmap without Manny approval.
 
 ## Approval gate
 
