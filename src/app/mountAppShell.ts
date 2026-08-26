@@ -127,9 +127,7 @@ export function mountAppShell(root: HTMLElement): void {
             ? 'Pink Precision'
             : selectedCharacter.id === 'aa-05'
               ? 'The Abyssal Drifter'
-              : selectedCharacter.id === 'aa-06'
-                ? 'The Gilded Stitch'
-                : 'Fallback prototype';
+              : 'Fallback prototype';
     root.innerHTML = `
       <main class="screen character-select-screen">
         <header><p class="eyebrow">Circuit Alpha Grand Prix</p><h1>Choose your driver</h1></header>
