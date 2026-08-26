@@ -25,8 +25,11 @@ describe('Slice 0 app shell', () => {
     expect(root.textContent).toContain('Race as Lavi');
 
     root.querySelector<HTMLElement>('[data-character="aa-06"]')?.click();
-    expect(root.textContent).toContain('Race as Cleo');
-    expect(root.textContent).toContain('The Gilded Stitch');
+    expect(root.textContent).toContain('Race as AA 06');
+    expect(root.textContent).toContain('Roster placeholder');
+    expect(root.textContent).toContain('Fallback prototype');
+    expect(root.textContent).not.toContain('Cleo');
+    expect(root.textContent).not.toContain('The Gilded Stitch');
 
     root.querySelector<HTMLElement>('[data-character="aa-09"]')?.click();
     expect(root.textContent).toContain('Race as Manaconda');
