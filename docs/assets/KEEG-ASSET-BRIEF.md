@@ -6,7 +6,7 @@
 - Runtime ID: `aa-04`
 - Balance profile: AA-04 Balanced Racer
 - Kart: The Mycelial Majesty
-- Package status: **2D art approved; kart and runtime integration pending**
+- Package status: **2D art and kart design approved; production GLBs prepared; activation pending CI**
 
 ## Canonical character lock
 
@@ -47,8 +47,17 @@ The supplied racing reference is definitive. Preserve the low wide enchanted gra
 - Initial validation found baked checkerboard RGB backgrounds in all six driver frames; those files were rejected before repository ingestion.
 - Corrected outputs were independently checked for exact dimensions, sRGBA channels, alpha range 0–1, and fully transparent corner pixels.
 - SHA-256 values above identify the approved normalized runtime files.
-- Kart GLBs, deterministic LODs, runtime URLs, manifest activation, CI deployment, and live manual verification remain pending.
+- Manny approved Candidate 3 Revision 6 on 2026-08-26 after tire clearance and the angled, chassis-mounted steering assembly were verified in an external GLB viewer.
+- The approved deterministic builder is `tools/assets/build_keeg_mycelial_majesty.py`.
+
+| Runtime path | LOD | Triangles | Materials | Nodes | SHA-256 |
+| --- | --- | ---: | ---: | ---: | --- |
+| `public/assets/characters/aa-04/kart.glb` | LOD0 | 20,260 | 4 | 13 | `70cd099091108ddc6bd6b5182161a52b17e8f3f501c4c8b8ef8b78e7e9eca99c` |
+| `public/assets/characters/aa-04/kart-lod1.glb` | LOD1 | 11,652 | 4 | 13 | `18b65676d1a643b34b8bb7e6065032ac28b39867521c5598b1fb982399c2688f` |
+| `public/assets/characters/aa-04/kart-lod2.glb` | LOD2 | 4,404 | 4 | 13 | `6ee137d9a8e1a2bc8b05e76638dee04ec6dd81af964d71e79364926a9eb12528` |
+
+All three files use meters, declare `extras.forward: "-Z"`, and contain the required kart root, chassis, accent, steering, four wheel, two exhaust, driver mount, and two item mount nodes. Runtime URLs, manifest activation, CI deployment, and live manual verification remain pending.
 
 ## Next gate
 
-Build and approve The Mycelial Majesty. Do not activate AA-04 as a production manifest identity until all three GLBs pass the negative-Z orientation contract, LFS materialization, runtime-asset gate, repository validation, deployment, and Manny's live confirmation.
+Publish the approved GLB package through Git LFS and prove materialization/orientation in repository CI. Do not activate AA-04 as a production manifest identity until that checkpoint passes.

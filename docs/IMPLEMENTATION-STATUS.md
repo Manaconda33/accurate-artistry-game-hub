@@ -66,18 +66,21 @@ Continuity closure completed by PR #32:
 - Items and AI item use remain Slice 5.
 - Final HUD/audio/post-processing/optimization remain Slice 6.
 
-## Keeg production status — 2D package approved
+## Keeg production status — kart approved; pre-activation package prepared
 
 - Keeg is locked to AA-04 Balanced Racer with The Mycelial Majesty on `agent/keeg-production`.
 - Manny approved the portrait, front, rear, steer-left, steer-right, hit, and victory art on 2026-08-26.
 - The first six driver exports were correctly rejected because their checkerboard backgrounds were baked RGB pixels rather than transparency.
 - Corrected runtime files now meet the 256/512 size contract, use sRGBA, span alpha 0–1, and have fully transparent corner pixels.
-- Keeg is not active in `characterManifest`; kart production, deterministic LODs, LFS publication, runtime verification, deployment, and live acceptance remain pending.
+- Manny approved The Mycelial Majesty Candidate 3 Revision 6 on 2026-08-26.
+- Deterministic production GLBs are prepared at `public/assets/characters/aa-04/`: LOD0 20,260 triangles, LOD1 11,652, and LOD2 4,404. All use four materials, 13 required nodes, and `extras.forward: "-Z"`.
+- `tools/verify-runtime-assets.mjs` now includes all three AA-04 GLBs.
+- Keeg is not active in `characterManifest`; LFS publication, repository CI proof, activation, deployment, and live acceptance remain pending.
 
 ## Next recommended action
 
-Continue Keeg's approved Slice 3 package with The Mycelial Majesty production kart. Do not begin Slice 5 or reorder the PRD roadmap without Manny approval.
+Publish the approved pre-activation package to `agent/keeg-production` and require green repository CI before manifest activation. Do not begin Slice 5 or reorder the PRD roadmap without Manny approval.
 
 ## Approval gate
 
-No approval is pending for Krios or Cleo. Both checkpoints are closed. Keeg's 2D package is approved; the next approval gate is The Mycelial Majesty kart candidate.
+No approval is pending for Krios or Cleo. Both checkpoints are closed. Keeg's 2D package and kart design are approved; repository CI is the next production gate before activation.
