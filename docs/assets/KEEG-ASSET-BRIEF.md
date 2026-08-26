@@ -57,6 +57,7 @@ The supplied racing reference is definitive. Preserve the low wide enchanted gra
 | `public/assets/characters/aa-04/kart-lod2.glb` | LOD2 | 4,404 | 4 | 13 | `6ee137d9a8e1a2bc8b05e76638dee04ec6dd81af964d71e79364926a9eb12528` |
 
 All three files use meters, declare `extras.forward: "-Z"`, and contain the required kart root, chassis, accent, steering, four wheel, two exhaust, driver mount, and two item mount nodes. Runtime URLs, manifest activation, CI deployment, and live manual verification remain pending.
+- LFS publication bridge run `33015135969` rebuilt and matched all three approved hashes, uploaded only those object IDs, deleted its local cache, fetched the branch objects back, and passed `git lfs fsck`. The temporary workflow was removed before review.
 
 ## Next gate
 
