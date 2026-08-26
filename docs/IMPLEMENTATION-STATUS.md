@@ -6,9 +6,9 @@
 
 PRD baseline: **v1.1, working implementation amendment 1.6**.
 
-Latest verified `main` checkpoint before this work: `ddbb2dea9e7f5e558cb8d5e76501b99219416f65` — Krios / The Hornbreaker production package merged through PR #30. GitHub Actions run `32591411527` passed on that commit.
+Current `main` before this bounded cleanup: `962ccf994fb488e8da64068d5b4a739a3c090bcb` — Cleo archived from active production through PR #31. Main CI run `32996219644` passed validation and GitHub Pages deployment.
 
-The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md` so historical acceptance and troubleshooting evidence remain durable without obscuring the current state.
+The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
 ## Active production roster state
 
@@ -20,76 +20,74 @@ Production character packages currently represented in `characterManifest`:
 - Krios / The Hornbreaker — AA-10
 - Accu / Pink Precision — AA-11
 
-The remaining AA slots are governed placeholders until a character package is approved and activated. The twelve-slot Character Select architecture remains intact.
+Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placeholder and available for future approved assignment. The twelve-slot Character Select architecture remains intact.
 
-## Cleo production retirement and archive — 2026-08-26
+## Cleo archive status — complete
 
-Manny explicitly directed that Cleo be removed from production while preserving her complete character package for possible future restoration.
+PR #31 merged Cleo's reversible production retirement on 2026-08-26.
 
-Implemented on branch `agent/archive-cleo-production`:
+- Cleo is absent from active `characterManifest` and cannot be selected or sampled into the AI grid.
+- AA-06 renders as a generic placeholder with no Cleo or Gilded Stitch production copy.
+- Cleo's complete approved asset package, deterministic builder, GLB object IDs, runtime revision, technical records, and historical acceptance evidence remain preserved under the character archive contract.
+- Main CI run `32996219644` passed LFS verification, typecheck, lint, tests, production build, and Pages deployment for merge commit `962ccf994fb488e8da64068d5b4a739a3c090bcb`.
+- Manny manually confirmed the live deployment on 2026-08-26: **Cleo is gone from the live game.**
+- Status: **LIVE ACCEPTED — CLEO ARCHIVE COMPLETE.**
 
-- Cleo is no longer included in active `characterManifest`.
-- AA-06 is restored to a generic governed placeholder, so Cleo is not selectable by the player and cannot be sampled into the seven-racer AI grid.
-- Character Select no longer hard-codes AA-06 to The Gilded Stitch; the placeholder shows `AA 06`, `Roster placeholder`, and `Fallback prototype` with no Cleo-specific production copy.
-- The complete former Cleo production definition remains exported as `archivedCleo`, retaining the approved asset paths, controlled revision, kart orientation, driver-state mapping, AA-06 historical statistics, and character-specific driver mount `[0, 0.9, -0.72]`.
-- `public/assets/characters/aa-06/` is intentionally preserved. No Cleo portrait, driver frame, GLB, or LFS object was deleted or moved.
-- `tools/assets/build_cleo_gilded_stitch.py` remains the deterministic source for The Gilded Stitch.
-- The active runtime-asset signature gate no longer requires Cleo's three AA-06 GLBs, so the production build is not operationally dependent on the archived package.
-- AA-06 is marked `Available` again in `docs/ROSTER-MAPPING.md`. Cleo's former mapping is retained as historical archive information rather than a current reservation.
-- `docs/CHARACTER-ARCHIVE.md` now indexes the full package, prior GLB object IDs, acceptance history, and explicit restoration gate.
-- `docs/avatars/CLEO.md` and `docs/assets/CLEO-ASSET-BRIEF.md` now identify the package as archived/inactive while preserving all prior approvals and technical details.
+## Krios production closure — 2026-08-26
 
-### Preserved Cleo package
+A continuity review following the Cleo archive confirmed that Krios's gameplay/asset integration had succeeded before a prior usage-limit interruption, but the final repository continuity work was incomplete.
 
-- Portrait: `public/assets/characters/aa-06/portrait.png`
-- Driver frames: front, rear, steer-left, steer-right, hit, victory
-- GLBs: `kart.glb`, `kart-lod1.glb`, `kart-lod2.glb`
-- Deterministic builder: `tools/assets/build_cleo_gilded_stitch.py`
-- Historical production revision: `cleo-runtime-20260821-1`
-- Historical GLB object IDs:
-  - LOD0 `453ebc42da5745f7f5251323cd7a38a79add6538ee39dc9e512570c1c9905150`
-  - LOD1 `a9013591726b3bbb43b102d3707fe9da24f2e1e8de24c929bbc6405e28357002`
-  - LOD2 `3578b62d3c9fa332adb2b1ae7addb1d2b56201c7c8491a1075e847ff18caa79e`
+Verified existing implementation truth:
 
-### Restoration rule
+- Krios is active in `characterManifest` as production AA-10 Straight-Line Heavy.
+- The approved portrait and all six driver states are wired to controlled Krios runtime URLs.
+- The Hornbreaker production kart is wired to the manifest with the shared negative-Z visual orientation contract.
+- Automated manifest coverage already verifies Krios identity, kart path, all six driver-state URLs, orientation yaw, and 10 / 4 / 9 / 3 / 4 / 6 statistics.
+- PR #30 merged the complete Hornbreaker production package to `main` at commit `ddbb2dea9e7f5e558cb8d5e76501b99219416f65`.
+- Main CI run `32591411527` passed for that merge.
+- Manny confirmed on 2026-08-26 that **Krios is in the live game and all assets load as intended.**
 
-Cleo may return only after explicit Manny approval. Restoration requires a current balance-profile decision, active-manifest reactivation, fresh LFS/materialization checks, repository validation, deployment, and live visual confirmation. Historical 2026-08-21 acceptance is retained as evidence but is not sufficient by itself for a future reactivation.
+Continuity gap found:
 
-## Validation status for Cleo retirement checkpoint
+- `tools/verify-runtime-assets.mjs` still contained the pre-Krios active-GLB list and therefore did not require the three AA-10 Hornbreaker GLBs during future production builds.
+- `docs/avatars/KRIOS.md` and `docs/assets/KRIOS-ASSET-BRIEF.md` still described PR #30/live verification as pending even though the merge, deployment, and live behavior had already succeeded.
+- `docs/TESTING.md` lacked a Krios-specific production regression matrix.
 
-Automated contract coverage proves:
+Bounded closure on branch `agent/close-krios-production-records`:
 
-- AA-06 is an active placeholder with no Cleo portrait, kart, or driver assets;
-- no active manifest identity is named Cleo;
-- the archived Cleo definition still resolves the preserved package and cockpit mount;
-- Character Select renders AA-06 as a placeholder and does not expose `Cleo` or `The Gilded Stitch` production copy.
+- Added `public/assets/characters/aa-10/kart.glb`, `kart-lod1.glb`, and `kart-lod2.glb` to the active runtime signature/orientation gate.
+- Updated Krios's character record to **LIVE ACCEPTED — KRIOS PRODUCTION INTEGRATION COMPLETE**.
+- Updated the Krios asset brief to record the merged/deployed/live-accepted state and make all three AA-10 GLBs mandatory build-gate inputs.
+- Added a Krios / Hornbreaker manual regression matrix and generalized the testing contract: every active production character with GLB LODs must be represented in `tools/verify-runtime-assets.mjs`.
 
-PR #31 validation history:
+This closure changes no Krios artwork, model geometry, stats, physics, orientation, gameplay behavior, or live runtime URLs. It repairs verification and repository continuity only.
 
-- Initial CI run `32995795985` correctly failed at the test stage. LFS verification, typecheck, and lint had already passed. The failing UI regression exposed a remaining hard-coded AA-06 → The Gilded Stitch label in Character Select.
-- That production reference was removed and the app-shell test was updated to require `AA 06`, `Roster placeholder`, and `Fallback prototype`, and to reject visible `Cleo` / `The Gilded Stitch` copy for AA-06.
-- Corrected CI run `32996003591` on head `ad060371c5da8de1f1cfa0c992d41fe6850494e2` passed Git LFS runtime verification, strict TypeScript typecheck, ESLint, the Vitest CI suite, and the production build.
-- The final documentation-only head after recording this evidence must also receive a green PR check before merge.
+## Validation gate for Krios closure
 
-After merge, the `main` deployment must be checked to confirm AA-06 presents as a placeholder and Cleo does not appear in Character Select or AI selection. Product-owner manual confirmation remains the final rendered-behavior gate.
+Before merge, the branch must pass:
 
-## Known defects / discrepancies
+1. Git LFS materialized checkout and `git lfs fsck`.
+2. Runtime signature/orientation verification for all active production GLBs, now including all three AA-10 Hornbreaker LODs.
+3. Strict TypeScript typecheck.
+4. ESLint with zero warnings.
+5. Full Vitest CI suite.
+6. Vite production build.
+7. GitHub Actions success on the final PR head.
 
-- Slice 4 AI competitiveness remains intentionally weak; this was previously accepted for the current vertical-slice stage.
-- The historical status file contained stale statements about Krios being only 2D-complete. Repository `main` supersedes those statements: PR #30 activated the approved Krios production package and its CI passed.
-- The current `tools/verify-runtime-assets.mjs` list predates Krios activation and does not yet include the AA-10 Hornbreaker GLBs. This is a pre-existing production-gate discrepancy discovered during Cleo retirement review; it is not caused by the archive change and should be corrected in a bounded follow-up before declaring the overall character-production pipeline complete.
+No new manual gameplay acceptance is required for this documentation/gate-only closure because Manny has already confirmed the current live Krios package loads as intended. A post-merge Pages deployment should still complete successfully.
 
-## Deferred work
+## Known defects / deferred work
 
-- Continue Slice 3 one-character-at-a-time intake and approval for the remaining active roster slots.
-- Complete any still-unrecorded desktop/mobile acceptance checks for already integrated production characters as required by `docs/TESTING.md`.
+- Slice 4 AI competitiveness remains intentionally weak; previously accepted at the current vertical-slice stage.
+- Continue Slice 3 one-character-at-a-time intake and approval for remaining roster slots.
+- Complete any still-unrecorded desktop/mobile acceptance checks for other integrated production characters as required by `docs/TESTING.md`.
 - Items and AI item use remain Slice 5.
 - Final HUD/audio/post-processing/optimization remain Slice 6.
 
 ## Next recommended action
 
-Merge PR #31 after its final head CI passes, then validate the deployed Character Select and race AI behavior. Once Manny confirms the live result, continue the next approved Slice 3 character package. Do not begin Slice 5 or otherwise reorder the PRD roadmap without Manny approval.
+Merge the Krios continuity closure after CI passes, confirm the main Pages deployment succeeds, then continue with the next approved Slice 3 character package. Do not begin Slice 5 or reorder the PRD roadmap without Manny approval.
 
 ## Approval gate
 
-Cleo's retirement/archive direction is explicitly approved by Manny on 2026-08-26. The code change may merge after repository CI passes. The deployed rendered result remains subject to Manny's manual confirmation.
+Krios's original package is already approved and live accepted. This bounded cleanup requires no new product decision; it closes missed repository verification and documentation work caused by the prior interrupted session.
