@@ -1,0 +1,58 @@
+name: Keeg LFS publication bridge
+
+on:
+  push:
+    branches:
+      - agent/keeg-production
+    paths:
+      - .github/workflows/keeg-lfs-bridge.yml
+
+permissions:
+  contents: write
+
+jobs:
+  publish-approved-keeg-glbs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out pointer commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: false
+
+      - name: Install pinned builder dependencies
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install Python packages
+        run: python -m pip install numpy==2.3.5 matplotlib==3.10.8
+
+      - name: Rebuild approved GLBs
+        env:
+          MYCELIAL_SKIP_PREVIEW: '1'
+        run: |
+          MYCELIAL_LOD=LOD0 MYCELIAL_OUT=public/assets/characters/aa-04/kart.glb python tools/assets/build_keeg_mycelial_majesty.py
+          MYCELIAL_LOD=LOD1 MYCELIAL_OUT=public/assets/characters/aa-04/kart-lod1.glb python tools/assets/build_keeg_mycelial_majesty.py
+          MYCELIAL_LOD=LOD2 MYCELIAL_OUT=public/assets/characters/aa-04/kart-lod2.glb python tools/assets/build_keeg_mycelial_majesty.py
+
+      - name: Require approved object IDs
+        run: |
+          test "$(sha256sum public/assets/characters/aa-04/kart.glb | cut -d' ' -f1)" = "70cd099091108ddc6bd6b5182161a52b17e8f3f501c4c8b8ef8b78e7e9eca99c"
+          test "$(sha256sum public/assets/characters/aa-04/kart-lod1.glb | cut -d' ' -f1)" = "18b65676d1a643b34b8bb7e6065032ac28b39867521c5598b1fb982399c2688f"
+          test "$(sha256sum public/assets/characters/aa-04/kart-lod2.glb | cut -d' ' -f1)" = "6ee137d9a8e1a2bc8b05e76638dee04ec6dd81af964d71e79364926a9eb12528"
+
+      - name: Prove committed pointers are unchanged
+        run: |
+          git add public/assets/characters/aa-04/kart.glb public/assets/characters/aa-04/kart-lod1.glb public/assets/characters/aa-04/kart-lod2.glb
+          git diff --cached --exit-code
+
+      - name: Upload only approved LFS objects
+        run: |
+          git lfs push --object-id origin 70cd099091108ddc6bd6b5182161a52b17e8f3f501c4c8b8ef8b78e7e9eca99c 18b65676d1a643b34b8bb7e6065032ac28b39867521c5598b1fb982399c2688f 6ee137d9a8e1a2bc8b05e76638dee04ec6dd81af964d71e79364926a9eb12528
+
+      - name: Fetch back and verify
+        run: |
+          rm -rf .git/lfs/objects
+          git lfs fetch origin agent/keeg-production
+          git lfs fsck
