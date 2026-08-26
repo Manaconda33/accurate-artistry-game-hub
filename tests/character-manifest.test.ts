@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   ACCU_ASSET_REVISION,
-  CLEO_ASSET_REVISION,
+  archivedCleo,
   characterById,
   characterManifest,
   LAVI_ASSET_REVISION,
@@ -89,28 +89,21 @@ describe('character manifest', () => {
     });
   });
 
-  it('maps Cleo to The Gilded Stitch and the approved AA-06 profile', () => {
-    const cleo = characterById('aa-06');
-    expect(cleo.displayName).toBe('Cleo');
-    expect(cleo.descriptor).toBe('Steady hands. Flawless lines.');
-    expect(cleo.assetState).toBe('production');
-    expect(cleo.kart).toContain(`/assets/characters/aa-06/kart.glb?v=${CLEO_ASSET_REVISION}`);
-    expect(cleo.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
-    expect(cleo.driverSpritePosition).toEqual([0, 0.9, -0.72]);
-    expect(cleo.driver?.rear).toContain(`?v=${CLEO_ASSET_REVISION}`);
-    expect(cleo.driver?.front).toContain(`?v=${CLEO_ASSET_REVISION}`);
-    expect(cleo.driver?.steerLeft).toContain(`?v=${CLEO_ASSET_REVISION}`);
-    expect(cleo.driver?.steerRight).toContain(`?v=${CLEO_ASSET_REVISION}`);
-    expect(cleo.driver?.hit).toContain(`?v=${CLEO_ASSET_REVISION}`);
-    expect(cleo.driver?.victory).toContain(`?v=${CLEO_ASSET_REVISION}`);
-    expect(cleo.stats).toEqual({
-      speed: 6,
-      acceleration: 6,
-      weight: 5,
-      handling: 7,
-      miniTurbo: 5,
-      traction: 7,
-    });
+  it('keeps Cleo archived but removes her from the active roster', () => {
+    const aa06 = characterById('aa-06');
+    expect(aa06.displayName).toBe('AA 06');
+    expect(aa06.assetState).toBe('placeholder');
+    expect(aa06.portrait).toBeUndefined();
+    expect(aa06.kart).toBeUndefined();
+    expect(aa06.driver).toBeUndefined();
+    expect(characterManifest.some(({ displayName }) => displayName === 'Cleo')).toBe(false);
+
+    expect(archivedCleo.displayName).toBe('Cleo');
+    expect(archivedCleo.assetState).toBe('production');
+    expect(archivedCleo.kart).toContain('/assets/characters/aa-06/kart.glb');
+    expect(archivedCleo.driverSpritePosition).toEqual([0, 0.9, -0.72]);
+    expect(archivedCleo.driver?.front).toContain('/assets/characters/aa-06/driver/front.png');
+    expect(archivedCleo.driver?.victory).toContain('/assets/characters/aa-06/driver/victory.png');
   });
 
   it('maps Krios to The Hornbreaker and the approved AA-10 profile', () => {
