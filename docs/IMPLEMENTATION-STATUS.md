@@ -76,12 +76,14 @@ Continuity closure completed by PR #32:
 - Deterministic production GLBs are prepared at `public/assets/characters/aa-04/`: LOD0 20,260 triangles, LOD1 11,652, and LOD2 4,404. All use four materials, 13 required nodes, and `extras.forward: "-Z"`.
 - `tools/verify-runtime-assets.mjs` now includes all three AA-04 GLBs.
 - Temporary branch-scoped LFS bridge run `33015135969` rebuilt all three approved hashes, proved the committed pointers were unchanged, uploaded only the approved object IDs, deleted its runner cache, fetched the objects back, and passed `git lfs fsck`. The workflow was removed at remote commit `6443cb7cf660ae07f87a9f460abcc10bbf43e225`.
-- Keeg is not active in `characterManifest`; pull-request CI proof, activation, deployment, and live acceptance remain pending.
+- Pre-activation PR CI run `33015347165` passed LFS materialization, `git lfs fsck`, typecheck, lint, tests, and production build.
+- Keeg's AA-04 manifest activation is staged with controlled revision `keeg-runtime-20260826-1`, the approved Balanced Racer descriptor and 7 / 7 / 5 / 7 / 5 / 5 statistics, all six driver states, and the negative-Z visual yaw contract.
+- Active-manifest CI, merge, deployment, and live acceptance remain pending.
 
 ## Next recommended action
 
-Publish the approved pre-activation package to `agent/keeg-production` and require green repository CI before manifest activation. Do not begin Slice 5 or reorder the PRD roadmap without Manny approval.
+Require green active-manifest PR CI, then merge, deploy, and provide the live test link for Manny's desktop/mobile acceptance. Do not begin Slice 5 or reorder the PRD roadmap without Manny approval.
 
 ## Approval gate
 
-No approval is pending for Krios or Cleo. Both checkpoints are closed. Keeg's 2D package and kart design are approved; repository CI is the next production gate before activation.
+No approval is pending for Krios or Cleo. Both checkpoints are closed. Keeg's 2D package and kart design are approved; active-manifest CI is the next production gate.
