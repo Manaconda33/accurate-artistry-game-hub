@@ -67,9 +67,9 @@ Character layers must contain no kart or steering-wheel geometry. Runtime portra
 - Balance mapping: Approved, AA-04 Balanced Racer
 - 2D asset package: Approved and staged on `agent/keeg-production`
 - Kart GLB design: Approved — Candidate 3 Revision 6, 2026-08-26
-- Production integration: Pending
+- Production integration: Staged with controlled revision `keeg-runtime-20260826-1`; active CI pending
 - Live verification: Pending
 
 ## Next action
 
-Publish The Mycelial Majesty's approved deterministic LOD package and validate LFS materialization plus negative-Z metadata in repository CI. Do not activate Keeg until that checkpoint passes.
+Validate the staged AA-04 manifest activation in repository CI, then merge, deploy, and complete desktop/mobile live acceptance.
