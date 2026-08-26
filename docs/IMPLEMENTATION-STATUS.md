@@ -75,7 +75,8 @@ Continuity closure completed by PR #32:
 - Manny approved The Mycelial Majesty Candidate 3 Revision 6 on 2026-08-26.
 - Deterministic production GLBs are prepared at `public/assets/characters/aa-04/`: LOD0 20,260 triangles, LOD1 11,652, and LOD2 4,404. All use four materials, 13 required nodes, and `extras.forward: "-Z"`.
 - `tools/verify-runtime-assets.mjs` now includes all three AA-04 GLBs.
-- Keeg is not active in `characterManifest`; LFS publication, repository CI proof, activation, deployment, and live acceptance remain pending.
+- Temporary branch-scoped LFS bridge run `33015135969` rebuilt all three approved hashes, proved the committed pointers were unchanged, uploaded only the approved object IDs, deleted its runner cache, fetched the objects back, and passed `git lfs fsck`. The workflow was removed at remote commit `6443cb7cf660ae07f87a9f460abcc10bbf43e225`.
+- Keeg is not active in `characterManifest`; pull-request CI proof, activation, deployment, and live acceptance remain pending.
 
 ## Next recommended action
 
