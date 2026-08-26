@@ -131,7 +131,11 @@ const kraken: CharacterDefinition = {
   stats: { speed: 6, acceleration: 7, weight: 5, handling: 6, miniTurbo: 9, traction: 3 },
 };
 
-const cleo: CharacterDefinition = {
+// Cleo is intentionally retained as a complete archived definition so her
+// approved package can be restored without reconstructing paths, placement, or
+// tuning. She is not included in characterManifest and therefore cannot be
+// selected by the player or sampled into an AI grid.
+export const archivedCleo: CharacterDefinition = {
   id: 'aa-06',
   displayName: 'Cleo',
   descriptor: 'Steady hands. Flawless lines.',
@@ -179,12 +183,12 @@ export const characterManifest: readonly CharacterDefinition[] = [
   manaconda,
   accu,
   kraken,
-  cleo,
   krios,
   ...[
     ['aa-01', 'AA 01', 'Balanced Pilot', 'A1', '#9b7cff', [6, 6, 6, 6, 6, 6]],
     ['aa-03', 'AA 03', 'Grip Specialist', 'A3', '#58c6a8', [5, 6, 5, 8, 5, 7]],
     ['aa-04', 'AA 04', 'Launch Expert', 'A4', '#f3b84b', [6, 9, 3, 7, 7, 4]],
+    ['aa-06', 'AA 06', 'Grip Specialist', 'A6', '#d79a35', [6, 6, 5, 7, 5, 7]],
     ['aa-07', 'AA 07', 'Top-Speed Ace', 'A7', '#b76be2', [9, 4, 6, 5, 5, 7]],
     ['aa-08', 'AA 08', 'Off-Road Scout', 'A8', '#79b84a', [6, 5, 6, 5, 6, 8]],
     ['aa-12', 'AA 12', 'Momentum Driver', '12', '#d56b55', [8, 5, 8, 4, 5, 6]],
