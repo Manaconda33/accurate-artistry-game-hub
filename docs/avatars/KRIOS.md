@@ -61,16 +61,22 @@ Manny supplied the definitive Krios character-and-kart reference, confirmed that
 - Victory frame: Approved
 - Complete 2D package validation: Passed
 - Kart GLB design: Approved by Manny on 2026-08-22 (Hornbreaker Candidate 7)
-- Deterministic GLB package: Generated and locally validated
+- Deterministic GLB package: Generated and validated
 - LOD0: 14,568 triangles / 4 materials / 13 required nodes / `extras.forward: "-Z"`
 - LOD1: 7,746 triangles / 4 materials / 13 required nodes / `extras.forward: "-Z"`
 - LOD2: 4,050 triangles / 4 materials / 13 required nodes / `extras.forward: "-Z"`
 - LFS object publication: Passed; three approved objects uploaded and fetch-back verified
 - Inactive-package materialization gate: Passed, CI run `32590997172` (#80)
-- Manifest production integration: Active on `feature/krios-hornbreaker-3d`
+- Manifest production integration: Merged to `main` through PR #30
 - Active-package CI gate: Passed, CI run `32591092941` (#82)
-- Live verification: Not started
+- Merge checkpoint CI: Passed, run `32591411527` on commit `ddbb2dea9e7f5e558cb8d5e76501b99219416f65`
+- Live verification: Passed. Manny confirmed on 2026-08-26 that Krios is in the live game and all assets load as intended.
+- Production status: **LIVE ACCEPTED — KRIOS PRODUCTION INTEGRATION COMPLETE.**
+
+## Runtime verification closure
+
+The repository continuity review on 2026-08-26 found that `tools/verify-runtime-assets.mjs` had not been updated to include AA-10 when Krios was activated. This was a repository-record/gate omission, not a live asset failure. The bounded closure checkpoint adds all three Hornbreaker GLBs to the active build signature/orientation gate so future builds fail if Krios's LFS assets are pointers, malformed GLBs, or lose `extras.forward: "-Z"` metadata.
 
 ## Next action
 
-Review PR #30 and obtain Manny's explicit merge approval. After merge and Pages deployment, complete live selection, kart orientation, driver-state, victory, and unique AI-opponent checks before closing Krios's production integration.
+Krios requires no further character-production work. Continue Slice 3 with the next approved character package. Any future Krios visual or balance change requires a new approval and fresh validation checkpoint.

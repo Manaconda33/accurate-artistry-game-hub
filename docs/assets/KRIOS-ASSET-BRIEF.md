@@ -6,7 +6,7 @@
 - Runtime ID: `aa-10`
 - Balance profile: AA-10 Straight-Line Heavy
 - Kart: The Hornbreaker
-- Package status: complete approved 2D and deterministic kart packages; LFS materialization and manifest CI passed on the feature branch
+- Package status: **approved, merged to `main`, deployed, and live accepted**
 
 ## Canonical character lock
 
@@ -61,7 +61,7 @@ The supplied Krios racing sheet is definitive. Preserve:
 
 All three files are deterministic outputs of `tools/assets/build_krios_hornbreaker.py`. Each GLB uses meters, declares `extras.forward: "-Z"`, and contains the required kart root, chassis, accent, steering, four wheel, two exhaust, driver mount, and two item mount nodes. Candidate 7—including the integrated, sealed horn-housing yoke—is the approved visual lock.
 
-## Current verification
+## Verification evidence
 
 - Portrait: 256 x 256, sRGB RGBA, transparent
 - Front driver frame: 512 x 512, sRGB RGBA, transparent
@@ -74,7 +74,6 @@ All three files are deterministic outputs of `tools/assets/build_krios_hornbreak
 - All six approved driver frames contain no steering wheel or kart geometry
 - Runtime PNGs resolve to normal Git rather than Git LFS
 - Manny approved portrait, front, rear, steer-left, steer-right, hit, and victory art on 2026-08-22
-- Full package validation confirms the portrait is 256 x 256 and all six driver frames are 512 x 512, sRGB RGBA, alpha range 0-1, with transparent corner pixels
 - Manny approved Hornbreaker Candidate 7 on 2026-08-22
 - Clean repeat builds matched all three approved hashes byte-for-byte
 - GLB structure, triangle limits, material limit, required node set, meters, and `-Z` orientation metadata passed local validation
@@ -82,7 +81,15 @@ All three files are deterministic outputs of `tools/assets/build_krios_hornbreak
 - Inactive-package CI run `32590997172` (#80) proved all three GLBs materialize and pass `git lfs fsck`, typecheck, lint, tests, and production build
 - AA-10 was activated only after run #80 passed
 - Active-package CI run `32591092941` (#82) passed LFS verification, the explicit Krios manifest contract, the full suite, and production build
+- PR #30 merged Krios to `main`; merge commit `ddbb2dea9e7f5e558cb8d5e76501b99219416f65` passed CI run `32591411527`
+- Manny confirmed on 2026-08-26 that Krios is present in the live game and all assets load as intended
+
+## Active runtime gate
+
+Krios is an active production package. `tools/verify-runtime-assets.mjs` must include all three AA-10 Hornbreaker GLBs. The build must fail if any of those paths contains an LFS pointer instead of a materialized GLB, lacks a valid glTF JSON chunk, or does not declare `extras.forward: "-Z"`.
+
+This requirement was added during the 2026-08-26 continuity cleanup after a usage-limit interruption left the runtime signature list stale even though the live Krios integration itself had succeeded.
 
 ## Integration gate
 
-Do not activate AA-10 in the production manifest until all six driver frames and The Hornbreaker's required GLB LODs are approved, materialized, and validated. Repository CI, deployed selection and orientation checks, driver-state checks, unique-opponent checks, and Manny's live acceptance remain required.
+**Complete.** Krios is active in the production manifest, The Hornbreaker and all approved driver states load in the deployed game, repository CI has passed, and Manny has live-accepted the production package. No further Krios integration work is pending.
