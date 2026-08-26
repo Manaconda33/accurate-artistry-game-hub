@@ -6,7 +6,7 @@
 
 PRD baseline: **v1.1, working implementation amendment 1.6**.
 
-Current `main` before this bounded cleanup: `962ccf994fb488e8da64068d5b4a739a3c090bcb` — Cleo archived from active production through PR #31. Main CI run `32996219644` passed validation and GitHub Pages deployment.
+Latest verified implementation checkpoint: `83545fdb22a8d6ac413a8f1b9ea5a4068eea5b19` — PR #32 closed the Krios production-verification continuity gap. Main CI run `32997706788` passed LFS verification, typecheck, lint, tests, production build, and GitHub Pages deployment.
 
 The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
@@ -33,48 +33,30 @@ PR #31 merged Cleo's reversible production retirement on 2026-08-26.
 - Manny manually confirmed the live deployment on 2026-08-26: **Cleo is gone from the live game.**
 - Status: **LIVE ACCEPTED — CLEO ARCHIVE COMPLETE.**
 
-## Krios production closure — 2026-08-26
+## Krios production status — complete
 
-A continuity review following the Cleo archive confirmed that Krios's gameplay/asset integration had succeeded before a prior usage-limit interruption, but the final repository continuity work was incomplete.
+Krios's gameplay and asset integration had succeeded before a prior usage-limit interruption, but the final repository continuity work was incomplete. PR #32 closed that gap without altering Krios's visuals, assets, stats, physics, orientation, runtime URLs, or gameplay behavior.
 
-Verified existing implementation truth:
+Verified production state:
 
 - Krios is active in `characterManifest` as production AA-10 Straight-Line Heavy.
-- The approved portrait and all six driver states are wired to controlled Krios runtime URLs.
-- The Hornbreaker production kart is wired to the manifest with the shared negative-Z visual orientation contract.
-- Automated manifest coverage already verifies Krios identity, kart path, all six driver-state URLs, orientation yaw, and 10 / 4 / 9 / 3 / 4 / 6 statistics.
-- PR #30 merged the complete Hornbreaker production package to `main` at commit `ddbb2dea9e7f5e558cb8d5e76501b99219416f65`.
-- Main CI run `32591411527` passed for that merge.
+- The approved portrait and all six driver states use the controlled Krios runtime revision.
+- The Hornbreaker production kart uses the enforced negative-Z visual orientation contract.
+- Automated manifest coverage verifies Krios identity, kart path, all six driver-state URLs, orientation yaw, and 10 / 4 / 9 / 3 / 4 / 6 statistics.
+- PR #30 originally merged the approved Hornbreaker production package at `ddbb2dea9e7f5e558cb8d5e76501b99219416f65`; main CI run `32591411527` passed.
 - Manny confirmed on 2026-08-26 that **Krios is in the live game and all assets load as intended.**
 
-Continuity gap found:
+Continuity closure completed by PR #32:
 
-- `tools/verify-runtime-assets.mjs` still contained the pre-Krios active-GLB list and therefore did not require the three AA-10 Hornbreaker GLBs during future production builds.
-- `docs/avatars/KRIOS.md` and `docs/assets/KRIOS-ASSET-BRIEF.md` still described PR #30/live verification as pending even though the merge, deployment, and live behavior had already succeeded.
-- `docs/TESTING.md` lacked a Krios-specific production regression matrix.
-
-Bounded closure on branch `agent/close-krios-production-records`:
-
-- Added `public/assets/characters/aa-10/kart.glb`, `kart-lod1.glb`, and `kart-lod2.glb` to the active runtime signature/orientation gate.
-- Updated Krios's character record to **LIVE ACCEPTED — KRIOS PRODUCTION INTEGRATION COMPLETE**.
-- Updated the Krios asset brief to record the merged/deployed/live-accepted state and make all three AA-10 GLBs mandatory build-gate inputs.
-- Added a Krios / Hornbreaker manual regression matrix and generalized the testing contract: every active production character with GLB LODs must be represented in `tools/verify-runtime-assets.mjs`.
-
-This closure changes no Krios artwork, model geometry, stats, physics, orientation, gameplay behavior, or live runtime URLs. It repairs verification and repository continuity only.
-
-## Validation gate for Krios closure
-
-Before merge, the branch must pass:
-
-1. Git LFS materialized checkout and `git lfs fsck`.
-2. Runtime signature/orientation verification for all active production GLBs, now including all three AA-10 Hornbreaker LODs.
-3. Strict TypeScript typecheck.
-4. ESLint with zero warnings.
-5. Full Vitest CI suite.
-6. Vite production build.
-7. GitHub Actions success on the final PR head.
-
-No new manual gameplay acceptance is required for this documentation/gate-only closure because Manny has already confirmed the current live Krios package loads as intended. A post-merge Pages deployment should still complete successfully.
+- `tools/verify-runtime-assets.mjs` now requires all three active AA-10 Hornbreaker GLBs: `kart.glb`, `kart-lod1.glb`, and `kart-lod2.glb`.
+- Future production builds fail if any Hornbreaker GLB is an LFS pointer, malformed binary glTF, or loses `extras.forward: "-Z"`.
+- `docs/avatars/KRIOS.md` records the merged, deployed, live-accepted state.
+- `docs/assets/KRIOS-ASSET-BRIEF.md` records the completed integration gate and mandatory runtime verification coverage.
+- `docs/TESTING.md` includes a Krios / Hornbreaker regression matrix and now requires every active production GLB package to be represented in the runtime verification list.
+- PR #32 head CI run `32997599421` passed LFS verification, typecheck, lint, tests, and production build.
+- PR #32 merged to `main` at `83545fdb22a8d6ac413a8f1b9ea5a4068eea5b19`.
+- Post-merge main CI run `32997706788` passed the expanded runtime gate, typecheck, lint, tests, production build, artifact upload, and GitHub Pages deployment.
+- Status: **LIVE ACCEPTED — KRIOS PRODUCTION INTEGRATION AND REPOSITORY CLOSURE COMPLETE.**
 
 ## Known defects / deferred work
 
@@ -86,8 +68,8 @@ No new manual gameplay acceptance is required for this documentation/gate-only c
 
 ## Next recommended action
 
-Merge the Krios continuity closure after CI passes, confirm the main Pages deployment succeeds, then continue with the next approved Slice 3 character package. Do not begin Slice 5 or reorder the PRD roadmap without Manny approval.
+Continue with the next approved Slice 3 character package. Do not begin Slice 5 or reorder the PRD roadmap without Manny approval.
 
 ## Approval gate
 
-Krios's original package is already approved and live accepted. This bounded cleanup requires no new product decision; it closes missed repository verification and documentation work caused by the prior interrupted session.
+No approval is pending for Krios or Cleo. Both checkpoints are closed. The next approval gate is the next Slice 3 character intake/asset decision that requires Manny's review.
