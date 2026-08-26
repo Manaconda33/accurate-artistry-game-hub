@@ -66,10 +66,18 @@ Continuity closure completed by PR #32:
 - Items and AI item use remain Slice 5.
 - Final HUD/audio/post-processing/optimization remain Slice 6.
 
+## Keeg production status — 2D package approved
+
+- Keeg is locked to AA-04 Balanced Racer with The Mycelial Majesty on `agent/keeg-production`.
+- Manny approved the portrait, front, rear, steer-left, steer-right, hit, and victory art on 2026-08-26.
+- The first six driver exports were correctly rejected because their checkerboard backgrounds were baked RGB pixels rather than transparency.
+- Corrected runtime files now meet the 256/512 size contract, use sRGBA, span alpha 0–1, and have fully transparent corner pixels.
+- Keeg is not active in `characterManifest`; kart production, deterministic LODs, LFS publication, runtime verification, deployment, and live acceptance remain pending.
+
 ## Next recommended action
 
-Continue with the next approved Slice 3 character package. Do not begin Slice 5 or reorder the PRD roadmap without Manny approval.
+Continue Keeg's approved Slice 3 package with The Mycelial Majesty production kart. Do not begin Slice 5 or reorder the PRD roadmap without Manny approval.
 
 ## Approval gate
 
-No approval is pending for Krios or Cleo. Both checkpoints are closed. The next approval gate is the next Slice 3 character intake/asset decision that requires Manny's review.
+No approval is pending for Krios or Cleo. Both checkpoints are closed. Keeg's 2D package is approved; the next approval gate is The Mycelial Majesty kart candidate.

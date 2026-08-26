@@ -44,15 +44,15 @@ Manny confirmed on 2026-08-26 that he created or controls the definitive supplie
 
 ## Required driver art
 
-All production art remains separately approval-gated:
+Manny approved the complete production driver-art package on 2026-08-26:
 
-- `portrait.png`: pending
-- `driver/front.png`: pending
-- `driver/rear.png`: pending
-- `driver/steer-left.png`: pending
-- `driver/steer-right.png`: pending
-- `driver/hit.png`: pending
-- `driver/victory.png`: pending
+- `portrait.png`: approved
+- `driver/front.png`: approved
+- `driver/rear.png`: approved
+- `driver/steer-left.png`: approved
+- `driver/steer-right.png`: approved
+- `driver/hit.png`: approved
+- `driver/victory.png`: approved
 
 Character layers must contain no kart or steering-wheel geometry. Runtime portrait target is 256 x 256 transparent PNG. Each driver state target is 512 x 512 transparent PNG.
 
@@ -65,11 +65,11 @@ Character layers must contain no kart or steering-wheel geometry. Runtime portra
 - Kart design lock: Approved
 - Kart name: Approved, The Mycelial Majesty
 - Balance mapping: Approved, AA-04 Balanced Racer
-- 2D asset package: Pending
+- 2D asset package: Approved and staged on `agent/keeg-production`
 - Kart GLB design: Pending
 - Production integration: Pending
 - Live verification: Pending
 
 ## Next action
 
-Prepare the selectable portrait candidate from the definitive reference. Do not begin runtime integration or production kart activation until the governed asset approvals are complete.
+Prepare The Mycelial Majesty production kart candidate. Do not activate Keeg in the runtime manifest until the approved kart package, deterministic LODs, orientation metadata, LFS materialization, CI, deployment, and live manual checks pass.
