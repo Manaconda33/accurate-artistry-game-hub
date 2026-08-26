@@ -116,7 +116,20 @@ Run this matrix for every future production character, in addition to its slice-
 - All six approved driver states are preloaded. Rear is the safe fallback; the reverse camera selects front, visual left/right select the matching steer frame, hit overrides steering briefly, and victory overrides normal driving after the player finishes.
 - Chase and rear cameras confirm the kart’s nose and steering wheel face forward of the driver. Any visual-root rotation or other axis correction is recorded in that character’s record and asset brief.
 - Every production GLB declares `extras.forward: "-Z"`, and every production manifest entry uses `NEGATIVE_Z_KART_VISUAL_YAW`. Automated checks must fail if either side of this orientation contract changes independently.
+- Every active production character with GLB LODs must have all required LOD paths listed in `tools/verify-runtime-assets.mjs`. Manifest activation without corresponding runtime-gate coverage is an incomplete production checkpoint.
 - A product-owner test on desktop and mobile confirms the portrait, controlled kart, driver states, and orientation. Record the tested deployment, commit, browser/device result, and limitations in implementation status.
+
+## Krios / Hornbreaker manual matrix
+
+- AA-10 renders Krios's approved portrait, Straight-Line Heavy descriptor, and 10 / 4 / 9 / 3 / 4 / 6 statistics.
+- `Race as Krios` loads The Hornbreaker rather than the fallback kart.
+- The Hornbreaker's low broad chassis, integrated front ram horns, oversized studded tires, open cockpit, and twin rear exhausts load without clipping or detached housings.
+- Krios sits correctly in the cockpit without floating or obscuring the kart silhouette.
+- Rear, front, steer-left, steer-right, hit, and victory driver states load from the controlled Krios runtime revision.
+- Chase and rear views confirm the integrated ram horns remain at the race-forward nose and the rear exhausts remain behind Krios.
+- Krios appears no more than once as an AI opponent when the player selects another character.
+- CI materializes and validates all three AA-10 GLBs: `kart.glb`, `kart-lod1.glb`, and `kart-lod2.glb`. Each must begin with the binary glTF signature and declare `extras.forward: "-Z"`.
+- Product-owner acceptance is recorded only after the deployed game confirms Krios is present and all approved assets load as intended.
 
 ## Mobile finish-state matrix
 
