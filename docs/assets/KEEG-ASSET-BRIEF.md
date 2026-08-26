@@ -6,7 +6,7 @@
 - Runtime ID: `aa-04`
 - Balance profile: AA-04 Balanced Racer
 - Kart: The Mycelial Majesty
-- Package status: **2D art and kart design approved; production GLBs prepared; activation pending CI**
+- Package status: **2D art and kart approved; LFS verified; manifest activation staged pending CI**
 
 ## Canonical character lock
 
@@ -58,7 +58,9 @@ The supplied racing reference is definitive. Preserve the low wide enchanted gra
 
 All three files use meters, declare `extras.forward: "-Z"`, and contain the required kart root, chassis, accent, steering, four wheel, two exhaust, driver mount, and two item mount nodes. Runtime URLs, manifest activation, CI deployment, and live manual verification remain pending.
 - LFS publication bridge run `33015135969` rebuilt and matched all three approved hashes, uploaded only those object IDs, deleted its local cache, fetched the branch objects back, and passed `git lfs fsck`. The temporary workflow was removed before review.
+- Pre-activation PR CI run `33015347165` passed LFS materialization, `git lfs fsck`, typecheck, lint, tests, and production build.
+- Staged runtime revision: `keeg-runtime-20260826-1`.
 
 ## Next gate
 
-Publish the approved GLB package through Git LFS and prove materialization/orientation in repository CI. Do not activate AA-04 as a production manifest identity until that checkpoint passes.
+Validate the staged AA-04 manifest identity in PR CI, then merge and perform desktop/mobile live checks before closing production acceptance.
