@@ -43,6 +43,7 @@ export const ACCU_ASSET_REVISION = 'accu-runtime-20260820-1';
 export const KRAKEN_ASSET_REVISION = 'kraken-runtime-20260821-1';
 export const CLEO_ASSET_REVISION = 'cleo-runtime-20260821-1';
 export const KRIOS_ASSET_REVISION = 'krios-runtime-20260822-1';
+export const KEEG_ASSET_REVISION = 'keeg-runtime-20260826-1';
 
 const assetUrl = (path: string, revision: string): string =>
   `${import.meta.env.BASE_URL}${path}?v=${revision}`;
@@ -178,16 +179,37 @@ const krios: CharacterDefinition = {
   stats: { speed: 10, acceleration: 4, weight: 9, handling: 3, miniTurbo: 4, traction: 6 },
 };
 
+const keeg: CharacterDefinition = {
+  id: 'aa-04',
+  displayName: 'Keeg',
+  descriptor: 'Balanced Racer',
+  initials: 'KE',
+  accent: '#8f4de8',
+  assetState: 'production',
+  portrait: assetUrl('assets/characters/aa-04/portrait.png', KEEG_ASSET_REVISION),
+  kart: assetUrl('assets/characters/aa-04/kart.glb', KEEG_ASSET_REVISION),
+  kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  driver: {
+    rear: assetUrl('assets/characters/aa-04/driver/rear.png', KEEG_ASSET_REVISION),
+    front: assetUrl('assets/characters/aa-04/driver/front.png', KEEG_ASSET_REVISION),
+    steerLeft: assetUrl('assets/characters/aa-04/driver/steer-left.png', KEEG_ASSET_REVISION),
+    steerRight: assetUrl('assets/characters/aa-04/driver/steer-right.png', KEEG_ASSET_REVISION),
+    hit: assetUrl('assets/characters/aa-04/driver/hit.png', KEEG_ASSET_REVISION),
+    victory: assetUrl('assets/characters/aa-04/driver/victory.png', KEEG_ASSET_REVISION),
+  },
+  stats: { speed: 7, acceleration: 7, weight: 5, handling: 7, miniTurbo: 5, traction: 5 },
+};
+
 export const characterManifest: readonly CharacterDefinition[] = [
   lavi,
   manaconda,
   accu,
   kraken,
   krios,
+  keeg,
   ...[
     ['aa-01', 'AA 01', 'Balanced Pilot', 'A1', '#9b7cff', [6, 6, 6, 6, 6, 6]],
     ['aa-03', 'AA 03', 'Grip Specialist', 'A3', '#58c6a8', [5, 6, 5, 8, 5, 7]],
-    ['aa-04', 'AA 04', 'Launch Expert', 'A4', '#f3b84b', [6, 9, 3, 7, 7, 4]],
     ['aa-06', 'AA 06', 'Grip Specialist', 'A6', '#d79a35', [6, 6, 5, 7, 5, 7]],
     ['aa-07', 'AA 07', 'Top-Speed Ace', 'A7', '#b76be2', [9, 4, 6, 5, 5, 7]],
     ['aa-08', 'AA 08', 'Off-Road Scout', 'A8', '#79b84a', [6, 5, 6, 5, 6, 8]],

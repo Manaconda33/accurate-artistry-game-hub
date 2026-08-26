@@ -119,6 +119,18 @@ Run this matrix for every future production character, in addition to its slice-
 - Every active production character with GLB LODs must have all required LOD paths listed in `tools/verify-runtime-assets.mjs`. Manifest activation without corresponding runtime-gate coverage is an incomplete production checkpoint.
 - A product-owner test on desktop and mobile confirms the portrait, controlled kart, driver states, and orientation. Record the tested deployment, commit, browser/device result, and limitations in implementation status.
 
+## Keeg / Mycelial Majesty manual matrix
+
+- AA-04 renders Keeg's approved portrait, Balanced Racer descriptor, and 7 / 7 / 5 / 7 / 5 / 5 statistics.
+- `Race as Keeg` loads The Mycelial Majesty rather than the fallback kart.
+- The approved purple-and-silver grand-tourer body, mushroom crest and fixtures, four connected wheels, open cockpit, and angled chassis-mounted steering assembly load without clipping or floating geometry.
+- Keeg sits correctly in the cockpit with the steering wheel forward of the driver.
+- Rear, front, steer-left, steer-right, hit, and victory driver states load from `keeg-runtime-20260826-1`.
+- Chase and rear views confirm the mushroom shield is at the race-forward nose and the exhausts remain behind Keeg.
+- Keeg appears no more than once as an AI opponent when the player selects another character.
+- CI materializes and validates all three AA-04 GLBs; each begins with the binary glTF signature and declares `extras.forward: "-Z"`.
+- Product-owner acceptance is recorded only after the deployed game confirms Keeg is selectable and all approved assets load as intended on desktop and mobile.
+
 ## Krios / Hornbreaker manual matrix
 
 - AA-10 renders Krios's approved portrait, Straight-Line Heavy descriptor, and 10 / 4 / 9 / 3 / 4 / 6 statistics.

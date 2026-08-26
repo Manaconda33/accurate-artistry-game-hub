@@ -6,6 +6,7 @@ import {
   characterManifest,
   LAVI_ASSET_REVISION,
   KRAKEN_ASSET_REVISION,
+  KEEG_ASSET_REVISION,
   KRIOS_ASSET_REVISION,
   MANACONDA_ASSET_REVISION,
   NEGATIVE_Z_KART_VISUAL_YAW,
@@ -128,6 +129,31 @@ describe('character manifest', () => {
       handling: 3,
       miniTurbo: 4,
       traction: 6,
+    });
+  });
+
+  it('maps Keeg to The Mycelial Majesty and the approved AA-04 profile', () => {
+    const keeg = characterById('aa-04');
+    expect(keeg.displayName).toBe('Keeg');
+    expect(keeg.descriptor).toBe('Balanced Racer');
+    expect(keeg.assetState).toBe('production');
+    expect(keeg.kart).toContain(
+      `/assets/characters/aa-04/kart.glb?v=${KEEG_ASSET_REVISION}`,
+    );
+    expect(keeg.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(keeg.driver?.rear).toContain(`?v=${KEEG_ASSET_REVISION}`);
+    expect(keeg.driver?.front).toContain(`?v=${KEEG_ASSET_REVISION}`);
+    expect(keeg.driver?.steerLeft).toContain(`?v=${KEEG_ASSET_REVISION}`);
+    expect(keeg.driver?.steerRight).toContain(`?v=${KEEG_ASSET_REVISION}`);
+    expect(keeg.driver?.hit).toContain(`?v=${KEEG_ASSET_REVISION}`);
+    expect(keeg.driver?.victory).toContain(`?v=${KEEG_ASSET_REVISION}`);
+    expect(keeg.stats).toEqual({
+      speed: 7,
+      acceleration: 7,
+      weight: 5,
+      handling: 7,
+      miniTurbo: 5,
+      traction: 5,
     });
   });
 
