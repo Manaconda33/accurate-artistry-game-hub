@@ -63,6 +63,8 @@ All three files use meters, declare `extras.forward: "-Z"`, and contain the requ
 
 The initial live publication corrupted the seven normal-Git PNG payloads while leaving plausible PNG headers and dimensions. The repair restores the exact approved source exports and adds full zlib/scanline decoding to the production asset gate. No artwork was regenerated or visually changed.
 
+The live cockpit check found the generic driver mount placed Keeg's hands above the steering-wheel center. AA-04 therefore uses the character-specific runtime mount `[0, 0.72, -0.12]`; sprite scale, depth, approved artwork, and kart geometry remain unchanged.
+
 ## Next gate
 
 Validate the staged AA-04 manifest identity in PR CI, then merge and perform desktop/mobile live checks before closing production acceptance.
