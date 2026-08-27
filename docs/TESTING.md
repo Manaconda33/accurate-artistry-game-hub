@@ -145,6 +145,19 @@ Run this matrix for every future production character, in addition to its slice-
 - CI materializes and validates all three AA-10 GLBs: `kart.glb`, `kart-lod1.glb`, and `kart-lod2.glb`. Each must begin with the binary glTF signature and declare `extras.forward: "-Z"`.
 - Product-owner acceptance is recorded only after the deployed game confirms Krios is present and all approved assets load as intended.
 
+## McFleurdel / Fleur de Nuit manual matrix
+
+- AA-07 renders McFleurdel's approved portrait, High-Speed Cruiser descriptor, and 8 / 6 / 7 / 5 / 4 / 6 statistics.
+- `Race as McFleurdel` loads The Fleur de Nuit rather than the fallback kart.
+- The approved black body, raised silver fleur-de-lis, black nose shield, plum throne cockpit, attached silver trim, four connected wheels, ivory candles, and violet flames load without clipping or floating geometry.
+- McFleurdel sits correctly in the cockpit with the steering wheel forward of the driver.
+- Rear, front, steer-left, steer-right, hit, and victory states load from `mcfleurdel-runtime-20260827-1`.
+- Chase and rear views confirm the fleur-de-lis shield is at the race-forward nose and exhausts remain behind McFleurdel.
+- McFleurdel appears no more than once as an AI opponent when the player selects another character.
+- CI materializes and validates all three AA-07 GLBs; each begins with the binary glTF signature and declares `extras.forward: "-Z"`.
+- CI inflates and validates every AA-07 PNG as complete RGBA image data.
+- Product-owner acceptance is recorded only after the deployed game confirms McFleurdel is selectable and all approved assets load as intended on desktop and mobile.
+
 ## Mobile finish-state matrix
 
 - Completing a race adds the `is-finished` state to the game shell before results become visible.

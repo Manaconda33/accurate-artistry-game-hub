@@ -85,7 +85,7 @@ Continuity closure completed by PR #32:
 
 ## Next recommended action
 
-Continue with the next approved Slice 3 character package. Do not begin Slice 5 or reorder the PRD roadmap without Manny approval.
+Validate and publish McFleurdel's staged AA-07 production package. Manny approved The Fleur de Nuit Candidate 9 on 2026-08-27. Deterministic LOD0/LOD1/LOD2, the controlled `mcfleurdel-runtime-20260827-1` manifest mapping, all seven approved PNGs, runtime verification coverage, tests, and manual matrix are staged on `agent/mcfleurdel-production`. Merge/deployment and live product-owner acceptance remain pending.
 
 ## Approval gate
 

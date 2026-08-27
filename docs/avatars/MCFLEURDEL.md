@@ -1,0 +1,71 @@
+# McFleurdel avatar record
+
+## Identity
+
+- Display name: McFleurdel
+- Stable internal ID: `aa-07`
+- Pronouns: she/her
+- Selection descriptor: High-Speed Cruiser
+- Character lock: Approved by Manny on 2026-08-27
+- Definitive visual authority: Manny-supplied McFleurdel racing reference
+
+McFleurdel is a human woman known as the Dark Goddess of Refined Contradiction. She has pale skin, sharply divided black-and-white hair, violet eyes, dark lips, and precise black eyeliner. Her tailored gothic formalwear combines pinstripes, silver fleur-de-lis embroidery, dark-academia structure, subtle punk details, and restrained occult accents.
+
+Her demeanor is controlled, observant, quietly intimidating, and often quietly unimpressed. Preserve her clean black-and-white geometry, restrained plum/violet accents, fleur-de-lis symbolism, refined silhouette, and calculated precision.
+
+Avoid generic goth treatment, uncontrolled rage, cheerful softness, ornamental clutter that obscures her silhouette, or changing the canonical black/white hair division without view-specific approval.
+
+## Kart direction
+
+- Kart name: The Fleur de Nuit
+- Kart lock: Approved by Manny on 2026-08-27
+- Design authority: the supplied racing reference is definitive
+
+The Fleur de Nuit is a low gothic grand-tourer with a black lacquered body, architectural silver filigree, plum throne-like cockpit upholstery, a fleur-de-lis nose shield, four exposed conventional wheels, structurally integrated candle-like violet flame fixtures, and purple exhaust energy. Its elegance must read as engineered construction rather than floating decoration.
+
+Avoid detached candles or filigree, clipped wheels, hidden cockpit geometry, novelty hearse proportions, or decorative elements that interfere with the driver or steering assembly.
+
+## Gameplay mapping
+
+- Profile: AA-07 High-Speed Cruiser
+- Class: Cruiser
+- Stats: Speed 8 / Acceleration 6 / Weight 7 / Handling 5 / Mini-Turbo 4 / Traction 6
+- Mapping lock: Approved by Manny on 2026-08-27
+
+McFleurdel's intended driving identity is elegant and deliberate: strong top speed and substantial road presence, balanced by moderate handling and weak mini-turbo. The profile differentiates her from the technical and drift-specialist cruisers without moving her into the heavyweight class.
+
+## Provenance and transformation
+
+Manny confirmed on 2026-08-27 that he controls the definitive supplied McFleurdel reference and authorizes its transformation into production game assets.
+
+## Required driver art
+
+Manny approved the complete 2D design package on 2026-08-27:
+
+- `portrait.png`: approved
+- `driver/front.png`: approved
+- `driver/rear.png`: approved
+- `driver/steer-left.png`: approved
+- `driver/steer-right.png`: approved
+- `driver/hit.png`: approved with view-specific hair-color inversion
+- `driver/victory.png`: approved with view-specific hair-color inversion
+
+All normalized files use genuine sRGBA transparency, exact PRD dimensions, alpha spanning 0–1, and fully transparent corner pixels. Driver layers contain no kart or steering-wheel geometry.
+
+## Approval status
+
+- Intake: Approved
+- Character lock: Approved
+- Definitive visual reference: Approved
+- Source rights / transformation authorization: Confirmed
+- Kart design lock: Approved
+- Kart name: Approved, The Fleur de Nuit
+- Balance mapping: Approved, AA-07 High-Speed Cruiser
+- 2D asset package: Approved and normalized on `agent/mcfleurdel-production`
+- Kart GLB design: Approved — Candidate 9, 2026-08-27
+- Production integration: Staged on `agent/mcfleurdel-production`; CI and deployment pending
+- Live verification: Pending
+
+## Next action
+
+Validate the staged AA-07 package in repository CI, then merge, deploy, and complete desktop/mobile live acceptance.

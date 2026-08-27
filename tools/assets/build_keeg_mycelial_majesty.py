@@ -8,6 +8,7 @@ import json
 import math
 import os
 import struct
+import zlib
 from pathlib import Path
 
 import matplotlib
@@ -33,6 +34,14 @@ DETAIL = DETAILS[LOD]
 OUT = Path(os.environ.get("MYCELIAL_OUT", ROOT / "candidates/mycelial-majesty-candidate-3.glb"))
 PREVIEW = Path(os.environ.get("MYCELIAL_PREVIEW", ROOT / "candidates/mycelial-majesty-candidate-3-preview.png"))
 CANDIDATE = os.environ.get("MYCELIAL_CANDIDATE", "3")
+APPROVED_NAME = "The Mycelial Majesty"
+GENERATOR = "Accurate Artistry procedural Mycelial Majesty builder"
+PREVIEW_TITLE = "THE MYCELIAL MAJESTY"
+PREVIEW_VIEWS = ["Front three-quarter • mushroom crest at -Z", "Rear three-quarter • arcane exhaust housings", "Top • open cockpit and attached filigree", "Left profile • low enchanted grand-tourer stance"]
+PREVIEW_FOOTER = "Royal purple grand-tourer • attached silver filigree • conventional arcane wheels • mushroom crest • open cockpit"
+USE_VERTEX_COLORS = True
+MATERIAL_TEXTURE_RGBA = None
+PREVIEW_MATERIAL_RGBA = None
 
 ROYAL_PURPLE = np.array([0.23, 0.025, 0.48, 1.0], np.float32)
 LAVENDER = np.array([0.63, 0.20, 0.95, 1.0], np.float32)
@@ -192,10 +201,10 @@ MATERIALS = [
 
 def export_glb(parts):
     doc = {
-        "asset": {"version": "2.0", "generator": "Accurate Artistry procedural Mycelial Majesty builder"},
+        "asset": {"version": "2.0", "generator": GENERATOR},
         "scene": 0, "scenes": [{"nodes": [0]}], "nodes": [], "meshes": [],
         "materials": MATERIALS, "buffers": [{}], "bufferViews": [], "accessors": [],
-        "extras": {"lod": LOD, "forward": "-Z", "units": "meters", "approvedName": "The Mycelial Majesty"},
+        "extras": {"lod": LOD, "forward": "-Z", "units": "meters", "approvedName": APPROVED_NAME},
     }
     blob = bytearray()
 
@@ -214,6 +223,28 @@ def export_glb(parts):
         doc["accessors"].append(item)
         return len(doc["accessors"]) - 1
 
+    if MATERIAL_TEXTURE_RGBA:
+        doc["images"], doc["textures"], doc["samplers"] = [], [], [{"magFilter": 9729, "minFilter": 9729, "wrapS": 10497, "wrapT": 10497}]
+        # Texture 0 is intentionally unused. Some mobile viewers incorrectly
+        # treat a valid texture index of zero as a false/missing value.
+        texture_colors = [(255, 255, 255, 255), *MATERIAL_TEXTURE_RGBA]
+        for index, rgba in enumerate(texture_colors):
+            raw = bytes([0, *rgba])
+            compressed = zlib.compress(raw, 9)
+            def chunk(kind, payload):
+                return struct.pack(">I", len(payload)) + kind + payload + struct.pack(">I", zlib.crc32(kind + payload) & 0xFFFFFFFF)
+            png = b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", 1, 1, 8, 6, 0, 0, 0)) + chunk(b"IDAT", compressed) + chunk(b"IEND", b"")
+            while len(blob) % 4:
+                blob.append(0)
+            offset = len(blob); blob.extend(png)
+            doc["bufferViews"].append({"buffer": 0, "byteOffset": offset, "byteLength": len(png)})
+            doc["images"].append({"bufferView": len(doc["bufferViews"]) - 1, "mimeType": "image/png", "name": f"MaterialColor{index}"})
+            doc["textures"].append({"sampler": 0, "source": index})
+            if index > 0:
+                material = MATERIALS[index - 1]
+                material["pbrMetallicRoughness"]["baseColorFactor"] = [1, 1, 1, 1]
+                material["pbrMetallicRoughness"]["baseColorTexture"] = {"index": index, "texCoord": 0}
+
     mesh_index, total_triangles = {}, 0
     for name, primitives in parts.items():
         exported = []
@@ -221,10 +252,14 @@ def export_glb(parts):
             positions, normals, colors, indices = geo.arrays()
             total_triangles += len(indices) // 3
             packed = indices.astype(np.uint16 if len(positions) < 65536 else np.uint32)
-            exported.append({"attributes": {
+            attributes = {
                 "POSITION": accessor(positions, "VEC3", 5126, 34962, True),
-                "NORMAL": accessor(normals, "VEC3", 5126, 34962),
-                "COLOR_0": accessor(colors, "VEC4", 5126, 34962)},
+                "NORMAL": accessor(normals, "VEC3", 5126, 34962)}
+            if USE_VERTEX_COLORS:
+                attributes["COLOR_0"] = accessor(colors, "VEC4", 5126, 34962)
+            if MATERIAL_TEXTURE_RGBA:
+                attributes["TEXCOORD_0"] = accessor(np.zeros((len(positions), 2), dtype=np.float32), "VEC2", 5126, 34962)
+            exported.append({"attributes": attributes,
                 "indices": accessor(packed, "SCALAR", 5123 if packed.dtype == np.uint16 else 5125, 34963),
                 "material": material, "mode": 4})
         doc["meshes"].append({"name": name, "primitives": exported})
@@ -257,7 +292,7 @@ def preview(parts):
     light = np.array([-0.45, 0.85, -0.30]); light /= np.linalg.norm(light)
     for name, primitives in parts.items():
         translation = np.asarray(TRANSLATIONS[name])
-        for geo, _material in primitives:
+        for geo, material in primitives:
             p, _n, c, indices = geo.arrays(); p = p + translation
             for ids in indices.reshape(-1, 3):
                 tri = p[ids]
@@ -266,13 +301,15 @@ def preview(parts):
                     continue
                 normal /= length
                 shade = 0.62 + 0.38 * max(0, float(np.dot(normal, light)))
-                color = c[ids].mean(axis=0).copy(); color[:3] = np.clip(color[:3] * shade + 0.035, 0, 1)
+                if PREVIEW_MATERIAL_RGBA:
+                    color = np.asarray(PREVIEW_MATERIAL_RGBA[material], dtype=np.float32) / 255.0
+                else:
+                    color = c[ids].mean(axis=0).copy()
+                color[:3] = np.clip(color[:3] * shade + 0.035, 0, 1)
                 triangles.append(tri[:, [0, 2, 1]]); colors.append(color)
     fig = plt.figure(figsize=(14, 12), dpi=150, facecolor="#090616")
-    views = [(20, -42, "Front three-quarter • mushroom crest at -Z"),
-             (20, 138, "Rear three-quarter • arcane exhaust housings"),
-             (72, -90, "Top • open cockpit and attached filigree"),
-             (10, -90, "Left profile • low enchanted grand-tourer stance")]
+    views = [(20, -42, PREVIEW_VIEWS[0]), (20, 138, PREVIEW_VIEWS[1]),
+             (72, -90, PREVIEW_VIEWS[2]), (10, -90, PREVIEW_VIEWS[3])]
     for index, (elevation, azimuth, title) in enumerate(views, 1):
         ax = fig.add_subplot(2, 2, index, projection="3d", computed_zorder=False)
         ax.set_facecolor("#090616")
@@ -280,8 +317,8 @@ def preview(parts):
         ax.set_xlim(-2.15, 2.15); ax.set_ylim(-2.35, 2.35); ax.set_zlim(0, 2.20)
         ax.set_box_aspect((4.3, 4.7, 2.2)); ax.view_init(elevation, azimuth); ax.set_axis_off()
         ax.set_title(title, color="#f1dfff", fontsize=13, pad=4)
-    fig.suptitle(f"THE MYCELIAL MAJESTY • {LOD} CANDIDATE {CANDIDATE}", color="#d890ff", fontsize=20, fontweight="bold", y=0.98)
-    fig.text(0.5, 0.018, "Royal purple grand-tourer • attached silver filigree • conventional arcane wheels • mushroom crest • open cockpit",
+    fig.suptitle(f"{PREVIEW_TITLE} • {LOD} CANDIDATE {CANDIDATE}", color="#d890ff", fontsize=20, fontweight="bold", y=0.98)
+    fig.text(0.5, 0.018, PREVIEW_FOOTER,
              ha="center", color="#c8b2dc", fontsize=11)
     plt.subplots_adjust(left=0.01, right=0.99, top=0.94, bottom=0.04, wspace=0.01, hspace=0.02)
     PREVIEW.parent.mkdir(parents=True, exist_ok=True)
