@@ -67,7 +67,7 @@ Character layers must contain no kart or steering-wheel geometry. Runtime portra
 - Balance mapping: Approved, AA-04 Balanced Racer
 - 2D asset package: Approved and staged on `agent/keeg-production`
 - Kart GLB design: Approved — Candidate 3 Revision 6, 2026-08-26
-- Production integration: Staged with controlled revision `keeg-runtime-20260826-1`; active CI pending
+- Production integration: Complete with controlled repair revision `keeg-runtime-20260826-2`; live mobile acceptance recorded 2026-08-27
 - Live verification: Pending
 
 ## Next action
