@@ -6,7 +6,7 @@
 
 PRD baseline: **v1.1, working implementation amendment 1.6**.
 
-Latest verified implementation checkpoint: `83545fdb22a8d6ac413a8f1b9ea5a4068eea5b19` — PR #32 closed the Krios production-verification continuity gap. Main CI run `32997706788` passed LFS verification, typecheck, lint, tests, production build, and GitHub Pages deployment.
+Latest verified implementation checkpoint: `aa24b655d30ba65438f512e0544e313da3fc343e` — PR #37 merged McFleurdel's approved production package. Main CI run `33037485975` passed LFS verification, typecheck, lint, tests, production build, artifact upload, and GitHub Pages deployment.
 
 The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
@@ -18,6 +18,7 @@ Production character packages currently represented in `characterManifest`:
 - Kraken / The Abyssal Drifter — AA-05
 - Manaconda / The Wayfinder — AA-09
 - Krios / The Hornbreaker — AA-10
+- McFleurdel / The Fleur de Nuit — AA-07
 - Accu / Pink Precision — AA-11
 
 Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placeholder and available for future approved assignment. The twelve-slot Character Select architecture remains intact.
@@ -58,6 +59,18 @@ Continuity closure completed by PR #32:
 - Post-merge main CI run `32997706788` passed the expanded runtime gate, typecheck, lint, tests, production build, artifact upload, and GitHub Pages deployment.
 - Status: **LIVE ACCEPTED — KRIOS PRODUCTION INTEGRATION AND REPOSITORY CLOSURE COMPLETE.**
 
+## McFleurdel production status — complete
+
+- McFleurdel is active in `characterManifest` as AA-07 High-Speed Cruiser with 8 / 6 / 7 / 5 / 4 / 6 statistics.
+- The approved portrait and six driver states use controlled revision `mcfleurdel-runtime-20260827-1`, including the corrected white viewer-left / black viewer-right hair lock.
+- The Fleur de Nuit uses a black body, silver fleur-de-lis and trim, plum throne cockpit, ivory candles with violet flames, and the enforced negative-Z orientation contract.
+- Temporary LFS bridge run `33037365942` regenerated the three approved GLBs, matched their locked hashes, uploaded only those object IDs, fetched them back, and passed `git lfs fsck`. The workflow was removed before review.
+- PR #37 head CI run `33037428270` passed the complete production package.
+- PR #37 merged to `main` at `aa24b655d30ba65438f512e0544e313da3fc343e`.
+- Post-merge main CI run `33037485975` passed LFS verification, typecheck, lint, 54 tests, production build, artifact upload, and GitHub Pages deployment.
+- Manny manually confirmed the live game on 2026-08-27: McFleurdel is selectable and the complete package looks good.
+- Status: **LIVE ACCEPTED — MCFLEURDEL PRODUCTION CHECKPOINT COMPLETE.**
+
 ## Known defects / deferred work
 
 - Slice 4 AI competitiveness remains intentionally weak; previously accepted at the current vertical-slice stage.
@@ -85,7 +98,7 @@ Continuity closure completed by PR #32:
 
 ## Next recommended action
 
-Validate and publish McFleurdel's staged AA-07 production package. Manny approved The Fleur de Nuit Candidate 9 on 2026-08-27. Deterministic LOD0/LOD1/LOD2, the controlled `mcfleurdel-runtime-20260827-1` manifest mapping, all seven approved PNGs, runtime verification coverage, tests, and manual matrix are staged on `agent/mcfleurdel-production`. Merge/deployment and live product-owner acceptance remain pending.
+Continue Slice 3 with the next one-character-at-a-time roster intake. McFleurdel requires no further production work unless a regression is found.
 
 ## Approval gate
 
