@@ -1,0 +1,50 @@
+# McFleurdel production asset brief
+
+## Package identity
+
+- Character: McFleurdel
+- Runtime ID: `aa-07`
+- Balance profile: AA-07 High-Speed Cruiser
+- Kart: The Fleur de Nuit
+- Package status: **2D art and kart approved; deterministic runtime package staged pending CI**
+
+## Runtime PNG contract
+
+| Path                                                    | Size      | Use                          | SHA-256                                                            |
+| ------------------------------------------------------- | --------- | ---------------------------- | ------------------------------------------------------------------ |
+| `public/assets/characters/aa-07/portrait.png`           | 256 x 256 | Character Select portrait    | `b07235fdc771a816e9027294ffe2e035a06fce2bd2bc57768ce989a5f67d82e1` |
+| `public/assets/characters/aa-07/driver/front.png`       | 512 x 512 | Front-facing race camera     | `8a408a7fda63b60828bbf321a626eff780a8172a9e4da3a633f77890e9e337c0` |
+| `public/assets/characters/aa-07/driver/rear.png`        | 512 x 512 | Neutral chase-camera state   | `d08174fcbe583317f1288c24f1ccd000e58d691d4f6643dd973cad995f174d62` |
+| `public/assets/characters/aa-07/driver/steer-left.png`  | 512 x 512 | Chase-camera left steering   | `a9636724e54e8e1f05308868983a7bd6ba0fee19f85749d3ff5487a42abebce2` |
+| `public/assets/characters/aa-07/driver/steer-right.png` | 512 x 512 | Chase-camera right steering  | `bc944b339db304739a688d4dd23cc8da51b76394147252d41473e8bef78a753b` |
+| `public/assets/characters/aa-07/driver/hit.png`         | 512 x 512 | Chase-camera impact reaction | `a27326721f4ceac8f0fc1336636a0487ff4d35265faa9cf5a04d76a92d7bfb9e` |
+| `public/assets/characters/aa-07/driver/victory.png`     | 512 x 512 | Chase-camera victory turn    | `42d5c3ce61fec1b21765cb18875cc1a92ac83fbf69cf3452e48beb81ffba944b` |
+
+Every file is sRGB RGBA with alpha spanning fully transparent to fully opaque and four fully transparent corner pixels. The approved hit and victory frames intentionally invert the visible hair-color placement to white on the viewer's left and black on the viewer's right.
+
+## Driver-state behavior
+
+- Rear remains the visible fallback.
+- Front is independently approved and is not a mirrored rear frame.
+- Rear, front, steer-left, steer-right, and hit preserve a stable seated footprint.
+- Steering states keep both hands in a believable driving position without wheel geometry.
+- Hit shows a controlled recoil while McFleurdel remains seated.
+- Victory keeps the lower body race-forward while she turns toward the chase camera and traces a violet fleur-de-lis sigil.
+
+## Definitive kart direction
+
+Preserve the low black-lacquer gothic grand-tourer, silver architectural filigree, plum throne cockpit, fleur-de-lis nose shield, exposed connected wheels, structurally integrated candle fixtures with violet flames, and purple exhaust energy from the definitive reference.
+
+Manny approved Candidate 9 on 2026-08-27 after the candle silhouette, black body material, raised silver fleur-de-lis, and contrasting black shield were corrected and verified in an external mobile GLB viewer.
+
+| Runtime path                                   | LOD  | Triangles | SHA-256                                                            |
+| ---------------------------------------------- | ---- | --------: | ------------------------------------------------------------------ |
+| `public/assets/characters/aa-07/kart.glb`      | LOD0 |    19,844 | `5d7e0941b90ac5d13bb4e019ec43f22a5f9e841c89abaf568ab0c226d8cc92c0` |
+| `public/assets/characters/aa-07/kart-lod1.glb` | LOD1 |    11,460 | `8169b05da4a66894d76904f7193c845755bf8d556d01805cc16e8cd870d9a939` |
+| `public/assets/characters/aa-07/kart-lod2.glb` | LOD2 |     4,572 | `d862fdb489419d96917b1df3ee7f7eab56796b7aa3be7906be3abab67c03d77f` |
+
+All three files are deterministic binary glTF, use meters, declare `extras.forward: "-Z"`, preserve the required runtime nodes, and keep black body material separate from the silver fleur/trim material.
+
+## Next gate
+
+Publish the approved GLBs through Git LFS, run the full runtime gate and repository validation, then merge/deploy for live product-owner acceptance.

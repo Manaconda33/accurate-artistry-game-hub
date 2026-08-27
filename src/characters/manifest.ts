@@ -45,6 +45,7 @@ export const KRAKEN_ASSET_REVISION = 'kraken-runtime-20260821-1';
 export const CLEO_ASSET_REVISION = 'cleo-runtime-20260821-1';
 export const KRIOS_ASSET_REVISION = 'krios-runtime-20260822-1';
 export const KEEG_ASSET_REVISION = 'keeg-runtime-20260826-2';
+export const MCFLEURDEL_ASSET_REVISION = 'mcfleurdel-runtime-20260827-1';
 
 const assetUrl = (path: string, revision: string): string =>
   `${import.meta.env.BASE_URL}${path}?v=${revision}`;
@@ -209,6 +210,31 @@ const keeg: CharacterDefinition = {
   stats: { speed: 7, acceleration: 7, weight: 5, handling: 7, miniTurbo: 5, traction: 5 },
 };
 
+const mcfleurdel: CharacterDefinition = {
+  id: 'aa-07',
+  displayName: 'McFleurdel',
+  descriptor: 'High-Speed Cruiser',
+  initials: 'MF',
+  accent: '#a56be2',
+  assetState: 'production',
+  portrait: assetUrl('assets/characters/aa-07/portrait.png', MCFLEURDEL_ASSET_REVISION),
+  kartName: 'The Fleur de Nuit',
+  kart: assetUrl('assets/characters/aa-07/kart.glb', MCFLEURDEL_ASSET_REVISION),
+  kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  driver: {
+    rear: assetUrl('assets/characters/aa-07/driver/rear.png', MCFLEURDEL_ASSET_REVISION),
+    front: assetUrl('assets/characters/aa-07/driver/front.png', MCFLEURDEL_ASSET_REVISION),
+    steerLeft: assetUrl('assets/characters/aa-07/driver/steer-left.png', MCFLEURDEL_ASSET_REVISION),
+    steerRight: assetUrl(
+      'assets/characters/aa-07/driver/steer-right.png',
+      MCFLEURDEL_ASSET_REVISION,
+    ),
+    hit: assetUrl('assets/characters/aa-07/driver/hit.png', MCFLEURDEL_ASSET_REVISION),
+    victory: assetUrl('assets/characters/aa-07/driver/victory.png', MCFLEURDEL_ASSET_REVISION),
+  },
+  stats: { speed: 8, acceleration: 6, weight: 7, handling: 5, miniTurbo: 4, traction: 6 },
+};
+
 export const characterManifest: readonly CharacterDefinition[] = [
   lavi,
   manaconda,
@@ -216,11 +242,11 @@ export const characterManifest: readonly CharacterDefinition[] = [
   kraken,
   krios,
   keeg,
+  mcfleurdel,
   ...[
     ['aa-01', 'AA 01', 'Balanced Pilot', 'A1', '#9b7cff', [6, 6, 6, 6, 6, 6]],
     ['aa-03', 'AA 03', 'Grip Specialist', 'A3', '#58c6a8', [5, 6, 5, 8, 5, 7]],
     ['aa-06', 'AA 06', 'Grip Specialist', 'A6', '#d79a35', [6, 6, 5, 7, 5, 7]],
-    ['aa-07', 'AA 07', 'Top-Speed Ace', 'A7', '#b76be2', [9, 4, 6, 5, 5, 7]],
     ['aa-08', 'AA 08', 'Off-Road Scout', 'A8', '#79b84a', [6, 5, 6, 5, 6, 8]],
     ['aa-12', 'AA 12', 'Momentum Driver', '12', '#d56b55', [8, 5, 8, 4, 5, 6]],
   ].map(([id, displayName, descriptor, initials, accent, values]) => {
@@ -268,7 +294,11 @@ export function validateCharacterManifest(
     ) {
       errors.push(`${character.id} production kart must use the enforced negative-Z visual yaw.`);
     }
-    if (character.assetState === 'production' && character.kart !== undefined && !character.kartName) {
+    if (
+      character.assetState === 'production' &&
+      character.kart !== undefined &&
+      !character.kartName
+    ) {
       errors.push(`${character.id} production kart must declare its approved name.`);
     }
   }

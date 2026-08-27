@@ -9,6 +9,7 @@ import {
   KEEG_ASSET_REVISION,
   KRIOS_ASSET_REVISION,
   MANACONDA_ASSET_REVISION,
+  MCFLEURDEL_ASSET_REVISION,
   NEGATIVE_Z_KART_VISUAL_YAW,
   statValues,
   STAT_TOTAL,
@@ -112,9 +113,7 @@ describe('character manifest', () => {
     expect(krios.displayName).toBe('Krios');
     expect(krios.descriptor).toBe('Straight-Line Heavy');
     expect(krios.assetState).toBe('production');
-    expect(krios.kart).toContain(
-      `/assets/characters/aa-10/kart.glb?v=${KRIOS_ASSET_REVISION}`,
-    );
+    expect(krios.kart).toContain(`/assets/characters/aa-10/kart.glb?v=${KRIOS_ASSET_REVISION}`);
     expect(krios.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
     expect(krios.driver?.rear).toContain(`?v=${KRIOS_ASSET_REVISION}`);
     expect(krios.driver?.front).toContain(`?v=${KRIOS_ASSET_REVISION}`);
@@ -138,9 +137,7 @@ describe('character manifest', () => {
     expect(keeg.descriptor).toBe('Balanced Racer');
     expect(keeg.assetState).toBe('production');
     expect(keeg.kartName).toBe('The Mycelial Majesty');
-    expect(keeg.kart).toContain(
-      `/assets/characters/aa-04/kart.glb?v=${KEEG_ASSET_REVISION}`,
-    );
+    expect(keeg.kart).toContain(`/assets/characters/aa-04/kart.glb?v=${KEEG_ASSET_REVISION}`);
     expect(keeg.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
     expect(keeg.driverSpritePosition).toEqual([0, 0.72, -0.12]);
     expect(keeg.driver?.rear).toContain(`?v=${KEEG_ASSET_REVISION}`);
@@ -156,6 +153,32 @@ describe('character manifest', () => {
       handling: 7,
       miniTurbo: 5,
       traction: 5,
+    });
+  });
+
+  it('maps McFleurdel to The Fleur de Nuit and the approved AA-07 profile', () => {
+    const mcfleurdel = characterById('aa-07');
+    expect(mcfleurdel.displayName).toBe('McFleurdel');
+    expect(mcfleurdel.descriptor).toBe('High-Speed Cruiser');
+    expect(mcfleurdel.assetState).toBe('production');
+    expect(mcfleurdel.kartName).toBe('The Fleur de Nuit');
+    expect(mcfleurdel.kart).toContain(
+      `/assets/characters/aa-07/kart.glb?v=${MCFLEURDEL_ASSET_REVISION}`,
+    );
+    expect(mcfleurdel.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(mcfleurdel.driver?.rear).toContain(`?v=${MCFLEURDEL_ASSET_REVISION}`);
+    expect(mcfleurdel.driver?.front).toContain(`?v=${MCFLEURDEL_ASSET_REVISION}`);
+    expect(mcfleurdel.driver?.steerLeft).toContain(`?v=${MCFLEURDEL_ASSET_REVISION}`);
+    expect(mcfleurdel.driver?.steerRight).toContain(`?v=${MCFLEURDEL_ASSET_REVISION}`);
+    expect(mcfleurdel.driver?.hit).toContain(`?v=${MCFLEURDEL_ASSET_REVISION}`);
+    expect(mcfleurdel.driver?.victory).toContain(`?v=${MCFLEURDEL_ASSET_REVISION}`);
+    expect(mcfleurdel.stats).toEqual({
+      speed: 8,
+      acceleration: 6,
+      weight: 7,
+      handling: 5,
+      miniTurbo: 4,
+      traction: 6,
     });
   });
 

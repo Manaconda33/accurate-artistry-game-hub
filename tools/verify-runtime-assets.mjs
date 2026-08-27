@@ -20,6 +20,9 @@ const runtimeGlbs = [
   'public/assets/characters/aa-04/kart.glb',
   'public/assets/characters/aa-04/kart-lod1.glb',
   'public/assets/characters/aa-04/kart-lod2.glb',
+  'public/assets/characters/aa-07/kart.glb',
+  'public/assets/characters/aa-07/kart-lod1.glb',
+  'public/assets/characters/aa-07/kart-lod2.glb',
 ];
 
 for (const path of runtimeGlbs) {
@@ -57,6 +60,13 @@ const runtimePngs = [
   ['public/assets/characters/aa-04/driver/steer-right.png', 512, 512],
   ['public/assets/characters/aa-04/driver/hit.png', 512, 512],
   ['public/assets/characters/aa-04/driver/victory.png', 512, 512],
+  ['public/assets/characters/aa-07/portrait.png', 256, 256],
+  ['public/assets/characters/aa-07/driver/front.png', 512, 512],
+  ['public/assets/characters/aa-07/driver/rear.png', 512, 512],
+  ['public/assets/characters/aa-07/driver/steer-left.png', 512, 512],
+  ['public/assets/characters/aa-07/driver/steer-right.png', 512, 512],
+  ['public/assets/characters/aa-07/driver/hit.png', 512, 512],
+  ['public/assets/characters/aa-07/driver/victory.png', 512, 512],
 ];
 
 for (const [path, expectedWidth, expectedHeight] of runtimePngs) {
@@ -97,8 +107,9 @@ for (const [path, expectedWidth, expectedHeight] of runtimePngs) {
   if (pixels.length !== rowLength * height) throw new Error(`${path} has incomplete pixel data.`);
   for (let row = 0; row < height; row += 1) {
     const filter = pixels[row * rowLength];
-    if (filter > 4) throw new Error(`${path} has invalid PNG filter ${String(filter)} on row ${String(row)}.`);
+    if (filter > 4)
+      throw new Error(`${path} has invalid PNG filter ${String(filter)} on row ${String(row)}.`);
   }
 }
 
-console.log(`Decoded and verified ${String(runtimePngs.length)} Keeg runtime PNGs.`);
+console.log(`Decoded and verified ${String(runtimePngs.length)} runtime character PNGs.`);
