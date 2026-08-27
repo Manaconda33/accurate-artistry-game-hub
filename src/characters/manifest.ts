@@ -17,6 +17,7 @@ export interface CharacterDefinition {
   accent: string;
   assetState: CharacterAssetState;
   portrait?: string;
+  kartName?: string;
   kart?: string;
   kartVisualYaw?: number;
   driverSpritePosition?: readonly [number, number, number];
@@ -43,7 +44,7 @@ export const ACCU_ASSET_REVISION = 'accu-runtime-20260820-1';
 export const KRAKEN_ASSET_REVISION = 'kraken-runtime-20260821-1';
 export const CLEO_ASSET_REVISION = 'cleo-runtime-20260821-1';
 export const KRIOS_ASSET_REVISION = 'krios-runtime-20260822-1';
-export const KEEG_ASSET_REVISION = 'keeg-runtime-20260826-1';
+export const KEEG_ASSET_REVISION = 'keeg-runtime-20260826-2';
 
 const assetUrl = (path: string, revision: string): string =>
   `${import.meta.env.BASE_URL}${path}?v=${revision}`;
@@ -56,6 +57,7 @@ const lavi: CharacterDefinition = {
   accent: '#ef7f46',
   assetState: 'production',
   portrait: assetUrl('assets/characters/aa-02/portrait.png', LAVI_ASSET_REVISION),
+  kartName: 'Potato',
   kart: assetUrl('assets/characters/aa-02/kart.glb', LAVI_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
   driver: {
@@ -76,6 +78,7 @@ const manaconda: CharacterDefinition = {
   accent: '#5546c8',
   assetState: 'production',
   portrait: assetUrl('assets/characters/aa-09/portrait.png', MANACONDA_ASSET_REVISION),
+  kartName: 'The Wayfinder',
   kart: assetUrl('assets/characters/aa-09/kart.glb', MANACONDA_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
   driver: {
@@ -99,6 +102,7 @@ const accu: CharacterDefinition = {
   accent: '#ec4d91',
   assetState: 'production',
   portrait: assetUrl('assets/characters/aa-11/portrait.png', ACCU_ASSET_REVISION),
+  kartName: 'Pink Precision',
   kart: assetUrl('assets/characters/aa-11/kart.glb', ACCU_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
   driver: {
@@ -119,6 +123,7 @@ const kraken: CharacterDefinition = {
   accent: '#20d9e7',
   assetState: 'production',
   portrait: assetUrl('assets/characters/aa-05/portrait.png', KRAKEN_ASSET_REVISION),
+  kartName: 'The Abyssal Drifter',
   kart: assetUrl('assets/characters/aa-05/kart.glb', KRAKEN_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
   driver: {
@@ -144,6 +149,7 @@ export const archivedCleo: CharacterDefinition = {
   accent: '#d79a35',
   assetState: 'production',
   portrait: assetUrl('assets/characters/aa-06/portrait.png', CLEO_ASSET_REVISION),
+  kartName: 'The Gilded Stitch',
   kart: assetUrl('assets/characters/aa-06/kart.glb', CLEO_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
   driverSpritePosition: [0, 0.9, -0.72],
@@ -166,6 +172,7 @@ const krios: CharacterDefinition = {
   accent: '#d63b24',
   assetState: 'production',
   portrait: assetUrl('assets/characters/aa-10/portrait.png', KRIOS_ASSET_REVISION),
+  kartName: 'The Hornbreaker',
   kart: assetUrl('assets/characters/aa-10/kart.glb', KRIOS_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
   driver: {
@@ -187,6 +194,7 @@ const keeg: CharacterDefinition = {
   accent: '#8f4de8',
   assetState: 'production',
   portrait: assetUrl('assets/characters/aa-04/portrait.png', KEEG_ASSET_REVISION),
+  kartName: 'The Mycelial Majesty',
   kart: assetUrl('assets/characters/aa-04/kart.glb', KEEG_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
   driver: {
@@ -258,6 +266,9 @@ export function validateCharacterManifest(
       character.kartVisualYaw !== NEGATIVE_Z_KART_VISUAL_YAW
     ) {
       errors.push(`${character.id} production kart must use the enforced negative-Z visual yaw.`);
+    }
+    if (character.assetState === 'production' && character.kart !== undefined && !character.kartName) {
+      errors.push(`${character.id} production kart must declare its approved name.`);
     }
   }
   return errors;

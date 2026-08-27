@@ -59,7 +59,9 @@ The supplied racing reference is definitive. Preserve the low wide enchanted gra
 All three files use meters, declare `extras.forward: "-Z"`, and contain the required kart root, chassis, accent, steering, four wheel, two exhaust, driver mount, and two item mount nodes. Runtime URLs, manifest activation, CI deployment, and live manual verification remain pending.
 - LFS publication bridge run `33015135969` rebuilt and matched all three approved hashes, uploaded only those object IDs, deleted its local cache, fetched the branch objects back, and passed `git lfs fsck`. The temporary workflow was removed before review.
 - Pre-activation PR CI run `33015347165` passed LFS materialization, `git lfs fsck`, typecheck, lint, tests, and production build.
-- Staged runtime revision: `keeg-runtime-20260826-1`.
+- Runtime repair revision: `keeg-runtime-20260826-2`.
+
+The initial live publication corrupted the seven normal-Git PNG payloads while leaving plausible PNG headers and dimensions. The repair restores the exact approved source exports and adds full zlib/scanline decoding to the production asset gate. No artwork was regenerated or visually changed.
 
 ## Next gate
 

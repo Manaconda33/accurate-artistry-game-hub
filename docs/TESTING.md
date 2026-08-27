@@ -125,10 +125,11 @@ Run this matrix for every future production character, in addition to its slice-
 - `Race as Keeg` loads The Mycelial Majesty rather than the fallback kart.
 - The approved purple-and-silver grand-tourer body, mushroom crest and fixtures, four connected wheels, open cockpit, and angled chassis-mounted steering assembly load without clipping or floating geometry.
 - Keeg sits correctly in the cockpit with the steering wheel forward of the driver.
-- Rear, front, steer-left, steer-right, hit, and victory driver states load from `keeg-runtime-20260826-1`.
+- Rear, front, steer-left, steer-right, hit, and victory driver states load from `keeg-runtime-20260826-2`.
 - Chase and rear views confirm the mushroom shield is at the race-forward nose and the exhausts remain behind Keeg.
 - Keeg appears no more than once as an AI opponent when the player selects another character.
 - CI materializes and validates all three AA-04 GLBs; each begins with the binary glTF signature and declares `extras.forward: "-Z"`.
+- CI inflates every AA-04 PNG and validates its RGBA dimensions and PNG scanline filters; a header-only or partially decodable image must fail the build.
 - Product-owner acceptance is recorded only after the deployed game confirms Keeg is selectable and all approved assets load as intended on desktop and mobile.
 
 ## Krios / Hornbreaker manual matrix
