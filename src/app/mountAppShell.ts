@@ -118,16 +118,7 @@ export function mountAppShell(root: HTMLElement): void {
   };
 
   const renderCharacterSelect = (): void => {
-    const kartName =
-      selectedCharacter.id === 'aa-02'
-        ? 'Potato'
-        : selectedCharacter.id === 'aa-09'
-          ? 'The Wayfinder'
-          : selectedCharacter.id === 'aa-11'
-            ? 'Pink Precision'
-            : selectedCharacter.id === 'aa-05'
-              ? 'The Abyssal Drifter'
-              : 'Fallback prototype';
+    const kartName = selectedCharacter.kartName ?? 'Fallback prototype';
     root.innerHTML = `
       <main class="screen character-select-screen">
         <header><p class="eyebrow">Circuit Alpha Grand Prix</p><h1>Choose your driver</h1></header>

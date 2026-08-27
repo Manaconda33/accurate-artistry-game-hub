@@ -137,6 +137,7 @@ describe('character manifest', () => {
     expect(keeg.displayName).toBe('Keeg');
     expect(keeg.descriptor).toBe('Balanced Racer');
     expect(keeg.assetState).toBe('production');
+    expect(keeg.kartName).toBe('The Mycelial Majesty');
     expect(keeg.kart).toContain(
       `/assets/characters/aa-04/kart.glb?v=${KEEG_ASSET_REVISION}`,
     );
