@@ -142,6 +142,7 @@ describe('character manifest', () => {
       `/assets/characters/aa-04/kart.glb?v=${KEEG_ASSET_REVISION}`,
     );
     expect(keeg.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(keeg.driverSpritePosition).toEqual([0, 0.72, -0.12]);
     expect(keeg.driver?.rear).toContain(`?v=${KEEG_ASSET_REVISION}`);
     expect(keeg.driver?.front).toContain(`?v=${KEEG_ASSET_REVISION}`);
     expect(keeg.driver?.steerLeft).toContain(`?v=${KEEG_ASSET_REVISION}`);

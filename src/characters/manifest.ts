@@ -197,6 +197,7 @@ const keeg: CharacterDefinition = {
   kartName: 'The Mycelial Majesty',
   kart: assetUrl('assets/characters/aa-04/kart.glb', KEEG_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  driverSpritePosition: [0, 0.72, -0.12],
   driver: {
     rear: assetUrl('assets/characters/aa-04/driver/rear.png', KEEG_ASSET_REVISION),
     front: assetUrl('assets/characters/aa-04/driver/front.png', KEEG_ASSET_REVISION),

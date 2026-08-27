@@ -125,6 +125,7 @@ Run this matrix for every future production character, in addition to its slice-
 - `Race as Keeg` loads The Mycelial Majesty rather than the fallback kart.
 - The approved purple-and-silver grand-tourer body, mushroom crest and fixtures, four connected wheels, open cockpit, and angled chassis-mounted steering assembly load without clipping or floating geometry.
 - Keeg sits correctly in the cockpit with the steering wheel forward of the driver.
+- Keeg's driving hands align with the steering-wheel center; the wheel must not cross his abdomen or float below his hands in chase view.
 - Rear, front, steer-left, steer-right, hit, and victory driver states load from `keeg-runtime-20260826-2`.
 - Chase and rear views confirm the mushroom shield is at the race-forward nose and the exhausts remain behind Keeg.
 - Keeg appears no more than once as an AI opponent when the player selects another character.
