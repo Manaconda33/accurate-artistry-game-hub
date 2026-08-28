@@ -26,6 +26,7 @@ jobs:
           GRAVE_SHIFT_LOD=LOD1 GRAVE_SHIFT_OUT=production/kart-lod1.glb GRAVE_SHIFT_SKIP_PREVIEW=1 python tools/assets/build_toph_grave_shift.py
           GRAVE_SHIFT_LOD=LOD2 GRAVE_SHIFT_OUT=production/kart-lod2.glb GRAVE_SHIFT_SKIP_PREVIEW=1 python tools/assets/build_toph_grave_shift.py
           sha256sum production/*.glb | tee production/SHA256SUMS
+          wc -c production/*.glb
       - uses: actions/upload-artifact@v4
         with:
           name: grave-shift-approved-production
