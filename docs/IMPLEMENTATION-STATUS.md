@@ -79,7 +79,7 @@ Continuity closure completed by PR #32:
 - Items and AI item use remain Slice 5.
 - Final HUD/audio/post-processing/optimization remain Slice 6.
 
-## Toph production status — approved package staged for deployment
+## Toph production status — complete
 
 - Manny approved Toph's character lock, definitive authority, rights, AA-08 Turbo Bruiser mapping, The Grave Shift, all seven 2D designs, and corrected victory pose on 2026-08-28.
 - Manny rejected Candidate 1 because its rounded pale nose construction read as a clown face and did not match the definitive purple armored design.
@@ -89,8 +89,10 @@ Continuity closure completed by PR #32:
 - The authorized temporary LFS workflow rebuilt the locked bytes. A subsequent clean CI checkout materialized the objects and passed `git lfs fsck`; the temporary write-enabled workflow was removed before review.
 - AA-08 activation uses controlled revision `toph-runtime-20260828-1`, all six driver states, The Grave Shift, the approved stats, and `NEGATIVE_Z_KART_VISUAL_YAW`.
 - Runtime verification covers all three GLBs and all seven PNGs.
-- Merge, Pages deployment, and live desktop/mobile acceptance remain pending.
-- Status: **PRODUCTION PACKAGE STAGED — LIVE ACCEPTANCE PENDING.**
+- PR #39 merged the approved production package at `edf9cf54dce39d968497ffc9f72f87329cfb1ac6`.
+- Live testing found the front driver frame above the steering wheel. PR #40 introduced a front-only placement override, and PR #41 applied the verified full correction at merge commit `3353109944c3975e0bbbbac4dffbcc24f07bc58b` without moving chase, steering, hit, victory, or AI rear states.
+- Manny confirmed on 2026-08-28 that the corrected live deployment passes all tests. Toph's portrait, The Grave Shift, all six driver states, front hand-to-wheel alignment, orientation, AI identity, and runtime behavior are accepted.
+- Status: **LIVE ACCEPTED — TOPH PRODUCTION CHECKPOINT COMPLETE.**
 
 ## Keeg production status — kart approved; pre-activation package prepared
 
@@ -111,8 +113,8 @@ Continuity closure completed by PR #32:
 
 ## Next recommended action
 
-Continue Toph's Slice 3 pipeline by producing the first reviewable deterministic LOD0 candidate for The Grave Shift. Do not activate AA-08 until the kart, LODs, runtime package, CI, deployment, and live manual checks pass.
+Continue with the next approved Slice 3 character package. Do not begin Slice 5 or reorder the PRD roadmap without Manny approval.
 
 ## Approval gate
 
-Toph's 2D package is approved. The Grave Shift's 3D geometry remains the next product-owner approval gate. No approval is pending for Krios, Cleo, or McFleurdel.
+No approval remains pending for Toph, Krios, Cleo, or McFleurdel. The next character intake remains separately approval-gated.
