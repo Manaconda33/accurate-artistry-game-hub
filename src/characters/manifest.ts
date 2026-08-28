@@ -46,6 +46,7 @@ export const CLEO_ASSET_REVISION = 'cleo-runtime-20260821-1';
 export const KRIOS_ASSET_REVISION = 'krios-runtime-20260822-1';
 export const KEEG_ASSET_REVISION = 'keeg-runtime-20260826-2';
 export const MCFLEURDEL_ASSET_REVISION = 'mcfleurdel-runtime-20260827-1';
+export const TOPH_ASSET_REVISION = 'toph-runtime-20260828-1';
 
 const assetUrl = (path: string, revision: string): string =>
   `${import.meta.env.BASE_URL}${path}?v=${revision}`;
@@ -235,6 +236,28 @@ const mcfleurdel: CharacterDefinition = {
   stats: { speed: 8, acceleration: 6, weight: 7, handling: 5, miniTurbo: 4, traction: 6 },
 };
 
+const toph: CharacterDefinition = {
+  id: 'aa-08',
+  displayName: 'Toph',
+  descriptor: 'Turbo Bruiser',
+  initials: 'TP',
+  accent: '#8d45d8',
+  assetState: 'production',
+  portrait: assetUrl('assets/characters/aa-08/portrait.png', TOPH_ASSET_REVISION),
+  kartName: 'The Grave Shift',
+  kart: assetUrl('assets/characters/aa-08/kart.glb', TOPH_ASSET_REVISION),
+  kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  driver: {
+    rear: assetUrl('assets/characters/aa-08/driver/rear.png', TOPH_ASSET_REVISION),
+    front: assetUrl('assets/characters/aa-08/driver/front.png', TOPH_ASSET_REVISION),
+    steerLeft: assetUrl('assets/characters/aa-08/driver/steer-left.png', TOPH_ASSET_REVISION),
+    steerRight: assetUrl('assets/characters/aa-08/driver/steer-right.png', TOPH_ASSET_REVISION),
+    hit: assetUrl('assets/characters/aa-08/driver/hit.png', TOPH_ASSET_REVISION),
+    victory: assetUrl('assets/characters/aa-08/driver/victory.png', TOPH_ASSET_REVISION),
+  },
+  stats: { speed: 7, acceleration: 5, weight: 7, handling: 4, miniTurbo: 8, traction: 5 },
+};
+
 export const characterManifest: readonly CharacterDefinition[] = [
   lavi,
   manaconda,
@@ -243,11 +266,11 @@ export const characterManifest: readonly CharacterDefinition[] = [
   krios,
   keeg,
   mcfleurdel,
+  toph,
   ...[
     ['aa-01', 'AA 01', 'Balanced Pilot', 'A1', '#9b7cff', [6, 6, 6, 6, 6, 6]],
     ['aa-03', 'AA 03', 'Grip Specialist', 'A3', '#58c6a8', [5, 6, 5, 8, 5, 7]],
     ['aa-06', 'AA 06', 'Grip Specialist', 'A6', '#d79a35', [6, 6, 5, 7, 5, 7]],
-    ['aa-08', 'AA 08', 'Off-Road Scout', 'A8', '#79b84a', [6, 5, 6, 5, 6, 8]],
     ['aa-12', 'AA 12', 'Momentum Driver', '12', '#d56b55', [8, 5, 8, 4, 5, 6]],
   ].map(([id, displayName, descriptor, initials, accent, values]) => {
     const [speed, acceleration, weight, handling, miniTurbo, traction] = values as [
