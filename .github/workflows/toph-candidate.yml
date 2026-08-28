@@ -1,0 +1,33 @@
+name: Toph candidate review
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/assets/build_toph_grave_shift.py'
+      - '.github/workflows/toph-candidate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build-candidate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --disable-pip-version-check numpy matplotlib
+      - name: Build deterministic LOD0 review candidate
+        run: |
+          python tools/assets/build_toph_grave_shift.py
+          test -s tools/assets/candidates/grave-shift-candidate-1.glb
+          test -s tools/assets/candidates/grave-shift-candidate-1-preview.png
+      - uses: actions/upload-artifact@v4
+        with:
+          name: grave-shift-candidate-1
+          path: |
+            tools/assets/candidates/grave-shift-candidate-1.glb
+            tools/assets/candidates/grave-shift-candidate-1-preview.png
+          if-no-files-found: error
