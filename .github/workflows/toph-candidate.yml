@@ -22,12 +22,12 @@ jobs:
       - name: Build deterministic LOD0 review candidate
         run: |
           python tools/assets/build_toph_grave_shift.py
-          test -s tools/assets/candidates/grave-shift-candidate-1.glb
-          test -s tools/assets/candidates/grave-shift-candidate-1-preview.png
+          test -s tools/assets/candidates/grave-shift-candidate-2.glb
+          test -s tools/assets/candidates/grave-shift-candidate-2-preview.png
       - uses: actions/upload-artifact@v4
         with:
-          name: grave-shift-candidate-1
+          name: grave-shift-candidate-2
           path: |
-            tools/assets/candidates/grave-shift-candidate-1.glb
-            tools/assets/candidates/grave-shift-candidate-1-preview.png
+            tools/assets/candidates/grave-shift-candidate-2.glb
+            tools/assets/candidates/grave-shift-candidate-2-preview.png
           if-no-files-found: error
