@@ -158,6 +158,19 @@ Run this matrix for every future production character, in addition to its slice-
 - CI inflates and validates every AA-07 PNG as complete RGBA image data.
 - Product-owner acceptance is recorded only after the deployed game confirms McFleurdel is selectable and all approved assets load as intended on desktop and mobile.
 
+## Toph / Grave Shift manual matrix
+
+- AA-08 renders Toph's approved portrait, Turbo Bruiser descriptor, and 7 / 5 / 7 / 4 / 8 / 5 statistics.
+- `Race as Toph` loads The Grave Shift rather than the fallback kart.
+- The approved purple-dominant armored body, bronze perimeter, low splitter, integrated sidepods, flat skull shield, angular thorn crown, enclosed rear engine, connected wide tires, and twin violet exhausts load without clipping or floating geometry.
+- Toph sits correctly in the open cockpit with the steering wheel forward of the driver.
+- Rear, front, steer-left, steer-right, hit, and corrected victory states load from `toph-runtime-20260828-1`.
+- Chase and rear views confirm the skull shield remains at the race-forward nose and the enclosed engine/exhausts remain behind Toph.
+- Toph appears no more than once as an AI opponent when the player selects another character.
+- CI materializes and validates all three AA-08 GLBs; each begins with the binary glTF signature and declares `extras.forward: "-Z"`.
+- CI inflates and validates every AA-08 PNG as complete RGBA image data.
+- Product-owner acceptance is recorded only after the deployed game confirms Toph is selectable and all approved assets load as intended on desktop and mobile.
+
 ## Mobile finish-state matrix
 
 - Completing a race adds the `is-finished` state to the game shell before results become visible.
