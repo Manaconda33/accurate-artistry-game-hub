@@ -79,16 +79,18 @@ Continuity closure completed by PR #32:
 - Items and AI item use remain Slice 5.
 - Final HUD/audio/post-processing/optimization remain Slice 6.
 
-## Toph production status — 2D package approved; kart modeling pending
+## Toph production status — approved package staged for deployment
 
-- Manny approved Toph's character lock, definitive visual authority, and transformation rights on 2026-08-28.
-- Toph is locked to AA-08 Turbo Bruiser with The Grave Shift: 7 / 5 / 7 / 4 / 8 / 5.
-- Manny approved the portrait, front, rear, steer-left, steer-right, hit, and corrected victory designs on 2026-08-28.
-- The initial generated previews contained baked checkerboard pixels despite the transparent-output request. The deterministic preparation step removed the edge-connected checkerboard before resizing rather than accepting opaque runtime files.
-- Runtime derivatives are prepared at `public/assets/characters/aa-08/`: portrait at 256 × 256 and six driver states at 512 × 512. Every file is sRGBA, has non-opaque alpha, and has fully transparent corner pixels.
-- Dark-background contact-sheet inspection confirms clean silhouettes. The corrected victory pose keeps Toph's lower body race-forward while his upper torso turns toward the viewer.
-- Toph is not yet active in `characterManifest`; no fallback slot, live roster, AI grid, or runtime behavior has changed.
-- Status: **2D PRE-KART CHECKPOINT PREPARED — THE GRAVE SHIFT GLB APPROVAL GATE PENDING.**
+- Manny approved Toph's character lock, definitive authority, rights, AA-08 Turbo Bruiser mapping, The Grave Shift, all seven 2D designs, and corrected victory pose on 2026-08-28.
+- Manny rejected Candidate 1 because its rounded pale nose construction read as a clown face and did not match the definitive purple armored design.
+- Manny approved rebuilt Candidate 2 on 2026-08-28: purple-dominant armored body, bronze perimeter, flat trapezoidal skull shield, angular integrated thorn crown, low splitter, enclosed sidepods, enclosed rear engine, and twin violet exhausts.
+- Deterministic production GLBs: LOD0 8,604 triangles / LOD1 4,452 / LOD2 2,344. Each has 13 required nodes and `extras.forward: "-Z"`.
+- Locked SHA-256 object IDs: LOD0 `87db250bcacbbbe93afdee0e4a346ff3c5aaca7fbb90668af383b1772154c953`; LOD1 `1d3b62f715e6288b01447eafe2a81a07b09fe676019b1849ff3b5b78ad9c4d23`; LOD2 `2c38dd14a334443fff3f872fc618210642f51dfc8b612bf1f075b347a5a65be7`.
+- The authorized temporary LFS workflow rebuilt the locked bytes. A subsequent clean CI checkout materialized the objects and passed `git lfs fsck`; the temporary write-enabled workflow was removed before review.
+- AA-08 activation uses controlled revision `toph-runtime-20260828-1`, all six driver states, The Grave Shift, the approved stats, and `NEGATIVE_Z_KART_VISUAL_YAW`.
+- Runtime verification covers all three GLBs and all seven PNGs.
+- Merge, Pages deployment, and live desktop/mobile acceptance remain pending.
+- Status: **PRODUCTION PACKAGE STAGED — LIVE ACCEPTANCE PENDING.**
 
 ## Keeg production status — kart approved; pre-activation package prepared
 
