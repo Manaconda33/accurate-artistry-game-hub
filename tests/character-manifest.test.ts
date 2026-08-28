@@ -227,7 +227,7 @@ describe('character manifest', () => {
     expect(toph.kartName).toBe('The Grave Shift');
     expect(toph.kart).toContain(`/assets/characters/aa-08/kart.glb?v=${TOPH_ASSET_REVISION}`);
     expect(toph.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
-    expect(toph.frontDriverSpritePosition).toEqual([0, 0.78, -0.12]);
+    expect(toph.frontDriverSpritePosition).toEqual([0, 0.45, -0.12]);
     expect(toph.driver?.rear).toContain(`?v=${TOPH_ASSET_REVISION}`);
     expect(toph.driver?.front).toContain(`?v=${TOPH_ASSET_REVISION}`);
     expect(toph.driver?.steerLeft).toContain(`?v=${TOPH_ASSET_REVISION}`);
