@@ -7,7 +7,7 @@
 - Balance profile: AA-08 Turbo Bruiser, approved 2026-08-28
 - Portrait and six driver-state designs: Approved 2026-08-28
 - Kart GLB geometry: Candidate 2 approved 2026-08-28
-- Runtime activation: Staged pending merge, deployment, and live acceptance
+- Runtime activation: Live accepted 2026-08-28
 
 ## Approved 2D package
 
@@ -46,3 +46,7 @@ Candidate 2 replaced the rejected rounded/clown-like Candidate 1 with the defini
 | `public/assets/characters/aa-08/kart-lod2.glb` | LOD2 | 2,344 | `2c38dd14a334443fff3f872fc618210642f51dfc8b612bf1f075b347a5a65be7` |
 
 All three GLBs have 13 required nodes and `extras.forward: "-Z"`. The controlled runtime revision is `toph-runtime-20260828-1`. LFS publication materialized successfully in CI. Merge, deployment, and live acceptance remain pending.
+
+## Live acceptance
+
+Manny confirmed the deployed AA-08 package passes all tests on 2026-08-28. The final front-camera placement uses `[0, 0.45, -0.12]`, aligning Toph's hands with the modeled steering wheel while leaving rear, steer-left, steer-right, hit, victory, and AI rear placement unchanged. Final correction merge: `3353109944c3975e0bbbbac4dffbcc24f07bc58b`.

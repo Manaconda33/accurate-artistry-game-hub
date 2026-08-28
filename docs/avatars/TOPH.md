@@ -9,7 +9,7 @@
 - Balance mapping: AA-08 Turbo Bruiser, approved by Manny, 2026-08-28
 - 2D design package: Portrait, front, rear, steer-left, steer-right, hit, and corrected victory approved by Manny, 2026-08-28
 - 3D kart geometry: Candidate 2 approved by Manny, 2026-08-28
-- Runtime activation: Staged pending merge, deployment, and live acceptance
+- Runtime activation: Live accepted by Manny, 2026-08-28
 
 ## Character lock
 
@@ -32,3 +32,7 @@ The profile gives Toph substantial road presence and rewards drift chains with s
 - Driver layers contain no kart, seat, or steering-wheel geometry
 - The corrected victory frame keeps the pelvis and lower body facing race-forward while the upper torso turns toward the chase camera
 - Runtime revision: `toph-runtime-20260828-1`. Candidate 2 produced deterministic LOD0/LOD1/LOD2 at 8,604 / 4,452 / 2,344 triangles with 13 required nodes and `extras.forward: "-Z"`. AA-08 activation is staged pending merge, deployment, and live acceptance.
+
+## Live acceptance
+
+PR #39 merged the production package. PRs #40 and #41 added and finalized Toph's front-camera-only sprite placement so his hands align with The Grave Shift steering wheel without moving any other driver state. Manny confirmed the corrected live deployment passes all tests on 2026-08-28. Toph's production checkpoint is complete.
