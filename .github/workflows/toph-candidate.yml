@@ -1,4 +1,4 @@
-name: Toph candidate review
+name: Toph production package
 
 on:
   pull_request:
@@ -11,23 +11,23 @@ permissions:
   contents: read
 
 jobs:
-  build-candidate:
+  build-production:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install --disable-pip-version-check numpy matplotlib
-      - name: Build deterministic LOD0 review candidate
+      - run: python -m pip install --disable-pip-version-check numpy==2.3.2 matplotlib==3.10.5
+      - name: Build deterministic production LODs
         run: |
-          python tools/assets/build_toph_grave_shift.py
-          test -s tools/assets/candidates/grave-shift-candidate-2.glb
-          test -s tools/assets/candidates/grave-shift-candidate-2-preview.png
+          mkdir -p production
+          GRAVE_SHIFT_LOD=LOD0 GRAVE_SHIFT_OUT=production/kart.glb GRAVE_SHIFT_PREVIEW=production/review.png python tools/assets/build_toph_grave_shift.py
+          GRAVE_SHIFT_LOD=LOD1 GRAVE_SHIFT_OUT=production/kart-lod1.glb GRAVE_SHIFT_SKIP_PREVIEW=1 python tools/assets/build_toph_grave_shift.py
+          GRAVE_SHIFT_LOD=LOD2 GRAVE_SHIFT_OUT=production/kart-lod2.glb GRAVE_SHIFT_SKIP_PREVIEW=1 python tools/assets/build_toph_grave_shift.py
+          sha256sum production/*.glb | tee production/SHA256SUMS
       - uses: actions/upload-artifact@v4
         with:
-          name: grave-shift-candidate-2
-          path: |
-            tools/assets/candidates/grave-shift-candidate-2.glb
-            tools/assets/candidates/grave-shift-candidate-2-preview.png
+          name: grave-shift-approved-production
+          path: production/
           if-no-files-found: error
