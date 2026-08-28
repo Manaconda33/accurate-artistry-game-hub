@@ -39,13 +39,17 @@ Stat order is Speed / Acceleration / Weight / Handling / Mini-Turbo / Traction.
 | AA-05   | Drift Specialist    | Medium        | 6 / 7 / 5 / 6 / 9 / 3  | Assigned  | Kraken     | The Abyssal Drifter  | Manny, 2026-08-21 |
 | AA-06   | Grip Specialist     | Medium        | 6 / 6 / 5 / 7 / 5 / 7  | Available | -          | -                    | -                 |
 | AA-07   | High-Speed Cruiser  | Cruiser       | 8 / 6 / 7 / 5 / 4 / 6  | Assigned  | McFleurdel | The Fleur de Nuit    | Manny, 2026-08-27 |
-| AA-08   | Turbo Bruiser       | Cruiser       | 7 / 5 / 7 / 4 / 8 / 5  | Available | -          | -                    | -                 |
+| AA-08   | Turbo Bruiser       | Cruiser       | 7 / 5 / 7 / 4 / 8 / 5  | Assigned  | Toph       | The Grave Shift      | Manny, 2026-08-28 |
 | AA-09   | Technical Cruiser   | Cruiser       | 7 / 6 / 6 / 6 / 6 / 5  | Assigned  | Manaconda  | The Wayfinder        | Manny, 2026-08-16 |
 | AA-10   | Straight-Line Heavy | Heavyweight   | 10 / 4 / 9 / 3 / 4 / 6 | Assigned  | Krios      | The Hornbreaker      | Manny, 2026-08-22 |
 | AA-11   | Collision Tank      | Heavyweight   | 8 / 4 / 10 / 3 / 5 / 6 | Assigned  | Accu       | Pink Precision       | Manny, 2026-08-20 |
 | AA-12   | All-Surface Heavy   | Heavyweight   | 8 / 5 / 8 / 4 / 4 / 7  | Available | -          | -                    | -                 |
 
 ## Locked mapping rationale
+
+### AA-08: Toph / The Grave Shift
+
+Toph's intended driving identity is a substantial street racer that converts committed drift lines into explosive exits. Speed 7 and Weight 7 give The Grave Shift momentum and road presence, while Mini-Turbo 8 makes drift chains its main advantage. Acceleration 5 and Handling 4 make missed lines and poor recovery costly. Traction 5 keeps the kart usable without overlapping the all-surface heavy, and the cruiser-class mass distinguishes Toph from Kraken's lighter AA-05 Drift Specialist. Manny approved the mapping on 2026-08-28.
 
 ### AA-07: McFleurdel / The Fleur de Nuit
 

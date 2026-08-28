@@ -10,6 +10,7 @@ import {
   KRIOS_ASSET_REVISION,
   MANACONDA_ASSET_REVISION,
   MCFLEURDEL_ASSET_REVISION,
+  TOPH_ASSET_REVISION,
   NEGATIVE_Z_KART_VISUAL_YAW,
   statValues,
   STAT_TOTAL,
@@ -218,4 +219,28 @@ describe('character manifest', () => {
       'aa-11 production kart must use the enforced negative-Z visual yaw.',
     );
   });
+  it('maps Toph to The Grave Shift and the approved AA-08 profile', () => {
+    const toph = characterById('aa-08');
+    expect(toph.displayName).toBe('Toph');
+    expect(toph.descriptor).toBe('Turbo Bruiser');
+    expect(toph.assetState).toBe('production');
+    expect(toph.kartName).toBe('The Grave Shift');
+    expect(toph.kart).toContain(`/assets/characters/aa-08/kart.glb?v=${TOPH_ASSET_REVISION}`);
+    expect(toph.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(toph.driver?.rear).toContain(`?v=${TOPH_ASSET_REVISION}`);
+    expect(toph.driver?.front).toContain(`?v=${TOPH_ASSET_REVISION}`);
+    expect(toph.driver?.steerLeft).toContain(`?v=${TOPH_ASSET_REVISION}`);
+    expect(toph.driver?.steerRight).toContain(`?v=${TOPH_ASSET_REVISION}`);
+    expect(toph.driver?.hit).toContain(`?v=${TOPH_ASSET_REVISION}`);
+    expect(toph.driver?.victory).toContain(`?v=${TOPH_ASSET_REVISION}`);
+    expect(toph.stats).toEqual({
+      speed: 7,
+      acceleration: 5,
+      weight: 7,
+      handling: 4,
+      miniTurbo: 8,
+      traction: 5,
+    });
+  });
+
 });
