@@ -531,6 +531,12 @@ export class KartTimeTrial {
       material.map = texture;
       material.needsUpdate = true;
     }
+    const defaultPosition = this.options.character.driverSpritePosition ?? [0, 0.95, -0.12];
+    const position =
+      frame === 'front'
+        ? (this.options.character.frontDriverSpritePosition ?? defaultPosition)
+        : defaultPosition;
+    this.driverSprite.position.set(...position);
     this.activeDriverFrame = frame;
   }
 
