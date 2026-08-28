@@ -21,6 +21,7 @@ export interface CharacterDefinition {
   kart?: string;
   kartVisualYaw?: number;
   driverSpritePosition?: readonly [number, number, number];
+  frontDriverSpritePosition?: readonly [number, number, number];
   driver?: {
     rear: string;
     front?: string;
@@ -247,6 +248,7 @@ const toph: CharacterDefinition = {
   kartName: 'The Grave Shift',
   kart: assetUrl('assets/characters/aa-08/kart.glb', TOPH_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  frontDriverSpritePosition: [0, 0.78, -0.12],
   driver: {
     rear: assetUrl('assets/characters/aa-08/driver/rear.png', TOPH_ASSET_REVISION),
     front: assetUrl('assets/characters/aa-08/driver/front.png', TOPH_ASSET_REVISION),
