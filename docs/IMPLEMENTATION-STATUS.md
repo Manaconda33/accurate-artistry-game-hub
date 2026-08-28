@@ -79,6 +79,17 @@ Continuity closure completed by PR #32:
 - Items and AI item use remain Slice 5.
 - Final HUD/audio/post-processing/optimization remain Slice 6.
 
+## Toph production status — 2D package approved; kart modeling pending
+
+- Manny approved Toph's character lock, definitive visual authority, and transformation rights on 2026-08-28.
+- Toph is locked to AA-08 Turbo Bruiser with The Grave Shift: 7 / 5 / 7 / 4 / 8 / 5.
+- Manny approved the portrait, front, rear, steer-left, steer-right, hit, and corrected victory designs on 2026-08-28.
+- The initial generated previews contained baked checkerboard pixels despite the transparent-output request. The deterministic preparation step removed the edge-connected checkerboard before resizing rather than accepting opaque runtime files.
+- Runtime derivatives are prepared at `public/assets/characters/aa-08/`: portrait at 256 × 256 and six driver states at 512 × 512. Every file is sRGBA, has non-opaque alpha, and has fully transparent corner pixels.
+- Dark-background contact-sheet inspection confirms clean silhouettes. The corrected victory pose keeps Toph's lower body race-forward while his upper torso turns toward the viewer.
+- Toph is not yet active in `characterManifest`; no fallback slot, live roster, AI grid, or runtime behavior has changed.
+- Status: **2D PRE-KART CHECKPOINT PREPARED — THE GRAVE SHIFT GLB APPROVAL GATE PENDING.**
+
 ## Keeg production status — kart approved; pre-activation package prepared
 
 - Keeg is locked to AA-04 Balanced Racer with The Mycelial Majesty on `agent/keeg-production`.
@@ -98,8 +109,8 @@ Continuity closure completed by PR #32:
 
 ## Next recommended action
 
-Continue Slice 3 with the next one-character-at-a-time roster intake. McFleurdel requires no further production work unless a regression is found.
+Continue Toph's Slice 3 pipeline by producing the first reviewable deterministic LOD0 candidate for The Grave Shift. Do not activate AA-08 until the kart, LODs, runtime package, CI, deployment, and live manual checks pass.
 
 ## Approval gate
 
-No approval is pending for Krios or Cleo. Both checkpoints are closed. Keeg's 2D package and kart design are approved; active-manifest CI is the next production gate.
+Toph's 2D package is approved. The Grave Shift's 3D geometry remains the next product-owner approval gate. No approval is pending for Krios, Cleo, or McFleurdel.
