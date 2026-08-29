@@ -1,0 +1,54 @@
+name: Temporary Lula LFS bridge
+
+on:
+  push:
+    branches: [agent/lula-production]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out pointer commit
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+          ref: agent/lula-production
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pinned builder dependencies
+        run: python -m pip install numpy==2.3.5 matplotlib==3.10.8
+
+      - name: Rebuild approved Lula GLBs
+        run: |
+          VERDANT_HART_LOD=LOD0 VERDANT_HART_OUT=public/assets/characters/aa-03/kart.glb VERDANT_HART_SKIP_PREVIEW=1 python tools/assets/build_lula_verdant_hart.py
+          VERDANT_HART_LOD=LOD1 VERDANT_HART_OUT=public/assets/characters/aa-03/kart-lod1.glb VERDANT_HART_SKIP_PREVIEW=1 python tools/assets/build_lula_verdant_hart.py
+          VERDANT_HART_LOD=LOD2 VERDANT_HART_OUT=public/assets/characters/aa-03/kart-lod2.glb VERDANT_HART_SKIP_PREVIEW=1 python tools/assets/build_lula_verdant_hart.py
+
+      - name: Verify approved object IDs and unchanged pointers
+        run: |
+          echo '6842eecf711117d8ca521ebd9620926268452193f5c3b9e2ba7ad9aba090c26c  public/assets/characters/aa-03/kart.glb' | sha256sum --check
+          echo 'b9a267a6a41d14a674771cc0137d1b0445e1a264bfa8b2c5acc7c6685ab399cd  public/assets/characters/aa-03/kart-lod1.glb' | sha256sum --check
+          echo '3a062ee6bee2502bdd3914063cc549a08e4de151ebf5bcfc3a52fe9658eb57f0  public/assets/characters/aa-03/kart-lod2.glb' | sha256sum --check
+          git add public/assets/characters/aa-03/kart.glb public/assets/characters/aa-03/kart-lod1.glb public/assets/characters/aa-03/kart-lod2.glb
+          git diff --cached --exit-code
+
+      - name: Upload only approved LFS objects
+        run: |
+          git lfs push --object-id origin 6842eecf711117d8ca521ebd9620926268452193f5c3b9e2ba7ad9aba090c26c
+          git lfs push --object-id origin b9a267a6a41d14a674771cc0137d1b0445e1a264bfa8b2c5acc7c6685ab399cd
+          git lfs push --object-id origin 3a062ee6bee2502bdd3914063cc549a08e4de151ebf5bcfc3a52fe9658eb57f0
+
+      - name: Fetch back and verify
+        run: |
+          find .git/lfs/objects -type f -delete
+          git lfs fetch origin agent/lula-production
+          git lfs checkout
+          git lfs fsck
