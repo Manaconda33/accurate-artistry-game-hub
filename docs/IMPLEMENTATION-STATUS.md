@@ -90,7 +90,8 @@ Continuity closure completed by PR #32:
 - Locked SHA-256 object IDs: LOD0 `6842eecf711117d8ca521ebd9620926268452193f5c3b9e2ba7ad9aba090c26c`; LOD1 `b9a267a6a41d14a674771cc0137d1b0445e1a264bfa8b2c5acc7c6685ab399cd`; LOD2 `3a062ee6bee2502bdd3914063cc549a08e4de151ebf5bcfc3a52fe9658eb57f0`.
 - AA-03 activation is staged with controlled revision `lula-runtime-20260829-1`, all six driver states, approved stats, The Verdant Hart, and `NEGATIVE_Z_KART_VISUAL_YAW`.
 - Runtime verification covers all three GLBs and all seven PNGs.
-- Commit, LFS publication, CI, deployment, and live acceptance remain pending.
+- The branch-scoped LFS bridge regenerated and uploaded only the three locked object IDs. PR #44 CI run `33266092639` then materialized them in a clean checkout, passed `git lfs fsck`, typecheck, lint, 56 tests, runtime asset verification, and the production build.
+- The temporary write-enabled workflow is removed before merge. Main deployment and live acceptance remain pending.
 
 ## Toph production status — complete
 

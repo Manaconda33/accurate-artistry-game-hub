@@ -32,4 +32,4 @@ Candidate 4 preserves the approved low stag-racer silhouette while replacing exp
 | `public/assets/characters/aa-03/kart-lod1.glb` | LOD1 |     8,954 | `b9a267a6a41d14a674771cc0137d1b0445e1a264bfa8b2c5acc7c6685ab399cd` |
 | `public/assets/characters/aa-03/kart-lod2.glb` | LOD2 |     4,746 | `3a062ee6bee2502bdd3914063cc549a08e4de151ebf5bcfc3a52fe9658eb57f0` |
 
-All three GLBs provide 13 required nodes and `extras.forward: "-Z"`. The controlled runtime revision is `lula-runtime-20260829-1`. LFS publication, deployment, and live acceptance remain pending.
+All three GLBs provide 13 required nodes and `extras.forward: "-Z"`. The controlled runtime revision is `lula-runtime-20260829-1`. The branch-scoped LFS bridge uploaded the locked objects, and PR #44 CI run `33266092639` independently materialized and validated them. Deployment and live acceptance remain pending.
