@@ -34,7 +34,7 @@ Stat order is Speed / Acceleration / Weight / Handling / Mini-Turbo / Traction.
 | ------- | ------------------- | ------------- | ---------------------- | --------- | ---------- | -------------------- | ----------------- |
 | AA-01   | Feather Sprinter    | Featherweight | 6 / 9 / 2 / 8 / 7 / 4  | Available | -          | -                    | -                 |
 | AA-02   | Feather Technician  | Featherweight | 5 / 8 / 2 / 9 / 8 / 4  | Assigned  | Lavi       | Potato               | Manny, 2026-08-16 |
-| AA-03   | Feather Dirt Ace    | Featherweight | 5 / 8 / 3 / 7 / 6 / 7  | Available | -          | -                    | -                 |
+| AA-03   | Feather Dirt Ace    | Featherweight | 5 / 8 / 3 / 7 / 6 / 7  | Assigned  | Lula       | The Verdant Hart     | Manny, 2026-08-29 |
 | AA-04   | Balanced Racer      | Medium        | 7 / 7 / 5 / 7 / 5 / 5  | Assigned  | Keeg       | The Mycelial Majesty | Manny, 2026-08-26 |
 | AA-05   | Drift Specialist    | Medium        | 6 / 7 / 5 / 6 / 9 / 3  | Assigned  | Kraken     | The Abyssal Drifter  | Manny, 2026-08-21 |
 | AA-06   | Grip Specialist     | Medium        | 6 / 6 / 5 / 7 / 5 / 7  | Available | -          | -                    | -                 |
@@ -46,6 +46,10 @@ Stat order is Speed / Acceleration / Weight / Handling / Mini-Turbo / Traction.
 | AA-12   | All-Surface Heavy   | Heavyweight   | 8 / 5 / 8 / 4 / 4 / 7  | Available | -          | -                    | -                 |
 
 ## Locked mapping rationale
+
+### AA-03: Lula / The Verdant Hart
+
+Lula's intended driving identity is an agile woodland racer that remains composed on imperfect terrain. Acceleration 8, Handling 7, and Traction 7 support fast recovery, responsive lines, and strong off-road grip. Speed 5 and Weight 3 limit straight-line dominance and collision resistance, while Mini-Turbo 6 rewards controlled drifting without overlapping Lavi's more technical AA-02 profile. Manny approved the mapping on 2026-08-29.
 
 ### AA-08: Toph / The Grave Shift
 

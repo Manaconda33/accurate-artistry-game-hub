@@ -48,6 +48,7 @@ export const KRIOS_ASSET_REVISION = 'krios-runtime-20260822-1';
 export const KEEG_ASSET_REVISION = 'keeg-runtime-20260826-2';
 export const MCFLEURDEL_ASSET_REVISION = 'mcfleurdel-runtime-20260827-1';
 export const TOPH_ASSET_REVISION = 'toph-runtime-20260828-1';
+export const LULA_ASSET_REVISION = 'lula-runtime-20260829-1';
 
 const assetUrl = (path: string, revision: string): string =>
   `${import.meta.env.BASE_URL}${path}?v=${revision}`;
@@ -260,6 +261,28 @@ const toph: CharacterDefinition = {
   stats: { speed: 7, acceleration: 5, weight: 7, handling: 4, miniTurbo: 8, traction: 5 },
 };
 
+const lula: CharacterDefinition = {
+  id: 'aa-03',
+  displayName: 'Lula',
+  descriptor: 'Feather Dirt Ace',
+  initials: 'LU',
+  accent: '#4f9f3a',
+  assetState: 'production',
+  portrait: assetUrl('assets/characters/aa-03/portrait.png', LULA_ASSET_REVISION),
+  kartName: 'The Verdant Hart',
+  kart: assetUrl('assets/characters/aa-03/kart.glb', LULA_ASSET_REVISION),
+  kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  driver: {
+    rear: assetUrl('assets/characters/aa-03/driver/rear.png', LULA_ASSET_REVISION),
+    front: assetUrl('assets/characters/aa-03/driver/front.png', LULA_ASSET_REVISION),
+    steerLeft: assetUrl('assets/characters/aa-03/driver/steer-left.png', LULA_ASSET_REVISION),
+    steerRight: assetUrl('assets/characters/aa-03/driver/steer-right.png', LULA_ASSET_REVISION),
+    hit: assetUrl('assets/characters/aa-03/driver/hit.png', LULA_ASSET_REVISION),
+    victory: assetUrl('assets/characters/aa-03/driver/victory.png', LULA_ASSET_REVISION),
+  },
+  stats: { speed: 5, acceleration: 8, weight: 3, handling: 7, miniTurbo: 6, traction: 7 },
+};
+
 export const characterManifest: readonly CharacterDefinition[] = [
   lavi,
   manaconda,
@@ -269,9 +292,9 @@ export const characterManifest: readonly CharacterDefinition[] = [
   keeg,
   mcfleurdel,
   toph,
+  lula,
   ...[
     ['aa-01', 'AA 01', 'Balanced Pilot', 'A1', '#9b7cff', [6, 6, 6, 6, 6, 6]],
-    ['aa-03', 'AA 03', 'Grip Specialist', 'A3', '#58c6a8', [5, 6, 5, 8, 5, 7]],
     ['aa-06', 'AA 06', 'Grip Specialist', 'A6', '#d79a35', [6, 6, 5, 7, 5, 7]],
     ['aa-12', 'AA 12', 'Momentum Driver', '12', '#d56b55', [8, 5, 8, 4, 5, 6]],
   ].map(([id, displayName, descriptor, initials, accent, values]) => {

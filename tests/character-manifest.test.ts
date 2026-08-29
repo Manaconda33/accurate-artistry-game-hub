@@ -11,6 +11,7 @@ import {
   MANACONDA_ASSET_REVISION,
   MCFLEURDEL_ASSET_REVISION,
   TOPH_ASSET_REVISION,
+  LULA_ASSET_REVISION,
   NEGATIVE_Z_KART_VISUAL_YAW,
   statValues,
   STAT_TOTAL,
@@ -244,4 +245,27 @@ describe('character manifest', () => {
     });
   });
 
+  it('maps Lula to The Verdant Hart and the approved AA-03 profile', () => {
+    const lula = characterById('aa-03');
+    expect(lula.displayName).toBe('Lula');
+    expect(lula.descriptor).toBe('Feather Dirt Ace');
+    expect(lula.assetState).toBe('production');
+    expect(lula.kartName).toBe('The Verdant Hart');
+    expect(lula.kart).toContain(`/assets/characters/aa-03/kart.glb?v=${LULA_ASSET_REVISION}`);
+    expect(lula.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(lula.driver?.rear).toContain(`?v=${LULA_ASSET_REVISION}`);
+    expect(lula.driver?.front).toContain(`?v=${LULA_ASSET_REVISION}`);
+    expect(lula.driver?.steerLeft).toContain(`?v=${LULA_ASSET_REVISION}`);
+    expect(lula.driver?.steerRight).toContain(`?v=${LULA_ASSET_REVISION}`);
+    expect(lula.driver?.hit).toContain(`?v=${LULA_ASSET_REVISION}`);
+    expect(lula.driver?.victory).toContain(`?v=${LULA_ASSET_REVISION}`);
+    expect(lula.stats).toEqual({
+      speed: 5,
+      acceleration: 8,
+      weight: 3,
+      handling: 7,
+      miniTurbo: 6,
+      traction: 7,
+    });
+  });
 });

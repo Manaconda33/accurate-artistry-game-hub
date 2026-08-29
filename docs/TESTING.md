@@ -171,6 +171,19 @@ Run this matrix for every future production character, in addition to its slice-
 - CI inflates and validates every AA-08 PNG as complete RGBA image data.
 - Product-owner acceptance is recorded only after the deployed game confirms Toph is selectable and all approved assets load as intended on desktop and mobile.
 
+## Lula / Verdant Hart manual matrix
+
+- AA-03 renders Lula's approved portrait, Feather Dirt Ace descriptor, and 5 / 8 / 3 / 7 / 6 / 7 statistics.
+- `Race as Lula` loads The Verdant Hart rather than the fallback kart.
+- The low living-root body, unified stag face, brow-mounted antlers, embedded green leaves, connected wheel housings, and restrained wooden outlets load without clipping or floating geometry.
+- Lula sits correctly in the open cockpit with the steering wheel forward of the driver.
+- Rear, front, steer-left, steer-right, hit, and corrected victory states load from `lula-runtime-20260829-1`.
+- Chase and rear views confirm the stag face remains at the race-forward nose and the wooden outlets remain behind Lula.
+- Lula appears no more than once as an AI opponent when the player selects another character.
+- CI materializes and validates all three AA-03 GLBs; each begins with the binary glTF signature and declares `extras.forward: "-Z"`.
+- CI inflates and validates every AA-03 PNG as complete RGBA image data.
+- Product-owner acceptance is recorded only after the deployed game confirms Lula is selectable and all approved assets load as intended on desktop and mobile.
+
 ## Mobile finish-state matrix
 
 - Completing a race adds the `is-finished` state to the game shell before results become visible.

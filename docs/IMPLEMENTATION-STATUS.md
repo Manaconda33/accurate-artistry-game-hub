@@ -6,7 +6,7 @@
 
 PRD baseline: **v1.1, working implementation amendment 1.6**.
 
-Latest verified character checkpoint: `a8fea24b309e3123115e9a04c3aee0614085bdc1` — PR #42 recorded Toph's completed live production acceptance after the front-view hand-to-wheel correction passed manual testing. Toph's portrait, The Grave Shift, all six driver states, orientation, AI identity, and runtime behavior are accepted. The current `main` head is `5dc9ed85c2ee243f8f88b061f86ffc88d40e19c3`, which only archives an inactive Slice 5 boost-pickup concept and does not supersede Toph as the latest verified character checkpoint.
+Latest verified live character checkpoint: `a8fea24b309e3123115e9a04c3aee0614085bdc1` — PR #42 recorded Toph's completed live production acceptance after the front-view hand-to-wheel correction passed manual testing. Toph's portrait, The Grave Shift, all six driver states, orientation, AI identity, and runtime behavior are accepted. Main checkpoint `95e221bafa0bfdc68f254a43ac865b9ee461b00c` subsequently prepared Lula's approved transparent sprite package without activating AA-03. Lula's kart and runtime integration are now staged locally pending repository approval, CI, deployment, and live acceptance; this does not supersede Toph as the latest verified live character checkpoint.
 
 The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
@@ -21,6 +21,7 @@ Production character packages currently represented in `characterManifest`:
 - Keeg / The Mycelial Majesty — AA-04
 - McFleurdel / The Fleur de Nuit — AA-07
 - Toph / The Grave Shift — AA-08
+- Lula / The Verdant Hart — AA-03 (staged; not yet live accepted)
 - Accu / Pink Precision — AA-11
 
 Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placeholder and available for future approved assignment. The twelve-slot Character Select architecture remains intact.
@@ -80,6 +81,17 @@ Continuity closure completed by PR #32:
 - Complete any still-unrecorded desktop/mobile acceptance checks for other integrated production characters as required by `docs/TESTING.md`.
 - Items and AI item use remain Slice 5.
 - Final HUD/audio/post-processing/optimization remain Slice 6.
+
+## Lula production status — staged for repository checkpoint
+
+- Manny approved Lula's character lock, definitive authority, transformation rights, AA-03 Feather Dirt Ace mapping, The Verdant Hart, all seven transparent 2D designs, and 3D Candidate 4 on 2026-08-29.
+- Candidate 4 resolves the rejected candidates' floating components through open-ended root tubes buried within overlapping organic joints. Dedicated foliage geometry renders recognizable green leaf clusters consistently across viewers.
+- Deterministic production GLBs: LOD0 21,948 triangles / LOD1 8,954 / LOD2 4,746. Each has five materials, 13 required nodes, and `extras.forward: "-Z"`.
+- Locked SHA-256 object IDs: LOD0 `6842eecf711117d8ca521ebd9620926268452193f5c3b9e2ba7ad9aba090c26c`; LOD1 `b9a267a6a41d14a674771cc0137d1b0445e1a264bfa8b2c5acc7c6685ab399cd`; LOD2 `3a062ee6bee2502bdd3914063cc549a08e4de151ebf5bcfc3a52fe9658eb57f0`.
+- AA-03 activation is staged with controlled revision `lula-runtime-20260829-1`, all six driver states, approved stats, The Verdant Hart, and `NEGATIVE_Z_KART_VISUAL_YAW`.
+- Runtime verification covers all three GLBs and all seven PNGs.
+- The branch-scoped LFS bridge regenerated and uploaded only the three locked object IDs. PR #44 CI run `33266092639` then materialized them in a clean checkout, passed `git lfs fsck`, typecheck, lint, 56 tests, runtime asset verification, and the production build.
+- The temporary write-enabled workflow is removed before merge. Main deployment and live acceptance remain pending.
 
 ## Toph production status — complete
 

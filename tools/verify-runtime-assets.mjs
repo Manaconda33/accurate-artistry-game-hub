@@ -26,6 +26,9 @@ const runtimeGlbs = [
   'public/assets/characters/aa-08/kart.glb',
   'public/assets/characters/aa-08/kart-lod1.glb',
   'public/assets/characters/aa-08/kart-lod2.glb',
+  'public/assets/characters/aa-03/kart.glb',
+  'public/assets/characters/aa-03/kart-lod1.glb',
+  'public/assets/characters/aa-03/kart-lod2.glb',
 ];
 
 for (const path of runtimeGlbs) {
@@ -77,6 +80,13 @@ const runtimePngs = [
   ['public/assets/characters/aa-08/driver/steer-right.png', 512, 512],
   ['public/assets/characters/aa-08/driver/hit.png', 512, 512],
   ['public/assets/characters/aa-08/driver/victory.png', 512, 512],
+  ['public/assets/characters/aa-03/portrait.png', 256, 256],
+  ['public/assets/characters/aa-03/driver/front.png', 512, 512],
+  ['public/assets/characters/aa-03/driver/rear.png', 512, 512],
+  ['public/assets/characters/aa-03/driver/steer-left.png', 512, 512],
+  ['public/assets/characters/aa-03/driver/steer-right.png', 512, 512],
+  ['public/assets/characters/aa-03/driver/hit.png', 512, 512],
+  ['public/assets/characters/aa-03/driver/victory.png', 512, 512],
 ];
 
 for (const [path, expectedWidth, expectedHeight] of runtimePngs) {
