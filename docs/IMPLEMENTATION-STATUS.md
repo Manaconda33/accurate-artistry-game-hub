@@ -6,7 +6,7 @@
 
 PRD baseline: **v1.1, working implementation amendment 1.6**.
 
-Latest verified implementation checkpoint: `aa24b655d30ba65438f512e0544e313da3fc343e` — PR #37 merged McFleurdel's approved production package. Main CI run `33037485975` passed LFS verification, typecheck, lint, tests, production build, artifact upload, and GitHub Pages deployment.
+Latest verified character checkpoint: `a8fea24b309e3123115e9a04c3aee0614085bdc1` — PR #42 recorded Toph's completed live production acceptance after the front-view hand-to-wheel correction passed manual testing. Toph's portrait, The Grave Shift, all six driver states, orientation, AI identity, and runtime behavior are accepted. The current `main` head is `5dc9ed85c2ee243f8f88b061f86ffc88d40e19c3`, which only archives an inactive Slice 5 boost-pickup concept and does not supersede Toph as the latest verified character checkpoint.
 
 The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
@@ -18,7 +18,9 @@ Production character packages currently represented in `characterManifest`:
 - Kraken / The Abyssal Drifter — AA-05
 - Manaconda / The Wayfinder — AA-09
 - Krios / The Hornbreaker — AA-10
+- Keeg / The Mycelial Majesty — AA-04
 - McFleurdel / The Fleur de Nuit — AA-07
+- Toph / The Grave Shift — AA-08
 - Accu / Pink Precision — AA-11
 
 Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placeholder and available for future approved assignment. The twelve-slot Character Select architecture remains intact.
