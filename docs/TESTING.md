@@ -88,6 +88,16 @@ Run the automated controller checks on flat asphalt with full throttle, no boost
 
 For live acceptance, compare Krios, Accu, Kraken, and Lula on the same asphalt straight without boost. Confirm that higher Speed produces the higher sustained maximum, while Acceleration remains visible in time-to-speed. Repeat on desktop and mobile, and record the deployed commit and observed speeds in `docs/IMPLEMENTATION-STATUS.md`.
 
+## Acceleration, surface-transition, and AI-lane regression
+
+- `createKartTuning` must map Acceleration 4 to 6.2 m/s² and Acceleration 8 to 8.4 m/s² before the documented speed-ratio taper.
+- Two otherwise identical Speed 8 profiles with Acceleration 4 and 8 must differ by more than 2 m/s after one second. The Acceleration 4 profile must remain below 75% of its maximum after three seconds, and both must still converge to the same Speed-defined ceiling.
+- A kart entering dirt or grass at full asphalt speed must lose less than 0.3 m/s during its first simulated frame, then converge to the correct Traction-defined surface maximum within four seconds.
+- Every configured AI profile must complete three validated laps, spend less than 2% of simulated frames on grass, and remain within 0.5 meters of the road boundary.
+- In the two-kart passing scenario, the faster AI must commit to an adjacent road-bounded lane, move ahead of the slower racer, and remain within the road boundary.
+
+For live acceptance, compare Krios or Accu against Lavi or Lula from a standing start; drive from asphalt into both dirt and grass without braking; and observe a full AI pack through several corners. Confirm a visible launch/recovery difference, progressive off-road slowdown, no systematic inside-grass line, and lateral overtaking around slower racers.
+
 ## Slice 4 AI/grid manual matrix
 
 - Desktop/fine-pointer session: touch controls are absent; keyboard controls remain functional.
@@ -97,6 +107,7 @@ For live acceptance, compare Krios, Accu, Kraken, and Lula on the same asphalt s
 - The player identity is absent from the AI grid, all seven AI identities are unique, and repeated races vary the sampled roster.
 - A sampled production identity displays its approved kart and rear driver frame. A sampled unfinished identity remains an explicit fallback and never borrows another character's art.
 - AI racers follow the course, recover after displacement, overtake, and complete validated laps without player involvement.
+- AI racers use visibly different road-bounded lanes, do not systematically cut inside corners through grass, and move laterally around slower racers instead of forming a permanent bumper-to-bumper queue.
 - Player completion records a placement from first through eighth and presents standings.
 - Drift tiers, boost pads, ramp/stunt boost, off-road floors, recovery, rear view, and three-lap validation regressions remain functional.
 

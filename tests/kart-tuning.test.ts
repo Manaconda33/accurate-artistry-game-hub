@@ -17,6 +17,11 @@ describe('kart tuning and surface behavior', () => {
     expect(tuning.mass).toBeGreaterThan(105);
   });
 
+  it('uses the PRD launch-acceleration curve', () => {
+    expect(createKartTuning({ ...sliceOneDriver, acceleration: 4 }).acceleration).toBeCloseTo(6.2);
+    expect(createKartTuning({ ...sliceOneDriver, acceleration: 8 }).acceleration).toBeCloseTo(8.4);
+  });
+
   it('makes grass slower than dirt and asphalt', () => {
     const traction = sliceOneDriver.traction;
     expect(surfaceSpeedMultiplier('grass', traction)).toBeLessThan(

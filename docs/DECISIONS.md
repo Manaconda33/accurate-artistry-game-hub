@@ -75,3 +75,14 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Product impact:** A higher Speed score now produces a higher reachable unboosted asphalt maximum under equivalent conditions. Drivers sharing a Speed score converge to the same maximum even when their Acceleration differs.
 - **Scope:** No roster statistics, tuning formulas, boost values, or AI pacing are changed. Numerical balance follows after the corrected player model is deployed and evaluated live.
 - **Approval:** Manny requested implementation on 2026-08-30 after supplying live Kraken, Accu, Krios, and Lula speed evidence.
+
+## ADR-027: Restore the PRD acceleration, off-road transition, and AI lane contracts
+
+- **Date:** 2026-08-30
+- **Status:** Approved
+- **Context:** Live testing accepted the corrected Speed ceilings but found three remaining gameplay gaps. Acceleration values felt too similar because launch force was far above the PRD curve; entering dirt or grass clamped speed to the surface cap in one frame; AI used an excessive sample-count lookahead, cut across inside grass, and had no nearby-racer input for overtaking.
+- **Decision:** Use the PRD launch formula `4.0 + 0.55 × Acceleration` with its speed-ratio taper. Preserve Traction-defined dirt and grass caps while reducing excess entry speed progressively. Calculate AI lookahead in the PRD's 5–14 meter range, constrain candidate lanes to the road with a kart margin, and give each AI nearby-racer position, speed, and lateral-offset data for committed passing decisions.
+- **Rationale:** Each change closes an existing PHYS-004 or Slice 4 acceptance gap. Acceleration becomes visible without changing Speed ceilings, off-road entry remains readable without erasing Traction, and AI can follow the road and pass instead of targeting long chords or queuing on one line.
+- **Product impact:** Low-Acceleration racers take longer to build momentum. Dirt and grass slow racers over a short transition. AI racers use multiple legal lines and can move around slower traffic.
+- **Scope:** Driver stats, Speed ceilings, boost values, items, AI item use, and final difficulty tuning are unchanged.
+- **Approval:** The existing PRD formulas and Slice 4 acceptance criteria govern this correction. Manny directed the follow-up on 2026-08-30 after testing the deployed Speed fix.

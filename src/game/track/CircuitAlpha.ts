@@ -17,6 +17,7 @@ export class CircuitAlpha {
   public readonly curve: THREE.CatmullRomCurve3;
   public readonly samples: THREE.Vector3[];
   public readonly tangents: THREE.Vector3[];
+  public readonly sampleSpacing: number;
   public readonly checkpointIndices: number[];
 
   public constructor() {
@@ -43,6 +44,7 @@ export class CircuitAlpha {
     this.tangents = Array.from({ length: this.sampleCount }, (_, index) =>
       this.curve.getTangentAt(index / this.sampleCount).normalize(),
     );
+    this.sampleSpacing = this.curve.getLength() / this.sampleCount;
     this.checkpointIndices = Array.from({ length: 12 }, (_, index) =>
       Math.floor((index * this.sampleCount) / 12),
     );

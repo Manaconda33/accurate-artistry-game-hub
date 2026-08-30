@@ -45,7 +45,7 @@ export function createKartTuning(stats: DriverStats): KartTuning {
 
   return {
     maxSpeed: 23 + normalized(stats.speed) * 10,
-    acceleration: 14 + normalized(stats.acceleration) * 10,
+    acceleration: 4 + 0.55 * stats.acceleration,
     mass: 105 + normalized(stats.weight) * 75,
     steeringRate: 1.3 + normalized(stats.handling) * 1.1,
     lateralGrip: 5.5 + normalized(stats.traction) * 3.5,

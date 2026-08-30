@@ -34,10 +34,16 @@ describe('Rapier spline AI integration', () => {
       const driver = new AiDriver(track, profile);
       const laps = new LapTracker();
       let overlap = -1;
+      let grassFrames = 0;
+      let simulatedFrames = 0;
+      let maximumLateralDistance = 0;
 
       for (let step = 0; step < 21_600 && !laps.snapshot().finished; step += 1) {
         const position = kart.position();
         const projection = track.project(position);
+        simulatedFrames += 1;
+        if (projection.surface === 'grass') grassFrames += 1;
+        maximumLateralDistance = Math.max(maximumLateralDistance, projection.lateralDistance);
         kart.update(
           driver.input(position, kart.forward(), kart.speedMetersPerSecond()),
           projection.surface,
@@ -59,6 +65,86 @@ describe('Rapier spline AI integration', () => {
 
       expect(laps.snapshot().finished).toBe(true);
       expect(kart.isFinite()).toBe(true);
+      expect(grassFrames / simulatedFrames).toBeLessThan(0.02);
+      expect(maximumLateralDistance).toBeLessThan(track.roadHalfWidth + 0.5);
     }
   }, 30_000);
+
+  it('moves off a blocked line and passes a slower racer without leaving the road', () => {
+    const track = new CircuitAlpha();
+    const world = new RAPIER.World({ x: 0, y: -18, z: 0 });
+    world.timestep = 1 / 60;
+    world.createCollider(RAPIER.ColliderDesc.cuboid(450, 0.1, 450).setTranslation(0, -0.12, 0));
+
+    const createKartAt = (index: number): KartController => {
+      const tangent = track.tangents[index];
+      const position = track.samples[index];
+      if (tangent === undefined || position === undefined)
+        throw new Error('Missing AI test sample');
+      return new KartController(
+        world,
+        createKartTuning(sliceOneDriver),
+        sliceOneDriver,
+        position.clone(),
+        Math.atan2(tangent.x, tangent.z),
+      );
+    };
+
+    const frontKart = createKartAt(32);
+    const rearKart = createKartAt(28);
+    const frontDriver = new AiDriver(track, { laneOffset: 0, pace: 0.1, aggression: 0.2 });
+    const rearDriver = new AiDriver(track, { laneOffset: 0, pace: 1, aggression: 0.8 });
+    let changedLane = false;
+    let completedPass = false;
+    let maximumLateralDistance = 0;
+
+    for (let step = 0; step < 1_800 && !completedPass; step += 1) {
+      const frontPosition = frontKart.position();
+      const rearPosition = rearKart.position();
+      const frontProjection = track.project(frontPosition);
+      const rearProjection = track.project(rearPosition);
+      maximumLateralDistance = Math.max(
+        maximumLateralDistance,
+        frontProjection.lateralDistance,
+        rearProjection.lateralDistance,
+      );
+
+      frontKart.update(
+        frontDriver.input(frontPosition, frontKart.forward(), frontKart.speedMetersPerSecond(), 0, [
+          {
+            position: rearPosition,
+            speed: rearKart.speedMetersPerSecond(),
+            lateralOffset: rearProjection.lateralOffset,
+          },
+        ]),
+        frontProjection.surface,
+        1 / 60,
+      );
+      rearKart.update(
+        rearDriver.input(rearPosition, rearKart.forward(), rearKart.speedMetersPerSecond(), 0, [
+          {
+            position: frontPosition,
+            speed: frontKart.speedMetersPerSecond(),
+            lateralOffset: frontProjection.lateralOffset,
+          },
+        ]),
+        rearProjection.surface,
+        1 / 60,
+      );
+      world.step();
+
+      changedLane ||= Math.abs(rearDriver.desiredLaneOffset()) > 1;
+      const progressDifference =
+        ((track.project(rearKart.position()).progress -
+          track.project(frontKart.position()).progress +
+          1.5) %
+          1) -
+        0.5;
+      completedPass = progressDifference > 0.003;
+    }
+
+    expect(changedLane).toBe(true);
+    expect(completedPass).toBe(true);
+    expect(maximumLateralDistance).toBeLessThan(track.roadHalfWidth + 0.5);
+  });
 });
