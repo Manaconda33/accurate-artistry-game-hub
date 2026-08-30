@@ -77,10 +77,22 @@ Continuity closure completed by PR #32:
 ## Known defects / deferred work
 
 - Slice 4 AI competitiveness remains intentionally weak; previously accepted at the current vertical-slice stage.
+- Numerical player-roster balance remains pending until the speed/acceleration coupling correction is deployed and tested live. No driver statistics or tuning curves changed in this correction.
 - Continue Slice 3 one-character-at-a-time intake and approval for remaining roster slots.
 - Complete any still-unrecorded desktop/mobile acceptance checks for other integrated production characters as required by `docs/TESTING.md`.
 - Items and AI item use remain Slice 5.
 - Final HUD/audio/post-processing/optimization remain Slice 6.
+
+## Player speed/acceleration coupling correction — branch validated; live acceptance pending
+
+- Live evidence showed an inverted result: Kraken (Speed 6) reached 73 km/h and Lula (Speed 5) reached 80 km/h, while Accu (Speed 8) and Krios (Speed 10) each stalled near 35 km/h without boost.
+- An isolated flat-asphalt regression reproduced the underlying coupling: Accu and Krios settled near 78.6 km/h while Kraken reached 101.6 km/h and Lula reached 97.7 km/h.
+- Root cause: the controller applied engine acceleration and its Speed-defined clamp before Rapier's passive linear damping and collider friction. Those later losses made Acceleration determine whether a driver could reach the Speed cap.
+- The branch correction makes the arcade controller the sole owner of longitudinal deceleration, lateral grip, and surface behavior. Passive linear damping and kart-ground friction are disabled; the existing explicit coasting, grip, off-road, drift, and boost logic remains in place.
+- Automated coverage now verifies that every manifest profile sustains its Speed-defined asphalt maximum and that two profiles with the same Speed but different Acceleration have different early pace yet converge to the same maximum.
+- `npm run validate` passes: strict typecheck, zero-warning lint, 58 tests across 14 files, runtime asset verification, and production build.
+- Scope is limited to player physics coupling. Driver statistics, tuning curves, boost behavior, and AI pace were not rebalanced.
+- Status: **BRANCH VALIDATED — PR CI, merge/deployment, and Manny's live desktop/mobile driving confirmation remain required.**
 
 ## Lula production status — complete
 
