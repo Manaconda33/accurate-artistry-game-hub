@@ -86,3 +86,13 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Product impact:** Low-Acceleration racers take longer to build momentum. Dirt and grass slow racers over a short transition. AI racers use multiple legal lines and can move around slower traffic.
 - **Scope:** Driver stats, Speed ceilings, boost values, items, AI item use, and final difficulty tuning are unchanged.
 - **Approval:** The existing PRD formulas and Slice 4 acceptance criteria govern this correction. Manny directed the follow-up on 2026-08-30 after testing the deployed Speed fix.
+
+## ADR-028: Make kart-impact speed retention Weight-driven but bounded
+
+- **Date:** 2026-08-30
+- **Status:** Approved
+- **Context:** Kart-to-kart contact used relative mass for lateral displacement but did not explicitly reduce forward speed. Manny requested a measurable Weight advantage while requiring Accu at Weight 10 to retain meaningful collision risk.
+- **Decision:** Meaningful closing impacts reduce positive forward velocity with the governed PRD retention curve. Impact severity scales with closing speed; the racer's Weight sets the base loss; the opponent's Weight applies a small bounded pressure modifier. Retention is clamped to 65–96%, and contacts below 0.75 m/s do not reduce speed. Lateral velocity and knockback remain intact.
+- **Rationale:** The 15-point full-impact loss range makes Weight legible without erasing the value of positioning or collision avoidance. At severe impact, Accu retains approximately 86% against a Weight 2 racer, while that Weight 2 racer retains approximately 67% against Accu. Accu therefore gains a clear advantage but still loses roughly 14% of forward speed.
+- **Scope:** The change applies equally to player and AI kart contacts. It does not alter driver stats, mass-based lateral impulse, walls, items, Speed ceilings, Acceleration, or surface response.
+- **Approval:** Manny explicitly requested Weight-driven collision speed reduction on 2026-08-30 and specified that Weight 10 must not become virtually immune.

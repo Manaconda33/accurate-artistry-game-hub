@@ -6,7 +6,7 @@
 
 High-Fidelity HTML5 Kart Racer Vertical Slice + Modular Mini-Game Hub
 
-Version 1.1 - Final approved baseline; working implementation amendment 1.6
+Version 1.1 - Final approved baseline; working implementation amendment 1.7
 
 August 16, 2026
 
@@ -33,6 +33,10 @@ Approved August 16, 2026 after Lavi’s production integration was manually conf
 ## Approved implementation amendment 1.6 - Front driver art, character AI grid, and visible victory pose
 
 Approved August 20, 2026. Every production character package must add `front.png`, a 512 x 512 transparent front-facing seated driver frame used when the race camera faces the front of that character's kart. The existing five approved frames remain valid; front art is separately approval-gated and may not be inferred, mirrored, or substituted as approved production art. Each race randomly selects seven unique AI identities from the manifest after excluding the player's identity. No character may appear more than once in one race. An AI identity with production assets must load its approved kart and rear driver frame; unfinished identities retain the governed fallback kart and monogram treatment. The finish presentation must leave the live race view and player victory pose visible instead of covering the central play area. These requirements refine Slice 3 asset delivery, the already-completed-early Slice 4 grid, and Slice 6 results presentation without changing the eight-racer count.
+
+## Approved implementation amendment 1.7 - Weight-driven kart-impact speed retention
+
+Approved August 30, 2026. Meaningful kart-to-kart impacts must reduce positive forward speed using the governed Weight and closing-speed curve in section 14.1. Weight must create a measurable retention advantage without making any racer collision-immune: severe-impact retention remains bounded, and Weight 10 must still lose meaningful forward speed. Lateral knockback remains governed separately by relative mass. This amendment applies to player and AI contacts without changing roster statistics, Speed ceilings, Acceleration, surface response, wall response, or items.
 
 # Contents
 
@@ -1003,6 +1007,19 @@ Drift cancels on spinout, severe collision, airborne state \>0.6 s, speed \<3 m/
 ## 14.1 Kart-to-Kart
 
 Collision response combines Rapier contact with an arcade lateral impulse. Relative weight affects displacement. A lighter racer colliding side-on with a heavy racer receives a greater lateral velocity change. Repeated continuous contacts must use an impulse cooldown to prevent vibration.
+
+An actual impact also reduces each racer's positive forward speed. The loss must be Weight-driven, measurable, and bounded so Weight 10 retains a clear advantage without becoming collision-immune:
+
+```text
+if closingSpeed < 0.75 m/s: retention = 1.0
+impactSeverity = clamp(closingSpeed / 16, 0.25, 1.0)
+weightN = clamp((Weight - 1) / 9, 0, 1)
+fullImpactLoss = lerp(0.31, 0.16, weightN)
+opponentPressure = clamp(1 + 0.015 * (otherWeight - Weight), 0.86, 1.14)
+retention = clamp(1 - fullImpactLoss * impactSeverity * opponentPressure, 0.65, 0.96)
+```
+
+Retention applies only to positive velocity along the kart's forward axis; lateral velocity and collision knockback remain intact. At maximum impact severity, equal Weight 1 racers retain 69% speed and equal Weight 10 racers retain 84%. Weight 10 versus Weight 1 retains approximately 86%, while Weight 1 versus Weight 10 retains 65%. Thus every racer risks meaningful speed loss, while heavier racers recover position more reliably after contact.
 
 ## 14.2 Wall Collision
 

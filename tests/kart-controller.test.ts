@@ -115,4 +115,17 @@ describe('Rapier kart controller', () => {
       expect(kart.speedMetersPerSecond()).toBeCloseTo(expectedSurfaceMaximum, 1);
     }
   });
+
+  it('reduces forward collision speed while preserving lateral motion', () => {
+    const { world, kart } = makeKart();
+    step(world, kart, { throttle: 1, steering: 0, brake: false, drift: false }, 180);
+    kart.applyArcadeCollisionImpulse(new Vector3(1, 0, 0), 20);
+    const before = kart.velocity();
+
+    kart.applyCollisionSpeedRetention(0.8);
+    const after = kart.velocity();
+
+    expect(after.z).toBeCloseTo(before.z * 0.8, 4);
+    expect(after.x).toBeCloseTo(before.x, 4);
+  });
 });
