@@ -4,7 +4,7 @@
 
 **Slice 3 — Character Selection & Avatar Ingestion**
 
-PRD baseline: **v1.1, working implementation amendment 1.6**.
+PRD baseline: **v1.1, working implementation amendment 1.7**.
 
 Latest verified live character checkpoint: `ef74ca9eabb2a242c02d35d72c55377ee9b5529c` — Lula's corrected production package passed mobile playtesting after the front-camera-only placement fix aligned her hands with The Verdant Hart steering wheel. Her portrait, kart, transparent sprite package, consistent skin tone, all six driver states, orientation, AI identity, and runtime behavior are accepted. Lula now supersedes Toph as the latest verified live character checkpoint.
 
@@ -76,8 +76,8 @@ Continuity closure completed by PR #32:
 
 ## Known defects / deferred work
 
-- Broader AI pace and difficulty tuning remains pending after racing-line and overtaking behavior passes live testing.
-- Numerical player-roster balance remains pending until the acceleration and surface-transition correction is deployed and tested live. No driver statistics changed in this correction.
+- Broader AI pace and difficulty tuning remains pending; racing-line and overtaking behavior now passes live testing.
+- Numerical player-roster balance remains pending after the accepted acceleration and surface-transition correction. No driver statistics changed in that correction.
 - Continue Slice 3 one-character-at-a-time intake and approval for remaining roster slots.
 - Complete any still-unrecorded desktop/mobile acceptance checks for other integrated production characters as required by `docs/TESTING.md`.
 - Items and AI item use remain Slice 5.
@@ -95,7 +95,7 @@ Continuity closure completed by PR #32:
 - PR #45 passed CI, merged to `main` at `f13f7f1cdf5b03f7d143d25691b9a5d54c35cea4`, and passed main validation and Pages deployment in run `33313727924`.
 - Manny confirmed on 2026-08-30 that the corrected top speeds feel right. The Speed ceiling portion of the checkpoint is live accepted.
 
-## Gameplay balance follow-up: branch validated; live acceptance pending
+## Gameplay balance follow-up: live accepted
 
 - Manny's follow-up test found that Acceleration 4 heavyweights reached full speed too similarly to Acceleration 8 featherweights, dirt and grass applied their reduced cap in one frame, AI racers cut through inside grass, and blocked AI racers queued bumper-to-bumper instead of passing.
 - The Acceleration curve now uses the PRD formula `4.0 + 0.55 × Acceleration`, plus the documented high-speed taper. In isolated full-throttle simulation, Krios and Accu require roughly 7.7 and 7.2 seconds to reach 99% of their maximums; Lavi and Lula require roughly 4.7 seconds.
@@ -105,7 +105,19 @@ Continuity closure completed by PR #32:
 - Automated evidence covers the PRD Acceleration curve, a meaningful same-Speed acceleration gap, progressive dirt and grass slowdown, all seven AI profiles completing three laps with less than 2% grass time, road-bounded lateral travel, and a faster AI changing lanes to pass a slower racer.
 - `npm run validate` passes: strict typecheck, zero-warning lint, 62 tests across 14 files, 81.1% statement coverage, runtime verification of 27 GLBs and 28 PNGs, and production build.
 - Scope excludes driver-stat changes, Speed ceilings, boost values, items, AI item use, and final AI difficulty tuning.
-- Status: **BRANCH VALIDATED - PR CI, merge/deployment, and Manny's live desktop/mobile confirmation remain required.**
+- PR #46 merged and deployed at `60bd87b4ce83b45c7b9bd3ce2b61dbe1953f437e`.
+- Manny confirmed on 2026-08-30 that the revised AI is substantially more believable and the gameplay correction feels much better.
+- Status: **LIVE ACCEPTED — ACCELERATION, SURFACE TRANSITION, AND AI LANE CORRECTION COMPLETE.**
+
+## Weight-driven collision speed loss: branch validated; live acceptance pending
+
+- Kart contact now measures closing speed before applying its arcade impulse. Non-impact overlap below 0.75 m/s does not reduce forward speed.
+- The governed retention curve combines impact severity, the racer's Weight, and a bounded opposing-Weight modifier. Full-severity retention remains between 65% and 96%.
+- Accu at Weight 10 retains approximately 85.9% of forward speed in a severe collision with a Weight 2 racer, while the Weight 2 racer retains approximately 67.1%. Accu therefore has a measurable advantage while still losing roughly 14.1% speed.
+- Retention affects only positive forward velocity. Existing lateral displacement remains mass-driven and is preserved after the reduction.
+- Driver stats, Speed ceilings, Acceleration, surfaces, walls, items, and AI decision-making are unchanged.
+- `npm run validate` passes: strict typecheck, zero-warning lint, 66 tests across 14 files, 81.6% statement coverage, runtime verification of 27 GLBs and 28 PNGs, and production build.
+- Status: **BRANCH VALIDATED — PUBLICATION, DEPLOYMENT, AND LIVE PRODUCT-OWNER ACCEPTANCE REMAIN REQUIRED.**
 
 ## Lula production status — complete
 

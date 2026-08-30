@@ -227,8 +227,17 @@ export class KartController {
     return Math.hypot(velocity.x, velocity.z);
   }
 
+  public velocity(target = new THREE.Vector3()): THREE.Vector3 {
+    const velocity = this.body.linvel();
+    return target.set(velocity.x, velocity.y, velocity.z);
+  }
+
   public mass(): number {
     return this.tuning.mass;
+  }
+
+  public weight(): number {
+    return this.stats.weight;
   }
 
   public applyArcadeCollisionImpulse(direction: THREE.Vector3, strength: number): void {
@@ -240,6 +249,22 @@ export class KartController {
       },
       true,
     );
+  }
+
+  public applyCollisionSpeedRetention(retention: number): void {
+    const velocity = this.body.linvel();
+    const forward = new THREE.Vector3(Math.sin(this.yaw), 0, Math.cos(this.yaw));
+    const right = new THREE.Vector3(forward.z, 0, -forward.x);
+    const planar = new THREE.Vector3(velocity.x, 0, velocity.z);
+    const forwardSpeed = planar.dot(forward);
+    if (forwardSpeed <= 0) return;
+
+    const lateralSpeed = planar.dot(right);
+    const retainedForwardSpeed = forwardSpeed * THREE.MathUtils.clamp(retention, 0, 1);
+    const retainedVelocity = forward
+      .multiplyScalar(retainedForwardSpeed)
+      .addScaledVector(right, lateralSpeed);
+    this.body.setLinvel({ x: retainedVelocity.x, y: velocity.y, z: retainedVelocity.z }, true);
   }
 
   public forward(target = new THREE.Vector3()): THREE.Vector3 {

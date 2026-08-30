@@ -98,6 +98,16 @@ For live acceptance, compare Krios, Accu, Kraken, and Lula on the same asphalt s
 
 For live acceptance, compare Krios or Accu against Lavi or Lula from a standing start; drive from asphalt into both dirt and grass without braking; and observe a full AI pack through several corners. Confirm a visible launch/recovery difference, progressive off-road slowdown, no systematic inside-grass line, and lateral overtaking around slower racers.
 
+## Weight-driven kart-collision regression
+
+- Contacts with less than 0.75 m/s closing speed must retain 100% of forward speed so parallel or resting overlap does not create repeated slowdown.
+- At 16 m/s closing speed, Weight 10 versus Weight 2 must retain approximately 85.9% speed, while Weight 2 versus Weight 10 retains approximately 67.1%.
+- The heavy racer's retention advantage in that comparison must exceed 15 percentage points, but the Weight 10 racer must still lose at least 13% of forward speed.
+- Every Weight 1–10 pairing at full severity must remain inside the governed 65–96% retention range.
+- Controller evidence must confirm that retention reduces only positive forward velocity and preserves lateral collision motion.
+
+For live acceptance, collide Accu and a light racer with comparable approach speeds in both directions. Confirm that Accu retains visibly more momentum but still suffers a noticeable slowdown, the light racer accepts greater risk, lateral knockback remains readable, and bumper-to-bumper contact does not continuously drain speed.
+
 ## Slice 4 AI/grid manual matrix
 
 - Desktop/fine-pointer session: touch controls are absent; keyboard controls remain functional.

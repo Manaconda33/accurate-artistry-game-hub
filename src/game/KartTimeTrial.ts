@@ -9,7 +9,7 @@ import { ChaseCamera } from './camera/ChaseCamera';
 import { FixedStepRunner } from './physics/FixedStepRunner';
 import { KartController, type DriveInput } from './physics/KartController';
 import type { DriftTier } from './physics/KartController';
-import { collisionImpulseShares } from './physics/KartCollision';
+import { collisionImpulseShares, collisionSpeedRetention } from './physics/KartCollision';
 import { LapTracker } from './race/LapTracker';
 import { RaceDirector, rankRacers, type RacerProgress } from './race/RaceDirector';
 import { CircuitAlpha } from './track/CircuitAlpha';
@@ -359,9 +359,20 @@ export class KartTimeTrial {
         const delta = a.controller.position().sub(b.controller.position()).setY(0);
         if (delta.lengthSq() >= 2.35 * 2.35 || delta.lengthSq() < 0.001) continue;
         const direction = delta.normalize();
+        const relativeVelocity = a.controller.velocity().sub(b.controller.velocity());
+        const closingSpeed = Math.max(0, -relativeVelocity.dot(direction));
         const impulses = collisionImpulseShares(a.controller.mass(), b.controller.mass(), 55);
         a.controller.applyArcadeCollisionImpulse(direction, impulses.first);
-        b.controller.applyArcadeCollisionImpulse(direction.multiplyScalar(-1), impulses.second);
+        b.controller.applyArcadeCollisionImpulse(
+          direction.clone().multiplyScalar(-1),
+          impulses.second,
+        );
+        a.controller.applyCollisionSpeedRetention(
+          collisionSpeedRetention(a.controller.weight(), b.controller.weight(), closingSpeed),
+        );
+        b.controller.applyCollisionSpeedRetention(
+          collisionSpeedRetention(b.controller.weight(), a.controller.weight(), closingSpeed),
+        );
         if (a.id === 'player' || b.id === 'player') this.driverHitSeconds = 0.32;
         this.contactCooldowns.set(key, 0.18);
       }
