@@ -55,14 +55,20 @@ export class KartController {
     this.body = this.world.createRigidBody(
       RAPIER.RigidBodyDesc.dynamic()
         .setTranslation(spawn.x, 1.1, spawn.z)
-        .setLinearDamping(0.35)
+        // Forward deceleration and lateral grip are owned by this controller.
+        // Passive Rapier damping would make Acceleration determine terminal speed.
+        .setLinearDamping(0)
         .setAngularDamping(5)
         .enabledRotations(false, true, false),
     );
     this.world.createCollider(
       RAPIER.ColliderDesc.cuboid(0.72, 0.34, 1.18)
         .setMass(this.tuning.mass)
-        .setFriction(0.55)
+        // The kart is a raycast-driven arcade body, not a sliding tire model.
+        // Surface grip is applied explicitly below so collider friction must not
+        // consume engine acceleration or reduce the Speed-defined road maximum.
+        .setFriction(0)
+        .setFrictionCombineRule(RAPIER.CoefficientCombineRule.Min)
         .setRestitution(0.05),
       this.body,
     );
