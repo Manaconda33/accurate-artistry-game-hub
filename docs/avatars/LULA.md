@@ -9,7 +9,7 @@
 - Balance mapping: AA-03 Feather Dirt Ace, approved by Manny, 2026-08-29
 - 2D design package: Portrait, front, rear, steer-left, steer-right, hit, and corrected victory approved by Manny, 2026-08-29
 - 3D kart geometry: Candidate 4 approved by Manny, 2026-08-29
-- Runtime activation: Prepared; deployment and live acceptance pending
+- Runtime activation: Deployed and live accepted, 2026-08-30
 
 ## Character lock
 
@@ -36,4 +36,4 @@ The profile gives Lula quick recovery, responsive control, and strong off-road g
 
 ## Live acceptance
 
-The initial live package exposed opaque white background islands and hair-edge ribbons that the original edge-connected checkerboard cleanup had missed. The deterministic `repair_lula_alpha.py` correction removes enclosed neutral background components and neighboring pale spill while protecting small face/eye highlights. Package review also found that the five chase-camera states had drifted to saturated orange skin; `repair_lula_skin_tone.py` constrains their exposed skin to the approved portrait/front complexion with no non-skin or alpha changes. Manny confirmed both repairs in the `514113e` mobile build. The remaining front-camera hand-to-wheel defect uses a front-only `[0, 0.45, -0.12]` sprite placement override pending live confirmation.
+The initial live package exposed opaque white background islands and hair-edge ribbons that the original edge-connected checkerboard cleanup had missed. The deterministic `repair_lula_alpha.py` correction removes enclosed neutral background components and neighboring pale spill while protecting small face/eye highlights. Package review also found that the five chase-camera states had drifted to saturated orange skin; `repair_lula_skin_tone.py` constrains their exposed skin to the approved portrait/front complexion with no non-skin or alpha changes. Manny confirmed both repairs in the `514113e` mobile build. Main checkpoint `ef74ca9eabb2a242c02d35d72c55377ee9b5529c` then applied the accepted front-only `[0, 0.45, -0.12]` placement override. Manny confirmed the live mobile result on 2026-08-30; Lula's full production package is accepted.

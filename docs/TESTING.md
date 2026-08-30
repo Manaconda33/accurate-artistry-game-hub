@@ -186,6 +186,7 @@ Run this matrix for every future production character, in addition to its slice-
 - Portrait and front remain the skin-tone authority; rear, steer-left, steer-right, hit, and victory must use the same pale neutral complexion without altering pose, clothing, hair, or alpha edges.
 - The front-camera-only placement override must align Lula's hands with The Verdant Hart steering wheel without moving rear, steering, hit, victory, or AI states.
 - Product-owner acceptance is recorded only after the deployed game confirms Lula is selectable and all approved assets load as intended on desktop and mobile.
+- Manny confirmed the corrected live mobile deployment at checkpoint `ef74ca9eabb2a242c02d35d72c55377ee9b5529c` on 2026-08-30; the full Lula / Verdant Hart matrix passes.
 
 ## Mobile finish-state matrix
 
