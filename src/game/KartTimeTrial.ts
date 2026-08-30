@@ -282,6 +282,19 @@ export class KartTimeTrial {
 
   private updateOpponents(dt: number): void {
     const playerTotal = this.playerProgress.lap + this.playerProgress.trackProgress;
+    const observeRacer = (id: string, controller: KartController) => {
+      const position = controller.position();
+      return {
+        id,
+        position,
+        speed: controller.speedMetersPerSecond(),
+        lateralOffset: this.track.project(position).lateralOffset,
+      };
+    };
+    const racerAwareness = [
+      observeRacer('player', this.kart),
+      ...this.opponents.map(({ id, controller }) => observeRacer(id, controller)),
+    ];
     for (const opponent of this.opponents) {
       opponent.recoveryCooldown = Math.max(0, opponent.recoveryCooldown - dt);
       const position = opponent.controller.position();
@@ -295,6 +308,8 @@ export class KartTimeTrial {
             opponent.controller.forward(),
             opponent.controller.speedMetersPerSecond(),
             playerTotal - opponentTotal,
+            racerAwareness.filter(({ id }) => id !== opponent.id),
+            dt,
           );
       opponent.controller.update(input, projection.surface, dt);
 

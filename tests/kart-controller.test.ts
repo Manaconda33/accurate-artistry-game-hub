@@ -2,7 +2,12 @@ import RAPIER from '@dimforge/rapier3d-compat';
 import { Vector3 } from 'three';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { characterManifest } from '../src/characters/manifest';
-import { createKartTuning, sliceOneDriver, type DriverStats } from '../src/config/kartTuning';
+import {
+  createKartTuning,
+  sliceOneDriver,
+  surfaceSpeedMultiplier,
+  type DriverStats,
+} from '../src/config/kartTuning';
 import { KartController, type DriveInput } from '../src/game/physics/KartController';
 
 describe('Rapier kart controller', () => {
@@ -28,7 +33,7 @@ describe('Rapier kart controller', () => {
     kart: KartController,
     input: DriveInput,
     count: number,
-    surface: 'asphalt' | 'grass' = 'asphalt',
+    surface: 'asphalt' | 'dirt' | 'grass' = 'asphalt',
   ): void {
     for (let index = 0; index < count; index += 1) {
       kart.update(input, surface, 1 / 60);
@@ -79,12 +84,35 @@ describe('Rapier kart controller', () => {
 
     step(low.world, low.kart, { throttle: 1, steering: 0, brake: false, drift: false }, 60);
     step(high.world, high.kart, { throttle: 1, steering: 0, brake: false, drift: false }, 60);
-    expect(high.kart.speedMetersPerSecond()).toBeGreaterThan(low.kart.speedMetersPerSecond());
+    expect(high.kart.speedMetersPerSecond() - low.kart.speedMetersPerSecond()).toBeGreaterThan(2);
 
-    step(low.world, low.kart, { throttle: 1, steering: 0, brake: false, drift: false }, 540);
-    step(high.world, high.kart, { throttle: 1, steering: 0, brake: false, drift: false }, 540);
+    step(low.world, low.kart, { throttle: 1, steering: 0, brake: false, drift: false }, 120);
+    step(high.world, high.kart, { throttle: 1, steering: 0, brake: false, drift: false }, 120);
+    expect(low.kart.speedMetersPerSecond()).toBeLessThan(
+      createKartTuning(lowAcceleration).maxSpeed * 0.75,
+    );
+
+    step(low.world, low.kart, { throttle: 1, steering: 0, brake: false, drift: false }, 420);
+    step(high.world, high.kart, { throttle: 1, steering: 0, brake: false, drift: false }, 420);
     const expectedMaximum = createKartTuning(lowAcceleration).maxSpeed;
     expect(low.kart.speedMetersPerSecond()).toBeCloseTo(expectedMaximum, 1);
     expect(high.kart.speedMetersPerSecond()).toBeCloseTo(expectedMaximum, 1);
+  });
+
+  it('slows progressively when entering dirt or grass', () => {
+    for (const surface of ['dirt', 'grass'] as const) {
+      const { world, kart } = makeKart();
+      step(world, kart, { throttle: 1, steering: 0, brake: false, drift: false }, 600);
+      const asphaltSpeed = kart.speedMetersPerSecond();
+
+      step(world, kart, { throttle: 1, steering: 0, brake: false, drift: false }, 1, surface);
+      expect(kart.speedMetersPerSecond()).toBeGreaterThan(asphaltSpeed - 0.3);
+
+      step(world, kart, { throttle: 1, steering: 0, brake: false, drift: false }, 240, surface);
+      const expectedSurfaceMaximum =
+        createKartTuning(sliceOneDriver).maxSpeed *
+        surfaceSpeedMultiplier(surface, sliceOneDriver.traction);
+      expect(kart.speedMetersPerSecond()).toBeCloseTo(expectedSurfaceMaximum, 1);
+    }
   });
 });

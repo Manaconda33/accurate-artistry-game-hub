@@ -76,14 +76,14 @@ Continuity closure completed by PR #32:
 
 ## Known defects / deferred work
 
-- Slice 4 AI competitiveness remains intentionally weak; previously accepted at the current vertical-slice stage.
-- Numerical player-roster balance remains pending until the speed/acceleration coupling correction is deployed and tested live. No driver statistics or tuning curves changed in this correction.
+- Broader AI pace and difficulty tuning remains pending after racing-line and overtaking behavior passes live testing.
+- Numerical player-roster balance remains pending until the acceleration and surface-transition correction is deployed and tested live. No driver statistics changed in this correction.
 - Continue Slice 3 one-character-at-a-time intake and approval for remaining roster slots.
 - Complete any still-unrecorded desktop/mobile acceptance checks for other integrated production characters as required by `docs/TESTING.md`.
 - Items and AI item use remain Slice 5.
 - Final HUD/audio/post-processing/optimization remain Slice 6.
 
-## Player speed/acceleration coupling correction — branch validated; live acceptance pending
+## Player speed/acceleration coupling correction: live speed ceiling accepted
 
 - Live evidence showed an inverted result: Kraken (Speed 6) reached 73 km/h and Lula (Speed 5) reached 80 km/h, while Accu (Speed 8) and Krios (Speed 10) each stalled near 35 km/h without boost.
 - An isolated flat-asphalt regression reproduced the underlying coupling: Accu and Krios settled near 78.6 km/h while Kraken reached 101.6 km/h and Lula reached 97.7 km/h.
@@ -92,7 +92,20 @@ Continuity closure completed by PR #32:
 - Automated coverage now verifies that every manifest profile sustains its Speed-defined asphalt maximum and that two profiles with the same Speed but different Acceleration have different early pace yet converge to the same maximum.
 - `npm run validate` passes: strict typecheck, zero-warning lint, 58 tests across 14 files, runtime asset verification, and production build.
 - Scope is limited to player physics coupling. Driver statistics, tuning curves, boost behavior, and AI pace were not rebalanced.
-- Status: **BRANCH VALIDATED — PR CI, merge/deployment, and Manny's live desktop/mobile driving confirmation remain required.**
+- PR #45 passed CI, merged to `main` at `f13f7f1cdf5b03f7d143d25691b9a5d54c35cea4`, and passed main validation and Pages deployment in run `33313727924`.
+- Manny confirmed on 2026-08-30 that the corrected top speeds feel right. The Speed ceiling portion of the checkpoint is live accepted.
+
+## Gameplay balance follow-up: branch validated; live acceptance pending
+
+- Manny's follow-up test found that Acceleration 4 heavyweights reached full speed too similarly to Acceleration 8 featherweights, dirt and grass applied their reduced cap in one frame, AI racers cut through inside grass, and blocked AI racers queued bumper-to-bumper instead of passing.
+- The Acceleration curve now uses the PRD formula `4.0 + 0.55 × Acceleration`, plus the documented high-speed taper. In isolated full-throttle simulation, Krios and Accu require roughly 7.7 and 7.2 seconds to reach 99% of their maximums; Lavi and Lula require roughly 4.7 seconds.
+- Dirt and grass retain their Traction-defined sustained caps, but excess asphalt speed now decays toward those caps over time. The first off-road frame no longer clamps velocity directly to the surface maximum.
+- AI lookahead now uses the PRD's 5–14 meter range. The prior implementation treated 20–30 spline samples as lookahead, producing approximately 50–70 meter chords that cut across the inside of curves.
+- AI lane targets remain inside the road with a kart-width margin. Nearby-racer awareness scores clear lanes, commits to a pass with hysteresis, and reduces speed only when a close blocker still occupies the selected lane.
+- Automated evidence covers the PRD Acceleration curve, a meaningful same-Speed acceleration gap, progressive dirt and grass slowdown, all seven AI profiles completing three laps with less than 2% grass time, road-bounded lateral travel, and a faster AI changing lanes to pass a slower racer.
+- `npm run validate` passes: strict typecheck, zero-warning lint, 62 tests across 14 files, 81.1% statement coverage, runtime verification of 27 GLBs and 28 PNGs, and production build.
+- Scope excludes driver-stat changes, Speed ceilings, boost values, items, AI item use, and final AI difficulty tuning.
+- Status: **BRANCH VALIDATED - PR CI, merge/deployment, and Manny's live desktop/mobile confirmation remain required.**
 
 ## Lula production status — complete
 

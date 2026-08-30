@@ -133,11 +133,31 @@ export class KartController {
       this.activeBoostTier = 'none';
     }
     const boostedMax = maxForward * this.boostMultiplier;
+    const launchSpeedRatio = THREE.MathUtils.clamp(
+      Math.abs(forwardSpeed) / this.tuning.maxSpeed,
+      0,
+      1,
+    );
+    const launchTaper = THREE.MathUtils.clamp(
+      1 - 0.72 * launchSpeedRatio * launchSpeedRatio,
+      0.22,
+      1,
+    );
     const acceleration =
-      this.tuning.acceleration * accelerationMultiplier * (this.boostRemaining > 0 ? 1.35 : 1);
+      this.tuning.acceleration *
+      launchTaper *
+      accelerationMultiplier *
+      (this.boostRemaining > 0 ? 1.35 : 1);
 
     if (input.throttle > 0 && grounded) {
-      forwardSpeed = Math.min(boostedMax, forwardSpeed + acceleration * dt);
+      if ((surface === 'dirt' || surface === 'grass') && forwardSpeed > boostedMax) {
+        const tractionN = (this.stats.traction - 1) / 9;
+        const surfaceLoss =
+          (surface === 'grass' ? 8 : 5.5) * THREE.MathUtils.lerp(1.08, 0.92, tractionN);
+        forwardSpeed = Math.max(boostedMax, forwardSpeed - surfaceLoss * dt);
+      } else {
+        forwardSpeed = Math.min(boostedMax, forwardSpeed + acceleration * dt);
+      }
       const playableFloor = surfaceMinimumPlayableSpeed(surface);
       if (playableFloor > 0 && forwardSpeed > 3) {
         forwardSpeed = Math.max(forwardSpeed, Math.min(playableFloor, boostedMax));

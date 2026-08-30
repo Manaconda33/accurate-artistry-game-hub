@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { describe, expect, it } from 'vitest';
-import { AiDriver, rubberBandFactor } from '../src/game/ai/AiDriver';
+import { AiDriver, aiLookaheadMeters, rubberBandFactor } from '../src/game/ai/AiDriver';
 import { CircuitAlpha } from '../src/game/track/CircuitAlpha';
 
 describe('spline AI driver', () => {
@@ -17,6 +17,8 @@ describe('spline AI driver', () => {
     const input = driver.input(position, at(track.tangents, 40).clone(), 18);
     expect(input.throttle).toBeGreaterThan(0);
     expect(Math.abs(input.steering)).toBeLessThanOrEqual(1);
+    expect(aiLookaheadMeters(0)).toBe(5);
+    expect(aiLookaheadMeters(30)).toBe(14);
   });
 
   it('steers back toward the spline from an offset', () => {
@@ -32,5 +34,19 @@ describe('spline AI driver', () => {
   it('bounds rubber-band speed adjustment to five percent', () => {
     expect(rubberBandFactor(99)).toBe(1.05);
     expect(rubberBandFactor(-99)).toBe(0.95);
+  });
+
+  it('commits to a clear adjacent lane when a slower racer blocks its line', () => {
+    const track = new CircuitAlpha();
+    const index = 120;
+    const position = at(track.samples, index).clone();
+    const tangent = at(track.tangents, index).clone();
+    const blocker = position.clone().addScaledVector(tangent, 8);
+    const driver = new AiDriver(track, { laneOffset: 0, pace: 0.8, aggression: 0.7 });
+
+    driver.input(position, tangent, 18, 0, [{ position: blocker, speed: 12, lateralOffset: 0 }]);
+
+    expect(Math.abs(driver.desiredLaneOffset())).toBeGreaterThan(1);
+    expect(Math.abs(driver.desiredLaneOffset())).toBeLessThan(track.roadHalfWidth - 1);
   });
 });
