@@ -253,6 +253,7 @@ describe('character manifest', () => {
     expect(lula.kartName).toBe('The Verdant Hart');
     expect(lula.kart).toContain(`/assets/characters/aa-03/kart.glb?v=${LULA_ASSET_REVISION}`);
     expect(lula.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(lula.frontDriverSpritePosition).toEqual([0, 0.45, -0.12]);
     expect(lula.driver?.rear).toContain(`?v=${LULA_ASSET_REVISION}`);
     expect(lula.driver?.front).toContain(`?v=${LULA_ASSET_REVISION}`);
     expect(lula.driver?.steerLeft).toContain(`?v=${LULA_ASSET_REVISION}`);

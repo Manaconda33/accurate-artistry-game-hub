@@ -272,6 +272,7 @@ const lula: CharacterDefinition = {
   kartName: 'The Verdant Hart',
   kart: assetUrl('assets/characters/aa-03/kart.glb', LULA_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  frontDriverSpritePosition: [0, 0.45, -0.12],
   driver: {
     rear: assetUrl('assets/characters/aa-03/driver/rear.png', LULA_ASSET_REVISION),
     front: assetUrl('assets/characters/aa-03/driver/front.png', LULA_ASSET_REVISION),

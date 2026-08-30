@@ -184,6 +184,7 @@ Run this matrix for every future production character, in addition to its slice-
 - CI inflates and validates every AA-03 PNG as complete RGBA image data.
 - CI reconstructs every AA-03 PNG scanline and rejects any opaque neutral-white pixel outside the protected face/eye regions.
 - Portrait and front remain the skin-tone authority; rear, steer-left, steer-right, hit, and victory must use the same pale neutral complexion without altering pose, clothing, hair, or alpha edges.
+- The front-camera-only placement override must align Lula's hands with The Verdant Hart steering wheel without moving rear, steering, hit, victory, or AI states.
 - Product-owner acceptance is recorded only after the deployed game confirms Lula is selectable and all approved assets load as intended on desktop and mobile.
 
 ## Mobile finish-state matrix
