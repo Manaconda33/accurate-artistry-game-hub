@@ -177,11 +177,13 @@ Run this matrix for every future production character, in addition to its slice-
 - `Race as Lula` loads The Verdant Hart rather than the fallback kart.
 - The low living-root body, unified stag face, brow-mounted antlers, embedded green leaves, connected wheel housings, and restrained wooden outlets load without clipping or floating geometry.
 - Lula sits correctly in the open cockpit with the steering wheel forward of the driver.
-- Rear, front, steer-left, steer-right, hit, and corrected victory states load from `lula-runtime-20260829-1`.
+- Rear, front, steer-left, steer-right, hit, and corrected victory states load from `lula-runtime-20260830-2`.
 - Chase and rear views confirm the stag face remains at the race-forward nose and the wooden outlets remain behind Lula.
 - Lula appears no more than once as an AI opponent when the player selects another character.
 - CI materializes and validates all three AA-03 GLBs; each begins with the binary glTF signature and declares `extras.forward: "-Z"`.
 - CI inflates and validates every AA-03 PNG as complete RGBA image data.
+- CI reconstructs every AA-03 PNG scanline and rejects any opaque neutral-white pixel outside the protected face/eye regions.
+- Portrait and front remain the skin-tone authority; rear, steer-left, steer-right, hit, and victory must use the same pale neutral complexion without altering pose, clothing, hair, or alpha edges.
 - Product-owner acceptance is recorded only after the deployed game confirms Lula is selectable and all approved assets load as intended on desktop and mobile.
 
 ## Mobile finish-state matrix

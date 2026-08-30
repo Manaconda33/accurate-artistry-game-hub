@@ -30,10 +30,10 @@ The profile gives Lula quick recovery, responsive control, and strong off-road g
 - Portrait: 256 × 256 transparent sRGBA PNG
 - Front, rear, steer-left, steer-right, hit, and victory: 512 × 512 transparent sRGBA PNG
 - Driver layers contain no kart, seat, or steering-wheel geometry
-- Runtime revision: `lula-runtime-20260829-1`
+- Runtime revision: `lula-runtime-20260830-2`
 - Candidate 4 produces deterministic LOD0/LOD1/LOD2 at 21,948 / 8,954 / 4,746 triangles
 - Every GLB provides 13 required nodes and `extras.forward: "-Z"`
 
 ## Live acceptance
 
-Pending merge, deployment, and Manny's desktop/mobile runtime confirmation.
+The initial live package exposed opaque white background islands and hair-edge ribbons that the original edge-connected checkerboard cleanup had missed. The deterministic `repair_lula_alpha.py` correction removes enclosed neutral background components and neighboring pale spill while protecting small face/eye highlights. Package review also found that the five chase-camera states had drifted to saturated orange skin; `repair_lula_skin_tone.py` constrains their exposed skin to the approved portrait/front complexion with no non-skin or alpha changes. The combined correction remains uncommitted until a playable build passes Manny's desktop/mobile confirmation.

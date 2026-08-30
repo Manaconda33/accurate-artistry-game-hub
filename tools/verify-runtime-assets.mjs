@@ -58,6 +58,49 @@ for (const path of runtimeGlbs) {
 
 console.log(`Verified ${String(runtimeGlbs.length)} materialized runtime GLBs.`);
 
+const paethPredictor = (left, above, upperLeft) => {
+  const prediction = left + above - upperLeft;
+  const leftDistance = Math.abs(prediction - left);
+  const aboveDistance = Math.abs(prediction - above);
+  const upperLeftDistance = Math.abs(prediction - upperLeft);
+  if (leftDistance <= aboveDistance && leftDistance <= upperLeftDistance) return left;
+  if (aboveDistance <= upperLeftDistance) return above;
+  return upperLeft;
+};
+
+const decodeRgbaRows = (filtered, width, height) => {
+  const bytesPerPixel = 4;
+  const sourceRowLength = width * bytesPerPixel + 1;
+  const decoded = Buffer.alloc(width * height * bytesPerPixel);
+  for (let row = 0; row < height; row += 1) {
+    const filter = filtered[row * sourceRowLength];
+    const sourceStart = row * sourceRowLength + 1;
+    const targetStart = row * width * bytesPerPixel;
+    for (let column = 0; column < width * bytesPerPixel; column += 1) {
+      const raw = filtered[sourceStart + column];
+      const left = column >= bytesPerPixel ? decoded[targetStart + column - bytesPerPixel] : 0;
+      const above = row > 0 ? decoded[targetStart + column - width * bytesPerPixel] : 0;
+      const upperLeft =
+        row > 0 && column >= bytesPerPixel
+          ? decoded[targetStart + column - width * bytesPerPixel - bytesPerPixel]
+          : 0;
+      let value = raw;
+      if (filter === 1) value += left;
+      else if (filter === 2) value += above;
+      else if (filter === 3) value += Math.floor((left + above) / 2);
+      else if (filter === 4) value += paethPredictor(left, above, upperLeft);
+      decoded[targetStart + column] = value & 0xff;
+    }
+  }
+  return decoded;
+};
+
+const lulaProtectedRects = {
+  'portrait.png': [82, 66, 180, 170],
+  'front.png': [205, 55, 310, 185],
+  'victory.png': [300, 82, 400, 205],
+};
+
 const runtimePngs = [
   ['public/assets/characters/aa-04/portrait.png', 256, 256],
   ['public/assets/characters/aa-04/driver/front.png', 512, 512],
@@ -129,6 +172,41 @@ for (const [path, expectedWidth, expectedHeight] of runtimePngs) {
     const filter = pixels[row * rowLength];
     if (filter > 4)
       throw new Error(`${path} has invalid PNG filter ${String(filter)} on row ${String(row)}.`);
+  }
+
+  if (path.includes('/aa-03/')) {
+    const decoded = decodeRgbaRows(pixels, width, height);
+    const filename = path.split('/').at(-1);
+    const protectedRect = lulaProtectedRects[filename];
+    let residualBackground = 0;
+    for (let y = 0; y < height; y += 1) {
+      for (let x = 0; x < width; x += 1) {
+        const offset = (y * width + x) * 4;
+        const red = decoded[offset];
+        const green = decoded[offset + 1];
+        const blue = decoded[offset + 2];
+        const alpha = decoded[offset + 3];
+        const protectedPixel =
+          protectedRect !== undefined &&
+          x >= protectedRect[0] &&
+          y >= protectedRect[1] &&
+          x < protectedRect[2] &&
+          y < protectedRect[3];
+        if (
+          !protectedPixel &&
+          alpha > 0 &&
+          Math.min(red, green, blue) >= 220 &&
+          Math.max(red, green, blue) - Math.min(red, green, blue) <= 25
+        ) {
+          residualBackground += 1;
+        }
+      }
+    }
+    if (residualBackground > 0) {
+      throw new Error(
+        `${path} retains ${String(residualBackground)} opaque neutral-white background pixels.`,
+      );
+    }
   }
 }
 

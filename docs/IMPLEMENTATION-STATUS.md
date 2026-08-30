@@ -6,7 +6,7 @@
 
 PRD baseline: **v1.1, working implementation amendment 1.6**.
 
-Latest verified live character checkpoint: `a8fea24b309e3123115e9a04c3aee0614085bdc1` — PR #42 recorded Toph's completed live production acceptance after the front-view hand-to-wheel correction passed manual testing. Toph's portrait, The Grave Shift, all six driver states, orientation, AI identity, and runtime behavior are accepted. Main checkpoint `95e221bafa0bfdc68f254a43ac865b9ee461b00c` subsequently prepared Lula's approved transparent sprite package without activating AA-03. Lula's kart and runtime integration are now staged locally pending repository approval, CI, deployment, and live acceptance; this does not supersede Toph as the latest verified live character checkpoint.
+Latest verified live character checkpoint: `a8fea24b309e3123115e9a04c3aee0614085bdc1` — PR #42 recorded Toph's completed live production acceptance after the front-view hand-to-wheel correction passed manual testing. Toph's portrait, The Grave Shift, all six driver states, orientation, AI identity, and runtime behavior are accepted. PR #44 subsequently integrated and deployed Lula at main checkpoint `7822ba05dd5e81b0da40b6038596c6fc12095c5f`, but mobile playtesting exposed sprite-alpha and chase-camera skin-palette defects. Their local corrections remain uncommitted pending a playable test build and Manny's confirmation, so Lula does not supersede Toph as the latest verified live character checkpoint.
 
 The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
@@ -82,16 +82,18 @@ Continuity closure completed by PR #32:
 - Items and AI item use remain Slice 5.
 - Final HUD/audio/post-processing/optimization remain Slice 6.
 
-## Lula production status — staged for repository checkpoint
+## Lula production status — deployed; corrective playtest pending
 
 - Manny approved Lula's character lock, definitive authority, transformation rights, AA-03 Feather Dirt Ace mapping, The Verdant Hart, all seven transparent 2D designs, and 3D Candidate 4 on 2026-08-29.
 - Candidate 4 resolves the rejected candidates' floating components through open-ended root tubes buried within overlapping organic joints. Dedicated foliage geometry renders recognizable green leaf clusters consistently across viewers.
 - Deterministic production GLBs: LOD0 21,948 triangles / LOD1 8,954 / LOD2 4,746. Each has five materials, 13 required nodes, and `extras.forward: "-Z"`.
 - Locked SHA-256 object IDs: LOD0 `6842eecf711117d8ca521ebd9620926268452193f5c3b9e2ba7ad9aba090c26c`; LOD1 `b9a267a6a41d14a674771cc0137d1b0445e1a264bfa8b2c5acc7c6685ab399cd`; LOD2 `3a062ee6bee2502bdd3914063cc549a08e4de151ebf5bcfc3a52fe9658eb57f0`.
-- AA-03 activation is staged with controlled revision `lula-runtime-20260829-1`, all six driver states, approved stats, The Verdant Hart, and `NEGATIVE_Z_KART_VISUAL_YAW`.
+- AA-03 activation now uses corrected revision `lula-runtime-20260830-2`, all six driver states, approved stats, The Verdant Hart, and `NEGATIVE_Z_KART_VISUAL_YAW`.
 - Runtime verification covers all three GLBs and all seven PNGs.
 - The branch-scoped LFS bridge regenerated and uploaded only the three locked object IDs. PR #44 CI run `33266092639` then materialized them in a clean checkout, passed `git lfs fsck`, typecheck, lint, 56 tests, runtime asset verification, and the production build.
-- The temporary write-enabled workflow is removed before merge. Main deployment and live acceptance remain pending.
+- The temporary write-enabled workflow was removed before PR #44 merged at `7822ba05dd5e81b0da40b6038596c6fc12095c5f` and deployed to GitHub Pages. Live acceptance is withheld.
+- Live mobile testing after PR #44 exposed opaque white background islands and hair-edge ribbons in all seven Lula PNGs. The original validation had checked dimensions, decoding, alpha range, and transparent corners but not enclosed neutral background components. The local repair regenerates the full package with component-based alpha cleanup and adds a CI regression gate that reconstructs PNG scanlines and rejects neutral-white pixels outside protected face/eye regions.
+- Side-by-side review then exposed a second package-wide defect: rear, steer-left, steer-right, hit, and victory used a saturated orange skin palette inconsistent with the approved portrait/front authority. `tools/assets/repair_lula_skin_tone.py` applies an idempotent spatially constrained palette normalization; automated comparison confirms zero changes outside reviewed skin masks and zero alpha changes. Both corrections remain uncommitted pending a playable test build and Manny's desktop/mobile confirmation.
 
 ## Toph production status — complete
 
