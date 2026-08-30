@@ -78,6 +78,16 @@ Every slice done-check must record fresh evidence in `docs/IMPLEMENTATION-STATUS
 
 Code presence alone is not completion evidence.
 
+## Player speed-stat regression
+
+Run the automated controller checks on flat asphalt with full throttle, no boost, no steering, and no collisions:
+
+- Every `characterManifest` profile must converge to its `createKartTuning(stats).maxSpeed` value after ten simulated seconds.
+- Two otherwise identical profiles with the same Speed and different Acceleration must differ after one second, with the higher-Acceleration profile ahead, then converge to the same sustained maximum.
+- A failure means Acceleration, mass, passive damping, collider friction, or another downstream force has regained control of terminal road speed.
+
+For live acceptance, compare Krios, Accu, Kraken, and Lula on the same asphalt straight without boost. Confirm that higher Speed produces the higher sustained maximum, while Acceleration remains visible in time-to-speed. Repeat on desktop and mobile, and record the deployed commit and observed speeds in `docs/IMPLEMENTATION-STATUS.md`.
+
 ## Slice 4 AI/grid manual matrix
 
 - Desktop/fine-pointer session: touch controls are absent; keyboard controls remain functional.
