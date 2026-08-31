@@ -159,8 +159,9 @@ Continuity closure completed by PR #32:
 - PR #52 corrected camera-relative front/rear selection and Accu's cockpit depth. PR #53 then preserved that state selection while allowing a stopped kart to relaunch on supported grass or dirt and suppressing Pink Precision's modeled steering wheel whenever Accu's active sprite already contains one.
 - Manny confirmed on 2026-08-31 that the grass relaunch correction passes and that the chase view no longer exposes the modeled steering wheel.
 - The same live test rejected Accu's remaining presentation: the rear-camera front frame reads as a floating head behind the cannon, and the chase-camera rear frame has a conspicuously straight lower hair cutoff at the cockpit edge.
-- PR #54 is an unapproved visual test candidate. It lowers chase-oriented states from `[0, 0.95, 0.22]` to `[0, 0.82, 0.22]` so the lower raster edge is buried by the cockpit, and raises only the front-camera frame from `[0, 0.45, 0.22]` to `[0, 0.9, 0.22]` to restore a seated-driver composition. It does not alter physics, camera logic, sprite bytes, or steering-control visibility.
-- Status: **LIVE CORRECTION IN PROGRESS — PR #54 REQUIRES DEPLOYMENT AND PRODUCT-OWNER PLAYTEST.**
+- PR #54 is a deployed but visually unapproved test candidate. It lowers chase-oriented states from `[0, 0.95, 0.22]` to `[0, 0.82, 0.22]` so the lower raster edge is buried by the cockpit, and raises only the front-camera frame from `[0, 0.45, 0.22]` to `[0, 0.9, 0.22]` to restore a seated-driver composition. It does not alter physics, camera logic, sprite bytes, or steering-control visibility.
+- PR #54 branch CI run `33446381625` passed. It merged to `main` at `87ddf85b1302cc61f62e486c893136be04b84835`; main run `33446473334` passed validation and GitHub Pages deployment. The public build loaded the Accu selection and Pink Precision race handoff, but the available cloud browser disables WebGL, so it could not render the chase/rear-camera frames. Product-owner desktop/mobile visual confirmation remains required.
+- Status: **LIVE DEPLOYED — ACCU CAMERA PRESENTATION AWAITS PRODUCT-OWNER PLAYTEST.**
 
 ## Lula production status — complete
 
