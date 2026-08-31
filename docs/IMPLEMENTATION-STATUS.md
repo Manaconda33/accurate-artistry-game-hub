@@ -141,7 +141,7 @@ Continuity closure completed by PR #32:
 - Racer markers interpolate normalized track progress; the immutable course path is cached rather than rebuilt during every HUD frame.
 - Desktop placement is below the Lap HUD. Mobile uses a reduced upper-left map that remains above the bottom driving controls and away from the right-side Position HUD. The map hides during the compact finish presentation.
 - `npm run validate` passes: strict typecheck, zero-warning lint, 72 tests across 15 files, 82.9% statement coverage, runtime verification of 27 GLBs and 28 PNGs, and production build.
-- Live desktop and mobile acceptance remain required before publication.
+- Live desktop and mobile acceptance remain required before this checkpoint can be marked accepted.
 
 ## Lula production status — complete
 
