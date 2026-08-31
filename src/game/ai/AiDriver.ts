@@ -27,7 +27,21 @@ export function aiLookaheadMeters(speed: number): number {
 }
 
 export function rubberBandFactor(progressDelta: number): number {
-  return THREE.MathUtils.clamp(1 + progressDelta * 0.025, 0.95, 1.05);
+  return THREE.MathUtils.clamp(1 + Math.max(0, progressDelta) * 0.025, 1, 1.04);
+}
+
+export function aiTargetSpeed(
+  characterMaxSpeed: number,
+  pace: number,
+  corner: number,
+  playerProgressDelta: number,
+): number {
+  const cornerPenalty = THREE.MathUtils.lerp(0.48, 0.34, THREE.MathUtils.clamp(pace, 0, 1));
+  return (
+    characterMaxSpeed *
+    (1 - THREE.MathUtils.clamp(corner, 0, 1) * cornerPenalty) *
+    rubberBandFactor(playerProgressDelta)
+  );
 }
 
 export class AiDriver {
@@ -37,6 +51,7 @@ export class AiDriver {
   public constructor(
     private readonly track: CircuitAlpha,
     private readonly profile: AiDriverProfile,
+    private readonly characterMaxSpeed: number,
   ) {
     this.laneOffset = this.roadBoundedLane(profile.laneOffset);
   }
@@ -66,10 +81,12 @@ export class AiDriver {
     const cross = forward.z * desired.x - forward.x * desired.z;
     const steering = THREE.MathUtils.clamp(cross * 2.6, -1, 1);
     const corner = 1 - Math.max(0, forward.dot(tangent));
-    let targetSpeed =
-      (20.5 + this.profile.pace * 5.5) *
-      (1 - corner * 0.42) *
-      rubberBandFactor(playerProgressDelta);
+    let targetSpeed = aiTargetSpeed(
+      this.characterMaxSpeed,
+      this.profile.pace,
+      corner,
+      playerProgressDelta,
+    );
     const blocker = racersAhead.find(
       (racer) => racer.forwardGap < 5.5 && Math.abs(racer.lateralOffset - this.laneOffset) < 1.5,
     );
@@ -80,6 +97,7 @@ export class AiDriver {
       steering,
       brake: speed > targetSpeed + 2,
       drift: Math.abs(steering) > 0.62 && speed > 11 && this.profile.aggression > 0.35,
+      speedLimitMultiplier: rubberBandFactor(playerProgressDelta),
     };
   }
 

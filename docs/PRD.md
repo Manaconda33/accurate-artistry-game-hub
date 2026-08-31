@@ -6,7 +6,7 @@
 
 High-Fidelity HTML5 Kart Racer Vertical Slice + Modular Mini-Game Hub
 
-Version 1.1 - Final approved baseline; working implementation amendment 1.7
+Version 1.1 - Final approved baseline; working implementation amendment 1.8
 
 August 16, 2026
 
@@ -37,6 +37,10 @@ Approved August 20, 2026. Every production character package must add `front.png
 ## Approved implementation amendment 1.7 - Weight-driven kart-impact speed retention
 
 Approved August 30, 2026. Meaningful kart-to-kart impacts must reduce positive forward speed using the governed Weight and closing-speed curve in section 14.1. Weight must create a measurable retention advantage without making any racer collision-immune: severe-impact retention remains bounded, and Weight 10 must still lose meaningful forward speed. Lateral knockback remains governed separately by relative mass. This amendment applies to player and AI contacts without changing roster statistics, Speed ceilings, Acceleration, surface response, wall response, or items.
+
+## Approved implementation amendment 1.8 - AI Speed-stat authority
+
+Approved August 31, 2026. Every AI racer must use its selected character's Speed-derived kart maximum as its clear-straight target. AI pace profiles may change corner-speed judgment, braking, lane choice, and consistency, but may not replace the character's straight-line ceiling with an unrelated absolute speed. A leading AI receives no hidden top-speed reduction. A trailing AI may receive only the bounded top-speed allowance defined in section 21.6. This amendment changes AI speed targeting without changing roster statistics or player performance.
 
 # Contents
 
@@ -1289,6 +1293,15 @@ Dynamic lookahead 5-14 m, increasing with speed. Very short lookahead causing os
 
 Precomputed racing-line speed considers curvature, road width, surface, jumps, nearby racers, and item hazards. AI should brake before turns rather than only reacting after excessive steering error.
 
+On a clear asphalt straight, each AI racer's neutral desired speed equals `createKartTuning(character.stats).maxSpeed`. Pace modifies the curvature penalty rather than the straight-line ceiling:
+
+```text
+cornerPenalty = lerp(0.48, 0.34, clamp(pace, 0, 1))
+desiredSpeed = characterMaxSpeed * (1 - clamp(corner, 0, 1) * cornerPenalty)
+```
+
+Temporary reductions for a blocking racer, surface, collision, hazard, or required braking remain valid. Grid position and AI profile assignment may not substitute an absolute target-speed range for the selected character's Speed stat.
+
 ## 21.4 Overtaking
 
 AI periodically evaluates lane offsets using path curvature, collision risk, hazard risk, distance to opponents, off-road risk, and future track width. It switches only when candidate improvement exceeds hysteresis threshold to prevent lane thrashing.
@@ -1299,7 +1312,7 @@ AI detects kart bodies, oil slicks, Blast Orbs, and static track obstacles; temp
 
 ## 21.6 Rubber-Banding
 
-Rubber-banding is bounded. Trailing AI may receive up to +6% engine force and +4% top-speed allowance. Leading AI may receive at most -2% engine-force correction. No teleporting, impossible item immunity, or hidden collision changes. Race-progress gap, not rank alone, drives the correction.
+Rubber-banding is bounded. Trailing AI may receive up to +6% engine force and +4% top-speed allowance. Leading AI may receive at most -2% engine-force correction, but no reduction to its Speed-defined top-speed ceiling. No teleporting, impossible item immunity, or hidden collision changes. Race-progress gap, not rank alone, drives the correction.
 
 ## 21.7 AI Items
 

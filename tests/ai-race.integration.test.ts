@@ -1,6 +1,6 @@
 import RAPIER from '@dimforge/rapier3d-compat';
 import { beforeAll, describe, expect, it } from 'vitest';
-import { createKartTuning, sliceOneDriver } from '../src/config/kartTuning';
+import { createKartTuning, sliceOneDriver, type DriverStats } from '../src/config/kartTuning';
 import { AiDriver } from '../src/game/ai/AiDriver';
 import { KartController } from '../src/game/physics/KartController';
 import { LapTracker } from '../src/game/race/LapTracker';
@@ -31,12 +31,14 @@ describe('Rapier spline AI integration', () => {
         track.checkpointPosition(0).addScaledVector(tangent, 8),
         Math.atan2(tangent.x, tangent.z),
       );
-      const driver = new AiDriver(track, profile);
+      const maximumSpeed = createKartTuning(sliceOneDriver).maxSpeed;
+      const driver = new AiDriver(track, profile, maximumSpeed);
       const laps = new LapTracker();
       let overlap = -1;
       let grassFrames = 0;
       let simulatedFrames = 0;
       let maximumLateralDistance = 0;
+      let observedMaximumSpeed = 0;
 
       for (let step = 0; step < 21_600 && !laps.snapshot().finished; step += 1) {
         const position = kart.position();
@@ -44,6 +46,7 @@ describe('Rapier spline AI integration', () => {
         simulatedFrames += 1;
         if (projection.surface === 'grass') grassFrames += 1;
         maximumLateralDistance = Math.max(maximumLateralDistance, projection.lateralDistance);
+        observedMaximumSpeed = Math.max(observedMaximumSpeed, kart.speedMetersPerSecond());
         kart.update(
           driver.input(position, kart.forward(), kart.speedMetersPerSecond()),
           projection.surface,
@@ -67,6 +70,7 @@ describe('Rapier spline AI integration', () => {
       expect(kart.isFinite()).toBe(true);
       expect(grassFrames / simulatedFrames).toBeLessThan(0.02);
       expect(maximumLateralDistance).toBeLessThan(track.roadHalfWidth + 0.5);
+      expect(observedMaximumSpeed).toBeGreaterThanOrEqual(maximumSpeed * 0.98);
     }
   }, 30_000);
 
@@ -76,24 +80,36 @@ describe('Rapier spline AI integration', () => {
     world.timestep = 1 / 60;
     world.createCollider(RAPIER.ColliderDesc.cuboid(450, 0.1, 450).setTranslation(0, -0.12, 0));
 
-    const createKartAt = (index: number): KartController => {
+    const createKartAt = (index: number, stats: DriverStats): KartController => {
       const tangent = track.tangents[index];
       const position = track.samples[index];
       if (tangent === undefined || position === undefined)
         throw new Error('Missing AI test sample');
       return new KartController(
         world,
-        createKartTuning(sliceOneDriver),
-        sliceOneDriver,
+        createKartTuning(stats),
+        stats,
         position.clone(),
         Math.atan2(tangent.x, tangent.z),
       );
     };
 
-    const frontKart = createKartAt(32);
-    const rearKart = createKartAt(28);
-    const frontDriver = new AiDriver(track, { laneOffset: 0, pace: 0.1, aggression: 0.2 });
-    const rearDriver = new AiDriver(track, { laneOffset: 0, pace: 1, aggression: 0.8 });
+    const slowerStats = { ...sliceOneDriver, speed: 5 };
+    const fasterStats = { ...sliceOneDriver, speed: 10 };
+    const frontKart = createKartAt(32, slowerStats);
+    const rearKart = createKartAt(28, fasterStats);
+    const frontMaximum = createKartTuning(slowerStats).maxSpeed;
+    const rearMaximum = createKartTuning(fasterStats).maxSpeed;
+    const frontDriver = new AiDriver(
+      track,
+      { laneOffset: 0, pace: 0.1, aggression: 0.2 },
+      frontMaximum,
+    );
+    const rearDriver = new AiDriver(
+      track,
+      { laneOffset: 0, pace: 1, aggression: 0.8 },
+      rearMaximum,
+    );
     let changedLane = false;
     let completedPass = false;
     let maximumLateralDistance = 0;

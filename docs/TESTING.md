@@ -98,6 +98,16 @@ For live acceptance, compare Krios, Accu, Kraken, and Lula on the same asphalt s
 
 For live acceptance, compare Krios or Accu against Lavi or Lula from a standing start; drive from asphalt into both dirt and grass without braking; and observe a full AI pack through several corners. Confirm a visible launch/recovery difference, progressive off-road slowdown, no systematic inside-grass line, and lateral overtaking around slower racers.
 
+## AI Speed-stat authority regression
+
+- A clear-straight neutral AI target must equal its selected character's `createKartTuning(stats).maxSpeed`, regardless of grid profile pace.
+- Profile pace must affect the curvature penalty: a higher-pace AI may carry more speed through the same corner, but pace may not replace the straight-line cap.
+- A leading AI must retain a 1.0 top-speed multiplier. A trailing AI allowance must remain between 1.0 and 1.04.
+- Every configured AI pace profile must reach at least 98% of its character maximum during the three-lap circuit simulation while preserving valid laps, road bounds, and the grass-time limit.
+- The overtaking regression must use different Speed stats for its slower lead racer and faster trailing racer; grid profile pace alone is not evidence of a straight-line speed advantage.
+
+For live acceptance, observe AI-controlled low-, medium-, and high-Speed characters on clear asphalt sections. Confirm that each can approach its displayed unboosted maximum, that high-Speed racers have a visible straight-line advantage, and that AI still brakes for corners and passes slower traffic without systematic grass use.
+
 ## Weight-driven kart-collision regression
 
 - Contacts with less than 0.75 m/s closing speed must retain 100% of forward speed so parallel or resting overlap does not create repeated slowdown.

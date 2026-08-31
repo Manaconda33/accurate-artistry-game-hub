@@ -69,6 +69,26 @@ describe('Rapier kart controller', () => {
     }
   });
 
+  it('permits only the explicit four-percent AI top-speed allowance', () => {
+    const { world, kart } = makeKart();
+    step(
+      world,
+      kart,
+      {
+        throttle: 1,
+        steering: 0,
+        brake: false,
+        drift: false,
+        speedLimitMultiplier: 1.2,
+      },
+      600,
+    );
+    expect(kart.speedMetersPerSecond()).toBeCloseTo(
+      createKartTuning(sliceOneDriver).maxSpeed * 1.04,
+      1,
+    );
+  });
+
   it('uses Acceleration for time-to-speed without changing sustained top speed', () => {
     const lowAcceleration: DriverStats = {
       speed: 8,

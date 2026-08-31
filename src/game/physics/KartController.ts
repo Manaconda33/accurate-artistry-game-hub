@@ -16,6 +16,7 @@ export interface DriveInput {
   steering: number;
   brake: boolean;
   drift: boolean;
+  speedLimitMultiplier?: number;
 }
 
 export type DriftTier = 'none' | 'blue' | 'orange' | 'purple';
@@ -120,7 +121,8 @@ export class KartController {
 
     const speedMultiplier = surfaceSpeedMultiplier(surface, this.stats.traction);
     const accelerationMultiplier = surfaceAccelerationMultiplier(surface, this.stats.traction);
-    const maxForward = this.tuning.maxSpeed * speedMultiplier;
+    const speedLimitMultiplier = THREE.MathUtils.clamp(input.speedLimitMultiplier ?? 1, 1, 1.04);
+    const maxForward = this.tuning.maxSpeed * speedMultiplier * speedLimitMultiplier;
 
     if (surface === 'boost' && this.boostRemaining <= 0) {
       this.boostRemaining = 0.8;

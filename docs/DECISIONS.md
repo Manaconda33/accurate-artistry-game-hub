@@ -96,3 +96,14 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Rationale:** The 15-point full-impact loss range makes Weight legible without erasing the value of positioning or collision avoidance. At severe impact, Accu retains approximately 86% against a Weight 2 racer, while that Weight 2 racer retains approximately 67% against Accu. Accu therefore gains a clear advantage but still loses roughly 14% of forward speed.
 - **Scope:** The change applies equally to player and AI kart contacts. It does not alter driver stats, mass-based lateral impulse, walls, items, Speed ceilings, Acceleration, or surface response.
 - **Approval:** Manny explicitly requested Weight-driven collision speed reduction on 2026-08-30 and specified that Weight 10 must not become virtually immune.
+
+## ADR-029: Make character Speed authoritative for AI straight-line pace
+
+- **Date:** 2026-08-31
+- **Status:** Approved
+- **Context:** Live testing found that player-controlled racers frequently reached their Speed-defined maximum while AI-controlled versions did not. AI desired speed used an absolute 20.5–26.0 m/s range derived from grid profile pace rather than the selected character's kart tuning. The first circuit profile peaked at 24.1 m/s against a 29.7 m/s character maximum.
+- **Decision:** Each AI driver receives its selected character's `maxSpeed` and uses that value as its neutral clear-straight target. Profile pace now adjusts the curvature penalty, preserving difficulty differences through corner-speed judgment rather than an unrelated straight-line ceiling. Leading AI receives no hidden top-speed reduction. Trailing top-speed allowance is clamped to the PRD's 4% maximum and passed explicitly to the kart controller.
+- **Rationale:** Speed must describe the same physical capability whether a character is controlled by the player or AI. Corner judgment, braking, overtaking, collisions, and surface response provide sufficient honest sources of race-performance variation.
+- **Product impact:** AI versions of high-Speed racers can now use their straight-line advantage, while low-Speed racers retain their lower cap. Clear straights become more competitive without giving every AI identical performance or altering player handling.
+- **Scope:** Roster stats, player caps, Acceleration, Weight collision response, lane selection, items, and global difficulty settings are unchanged.
+- **Approval:** Manny approved the character-cap AI balance model on 2026-08-31 after confirming that AI racers consistently appeared unable to reach the maximum speeds available to players.
