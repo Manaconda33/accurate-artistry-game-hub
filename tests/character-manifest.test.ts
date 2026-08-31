@@ -57,8 +57,9 @@ describe('character manifest', () => {
     expect(accu.assetState).toBe('production');
     expect(accu.kart).toContain(`/assets/characters/aa-11/kart.glb?v=${ACCU_ASSET_REVISION}`);
     expect(accu.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
-    expect(accu.driverSpritePosition).toEqual([0, 0.82, 0.22]);
+    expect(accu.driverSpritePosition).toEqual([0, 0.82, -0.72]);
     expect(accu.frontDriverSpritePosition).toEqual([0, 0.9, 0.22]);
+    expect(accu.frontModeledSteeringControlPosition).toEqual([0, 1.46, -0.46]);
     expect(accu.driverSpriteIncludesSteeringControl).toBe(true);
     expect(accu.driver?.rear).toContain(`?v=${ACCU_ASSET_REVISION}`);
     expect(accu.driver?.front).toContain(`?v=${ACCU_ASSET_REVISION}`);
