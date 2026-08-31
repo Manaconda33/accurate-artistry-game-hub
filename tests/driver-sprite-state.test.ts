@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   isDriverFrontFacingCamera,
   selectDriverFrame,
+  shouldShowModeledSteeringControl,
 } from '../src/game/driver/DriverSpriteState';
 
 describe('shared driver sprite state', () => {
@@ -76,5 +77,13 @@ describe('shared driver sprite state', () => {
         steering: 0.15,
       }),
     ).toBe('rear');
+  });
+
+  it('uses Accu\'s baked control for rear states and the modeled control for front view', () => {
+    for (const frame of ['rear', 'steerLeft', 'steerRight', 'hit', 'victory'] as const) {
+      expect(shouldShowModeledSteeringControl(true, frame)).toBe(false);
+    }
+    expect(shouldShowModeledSteeringControl(true, 'front')).toBe(true);
+    expect(shouldShowModeledSteeringControl(false, 'rear')).toBe(true);
   });
 });

@@ -22,6 +22,7 @@ export interface CharacterDefinition {
   kartVisualYaw?: number;
   driverSpritePosition?: readonly [number, number, number];
   frontDriverSpritePosition?: readonly [number, number, number];
+  driverSpriteIncludesSteeringControl?: boolean;
   driver?: {
     rear: string;
     front: string;
@@ -113,8 +114,9 @@ const accu: CharacterDefinition = {
   kartName: 'Pink Precision',
   kart: assetUrl('assets/characters/aa-11/kart.glb', ACCU_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
-  driverSpritePosition: [0, 0.55, 0.55],
-  frontDriverSpritePosition: [0, 0.45, 0.55],
+  driverSpritePosition: [0, 0.95, 0.22],
+  frontDriverSpritePosition: [0, 0.45, 0.22],
+  driverSpriteIncludesSteeringControl: true,
   driver: {
     rear: assetUrl('assets/characters/aa-11/driver/rear.png', ACCU_ASSET_REVISION),
     front: assetUrl('assets/characters/aa-11/driver/front.png', ACCU_ASSET_REVISION),
