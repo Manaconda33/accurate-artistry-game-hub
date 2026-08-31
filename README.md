@@ -2,6 +2,8 @@
 
 Accurate Artistry Game Hub is a modular HTML5 mini-game platform whose first vertical slice is a high-fidelity 3D kart racer with hybrid 2D avatar drivers. The approved requirements baseline is Product Requirements Document v1.1.
 
+The canonical repository `Manaconda33/accurate-artistry-game-hub` is intentionally public. Publication and deployment changes remain approval-gated under the PRD workflow.
+
 ## Current state
 
 **Current slice:** Slice 3 - Character Selection & Avatar Ingestion.
