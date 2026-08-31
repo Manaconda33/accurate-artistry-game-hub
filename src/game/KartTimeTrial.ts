@@ -17,7 +17,11 @@ import { createTrackScene } from './track/createTrackScene';
 import { characterManifest, type CharacterDefinition } from '../characters/manifest';
 import { selectAiRoster } from '../characters/raceRoster';
 import { normalizeMinimapTrack, type MinimapState } from './ui/Minimap';
-import { selectDriverFrame, type DriverFrame } from './driver/DriverSpriteState';
+import {
+  isDriverFrontFacingCamera,
+  selectDriverFrame,
+  type DriverFrame,
+} from './driver/DriverSpriteState';
 
 export interface HudState {
   lap: number;
@@ -436,8 +440,12 @@ export class KartTimeTrial {
           opponent.driverVisual,
           selectDriverFrame({
             finished: opponent.progress.finished,
+            frontFacingCamera: isDriverFrontFacingCamera(
+              opponentPosition,
+              opponentForward,
+              this.camera.position,
+            ),
             hitSeconds: opponent.driverHitSeconds,
-            rearView: this.rearViewActive,
             steering: opponent.steering,
           }),
         );
@@ -605,8 +613,12 @@ export class KartTimeTrial {
       this.playerDriverVisual,
       selectDriverFrame({
         finished: this.playerProgress.finished,
+        frontFacingCamera: isDriverFrontFacingCamera(
+          this.kart.position(this.position),
+          this.kart.forward(this.forward),
+          this.camera.position,
+        ),
         hitSeconds: this.driverHitSeconds,
-        rearView: this.rearViewActive,
         steering: this.playerSteering,
       }),
     );

@@ -2,15 +2,30 @@ export type DriverFrame = 'rear' | 'front' | 'steerLeft' | 'steerRight' | 'hit' 
 
 export interface DriverSpriteState {
   finished: boolean;
+  frontFacingCamera: boolean;
   hitSeconds: number;
-  rearView: boolean;
   steering: number;
+}
+
+interface HorizontalVector {
+  x: number;
+  z: number;
+}
+
+export function isDriverFrontFacingCamera(
+  racerPosition: HorizontalVector,
+  racerForward: HorizontalVector,
+  cameraPosition: HorizontalVector,
+): boolean {
+  const toCameraX = cameraPosition.x - racerPosition.x;
+  const toCameraZ = cameraPosition.z - racerPosition.z;
+  return racerForward.x * toCameraX + racerForward.z * toCameraZ > 0;
 }
 
 export function selectDriverFrame(state: DriverSpriteState): DriverFrame {
   if (state.finished) return 'victory';
   if (state.hitSeconds > 0) return 'hit';
-  if (state.rearView) return 'front';
+  if (state.frontFacingCamera) return 'front';
   if (state.steering > 0.15) return 'steerLeft';
   if (state.steering < -0.15) return 'steerRight';
   return 'rear';
