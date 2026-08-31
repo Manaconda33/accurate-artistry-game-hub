@@ -1,5 +1,7 @@
 # Repository agent instructions
 
+The canonical repository `Manaconda33/accurate-artistry-game-hub` is public. Do not describe or treat it as private. Public visibility does not waive the existing approval gates for publishing code, assets, documentation, deployments, or protected project state.
+
 Read `docs/PRD.md`, `docs/IMPLEMENTATION-STATUS.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, `docs/AVATAR-INTAKE.md`, `docs/ROSTER-MAPPING.md`, and `docs/LFS-PUBLISHING.md` before implementation work. Treat those files as authoritative over chat history.
 
 For character work:
