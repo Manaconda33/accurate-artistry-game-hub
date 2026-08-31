@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   isDriverFrontFacingCamera,
+  modeledSteeringControlPosition,
   selectDriverFrame,
   shouldShowModeledSteeringControl,
 } from '../src/game/driver/DriverSpriteState';
@@ -19,15 +20,9 @@ describe('shared driver sprite state', () => {
 
   it('determines facing independently for same-direction and oncoming racers', () => {
     const camera = { x: 0, z: 4 };
-    expect(
-      isDriverFrontFacingCamera({ x: 0, z: 0 }, { x: 0, z: 1 }, camera),
-    ).toBe(true);
-    expect(
-      isDriverFrontFacingCamera({ x: 0, z: 8 }, { x: 0, z: 1 }, camera),
-    ).toBe(false);
-    expect(
-      isDriverFrontFacingCamera({ x: 0, z: 8 }, { x: 0, z: -1 }, camera),
-    ).toBe(true);
+    expect(isDriverFrontFacingCamera({ x: 0, z: 0 }, { x: 0, z: 1 }, camera)).toBe(true);
+    expect(isDriverFrontFacingCamera({ x: 0, z: 8 }, { x: 0, z: 1 }, camera)).toBe(false);
+    expect(isDriverFrontFacingCamera({ x: 0, z: 8 }, { x: 0, z: -1 }, camera)).toBe(true);
   });
 
   it('maps positive and negative steering to the matching turn frames', () => {
@@ -79,11 +74,21 @@ describe('shared driver sprite state', () => {
     ).toBe('rear');
   });
 
-  it('uses Accu\'s baked control for rear states and the modeled control for front view', () => {
+  it("uses Accu's baked control for rear states and the modeled control for front view", () => {
     for (const frame of ['rear', 'steerLeft', 'steerRight', 'hit', 'victory'] as const) {
       expect(shouldShowModeledSteeringControl(true, frame)).toBe(false);
     }
     expect(shouldShowModeledSteeringControl(true, 'front')).toBe(true);
     expect(shouldShowModeledSteeringControl(false, 'rear')).toBe(true);
+  });
+
+  it('moves a modeled control only for its front-facing frame and restores its authored position', () => {
+    const authored = [0, 1.46, 0.48] as const;
+    const front = [0, 1.46, -0.46] as const;
+
+    expect(modeledSteeringControlPosition('front', authored, front)).toBe(front);
+    for (const frame of ['rear', 'steerLeft', 'steerRight', 'hit', 'victory'] as const) {
+      expect(modeledSteeringControlPosition(frame, authored, front)).toBe(authored);
+    }
   });
 });

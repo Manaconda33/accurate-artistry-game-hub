@@ -161,7 +161,10 @@ Continuity closure completed by PR #32:
 - The same live test rejected Accu's remaining presentation: the rear-camera front frame reads as a floating head behind the cannon, and the chase-camera rear frame has a conspicuously straight lower hair cutoff at the cockpit edge.
 - PR #54 is a deployed but visually unapproved test candidate. It lowers chase-oriented states from `[0, 0.95, 0.22]` to `[0, 0.82, 0.22]` so the lower raster edge is buried by the cockpit, and raises only the front-camera frame from `[0, 0.45, 0.22]` to `[0, 0.9, 0.22]` to restore a seated-driver composition. It does not alter physics, camera logic, sprite bytes, or steering-control visibility.
 - PR #54 branch CI run `33446381625` passed. It merged to `main` at `87ddf85b1302cc61f62e486c893136be04b84835`; main run `33446473334` passed validation and GitHub Pages deployment. The public build loaded the Accu selection and Pink Precision race handoff, but the available cloud browser disables WebGL, so it could not render the chase/rear-camera frames. Product-owner desktop/mobile visual confirmation remains required.
-- Status: **LIVE DEPLOYED — ACCU CAMERA PRESENTATION AWAITS PRODUCT-OWNER PLAYTEST.**
+- Manny's subsequent live screenshots rejected PR #54: moving the chase frame vertically left the same firm horizontal cockpit-occlusion seam, and the improved rear-camera composition still did not expose a readable steering wheel.
+- The next candidate changes depth rather than repeating the failed vertical-placement approach. Chase-oriented Accu states move from Z `0.22` to `-0.72`, placing the sprite ahead of the horizontal cockpit collar but behind Pink Precision's rear chassis. The neutral front frame stays at `[0, 0.9, 0.22]`; only while that frame is active, the modeled steering control moves from its authored local Z `0.48` to `-0.46` so the model's enforced PI rotation places the wheel in front of the sprite. Other characters, approved PNG bytes, physics, camera selection, and grass relaunch behavior remain unchanged.
+- Local validation passed: typecheck, lint, all 81 tests, production-asset verification, and the production build. No PNG or GLB bytes changed.
+- Status: **VALIDATED LOCALLY — DEPTH/WHEEL CANDIDATE REQUIRES DEPLOYMENT AND PRODUCT-OWNER PLAYTEST.**
 
 ## Lula production status — complete
 

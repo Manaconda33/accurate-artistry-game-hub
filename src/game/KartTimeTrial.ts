@@ -19,6 +19,7 @@ import { selectAiRoster } from '../characters/raceRoster';
 import { normalizeMinimapTrack, type MinimapState } from './ui/Minimap';
 import {
   isDriverFrontFacingCamera,
+  modeledSteeringControlPosition,
   selectDriverFrame,
   shouldShowModeledSteeringControl,
   type DriverFrame,
@@ -77,6 +78,7 @@ interface DriverSpriteVisual {
   textures: Map<DriverFrame, THREE.Texture>;
   activeFrame: DriverFrame;
   modeledSteeringControl: THREE.Object3D | null;
+  modeledSteeringControlDefaultPosition: readonly [number, number, number] | null;
 }
 
 interface OpponentVisual {
@@ -563,6 +565,10 @@ export class KartTimeTrial {
     const visual = this.createDriverSpriteVisual(this.options.character);
     if (visual === null) return;
     visual.modeledSteeringControl = model?.getObjectByName('SteeringWheel') ?? null;
+    if (visual.modeledSteeringControl !== null) {
+      const { x, y, z } = visual.modeledSteeringControl.position;
+      visual.modeledSteeringControlDefaultPosition = [x, y, z];
+    }
     this.applyDriverFrame(visual, visual.activeFrame);
     this.kartMesh.add(visual.sprite);
     this.playerDriverVisual = visual;
@@ -590,6 +596,7 @@ export class KartTimeTrial {
       textures: new Map([['rear', rearTexture]]),
       activeFrame: 'rear',
       modeledSteeringControl: null,
+      modeledSteeringControlDefaultPosition: null,
     };
     for (const [frame, path] of Object.entries(paths) as [DriverFrame, string | undefined][]) {
       if (frame === 'rear' || path === undefined) continue;
@@ -644,6 +651,16 @@ export class KartTimeTrial {
         : defaultPosition;
     visual.sprite.position.set(...position);
     if (visual.modeledSteeringControl !== null) {
+      const defaultControlPosition = visual.modeledSteeringControlDefaultPosition;
+      if (defaultControlPosition !== null) {
+        visual.modeledSteeringControl.position.set(
+          ...modeledSteeringControlPosition(
+            frame,
+            defaultControlPosition,
+            visual.character.frontModeledSteeringControlPosition,
+          ),
+        );
+      }
       visual.modeledSteeringControl.visible = shouldShowModeledSteeringControl(
         visual.character.driverSpriteIncludesSteeringControl ?? false,
         frame,
@@ -768,6 +785,10 @@ export class KartTimeTrial {
           });
           if (driverVisual !== null) {
             driverVisual.modeledSteeringControl = model.getObjectByName('SteeringWheel') ?? null;
+            if (driverVisual.modeledSteeringControl !== null) {
+              const { x, y, z } = driverVisual.modeledSteeringControl.position;
+              driverVisual.modeledSteeringControlDefaultPosition = [x, y, z];
+            }
             this.applyDriverFrame(driverVisual, driverVisual.activeFrame);
           }
           group.clear();
