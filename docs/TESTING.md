@@ -285,6 +285,7 @@ Live acceptance requires one desktop and one mobile race with Accu plus at least
 - Visual left/right steering selects the matching approved frame; collision selects hit briefly; finishing selects victory.
 - Chase and rear cameras confirm the cannon and nose point forward while the antennae and exhausts remain behind Accu. No visual-root rotation is applied.
 - The selected AA-11 profile remains 8 / 4 / 10 / 3 / 5 / 6 throughout the race.
+- **Live acceptance:** Manny approved deployed PR #56 on 2026-08-31 after verifying the corrected chase-camera hair edge and rear-camera steering-wheel presentation. The previously accepted grass relaunch and chase-state modeled-wheel suppression remain passing.
 - Desktop and mobile both load the controlled `accu-runtime-20260831-2` URLs rather than cached pre-integration assets.
 
 ## Slice 0 evidence boundary
