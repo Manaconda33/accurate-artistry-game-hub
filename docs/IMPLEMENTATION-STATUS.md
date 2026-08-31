@@ -154,7 +154,9 @@ Continuity closure completed by PR #32:
 - Accu's approved steer-left, steer-right, and victory wheel apertures now have genuine transparency. Runtime byte revisions were bumped for all three affected character packages.
 - Every active production driver package now declares all six states, and the manifest type makes `front` mandatory for production sprite packages.
 - `npm run validate` passes: strict typecheck, zero-warning lint, 76 tests across 16 files, 83.0% statement coverage, runtime verification of 27 GLBs and 36 decoded PNGs including transparent-corner and Accu-aperture regression gates, and production build.
-- Status: **BRANCH COMPLETE — PUBLICATION APPROVAL REMAINS.**
+- PR #50 passed branch CI run `33376955408`, merged to `main` at `faeff1dc4f2312cdc2f3bbd76e5d8e474fbd2c1a`, and passed main validation and GitHub Pages deployment in run `33377109106`.
+- The deployed bundle exposes controlled Lavi, Manaconda, and Accu revisions, and all three new front sprite paths return successfully from Pages.
+- Status: **LIVE DEPLOYED — PRODUCT-OWNER DESKTOP/MOBILE PLAYTEST REMAINS.**
 
 ## Lula production status — complete
 
