@@ -130,3 +130,13 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Scope:** This does not change AI driving decisions, physics, roster stats, kart geometry, cameras, race ranking, or character identity.
 - **Implementation closure:** Manny approved the Lavi, corrected Manaconda, and Accu front candidates plus deterministic alpha cleanup on 2026-08-31. All active production packages now contain six validated states; Accu's three affected wheel apertures are transparent; controlled revisions prevent stale cached art.
 - **Approval:** Manny requested complete driver-state behavior and the Accu corrections on 2026-08-31.
+
+## ADR-032: Record the canonical repository as public
+
+- **Date:** 2026-08-31
+- **Status:** Approved
+- **Context:** Project-session instructions still described `Manaconda33/accurate-artistry-game-hub` as private, while GitHub reports the canonical repository as public. That mismatch created an avoidable publication-authority stop during the Accu correction.
+- **Decision:** Treat and describe the canonical GitHub repository as public in durable project guidance. Public visibility does not grant blanket authority to publish, merge, deploy, delete, or change protected state; the existing PRD and approval gates continue to govern each action.
+- **Product impact:** Future sessions can assess disclosure risk and repository state accurately before proposing or executing work.
+- **Implementation impact:** `AGENTS.md` and `README.md` explicitly identify the repository as public. Stale external project instructions should be updated to match when their settings surface is available.
+- **Approval:** Manny confirmed the repository is public and approved correcting the project instructions on 2026-08-31.

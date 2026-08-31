@@ -1,14 +1,14 @@
 # Avatar intake: Accu
 
 - **Intake date:** 2026-08-20
-- **Current phase:** Runtime integration prepared; deployment and product-owner verification pending
+- **Current phase:** Runtime camera-presentation correction in progress
 - **Intake status:** Approved
 - **Character lock:** Approved by Manny on 2026-08-20
 - **Kart lock:** _Pink Precision_, approved by Manny on 2026-08-20
 - **Balance mapping lock:** AA-11 Collision Tank, approved by Manny on 2026-08-20
-- **Asset approval:** Portrait and all five driver states approved by Manny on 2026-08-20
+- **Asset approval:** Portrait and five original driver states approved by Manny on 2026-08-20; front approved on 2026-08-31
 - **Kart-model approval:** Pink Precision Candidate 1 approved by Manny on 2026-08-20
-- **Implementation verification:** Automated checks prepared; live desktop/mobile verification pending
+- **Implementation verification:** Grass relaunch and steering-control visibility accepted; camera-specific Accu placement remains pending
 
 Manny created the supplied Accu reference art and approved transforming it into production game assets. The attached pink-hat design is Accu's canonical appearance for this game and supersedes earlier descriptions that conflict with it.
 
@@ -38,21 +38,21 @@ Manny created the supplied Accu reference art and approved transforming it into 
 
 ## Required assets
 
-| Asset                                           | Required format                                 | Status                |
-| ----------------------------------------------- | ----------------------------------------------- | --------------------- |
-| Portrait                                        | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared |
-| Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB                 | Approved and prepared |
-| Pink Precision                                  | GLB with PRD hierarchy and LOD budgets          | Approved and prepared |
+| Asset                                                   | Required format                                 | Status                |
+| ------------------------------------------------------- | ----------------------------------------------- | --------------------- |
+| Portrait                                                | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared |
+| Rear / front / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB                 | Approved and prepared |
+| Pink Precision                                          | GLB with PRD hierarchy and LOD budgets          | Approved and prepared |
 
 ## Approval record
 
 - Character lock, kart lock, balance mapping, emblem direction, and source transformation: approved.
-- Portrait, rear, steer-left, steer-right, hit, and victory: approved by Manny on 2026-08-20 and prepared at the PRD runtime paths.
+- Portrait, rear, steer-left, steer-right, hit, and victory were approved by Manny on 2026-08-20; the front frame and alpha repairs were approved on 2026-08-31. All are prepared at the PRD runtime paths.
 - Pink Precision Candidate 1 is the approved production LOD0. Its deterministic LOD package is prepared at `public/assets/characters/aa-11/{kart,kart-lod1,kart-lod2}.glb`.
-- The manifest maps Accu to AA-11, Pink Precision, all five approved driver frames, and controlled revision `accu-runtime-20260820-1`.
+- The manifest maps Accu to AA-11, Pink Precision, all six approved driver frames, and controlled revision `accu-runtime-20260831-2`.
 - Pink Precision declares negative-Z authored forward. Manny's live chase-camera test proved that this runtime requires the shared `NEGATIVE_Z_KART_VISUAL_YAW` (`Math.PI`) visual-root correction. Physics, checkpoints, controls, driver sprites, and camera coordinates remain unchanged.
-- Deployment and live desktop/mobile verification remain pending.
+- Manny's 2026-08-31 live test accepted grass relaunch and confirmed the modeled steering wheel is absent in chase view, but rejected the rear-camera floating-head composition and chase-camera straight hair cutoff. PR #54 is a placement-only test candidate; it is not approved until live desktop/mobile verification passes.
 
 ## Next action
 
-Deploy the runtime-integration checkpoint and complete the Accu / Pink Precision manual matrix on desktop and mobile.
+Deploy PR #54, verify the chase and rear-camera compositions on desktop and mobile, and record Manny's approval or remaining defects before closing Accu's runtime checkpoint.
