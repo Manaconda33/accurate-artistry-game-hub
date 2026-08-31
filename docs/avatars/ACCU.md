@@ -55,4 +55,4 @@ Manny created the supplied Accu reference art and approved transforming it into 
 
 ## Next action
 
-Validate and deploy the depth/wheel candidate, verify both camera compositions on desktop and mobile, and record Manny's approval or remaining defects before closing Accu's runtime checkpoint.
+Verify deployed PR #56 in both camera compositions on desktop and mobile, then record Manny's approval or remaining defects before closing Accu's runtime checkpoint.
