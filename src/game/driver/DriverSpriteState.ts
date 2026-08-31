@@ -30,3 +30,10 @@ export function selectDriverFrame(state: DriverSpriteState): DriverFrame {
   if (state.steering < -0.15) return 'steerRight';
   return 'rear';
 }
+
+export function shouldShowModeledSteeringControl(
+  driverSpriteIncludesSteeringControl: boolean,
+  frame: DriverFrame,
+): boolean {
+  return !driverSpriteIncludesSteeringControl || frame === 'front';
+}

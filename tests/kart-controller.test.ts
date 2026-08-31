@@ -15,13 +15,15 @@ describe('Rapier kart controller', () => {
     await RAPIER.init();
   });
 
-  function makeKart(stats: DriverStats = sliceOneDriver): {
+  function makeKart(stats: DriverStats = sliceOneDriver, groundHalfWidth = 500): {
     world: RAPIER.World;
     kart: KartController;
   } {
     const world = new RAPIER.World({ x: 0, y: -18, z: 0 });
     world.timestep = 1 / 60;
-    world.createCollider(RAPIER.ColliderDesc.cuboid(500, 0.1, 500).setTranslation(0, -0.12, 0));
+    world.createCollider(
+      RAPIER.ColliderDesc.cuboid(groundHalfWidth, 0.1, 500).setTranslation(0, -0.12, 0),
+    );
     return {
       world,
       kart: new KartController(world, createKartTuning(stats), stats, new Vector3(0, 1.1, 0), 0),
@@ -56,6 +58,23 @@ describe('Rapier kart controller', () => {
     const { world, kart } = makeKart();
     step(world, kart, { throttle: 1, steering: 0, brake: false, drift: false }, 600, 'grass');
     expect(kart.speedMetersPerSecond()).toBeGreaterThanOrEqual(8.4);
+  });
+
+  it('relaunches after coasting to a full stop on grass', () => {
+    const { world, kart } = makeKart();
+    step(world, kart, { throttle: 1, steering: 0, brake: false, drift: false }, 180, 'grass');
+    step(world, kart, { throttle: 0, steering: 0, brake: false, drift: false }, 600, 'grass');
+    expect(kart.speedMetersPerSecond()).toBeLessThan(0.1);
+
+    step(world, kart, { throttle: 1, steering: 0, brake: false, drift: false }, 120, 'grass');
+    expect(kart.speedMetersPerSecond()).toBeGreaterThan(2);
+  });
+
+  it('allows a stopped grass relaunch from stable center support', () => {
+    const { world, kart } = makeKart(sliceOneDriver, 0.5);
+    step(world, kart, { throttle: 0, steering: 0, brake: false, drift: false }, 120, 'grass');
+    step(world, kart, { throttle: 1, steering: 0, brake: false, drift: false }, 120, 'grass');
+    expect(kart.speedMetersPerSecond()).toBeGreaterThan(2);
   });
 
   it('makes every roster profile sustain its Speed-defined asphalt maximum', () => {

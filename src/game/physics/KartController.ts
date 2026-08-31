@@ -150,8 +150,10 @@ export class KartController {
       launchTaper *
       accelerationMultiplier *
       (this.boostRemaining > 0 ? 1.35 : 1);
+    const centerGrounded = Math.abs(velocity.y) < 0.35 && this.hasCenterGroundSupport();
+    const driveSupported = grounded || centerGrounded;
 
-    if (input.throttle > 0 && grounded) {
+    if (input.throttle > 0 && driveSupported) {
       if ((surface === 'dirt' || surface === 'grass') && forwardSpeed > boostedMax) {
         const tractionN = (this.stats.traction - 1) / 9;
         const surfaceLoss =
@@ -164,7 +166,7 @@ export class KartController {
       if (playableFloor > 0 && forwardSpeed > 3) {
         forwardSpeed = Math.max(forwardSpeed, Math.min(playableFloor, boostedMax));
       }
-    } else if (input.throttle < 0 && grounded) {
+    } else if (input.throttle < 0 && driveSupported) {
       forwardSpeed = Math.max(-this.tuning.reverseSpeed, forwardSpeed - acceleration * 0.72 * dt);
     } else {
       forwardSpeed = THREE.MathUtils.damp(forwardSpeed, 0, 0.65, dt);
@@ -342,5 +344,11 @@ export class KartController {
       const hit = this.world.castRay(ray, 1.35, true, undefined, undefined, undefined, this.body);
       return contacts + (hit === null ? 0 : 1);
     }, 0);
+  }
+
+  private hasCenterGroundSupport(): boolean {
+    const position = this.body.translation();
+    const ray = new RAPIER.Ray(position, { x: 0, y: -1, z: 0 });
+    return this.world.castRay(ray, 0.85, true, undefined, undefined, undefined, this.body) !== null;
   }
 }

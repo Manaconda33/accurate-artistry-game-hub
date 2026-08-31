@@ -20,6 +20,7 @@ import { normalizeMinimapTrack, type MinimapState } from './ui/Minimap';
 import {
   isDriverFrontFacingCamera,
   selectDriverFrame,
+  shouldShowModeledSteeringControl,
   type DriverFrame,
 } from './driver/DriverSpriteState';
 
@@ -75,6 +76,7 @@ interface DriverSpriteVisual {
   sprite: THREE.Sprite;
   textures: Map<DriverFrame, THREE.Texture>;
   activeFrame: DriverFrame;
+  modeledSteeringControl: THREE.Object3D | null;
 }
 
 interface OpponentVisual {
@@ -542,7 +544,7 @@ export class KartTimeTrial {
           }
         });
         this.kartMesh.add(model);
-        this.addDriverSprite();
+        this.addDriverSprite(model);
         this.addDriftLights();
         this.scene.add(this.kartMesh);
         return;
@@ -557,9 +559,11 @@ export class KartTimeTrial {
     this.addDriverSprite();
   }
 
-  private addDriverSprite(): void {
+  private addDriverSprite(model?: THREE.Object3D): void {
     const visual = this.createDriverSpriteVisual(this.options.character);
     if (visual === null) return;
+    visual.modeledSteeringControl = model?.getObjectByName('SteeringWheel') ?? null;
+    this.applyDriverFrame(visual, visual.activeFrame);
     this.kartMesh.add(visual.sprite);
     this.playerDriverVisual = visual;
   }
@@ -585,6 +589,7 @@ export class KartTimeTrial {
       ),
       textures: new Map([['rear', rearTexture]]),
       activeFrame: 'rear',
+      modeledSteeringControl: null,
     };
     for (const [frame, path] of Object.entries(paths) as [DriverFrame, string | undefined][]) {
       if (frame === 'rear' || path === undefined) continue;
@@ -638,6 +643,12 @@ export class KartTimeTrial {
         ? (visual.character.frontDriverSpritePosition ?? defaultPosition)
         : defaultPosition;
     visual.sprite.position.set(...position);
+    if (visual.modeledSteeringControl !== null) {
+      visual.modeledSteeringControl.visible = shouldShowModeledSteeringControl(
+        visual.character.driverSpriteIncludesSteeringControl ?? false,
+        frame,
+      );
+    }
     visual.activeFrame = frame;
   }
 
@@ -755,6 +766,10 @@ export class KartTimeTrial {
               object.receiveShadow = true;
             }
           });
+          if (driverVisual !== null) {
+            driverVisual.modeledSteeringControl = model.getObjectByName('SteeringWheel') ?? null;
+            this.applyDriverFrame(driverVisual, driverVisual.activeFrame);
+          }
           group.clear();
           group.add(model);
           if (driverVisual !== null) group.add(driverVisual.sprite);
