@@ -140,3 +140,13 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Product impact:** Future sessions can assess disclosure risk and repository state accurately before proposing or executing work.
 - **Implementation impact:** `AGENTS.md` and `README.md` explicitly identify the repository as public. Stale external project instructions should be updated to match when their settings surface is available.
 - **Approval:** Manny confirmed the repository is public and approved correcting the project instructions on 2026-08-31.
+
+## ADR-033: Accept Accu's deployed camera and steering-control correction
+
+- **Date:** 2026-08-31
+- **Status:** Approved
+- **Context:** PR #54's vertical-only placement left Accu's chase hair cut by a firm horizontal cockpit seam and did not expose a readable steering wheel in rear-camera view. PR #56 instead corrected sprite depth and moved Pink Precision's modeled steering control only for the neutral front frame.
+- **Decision:** Preserve PR #56's chase-oriented driver position `[0, 0.82, -0.72]`, neutral front position `[0, 0.9, 0.22]`, and front-frame-only modeled steering-control position `[0, 1.46, -0.46]`. Preserve the accepted chase-state wheel suppression and stopped-on-grass relaunch behavior.
+- **Evidence:** PR #56 CI run `33447987037` and main validation/deployment run `33448083520` passed. Manny then approved the deployed chase-camera hair edge, rear-camera seated composition and visible wheel, chase-state wheel suppression, and grass relaunch behavior.
+- **Product impact:** Accu and Pink Precision now pass their runtime camera-presentation checkpoint without changing approved PNG or GLB bytes, physics, camera selection, or other drivers.
+- **Approval:** Manny approved the deployed correction on 2026-08-31.

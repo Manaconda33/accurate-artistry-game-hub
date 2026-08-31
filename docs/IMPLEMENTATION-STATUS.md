@@ -145,7 +145,7 @@ Continuity closure completed by PR #32:
 - Manny confirmed on 2026-08-31 that the live minimap looks good and approved its track-agnostic topology model.
 - Status: **LIVE ACCEPTED — RESPONSIVE SHARED-TOPOLOGY RACE MINIMAP COMPLETE.**
 
-## Shared player/AI driver-sprite states: live correction in progress
+## Shared player/AI driver-sprite states: live accepted
 
 - Runtime audit found that player sprites already selected rear, optional front, steering, hit, and victory states, while AI production drivers loaded only the neutral rear texture.
 - One shared selector now governs player and AI priority: victory, hit, front during rear view, steering, then neutral rear. AI-to-AI and player-to-AI contacts activate hit for every involved production driver.
@@ -165,7 +165,8 @@ Continuity closure completed by PR #32:
 - The next candidate changes depth rather than repeating the failed vertical-placement approach. Chase-oriented Accu states move from Z `0.22` to `-0.72`, placing the sprite ahead of the horizontal cockpit collar but behind Pink Precision's rear chassis. The neutral front frame stays at `[0, 0.9, 0.22]`; only while that frame is active, the modeled steering control moves from its authored local Z `0.48` to `-0.46` so the model's enforced PI rotation places the wheel in front of the sprite. Other characters, approved PNG bytes, physics, camera selection, and grass relaunch behavior remain unchanged.
 - Local validation passed: typecheck, lint, all 81 tests, production-asset verification, and the production build. No PNG or GLB bytes changed.
 - PR #56 CI run `33447987037` passed and merged to `main` at `404c32b05a78a05080c4150dbe4acd3ca7125cbb`. Main run `33448083520` passed both validation and GitHub Pages deployment, and the public page loaded the candidate production bundle `index-C436jMYp.js`. The available cloud browser disables WebGL, so it could not render either acceptance camera.
-- Status: **LIVE DEPLOYED — DEPTH/WHEEL CORRECTION REQUIRES PRODUCT-OWNER DESKTOP/MOBILE PLAYTEST.**
+- Manny approved the deployed correction on 2026-08-31. The chase-camera hair edge, rear-camera seated composition and visible steering wheel, chase-state modeled-wheel suppression, and stopped-on-grass relaunch behavior all pass the product-owner live gate.
+- Status: **LIVE ACCEPTED — SHARED DRIVER STATES AND ACCU RUNTIME CORRECTIONS COMPLETE.**
 
 ## Lula production status — complete
 

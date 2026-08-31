@@ -1,14 +1,14 @@
 # Avatar intake: Accu
 
 - **Intake date:** 2026-08-20
-- **Current phase:** Runtime camera-presentation correction in progress
+- **Current phase:** Runtime integration complete
 - **Intake status:** Approved
 - **Character lock:** Approved by Manny on 2026-08-20
 - **Kart lock:** _Pink Precision_, approved by Manny on 2026-08-20
 - **Balance mapping lock:** AA-11 Collision Tank, approved by Manny on 2026-08-20
 - **Asset approval:** Portrait and five original driver states approved by Manny on 2026-08-20; front approved on 2026-08-31
 - **Kart-model approval:** Pink Precision Candidate 1 approved by Manny on 2026-08-20
-- **Implementation verification:** Grass relaunch and steering-control visibility accepted; camera-specific Accu placement remains pending
+- **Implementation verification:** Live accepted on desktop/mobile by Manny on 2026-08-31
 
 Manny created the supplied Accu reference art and approved transforming it into production game assets. The attached pink-hat design is Accu's canonical appearance for this game and supersedes earlier descriptions that conflict with it.
 
@@ -51,8 +51,8 @@ Manny created the supplied Accu reference art and approved transforming it into 
 - Pink Precision Candidate 1 is the approved production LOD0. Its deterministic LOD package is prepared at `public/assets/characters/aa-11/{kart,kart-lod1,kart-lod2}.glb`.
 - The manifest maps Accu to AA-11, Pink Precision, all six approved driver frames, and controlled revision `accu-runtime-20260831-2`.
 - Pink Precision declares negative-Z authored forward. Manny's live chase-camera test proved that this runtime requires the shared `NEGATIVE_Z_KART_VISUAL_YAW` (`Math.PI`) visual-root correction. Physics, checkpoints, controls, driver sprites, and camera coordinates remain unchanged.
-- Manny's 2026-08-31 live test accepted grass relaunch and confirmed the modeled steering wheel is absent in chase view, but rejected the rear-camera floating-head composition and chase-camera straight hair cutoff. PR #54 improved front-frame placement but failed its follow-up visual review: the chase hair remained cut by a horizontal seam and the rear-camera wheel was not readable. The next candidate changes sprite depth and applies a front-frame-only modeled-wheel position; it is not visually approved until desktop/mobile verification passes.
+- Manny's 2026-08-31 live test accepted grass relaunch and confirmed the modeled steering wheel is absent in chase view, but rejected the rear-camera floating-head composition and chase-camera straight hair cutoff. PR #54 improved front-frame placement but failed its follow-up visual review. PR #56 corrected the chase sprite's depth and applied a front-frame-only modeled-wheel position. Manny approved the deployed chase and rear-camera results on 2026-08-31.
 
 ## Next action
 
-Verify deployed PR #56 in both camera compositions on desktop and mobile, then record Manny's approval or remaining defects before closing Accu's runtime checkpoint.
+No further Accu work is required for this checkpoint. Preserve the approved PR #56 placement and wheel-state behavior while the project returns to the remaining vertical-slice gaps.
