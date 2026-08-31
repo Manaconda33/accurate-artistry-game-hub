@@ -164,7 +164,8 @@ Continuity closure completed by PR #32:
 - Manny's subsequent live screenshots rejected PR #54: moving the chase frame vertically left the same firm horizontal cockpit-occlusion seam, and the improved rear-camera composition still did not expose a readable steering wheel.
 - The next candidate changes depth rather than repeating the failed vertical-placement approach. Chase-oriented Accu states move from Z `0.22` to `-0.72`, placing the sprite ahead of the horizontal cockpit collar but behind Pink Precision's rear chassis. The neutral front frame stays at `[0, 0.9, 0.22]`; only while that frame is active, the modeled steering control moves from its authored local Z `0.48` to `-0.46` so the model's enforced PI rotation places the wheel in front of the sprite. Other characters, approved PNG bytes, physics, camera selection, and grass relaunch behavior remain unchanged.
 - Local validation passed: typecheck, lint, all 81 tests, production-asset verification, and the production build. No PNG or GLB bytes changed.
-- Status: **VALIDATED LOCALLY — DEPTH/WHEEL CANDIDATE REQUIRES DEPLOYMENT AND PRODUCT-OWNER PLAYTEST.**
+- PR #56 CI run `33447987037` passed and merged to `main` at `404c32b05a78a05080c4150dbe4acd3ca7125cbb`. Main run `33448083520` passed both validation and GitHub Pages deployment, and the public page loaded the candidate production bundle `index-C436jMYp.js`. The available cloud browser disables WebGL, so it could not render either acceptance camera.
+- Status: **LIVE DEPLOYED — DEPTH/WHEEL CORRECTION REQUIRES PRODUCT-OWNER DESKTOP/MOBILE PLAYTEST.**
 
 ## Lula production status — complete
 
