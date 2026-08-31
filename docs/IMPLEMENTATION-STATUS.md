@@ -4,7 +4,7 @@
 
 **Slice 3 — Character Selection & Avatar Ingestion**
 
-PRD baseline: **v1.1, working implementation amendment 1.7**.
+PRD baseline: **v1.1, working implementation amendment 1.8**.
 
 Latest verified live character checkpoint: `ef74ca9eabb2a242c02d35d72c55377ee9b5529c` — Lula's corrected production package passed mobile playtesting after the front-camera-only placement fix aligned her hands with The Verdant Hart steering wheel. Her portrait, kart, transparent sprite package, consistent skin tone, all six driver states, orientation, AI identity, and runtime behavior are accepted. Lula now supersedes Toph as the latest verified live character checkpoint.
 
@@ -109,7 +109,7 @@ Continuity closure completed by PR #32:
 - Manny confirmed on 2026-08-30 that the revised AI is substantially more believable and the gameplay correction feels much better.
 - Status: **LIVE ACCEPTED — ACCELERATION, SURFACE TRANSITION, AND AI LANE CORRECTION COMPLETE.**
 
-## Weight-driven collision speed loss: branch validated; live acceptance pending
+## Weight-driven collision speed loss: live accepted
 
 - Kart contact now measures closing speed before applying its arcade impulse. Non-impact overlap below 0.75 m/s does not reduce forward speed.
 - The governed retention curve combines impact severity, the racer's Weight, and a bounded opposing-Weight modifier. Full-severity retention remains between 65% and 96%.
@@ -117,6 +117,19 @@ Continuity closure completed by PR #32:
 - Retention affects only positive forward velocity. Existing lateral displacement remains mass-driven and is preserved after the reduction.
 - Driver stats, Speed ceilings, Acceleration, surfaces, walls, items, and AI decision-making are unchanged.
 - `npm run validate` passes: strict typecheck, zero-warning lint, 66 tests across 14 files, 81.6% statement coverage, runtime verification of 27 GLBs and 28 PNGs, and production build.
+- PR #47 passed branch CI run `33338189709`, merged to `main` at `92415a50007fa80b327bcdce87896992733449ae`, and passed main validation and GitHub Pages deployment in run `33338245594`.
+- Manny confirmed on 2026-08-31 that the collision work is successful and directed continued gameplay balancing.
+- Status: **LIVE ACCEPTED — WEIGHT-DRIVEN KART COLLISION SPEED LOSS COMPLETE.**
+
+## AI Speed-stat authority correction: branch validated; live acceptance pending
+
+- Live testing found that AI racers consistently appeared unable to reach the unboosted maximum available to player-controlled versions of the same roster.
+- Root cause: AI desired speed used an absolute grid-profile range of roughly 20.5–26.0 m/s rather than the selected character's Speed-derived `maxSpeed`. In the circuit regression, the first AI profile peaked at 24.1 m/s against a 29.7 m/s cap.
+- Each AI now receives its selected character's kart maximum. On clear straights, neutral desired speed equals that maximum; profile pace instead controls how much speed the AI carries through curvature.
+- Leading AI no longer receives a hidden top-speed reduction. Trailing top-speed allowance is explicit and bounded to 4%.
+- Focused AI, controller, circuit, and overtaking regressions pass. Every configured pace profile reaches at least 98% of the tested character maximum while retaining valid laps, road bounds, grass limits, and stat-driven passing.
+- Roster stats, player behavior, Acceleration, collision response, lane selection, surfaces, and items are unchanged.
+- `npm run validate` passes: strict typecheck, zero-warning lint, 68 tests across 14 files, 81.6% statement coverage, runtime verification of 27 GLBs and 28 PNGs, and production build.
 - Status: **BRANCH VALIDATED — PUBLICATION, DEPLOYMENT, AND LIVE PRODUCT-OWNER ACCEPTANCE REMAIN REQUIRED.**
 
 ## Lula production status — complete

@@ -624,24 +624,23 @@ export class KartTimeTrial {
         .addScaledVector(tangent, -row * 3.2)
         .addScaledVector(right, side * 2.05);
       const stats = character.stats;
-      const controller = new KartController(
-        this.world,
-        createKartTuning(stats),
-        stats,
-        position,
-        yaw,
-      );
+      const tuning = createKartTuning(stats);
+      const controller = new KartController(this.world, tuning, stats, position, yaw);
       const mesh = this.createOpponentVisual(character);
       this.scene.add(mesh);
       this.opponents.push({
         id: `ai-${String(index + 1)}`,
         name: character.displayName,
         controller,
-        driver: new AiDriver(this.track, {
-          laneOffset: side * (0.7 + row * 0.35),
-          pace: 0.28 + index * 0.09,
-          aggression: 0.2 + (index % 4) * 0.2,
-        }),
+        driver: new AiDriver(
+          this.track,
+          {
+            laneOffset: side * (0.7 + row * 0.35),
+            pace: 0.28 + index * 0.09,
+            aggression: 0.2 + (index % 4) * 0.2,
+          },
+          tuning.maxSpeed,
+        ),
         mesh,
         lapTracker: new LapTracker(),
         progress: {
