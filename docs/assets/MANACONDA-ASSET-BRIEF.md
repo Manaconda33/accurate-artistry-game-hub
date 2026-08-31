@@ -44,6 +44,7 @@
 | --- | --- | --- |
 | Portrait | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared 2026-08-20 |
 | Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB | Approved and prepared 2026-08-20 |
+| Front | 512 x 512 transparent PNG, sRGB | Approved and prepared 2026-08-31 |
 | The Wayfinder | GLB with PRD hierarchy and LOD budgets | Approved and prepared 2026-08-20 |
 
 Each candidate needs Manny's approval. Manny approved the portrait, all five driver-state derivatives, and the wheel-free Wayfinder GLB package on 2026-08-20.
@@ -64,19 +65,20 @@ Each candidate needs Manny's approval. Manny approved the portrait, all five dri
 - Dark and light background composites were visually checked after deterministic checkerboard extraction.
 - Crest continuity is locked across states: two independent temple roots, never a central growth or sideways antlers.
 - Paprika remains on the same physical shoulder across rear and steering states.
+- Manny approved the corrected legs-apart front seated pose on 2026-08-31. Deterministic checkerboard removal produced `driver/front.png`; SHA-256 `9ef86e2e8297833fdb9df5dee62ba6485bce00228ab0c297c296f757ef92d4cd`.
 
 ## Runtime delivery requirements
 
 - Derivatives live at public/assets/characters/aa-09/: portrait.png, five driver PNGs, and LFS-governed GLBs.
 - Manifest URLs use a controlled base-aware revision whenever stable runtime bytes change.
 - Pages materializes LFS, passes git lfs fsck, and rejects an LFS pointer or invalid glTF binary signature before deployment.
-- Runtime preloads rear, steer-left, steer-right, hit, and victory; rear stays visible on optional-frame failure.
+- Runtime preloads all six states. Player and AI use the same priority selector: victory, hit, front during rear view, steering, then rear.
 - Chase and rear cameras must confirm the nose and steering wheel face forward of Manaconda. Any axis correction applies only to the visual root and is recorded.
 - Acceptance requires desktop and mobile confirmation of portrait, production kart, all five driver states, and orientation.
 
 ## Runtime integration checkpoint
 
-- Controlled revision: `manaconda-runtime-20260820-1` on the portrait, Wayfinder, and all five driver URLs.
+- Controlled revision: `manaconda-runtime-20260831-2` on the portrait, Wayfinder, and all six driver URLs.
 - Manifest identity: AA-09 production character `Manaconda`, `Technical Cruiser`, The Wayfinder, approved 7 / 6 / 6 / 6 / 6 / 5 statistics.
 - Visual-root yaw: 180 degrees around local Y. Although the GLB declares negative-Z forward, the deployed chase camera proved the grille/navigation core faced backward at zero yaw. Runtime visual evidence is authoritative; physics coordinates remain unchanged.
 - The production build signature gate covers all three AA-09 GLBs in addition to Lavi's package.

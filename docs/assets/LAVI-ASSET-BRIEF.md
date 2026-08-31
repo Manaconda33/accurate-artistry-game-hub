@@ -46,6 +46,7 @@ Production assets follow PRD sections 2.1, 23, and 27:
 | ----------------- | ------------------------------------------------ | --------------------- |
 | Portrait          | 256 x 256 PNG, transparent, sRGB, straight alpha | Approved and prepared |
 | Rear driver frame | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
+| Front driver frame | 512 x 512 PNG, transparent, sRGB                | Approved and prepared 2026-08-31 |
 | Steer-left frame  | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
 | Steer-right frame | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
 | Hit frame         | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
@@ -53,6 +54,12 @@ Production assets follow PRD sections 2.1, 23, and 27:
 | Potato kart       | GLB with PRD hierarchy and LOD budgets           | Approved and prepared |
 
 Generated concepts remain candidates until Manny approves them. Approval of the portrait does not automatically approve the five driver states or Potato's 3D asset.
+
+## Front driver candidate 1
+
+- **Approval:** Manny approved the direct front seated pose and deterministic checkerboard removal on 2026-08-31.
+- **Production derivative:** `public/assets/characters/aa-02/driver/front.png`.
+- **Production validation:** 512 x 512 sRGB RGBA PNG with transparent corners; SHA-256 `36a8fddd94c6f4f62f904145d4a54b08e2649b29fdfe7f9310d6e3d7cf483fa8`.
 
 ## Potato 3D candidate 4
 
@@ -133,8 +140,8 @@ Generated concepts remain candidates until Manny approves them. Approval of the 
 
 ## Runtime delivery and integration record
 
-- **Controlled revision:** `lavi-runtime-20260816-3`. Public runtime URLs combine Vite’s base URL with this query revision. Change it whenever Potato or Lavi’s delivered runtime bytes change at a stable path.
+- **Controlled revision:** `lavi-runtime-20260831-4`. Public runtime URLs combine Vite’s base URL with this query revision. Change it whenever Potato or Lavi’s delivered runtime bytes change at a stable path.
 - **LFS deployment rule:** the Pages build materializes LFS, passes `git lfs fsck`, and runs `tools/verify-runtime-assets.mjs`; all three Potato GLBs must have the `glTF` binary signature before deployment.
-- **Driver runtime contract:** preload rear, steer-left, steer-right, hit, and victory; retain rear if an optional frame cannot load. Visual left/right, collision-hit, and player-finish select their matching approved frame.
+- **Driver runtime contract:** preload all six states. Player and AI use the same priority selector: victory, hit, front during rear view, steering, then rear.
 - **Visual alignment:** load-time `model.rotation.y = Math.PI` corrects Potato’s visual root to the game’s negative-Z forward direction. It is not a physics, camera, checkpoint, or mount-coordinate change.
 - **Live acceptance:** Manny confirmed Potato loading, steering-state artwork, and correct steering-wheel-forward orientation in the mobile GitHub Pages build on 2026-08-16.

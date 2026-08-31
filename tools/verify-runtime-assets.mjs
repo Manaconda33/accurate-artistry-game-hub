@@ -102,6 +102,14 @@ const lulaProtectedRects = {
 };
 
 const runtimePngs = [
+  ['public/assets/characters/aa-02/driver/front.png', 512, 512],
+  ['public/assets/characters/aa-09/driver/front.png', 512, 512],
+  ['public/assets/characters/aa-11/driver/front.png', 512, 512],
+  ['public/assets/characters/aa-11/driver/rear.png', 512, 512],
+  ['public/assets/characters/aa-11/driver/steer-left.png', 512, 512],
+  ['public/assets/characters/aa-11/driver/steer-right.png', 512, 512],
+  ['public/assets/characters/aa-11/driver/hit.png', 512, 512],
+  ['public/assets/characters/aa-11/driver/victory.png', 512, 512],
   ['public/assets/characters/aa-04/portrait.png', 256, 256],
   ['public/assets/characters/aa-04/driver/front.png', 512, 512],
   ['public/assets/characters/aa-04/driver/rear.png', 512, 512],
@@ -131,6 +139,18 @@ const runtimePngs = [
   ['public/assets/characters/aa-03/driver/hit.png', 512, 512],
   ['public/assets/characters/aa-03/driver/victory.png', 512, 512],
 ];
+
+const newTransparentFronts = new Set([
+  'public/assets/characters/aa-02/driver/front.png',
+  'public/assets/characters/aa-09/driver/front.png',
+  'public/assets/characters/aa-11/driver/front.png',
+]);
+
+const accuApertureRects = {
+  'steer-left.png': [90, 225, 128, 261],
+  'steer-right.png': [371, 199, 424, 230],
+  'victory.png': [86, 293, 119, 321],
+};
 
 for (const [path, expectedWidth, expectedHeight] of runtimePngs) {
   const png = await readFile(path);
@@ -172,6 +192,44 @@ for (const [path, expectedWidth, expectedHeight] of runtimePngs) {
     const filter = pixels[row * rowLength];
     if (filter > 4)
       throw new Error(`${path} has invalid PNG filter ${String(filter)} on row ${String(row)}.`);
+  }
+
+  if (newTransparentFronts.has(path)) {
+    const decoded = decodeRgbaRows(pixels, width, height);
+    const corners = [0, width - 1, (height - 1) * width, width * height - 1];
+    if (corners.some((pixel) => decoded[pixel * 4 + 3] !== 0)) {
+      throw new Error(`${path} must have transparent corners after checkerboard removal.`);
+    }
+  }
+
+  if (path.includes('/aa-11/driver/')) {
+    const filename = path.split('/').at(-1);
+    const aperture = accuApertureRects[filename];
+    if (aperture !== undefined) {
+      const decoded = decodeRgbaRows(pixels, width, height);
+      let residualBackground = 0;
+      for (let y = aperture[1]; y < aperture[3]; y += 1) {
+        for (let x = aperture[0]; x < aperture[2]; x += 1) {
+          const offset = (y * width + x) * 4;
+          const red = decoded[offset];
+          const green = decoded[offset + 1];
+          const blue = decoded[offset + 2];
+          const alpha = decoded[offset + 3];
+          if (
+            alpha > 0 &&
+            Math.min(red, green, blue) >= 185 &&
+            Math.max(red, green, blue) - Math.min(red, green, blue) <= 35
+          ) {
+            residualBackground += 1;
+          }
+        }
+      }
+      if (residualBackground > 0) {
+        throw new Error(
+          `${path} retains ${String(residualBackground)} opaque neutral checker pixels in its steering-wheel aperture.`,
+        );
+      }
+    }
   }
 
   if (path.includes('/aa-03/')) {

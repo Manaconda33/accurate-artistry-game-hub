@@ -35,6 +35,7 @@
 | ----------------------------------------------- | ----------------------------------------------- | -------------------------------- |
 | Portrait                                        | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared 2026-08-20 |
 | Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB                 | Approved and prepared 2026-08-20 |
+| Front                                            | 512 x 512 transparent PNG, sRGB                 | Approved and prepared 2026-08-31 |
 | Pink Precision                                  | GLB with PRD hierarchy and LOD budgets          | Approved and prepared 2026-08-20 |
 
 ## Approved Pink Precision model checkpoint
@@ -54,19 +55,21 @@
 - All six files are sRGB RGBA PNGs with genuine transparency, alpha spanning 0 to 1, and transparent corner pixels.
 - Victory keeps Accu's seated driving orientation while she turns naturally over her shoulder toward the viewer; it does not use a full-body about-face.
 - The driver art contains steering wheels where required by the approved compositions. Runtime integration must verify that these do not conflict visually with the future 3D steering control.
+- Manny approved the front seated pose and deterministic alpha repair on 2026-08-31. The front derivative SHA-256 is `d62ba47bb7d1da6a6f504a7e4f422caf8b6725d7ce54de226b8ce8cfc2ba6e15`.
+- Neutral checker remnants were removed only from the steering-wheel apertures in steer-left, steer-right, and victory. The character pixels and compositions were not redrawn.
 
 ## Runtime delivery requirements
 
 - Manifest URLs use a controlled base-aware revision whenever stable runtime bytes change.
 - Pages materializes LFS, passes `git lfs fsck`, and rejects an LFS pointer or invalid glTF binary signature before deployment.
-- Runtime preloads all five driver states and retains rear as the safe fallback.
+- Runtime preloads all six driver states and retains rear as the safe fallback.
 - Chase and rear cameras must confirm Pink Precision's nose, cannon, controls, and treads face the correct direction. Any axis correction applies only to the visual root and is recorded.
 - Acceptance requires desktop and mobile confirmation of Accu's portrait, production kart, all five driver states, and orientation.
 
 ## Runtime integration checkpoint
 
-- Controlled asset revision: `accu-runtime-20260820-1`.
-- The character manifest selects Accu's approved portrait, Pink Precision LOD0, and all five driver frames for AA-11.
+- Controlled asset revision: `accu-runtime-20260831-2`.
+- The character manifest selects Accu's approved portrait, Pink Precision LOD0, and all six driver frames for AA-11. Her rear/steering mount is `[0, 0.95, 0.22]` so the modeled control remains in front; the front-camera frame uses `[0, 0.45, 0.22]`.
 - Pink Precision declares negative-Z authored forward and therefore uses the runtime's enforced `NEGATIVE_Z_KART_VISUAL_YAW` (`Math.PI`). The transform affects only the model root; physics, checkpoints, controls, driver sprites, and cameras remain unchanged.
 - The production signature gate includes all three Pink Precision GLBs. A pointer or invalid GLB at any required path fails the build.
 - Deployment and product-owner desktop/mobile confirmation remain required before the integration checkpoint can pass.

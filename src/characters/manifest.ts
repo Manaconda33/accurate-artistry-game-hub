@@ -24,7 +24,7 @@ export interface CharacterDefinition {
   frontDriverSpritePosition?: readonly [number, number, number];
   driver?: {
     rear: string;
-    front?: string;
+    front: string;
     steerLeft: string;
     steerRight: string;
     hit: string;
@@ -39,9 +39,9 @@ export const STAT_TOTAL = 36;
 // opposite, so the visual root must rotate PI without touching physics.
 export const NEGATIVE_Z_KART_VISUAL_YAW = Math.PI;
 
-export const LAVI_ASSET_REVISION = 'lavi-runtime-20260816-3';
-export const MANACONDA_ASSET_REVISION = 'manaconda-runtime-20260820-1';
-export const ACCU_ASSET_REVISION = 'accu-runtime-20260820-1';
+export const LAVI_ASSET_REVISION = 'lavi-runtime-20260831-4';
+export const MANACONDA_ASSET_REVISION = 'manaconda-runtime-20260831-2';
+export const ACCU_ASSET_REVISION = 'accu-runtime-20260831-2';
 export const KRAKEN_ASSET_REVISION = 'kraken-runtime-20260821-1';
 export const CLEO_ASSET_REVISION = 'cleo-runtime-20260821-1';
 export const KRIOS_ASSET_REVISION = 'krios-runtime-20260822-1';
@@ -64,8 +64,10 @@ const lavi: CharacterDefinition = {
   kartName: 'Potato',
   kart: assetUrl('assets/characters/aa-02/kart.glb', LAVI_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  frontDriverSpritePosition: [0, 0.45, -0.12],
   driver: {
     rear: assetUrl('assets/characters/aa-02/driver/rear.png', LAVI_ASSET_REVISION),
+    front: assetUrl('assets/characters/aa-02/driver/front.png', LAVI_ASSET_REVISION),
     steerLeft: assetUrl('assets/characters/aa-02/driver/steer-left.png', LAVI_ASSET_REVISION),
     steerRight: assetUrl('assets/characters/aa-02/driver/steer-right.png', LAVI_ASSET_REVISION),
     hit: assetUrl('assets/characters/aa-02/driver/hit.png', LAVI_ASSET_REVISION),
@@ -85,8 +87,10 @@ const manaconda: CharacterDefinition = {
   kartName: 'The Wayfinder',
   kart: assetUrl('assets/characters/aa-09/kart.glb', MANACONDA_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  frontDriverSpritePosition: [0, 0.45, -0.12],
   driver: {
     rear: assetUrl('assets/characters/aa-09/driver/rear.png', MANACONDA_ASSET_REVISION),
+    front: assetUrl('assets/characters/aa-09/driver/front.png', MANACONDA_ASSET_REVISION),
     steerLeft: assetUrl('assets/characters/aa-09/driver/steer-left.png', MANACONDA_ASSET_REVISION),
     steerRight: assetUrl(
       'assets/characters/aa-09/driver/steer-right.png',
@@ -109,8 +113,11 @@ const accu: CharacterDefinition = {
   kartName: 'Pink Precision',
   kart: assetUrl('assets/characters/aa-11/kart.glb', ACCU_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  driverSpritePosition: [0, 0.95, 0.22],
+  frontDriverSpritePosition: [0, 0.45, 0.22],
   driver: {
     rear: assetUrl('assets/characters/aa-11/driver/rear.png', ACCU_ASSET_REVISION),
+    front: assetUrl('assets/characters/aa-11/driver/front.png', ACCU_ASSET_REVISION),
     steerLeft: assetUrl('assets/characters/aa-11/driver/steer-left.png', ACCU_ASSET_REVISION),
     steerRight: assetUrl('assets/characters/aa-11/driver/steer-right.png', ACCU_ASSET_REVISION),
     hit: assetUrl('assets/characters/aa-11/driver/hit.png', ACCU_ASSET_REVISION),
@@ -349,6 +356,9 @@ export function validateCharacterManifest(
       !character.kartName
     ) {
       errors.push(`${character.id} production kart must declare its approved name.`);
+    }
+    if (character.assetState === 'production' && character.driver === undefined) {
+      errors.push(`${character.id} production character must declare all driver sprite states.`);
     }
   }
   return errors;

@@ -6,7 +6,7 @@
 
 High-Fidelity HTML5 Kart Racer Vertical Slice + Modular Mini-Game Hub
 
-Version 1.1 - Final approved baseline; working implementation amendment 1.8
+Version 1.1 - Final approved baseline; working implementation amendment 1.9
 
 August 16, 2026
 
@@ -41,6 +41,10 @@ Approved August 30, 2026. Meaningful kart-to-kart impacts must reduce positive f
 ## Approved implementation amendment 1.8 - AI Speed-stat authority
 
 Approved August 31, 2026. Every AI racer must use its selected character's Speed-derived kart maximum as its clear-straight target. AI pace profiles may change corner-speed judgment, braking, lane choice, and consistency, but may not replace the character's straight-line ceiling with an unrelated absolute speed. A leading AI receives no hidden top-speed reduction. A trailing AI may receive only the bounded top-speed allowance defined in section 21.6. This amendment changes AI speed targeting without changing roster statistics or player performance.
+
+## Approved implementation amendment 1.9 - Complete and shared driver-sprite states
+
+Approved August 31, 2026. Every active production character must provide the full transparent 512 x 512 driver package: rear, front, steer-left, steer-right, hit, and victory. Transparent openings inside props such as steering wheels must contain alpha rather than baked white or checkerboard pixels. Player and AI racers must use one state-selection contract: steering selects the matching turn frame, a kart impact temporarily selects hit, finishing selects victory, and the player rear-view camera selects front for every visible production driver because the camera is facing the fronts of their karts. Each character may define governed neutral and front placement overrides so the driver remains behind the modeled steering controls and seated in the cockpit. Existing identity, kart, stat, and approved-art locks remain unchanged; new or repaired raster derivatives require visual review before publication.
 
 # Contents
 

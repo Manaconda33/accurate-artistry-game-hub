@@ -118,3 +118,15 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Product impact:** Players can read pack spacing and approaching traffic without relying only on rank. The map remains visible during normal and rear-camera driving but does not compete with mobile controls or the victory pose.
 - **Scope:** This closes the minimap portion of Slice 6. It does not add item HUD, player portrait HUD, final-lap treatment, pause, audio, or other remaining Slice 6 work.
 - **Approval:** Manny requested the racer-tracking minimap and mobile-aware placement on 2026-08-31, then selected pixel-rendered driver heads as the marker treatment before publication.
+
+## ADR-031: Use one driver-sprite state contract for player and AI racers
+
+- **Date:** 2026-08-31
+- **Status:** Approved
+- **Context:** Production AI drivers remained on their rear frame while turning, colliding, finishing, and appearing in the player's rear-view camera. Three active drivers also lacked the required front frame, and Accu exposed baked checkerboard pixels and incorrect cockpit depth.
+- **Decision:** Player and AI sprites use the same ordered state selector: victory, hit, front during rear view, steering, then rear. Every involved racer receives a hit window after kart contact. Character-specific neutral/front placement overrides remain manifest data. New or repaired bitmap derivatives stay outside runtime paths until they pass alpha validation and Manny's visual approval.
+- **Rationale:** A single selector prevents player and AI behavior from drifting while preserving character-specific art and cockpit placement. Keeping visual candidates approval-gated protects existing likeness and asset locks.
+- **Product impact:** AI drivers visibly react to the race rather than appearing static, and rear view can show every driver's face once all missing front assets are approved.
+- **Scope:** This does not change AI driving decisions, physics, roster stats, kart geometry, cameras, race ranking, or character identity.
+- **Implementation closure:** Manny approved the Lavi, corrected Manaconda, and Accu front candidates plus deterministic alpha cleanup on 2026-08-31. All active production packages now contain six validated states; Accu's three affected wheel apertures are transparent; controlled revisions prevent stale cached art.
+- **Approval:** Manny requested complete driver-state behavior and the Accu corrections on 2026-08-31.

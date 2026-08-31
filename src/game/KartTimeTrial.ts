@@ -17,8 +17,7 @@ import { createTrackScene } from './track/createTrackScene';
 import { characterManifest, type CharacterDefinition } from '../characters/manifest';
 import { selectAiRoster } from '../characters/raceRoster';
 import { normalizeMinimapTrack, type MinimapState } from './ui/Minimap';
-
-type DriverFrame = 'rear' | 'front' | 'steerLeft' | 'steerRight' | 'hit' | 'victory';
+import { selectDriverFrame, type DriverFrame } from './driver/DriverSpriteState';
 
 export interface HudState {
   lap: number;
@@ -58,10 +57,25 @@ interface AiRacer {
   controller: KartController;
   driver: AiDriver;
   mesh: THREE.Group;
+  driverVisual: DriverSpriteVisual | null;
+  driverHitSeconds: number;
+  steering: number;
   lapTracker: LapTracker;
   progress: RacerProgress;
   lastCheckpointOverlap: number;
   recoveryCooldown: number;
+}
+
+interface DriverSpriteVisual {
+  character: CharacterDefinition;
+  sprite: THREE.Sprite;
+  textures: Map<DriverFrame, THREE.Texture>;
+  activeFrame: DriverFrame;
+}
+
+interface OpponentVisual {
+  group: THREE.Group;
+  driverVisual: DriverSpriteVisual | null;
 }
 
 export class KartTimeTrial {
@@ -95,9 +109,7 @@ export class KartTimeTrial {
   private fps = 60;
   private lastToneTier: DriftTier = 'none';
   private readonly touchPressed = new Set<string>();
-  private readonly driverTextures = new Map<DriverFrame, THREE.Texture>();
-  private driverSprite: THREE.Sprite | null = null;
-  private activeDriverFrame: DriverFrame = 'rear';
+  private playerDriverVisual: DriverSpriteVisual | null = null;
   private driverHitSeconds = 0;
   private playerSteering = 0;
   private rearViewActive = false;
@@ -301,6 +313,7 @@ export class KartTimeTrial {
     ];
     for (const opponent of this.opponents) {
       opponent.recoveryCooldown = Math.max(0, opponent.recoveryCooldown - dt);
+      opponent.driverHitSeconds = Math.max(0, opponent.driverHitSeconds - dt);
       const position = opponent.controller.position();
       const projection = this.track.project(position);
       const snapshot = opponent.lapTracker.snapshot();
@@ -315,6 +328,7 @@ export class KartTimeTrial {
             racerAwareness.filter(({ id }) => id !== opponent.id),
             dt,
           );
+      opponent.steering = input.steering;
       opponent.controller.update(input, projection.surface, dt);
 
       const checkpoint = this.nearestCheckpoint(position);
@@ -377,10 +391,20 @@ export class KartTimeTrial {
         b.controller.applyCollisionSpeedRetention(
           collisionSpeedRetention(b.controller.weight(), a.controller.weight(), closingSpeed),
         );
-        if (a.id === 'player' || b.id === 'player') this.driverHitSeconds = 0.32;
+        this.activateDriverHit(a.id);
+        this.activateDriverHit(b.id);
         this.contactCooldowns.set(key, 0.18);
       }
     }
+  }
+
+  private activateDriverHit(racerId: string): void {
+    if (racerId === 'player') {
+      this.driverHitSeconds = 0.32;
+      return;
+    }
+    const opponent = this.opponents.find(({ id }) => id === racerId);
+    if (opponent !== undefined) opponent.driverHitSeconds = 0.32;
   }
 
   private currentStandings(): RacerProgress[] {
@@ -407,6 +431,17 @@ export class KartTimeTrial {
       const opponentForward = opponent.controller.forward();
       opponent.mesh.position.copy(opponentPosition);
       opponent.mesh.rotation.y = Math.atan2(opponentForward.x, opponentForward.z);
+      if (opponent.driverVisual !== null) {
+        this.applyDriverFrame(
+          opponent.driverVisual,
+          selectDriverFrame({
+            finished: opponent.progress.finished,
+            hitSeconds: opponent.driverHitSeconds,
+            rearView: this.rearViewActive,
+            steering: opponent.steering,
+          }),
+        );
+      }
     }
     const feedback = this.kart.feedback();
     const color =
@@ -425,7 +460,7 @@ export class KartTimeTrial {
       playDriftTierTone(feedback.driftTier, context);
     }
     this.lastToneTier = feedback.driftTier;
-    this.updateDriverSprite();
+    this.updatePlayerDriverSprite();
   }
 
   private updateHud(frameSeconds: number): void {
@@ -515,8 +550,15 @@ export class KartTimeTrial {
   }
 
   private addDriverSprite(): void {
-    const driver = this.options.character.driver;
-    if (driver === undefined) return;
+    const visual = this.createDriverSpriteVisual(this.options.character);
+    if (visual === null) return;
+    this.kartMesh.add(visual.sprite);
+    this.playerDriverVisual = visual;
+  }
+
+  private createDriverSpriteVisual(character: CharacterDefinition): DriverSpriteVisual | null {
+    const driver = character.driver;
+    if (driver === undefined) return null;
     const loader = new THREE.TextureLoader();
     const paths: Partial<Record<DriverFrame, string>> = {
       rear: driver.rear,
@@ -528,65 +570,63 @@ export class KartTimeTrial {
     };
     const rearTexture = loader.load(driver.rear);
     rearTexture.colorSpace = THREE.SRGBColorSpace;
-    this.driverTextures.set('rear', rearTexture);
+    const visual: DriverSpriteVisual = {
+      character,
+      sprite: new THREE.Sprite(
+        new THREE.SpriteMaterial({ map: rearTexture, transparent: true, depthWrite: false }),
+      ),
+      textures: new Map([['rear', rearTexture]]),
+      activeFrame: 'rear',
+    };
     for (const [frame, path] of Object.entries(paths) as [DriverFrame, string | undefined][]) {
       if (frame === 'rear' || path === undefined) continue;
       loader.load(
         path,
         (texture) => {
           texture.colorSpace = THREE.SRGBColorSpace;
-          this.driverTextures.set(frame, texture);
-          if (this.activeDriverFrame === frame) this.applyDriverFrame(frame);
+          visual.textures.set(frame, texture);
+          if (visual.activeFrame === frame) this.applyDriverFrame(visual, frame);
         },
         undefined,
         () => {
-          console.warn(
-            `Could not load ${this.options.character.displayName}'s ${frame} driver frame.`,
-          );
+          console.warn(`Could not load ${character.displayName}'s ${frame} driver frame.`);
         },
       );
     }
-    const sprite = new THREE.Sprite(
-      new THREE.SpriteMaterial({ map: rearTexture, transparent: true, depthWrite: false }),
+    visual.sprite.name = `${character.displayName}DriverSprite`;
+    visual.sprite.scale.set(1.45, 1.45, 1);
+    visual.sprite.position.set(...(character.driverSpritePosition ?? [0, 0.95, -0.12]));
+    return visual;
+  }
+
+  private updatePlayerDriverSprite(): void {
+    if (this.playerDriverVisual === null) return;
+    this.applyDriverFrame(
+      this.playerDriverVisual,
+      selectDriverFrame({
+        finished: this.playerProgress.finished,
+        hitSeconds: this.driverHitSeconds,
+        rearView: this.rearViewActive,
+        steering: this.playerSteering,
+      }),
     );
-    sprite.name = 'DriverSprite';
-    sprite.scale.set(1.45, 1.45, 1);
-    sprite.position.set(...(this.options.character.driverSpritePosition ?? [0, 0.95, -0.12]));
-    this.kartMesh.add(sprite);
-    this.driverSprite = sprite;
   }
 
-  private updateDriverSprite(): void {
-    if (this.driverSprite === null) return;
-    const desired: DriverFrame = this.playerProgress.finished
-      ? 'victory'
-      : this.driverHitSeconds > 0
-        ? 'hit'
-        : this.rearViewActive
-          ? 'front'
-          : this.playerSteering > 0.15
-            ? 'steerLeft'
-            : this.playerSteering < -0.15
-              ? 'steerRight'
-              : 'rear';
-    this.applyDriverFrame(desired);
-  }
-
-  private applyDriverFrame(frame: DriverFrame): void {
-    const texture = this.driverTextures.get(frame) ?? this.driverTextures.get('rear');
-    if (this.driverSprite === null || texture === undefined) return;
-    const material = this.driverSprite.material;
+  private applyDriverFrame(visual: DriverSpriteVisual, frame: DriverFrame): void {
+    const texture = visual.textures.get(frame) ?? visual.textures.get('rear');
+    if (texture === undefined) return;
+    const material = visual.sprite.material;
     if (material.map !== texture) {
       material.map = texture;
       material.needsUpdate = true;
     }
-    const defaultPosition = this.options.character.driverSpritePosition ?? [0, 0.95, -0.12];
+    const defaultPosition = visual.character.driverSpritePosition ?? [0, 0.95, -0.12];
     const position =
       frame === 'front'
-        ? (this.options.character.frontDriverSpritePosition ?? defaultPosition)
+        ? (visual.character.frontDriverSpritePosition ?? defaultPosition)
         : defaultPosition;
-    this.driverSprite.position.set(...position);
-    this.activeDriverFrame = frame;
+    visual.sprite.position.set(...position);
+    visual.activeFrame = frame;
   }
 
   private addDriftLights(): void {
@@ -649,8 +689,8 @@ export class KartTimeTrial {
       const stats = character.stats;
       const tuning = createKartTuning(stats);
       const controller = new KartController(this.world, tuning, stats, position, yaw);
-      const mesh = this.createOpponentVisual(character);
-      this.scene.add(mesh);
+      const visual = this.createOpponentVisual(character);
+      this.scene.add(visual.group);
       this.opponents.push({
         id: `ai-${String(index + 1)}`,
         name: character.displayName,
@@ -665,7 +705,10 @@ export class KartTimeTrial {
           },
           tuning.maxSpeed,
         ),
-        mesh,
+        mesh: visual.group,
+        driverVisual: visual.driverVisual,
+        driverHitSeconds: 0,
+        steering: 0,
         lapTracker: new LapTracker(),
         progress: {
           id: `ai-${String(index + 1)}`,
@@ -681,8 +724,9 @@ export class KartTimeTrial {
     }
   }
 
-  private createOpponentVisual(character: CharacterDefinition): THREE.Group {
+  private createOpponentVisual(character: CharacterDefinition): OpponentVisual {
     const group = new THREE.Group();
+    const driverVisual = this.createDriverSpriteVisual(character);
     if (character.kart !== undefined) {
       void new GLTFLoader().loadAsync(character.kart).then(
         (gltf) => {
@@ -701,16 +745,7 @@ export class KartTimeTrial {
           });
           group.clear();
           group.add(model);
-          if (character.driver !== undefined) {
-            const texture = new THREE.TextureLoader().load(character.driver.rear);
-            texture.colorSpace = THREE.SRGBColorSpace;
-            const sprite = new THREE.Sprite(
-              new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false }),
-            );
-            sprite.scale.set(1.45, 1.45, 1);
-            sprite.position.set(...(character.driverSpritePosition ?? [0, 0.95, -0.12]));
-            group.add(sprite);
-          }
+          if (driverVisual !== null) group.add(driverVisual.sprite);
         },
         () => {
           console.warn(`Could not load AI kart for ${character.displayName}; using fallback.`);
@@ -733,7 +768,8 @@ export class KartTimeTrial {
     );
     canopy.position.set(0, 0.55, -0.15);
     group.add(chassis, canopy);
-    return group;
+    if (driverVisual !== null) group.add(driverVisual.sprite);
+    return { group, driverVisual };
   }
 
   private bindEvents(): void {

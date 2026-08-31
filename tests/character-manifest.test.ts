@@ -33,7 +33,9 @@ describe('character manifest', () => {
       `/assets/characters/aa-09/kart.glb?v=${MANACONDA_ASSET_REVISION}`,
     );
     expect(manaconda.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(manaconda.frontDriverSpritePosition).toEqual([0, 0.45, -0.12]);
     expect(manaconda.driver?.rear).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
+    expect(manaconda.driver?.front).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
     expect(manaconda.driver?.steerLeft).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
     expect(manaconda.driver?.steerRight).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
     expect(manaconda.driver?.hit).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
@@ -55,7 +57,10 @@ describe('character manifest', () => {
     expect(accu.assetState).toBe('production');
     expect(accu.kart).toContain(`/assets/characters/aa-11/kart.glb?v=${ACCU_ASSET_REVISION}`);
     expect(accu.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(accu.driverSpritePosition).toEqual([0, 0.95, 0.22]);
+    expect(accu.frontDriverSpritePosition).toEqual([0, 0.45, 0.22]);
     expect(accu.driver?.rear).toContain(`?v=${ACCU_ASSET_REVISION}`);
+    expect(accu.driver?.front).toContain(`?v=${ACCU_ASSET_REVISION}`);
     expect(accu.driver?.steerLeft).toContain(`?v=${ACCU_ASSET_REVISION}`);
     expect(accu.driver?.steerRight).toContain(`?v=${ACCU_ASSET_REVISION}`);
     expect(accu.driver?.hit).toContain(`?v=${ACCU_ASSET_REVISION}`);
@@ -196,6 +201,8 @@ describe('character manifest', () => {
     expect(lavi.displayName).toBe('Lavi');
     expect(lavi.assetState).toBe('production');
     expect(lavi.kart).toContain(`/assets/characters/aa-02/kart.glb?v=${LAVI_ASSET_REVISION}`);
+    expect(lavi.frontDriverSpritePosition).toEqual([0, 0.45, -0.12]);
+    expect(lavi.driver?.front).toContain(`?v=${LAVI_ASSET_REVISION}`);
     expect(lavi.driver?.steerLeft).toContain(`?v=${LAVI_ASSET_REVISION}`);
     expect(lavi.driver?.steerRight).toContain(`?v=${LAVI_ASSET_REVISION}`);
     expect(lavi.stats).toEqual({
