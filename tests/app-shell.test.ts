@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { APP_TITLE, markGameFinished, mountAppShell } from '../src/app/mountAppShell';
+import { raceMinimapMarkup } from '../src/app/raceMinimap';
 
 describe('Slice 0 app shell', () => {
   it('mounts the product title without entering gameplay', () => {
@@ -65,5 +66,13 @@ describe('Slice 0 app shell', () => {
     markGameFinished(shell);
 
     expect(shell.classList.contains('is-finished')).toBe(true);
+  });
+
+  it('provides a non-interactive race minimap surface for responsive HUD placement', () => {
+    const host = document.createElement('div');
+    host.innerHTML = raceMinimapMarkup();
+
+    expect(host.querySelector('[data-race-minimap]')?.getAttribute('role')).toBe('img');
+    expect(host.querySelector('[data-minimap-racers]')).not.toBeNull();
   });
 });

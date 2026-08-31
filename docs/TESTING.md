@@ -239,6 +239,19 @@ Run this matrix for every future production character, in addition to its slice-
 - The results card stays above all retired touch targets, and Return to Hub remains reachable without scrolling the page.
 - After the player finishes, the compact results panel leaves the live kart and victory pose clearly visible while all eight standings remain reachable.
 
+## Race minimap matrix
+
+- The rendered closed-course path is generated from Circuit Alpha's ordered samples, not a separately authored approximation.
+- Track normalization preserves the course aspect ratio and keeps every point inside the padded SVG view box.
+- Exactly eight markers appear during a full race: seven pixel-rendered head crops from approved driver portraits and one larger, gold-outlined player head drawn above them.
+- Marker positions interpolate closed-course progress and wrap cleanly from progress 1 back to 0.
+- Desktop places the map below the Lap HUD on the left without obscuring the track horizon, Surface HUD, or drift meter.
+- Mobile reduces the map in the upper-left HUD column so it stays clear of Position, centered REAR/RESET controls, and bottom steering/action controls.
+- Rear camera retains the minimap. The compact finish state hides it with the live HUD so it cannot obscure the victory pose or results controls.
+- The static track path is written only when its shared topology reference changes; normal HUD updates move markers without rebuilding the SVG course every frame.
+
+For live acceptance, complete at least one desktop and one mobile race. Confirm that all eight driver heads are recognizable, move continuously around the correct course shape, the player remains easy to identify in a cluster, mobile controls remain unobstructed, and the map disappears when results open.
+
 ## Manaconda / Wayfinder manual matrix
 
 - AA-09 renders Manaconda's approved portrait and identifies the kart as The Wayfinder rather than a placeholder or fallback prototype.

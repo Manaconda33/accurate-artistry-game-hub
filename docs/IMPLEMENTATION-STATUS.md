@@ -81,7 +81,7 @@ Continuity closure completed by PR #32:
 - Continue Slice 3 one-character-at-a-time intake and approval for remaining roster slots.
 - Complete any still-unrecorded desktop/mobile acceptance checks for other integrated production characters as required by `docs/TESTING.md`.
 - Items and AI item use remain Slice 5.
-- Final HUD/audio/post-processing/optimization remain Slice 6.
+- Remaining HUD elements, audio, post-processing, and optimization remain Slice 6; the shared-topology race minimap is now implemented on its validation branch.
 
 ## Player speed/acceleration coupling correction: live speed ceiling accepted
 
@@ -121,7 +121,7 @@ Continuity closure completed by PR #32:
 - Manny confirmed on 2026-08-31 that the collision work is successful and directed continued gameplay balancing.
 - Status: **LIVE ACCEPTED — WEIGHT-DRIVEN KART COLLISION SPEED LOSS COMPLETE.**
 
-## AI Speed-stat authority correction: branch validated; live acceptance pending
+## AI Speed-stat authority correction: live accepted
 
 - Live testing found that AI racers consistently appeared unable to reach the unboosted maximum available to player-controlled versions of the same roster.
 - Root cause: AI desired speed used an absolute grid-profile range of roughly 20.5–26.0 m/s rather than the selected character's Speed-derived `maxSpeed`. In the circuit regression, the first AI profile peaked at 24.1 m/s against a 29.7 m/s cap.
@@ -130,7 +130,18 @@ Continuity closure completed by PR #32:
 - Focused AI, controller, circuit, and overtaking regressions pass. Every configured pace profile reaches at least 98% of the tested character maximum while retaining valid laps, road bounds, grass limits, and stat-driven passing.
 - Roster stats, player behavior, Acceleration, collision response, lane selection, surfaces, and items are unchanged.
 - `npm run validate` passes: strict typecheck, zero-warning lint, 68 tests across 14 files, 81.6% statement coverage, runtime verification of 27 GLBs and 28 PNGs, and production build.
-- Status: **BRANCH VALIDATED — PUBLICATION, DEPLOYMENT, AND LIVE PRODUCT-OWNER ACCEPTANCE REMAIN REQUIRED.**
+- PR #48 passed branch CI run `33348287518`, merged to `main` at `a9e9739616450a25fd967329ebbada6cd769d532`, and passed main validation and GitHub Pages deployment in run `33348420077`.
+- Manny confirmed on 2026-08-31 that the live AI Speed-stat correction passed playtesting.
+- Status: **LIVE ACCEPTED — AI SPEED-STAT AUTHORITY CORRECTION COMPLETE.**
+
+## Shared-topology race minimap: branch validated
+
+- The live HUD now includes an SVG minimap derived from Circuit Alpha's same 384 ordered samples used for projection and race progress.
+- All eight markers use nearest-neighbor head crops from their approved transparent 2D portraits. The player head is larger, gold-outlined, and rendered last so it remains legible in a cluster.
+- Racer markers interpolate normalized track progress; the immutable course path is cached rather than rebuilt during every HUD frame.
+- Desktop placement is below the Lap HUD. Mobile uses a reduced upper-left map that remains above the bottom driving controls and away from the right-side Position HUD. The map hides during the compact finish presentation.
+- `npm run validate` passes: strict typecheck, zero-warning lint, 72 tests across 15 files, 82.9% statement coverage, runtime verification of 27 GLBs and 28 PNGs, and production build.
+- Live desktop and mobile acceptance remain required before publication.
 
 ## Lula production status — complete
 

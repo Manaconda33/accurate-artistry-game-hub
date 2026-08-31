@@ -3,6 +3,7 @@ import { resumeAudioContext } from '../audio/driftTone';
 import type { HudState, KartTimeTrial as KartTimeTrialInstance } from '../game/KartTimeTrial';
 import { isMobileSession } from './mobileSession';
 import { characterById, characterManifest, type CharacterDefinition } from '../characters/manifest';
+import { raceMinimapMarkup, updateRaceMinimap } from './raceMinimap';
 
 export const APP_TITLE = 'Accurate Artistry Game Hub';
 
@@ -163,6 +164,7 @@ export function mountAppShell(root: HTMLElement): void {
         <div class="hud top-center"><span>Time</span><strong id="time">0:00.00</strong></div>
         <div class="hud top-right"><span>Speed</span><strong id="speed">0 km/h</strong></div>
         <div class="hud position-hud"><span>Position</span><strong id="position">1 / 8</strong></div>
+        ${raceMinimapMarkup()}
         <div class="hud bottom-left"><span>Surface</span><strong id="surface">ASPHALT</strong></div>
         <div class="hud bottom-right performance"><span>Performance</span><strong id="performance">60 FPS · 16.7 ms</strong></div>
         <div id="drift-panel" class="drift-panel" data-tier="none">
@@ -185,6 +187,7 @@ export function mountAppShell(root: HTMLElement): void {
       if (element === null) throw new Error(`Required UI element missing: ${selector}`);
       return element;
     };
+    const minimap = getElement('[data-race-minimap]');
     const updateHud = (state: HudState): void => {
       getElement('#lap').textContent = `${String(state.lap)} / 3`;
       getElement('#time').textContent = formatTime(state.elapsed);
@@ -196,6 +199,7 @@ export function mountAppShell(root: HTMLElement): void {
       getElement('#countdown').textContent = state.countdown;
       getElement('#countdown').hidden = state.countdown === '';
       getElement('#wrong-way').hidden = !state.wrongWay;
+      updateRaceMinimap(minimap, state.minimap);
       const driftPanel = getElement('#drift-panel');
       driftPanel.dataset.tier = state.driftTier;
       getElement('#drift-fill').style.width = `${String(Math.round(state.driftCharge * 100))}%`;
