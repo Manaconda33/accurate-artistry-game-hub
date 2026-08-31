@@ -281,6 +281,7 @@ Live acceptance requires one desktop and one mobile race with Accu plus at least
 - Accu sits inside the cockpit without floating or clipping. The 3D steering wheel stays in front of her and does not conflict with the driver art.
 - In chase view, Accu's rear hair remains continuous into the cockpit; no straight raster edge is visible across the hair or torso above the cockpit rim.
 - In rear-camera view, the front frame reads as one seated driver with visible upper-body context rather than a detached face behind the cannon. The cannon may occlude the centerline, but it must not erase the body or separate the head from the cockpit.
+- In rear-camera view, Pink Precision's dark steering-wheel ring is visibly readable between and beneath Accu's hands. It must not disappear behind the front sprite, merge with the cockpit collar, or render during chase-oriented states whose approved art already contains a wheel.
 - Visual left/right steering selects the matching approved frame; collision selects hit briefly; finishing selects victory.
 - Chase and rear cameras confirm the cannon and nose point forward while the antennae and exhausts remain behind Accu. No visual-root rotation is applied.
 - The selected AA-11 profile remains 8 / 4 / 10 / 3 / 5 / 6 throughout the race.
