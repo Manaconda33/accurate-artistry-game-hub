@@ -414,6 +414,70 @@ h2 {
   right: 1rem;
   text-align: right;
 }
+.race-minimap {
+  position: absolute;
+  top: 5.7rem;
+  left: 1rem;
+  width: clamp(8rem, 14vw, 10rem);
+  aspect-ratio: 1;
+  padding: 0.45rem;
+  border: 1px solid rgb(255 255 255 / 17%);
+  border-radius: 1rem;
+  background: rgb(9 5 15 / 72%);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0.8rem 2.5rem rgb(0 0 0 / 25%);
+  pointer-events: none;
+}
+.race-minimap > span {
+  position: absolute;
+  top: 0.45rem;
+  left: 0.6rem;
+  color: #c9bbd2;
+  font-size: 0.55rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.race-minimap svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.minimap-track-outline,
+.minimap-track-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.minimap-track-outline {
+  stroke: rgb(8 4 14 / 88%);
+  stroke-width: 7;
+}
+.minimap-track-line {
+  stroke: #c59bea;
+  stroke-width: 3.2;
+  filter: drop-shadow(0 0 3px rgb(188 115 255 / 60%));
+}
+[data-minimap-racer] {
+  filter: drop-shadow(0 0 1.5px rgb(0 0 0 / 95%));
+}
+[data-minimap-portrait] {
+  image-rendering: pixelated;
+}
+[data-minimap-frame] {
+  fill: none;
+  stroke: rgb(8 4 14 / 95%);
+  stroke-width: 1.5;
+}
+[data-minimap-racer].is-player [data-minimap-frame] {
+  stroke: #fff2a6;
+  stroke-width: 2;
+}
+[data-minimap-racer].is-player {
+  filter: drop-shadow(0 0 2.5px #f6d66a);
+}
 .bottom-left {
   bottom: 2.9rem;
   left: 1rem;
@@ -528,6 +592,7 @@ h2 {
   z-index: 6;
 }
 .game-shell.is-finished .hud,
+.game-shell.is-finished .race-minimap,
 .game-shell.is-finished .drift-panel,
 .game-shell.is-finished .game-help,
 .game-shell.is-finished .touch-controls {
@@ -684,6 +749,18 @@ h2 {
   }
   .position-hud {
     top: 4.9rem;
+  }
+  .race-minimap {
+    top: 4.9rem;
+    left: max(0.5rem, env(safe-area-inset-left));
+    width: clamp(5rem, 24vw, 6.5rem);
+    padding: 0.3rem;
+    border-radius: 0.75rem;
+  }
+  .race-minimap > span {
+    top: 0.3rem;
+    left: 0.45rem;
+    font-size: 0.45rem;
   }
   .game-shell.is-finished .finish-card {
     display: flex;

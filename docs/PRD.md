@@ -653,6 +653,8 @@ Selection must update name, portrait, weight class, stat display, kart preview, 
 
 HUD must show current rank, racer count, current lap, item slot, active item count for multi-charge items, mini-map, player portrait, speed, drift-charge feedback, final-lap announcement, and wrong-way warning.
 
+The mini-map uses the same ordered Circuit Alpha samples that drive race progress. It renders the complete closed course and all eight live racer positions. Every racer marker must use a pixel-rendered head crop from that driver's approved 2D portrait. The player marker must be larger and use a gold outline; opponents use a dark outline so overlapping heads remain separable. The map must remain non-interactive and must not obscure track direction, countdown, warnings, driving controls, or the finish presentation. Desktop placement is below the lap HUD on the left. Mobile placement remains in the upper-left HUD column at a reduced size, clear of the centered rear/reset controls and bottom driving controls. The mini-map leaves the interface when the compact finish state begins so the victory pose remains visible.
+
 ## 10.6 Pause Menu
 
 +----------------------------+  

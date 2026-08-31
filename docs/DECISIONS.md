@@ -107,3 +107,14 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Product impact:** AI versions of high-Speed racers can now use their straight-line advantage, while low-Speed racers retain their lower cap. Clear straights become more competitive without giving every AI identical performance or altering player handling.
 - **Scope:** Roster stats, player caps, Acceleration, Weight collision response, lane selection, items, and global difficulty settings are unchanged.
 - **Approval:** Manny approved the character-cap AI balance model on 2026-08-31 after confirming that AI racers consistently appeared unable to reach the maximum speeds available to players.
+
+## ADR-030: Render the race minimap from shared Circuit Alpha topology
+
+- **Date:** 2026-08-31
+- **Status:** Approved
+- **Context:** TRACK-004 and UI-001 require a race minimap, but the live HUD exposed only textual rank and lap information. Manny requested a minimap that tracks all racers and explicitly required mobile placement to be considered.
+- **Decision:** Normalize Circuit Alpha's ordered 384 world samples into one aspect-preserving SVG view box and reuse that same immutable point set for the rendered course and progress-interpolated racer markers. Render each racer as a nearest-neighbor head crop from their approved transparent 2D portrait; render the player last at a larger size with a gold outline. Place the map below Lap on desktop and as a reduced upper-left element on mobile. Hide it with the rest of the live HUD during the finish presentation.
+- **Rationale:** Deriving the map from the race-progress topology prevents visual drift between the course, lap logic, and marker positions. SVG stays sharp across desktop and mobile without a new image asset, while a single static path plus eight lightweight markers stays within the HUD performance budget.
+- **Product impact:** Players can read pack spacing and approaching traffic without relying only on rank. The map remains visible during normal and rear-camera driving but does not compete with mobile controls or the victory pose.
+- **Scope:** This closes the minimap portion of Slice 6. It does not add item HUD, player portrait HUD, final-lap treatment, pause, audio, or other remaining Slice 6 work.
+- **Approval:** Manny requested the racer-tracking minimap and mobile-aware placement on 2026-08-31, then selected pixel-rendered driver heads as the marker treatment before publication.

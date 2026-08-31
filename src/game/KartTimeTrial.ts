@@ -16,6 +16,7 @@ import { CircuitAlpha } from './track/CircuitAlpha';
 import { createTrackScene } from './track/createTrackScene';
 import { characterManifest, type CharacterDefinition } from '../characters/manifest';
 import { selectAiRoster } from '../characters/raceRoster';
+import { normalizeMinimapTrack, type MinimapState } from './ui/Minimap';
 
 type DriverFrame = 'rear' | 'front' | 'steerLeft' | 'steerRight' | 'hit' | 'victory';
 
@@ -34,6 +35,7 @@ export interface HudState {
   airborne: boolean;
   position: number;
   countdown: string;
+  minimap: MinimapState;
 }
 
 export interface RaceResult {
@@ -52,6 +54,7 @@ export interface TimeTrialOptions {
 interface AiRacer {
   id: string;
   name: string;
+  portrait: string;
   controller: KartController;
   driver: AiDriver;
   mesh: THREE.Group;
@@ -66,6 +69,7 @@ export class KartTimeTrial {
   private readonly scene = new THREE.Scene();
   private readonly camera: THREE.PerspectiveCamera;
   private readonly track = new CircuitAlpha();
+  private readonly minimapTrack = normalizeMinimapTrack(this.track.samples);
   private readonly lapTracker = new LapTracker();
   private readonly raceDirector = new RaceDirector();
   private readonly fixedStep = new FixedStepRunner();
@@ -451,6 +455,25 @@ export class KartTimeTrial {
       airborne: feedback.airborne,
       position: this.currentStandings().findIndex(({ id }) => id === 'player') + 1,
       countdown: this.raceDirector.countdownLabel(),
+      minimap: {
+        track: this.minimapTrack,
+        racers: [
+          ...this.opponents.map((opponent) => ({
+            id: opponent.id,
+            name: opponent.name,
+            progress: opponent.progress.trackProgress,
+            portrait: opponent.portrait,
+            isPlayer: false,
+          })),
+          {
+            id: 'player',
+            name: `YOU · ${this.options.character.displayName}`,
+            progress: projection.progress,
+            portrait: this.options.character.portrait ?? '',
+            isPlayer: true,
+          },
+        ],
+      },
     });
   }
 
@@ -631,6 +654,7 @@ export class KartTimeTrial {
       this.opponents.push({
         id: `ai-${String(index + 1)}`,
         name: character.displayName,
+        portrait: character.portrait ?? '',
         controller,
         driver: new AiDriver(
           this.track,
