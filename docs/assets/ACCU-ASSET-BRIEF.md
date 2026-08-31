@@ -35,7 +35,7 @@
 | ----------------------------------------------- | ----------------------------------------------- | -------------------------------- |
 | Portrait                                        | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared 2026-08-20 |
 | Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB                 | Approved and prepared 2026-08-20 |
-| Front                                            | 512 x 512 transparent PNG, sRGB                 | Approved and prepared 2026-08-31 |
+| Front                                           | 512 x 512 transparent PNG, sRGB                 | Approved and prepared 2026-08-31 |
 | Pink Precision                                  | GLB with PRD hierarchy and LOD budgets          | Approved and prepared 2026-08-20 |
 
 ## Approved Pink Precision model checkpoint
@@ -50,9 +50,9 @@
 
 ## Approved driver-art checkpoint
 
-- Runtime paths: `public/assets/characters/aa-11/portrait.png` and `public/assets/characters/aa-11/driver/{rear,steer-left,steer-right,hit,victory}.png`.
+- Runtime paths: `public/assets/characters/aa-11/portrait.png` and `public/assets/characters/aa-11/driver/{rear,front,steer-left,steer-right,hit,victory}.png`.
 - Portrait is 256 x 256; each driver state is 512 x 512.
-- All six files are sRGB RGBA PNGs with genuine transparency, alpha spanning 0 to 1, and transparent corner pixels.
+- All seven files are sRGB RGBA PNGs with genuine transparency, alpha spanning 0 to 1, and transparent corner pixels.
 - Victory keeps Accu's seated driving orientation while she turns naturally over her shoulder toward the viewer; it does not use a full-body about-face.
 - The driver art contains steering wheels where required by the approved compositions. Runtime integration must verify that these do not conflict visually with the future 3D steering control.
 - Manny approved the front seated pose and deterministic alpha repair on 2026-08-31. The front derivative SHA-256 is `d62ba47bb7d1da6a6f504a7e4f422caf8b6725d7ce54de226b8ce8cfc2ba6e15`.
@@ -64,12 +64,12 @@
 - Pages materializes LFS, passes `git lfs fsck`, and rejects an LFS pointer or invalid glTF binary signature before deployment.
 - Runtime preloads all six driver states and retains rear as the safe fallback.
 - Chase and rear cameras must confirm Pink Precision's nose, cannon, controls, and treads face the correct direction. Any axis correction applies only to the visual root and is recorded.
-- Acceptance requires desktop and mobile confirmation of Accu's portrait, production kart, all five driver states, and orientation.
+- Acceptance requires desktop and mobile confirmation of Accu's portrait, production kart, all six driver states, orientation, cockpit depth, and clean raster-edge occlusion.
 
 ## Runtime integration checkpoint
 
 - Controlled asset revision: `accu-runtime-20260831-2`.
-- The character manifest selects Accu's approved portrait, Pink Precision LOD0, and all six driver frames for AA-11. Her rear/steering mount is `[0, 0.95, 0.22]` so the modeled control remains in front; the front-camera frame uses `[0, 0.45, 0.22]`.
+- The character manifest selects Accu's approved portrait, Pink Precision LOD0, and all six driver frames for AA-11. PR #54 tests a rear/steering mount of `[0, 0.82, 0.22]` so the source image's lower edge remains buried in the cockpit, plus a front-camera-only mount of `[0, 0.9, 0.22]` so the front frame reads as a seated driver behind the cannon. The candidate does not change the approved raster assets.
 - Pink Precision declares negative-Z authored forward and therefore uses the runtime's enforced `NEGATIVE_Z_KART_VISUAL_YAW` (`Math.PI`). The transform affects only the model root; physics, checkpoints, controls, driver sprites, and cameras remain unchanged.
 - The production signature gate includes all three Pink Precision GLBs. A pointer or invalid GLB at any required path fails the build.
-- Deployment and product-owner desktop/mobile confirmation remain required before the integration checkpoint can pass.
+- The grass relaunch and chase-view steering-wheel suppression passed Manny's 2026-08-31 playtest. PR #54's camera-specific placement remains unapproved until a deployed desktop/mobile check confirms both the chase hair edge and rear-camera seated composition.
