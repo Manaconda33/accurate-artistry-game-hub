@@ -7,6 +7,8 @@ export interface DriverSpriteState {
   steering: number;
 }
 
+export type LocalPosition3 = readonly [number, number, number];
+
 interface HorizontalVector {
   x: number;
   z: number;
@@ -36,4 +38,12 @@ export function shouldShowModeledSteeringControl(
   frame: DriverFrame,
 ): boolean {
   return !driverSpriteIncludesSteeringControl || frame === 'front';
+}
+
+export function modeledSteeringControlPosition(
+  frame: DriverFrame,
+  defaultPosition: LocalPosition3,
+  frontPosition?: LocalPosition3,
+): LocalPosition3 {
+  return frame === 'front' && frontPosition !== undefined ? frontPosition : defaultPosition;
 }
