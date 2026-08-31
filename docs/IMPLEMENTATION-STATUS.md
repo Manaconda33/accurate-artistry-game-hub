@@ -134,14 +134,27 @@ Continuity closure completed by PR #32:
 - Manny confirmed on 2026-08-31 that the live AI Speed-stat correction passed playtesting.
 - Status: **LIVE ACCEPTED — AI SPEED-STAT AUTHORITY CORRECTION COMPLETE.**
 
-## Shared-topology race minimap: branch validated
+## Shared-topology race minimap: live accepted
 
 - The live HUD now includes an SVG minimap derived from Circuit Alpha's same 384 ordered samples used for projection and race progress.
 - All eight markers use nearest-neighbor head crops from their approved transparent 2D portraits. The player head is larger, gold-outlined, and rendered last so it remains legible in a cluster.
 - Racer markers interpolate normalized track progress; the immutable course path is cached rather than rebuilt during every HUD frame.
 - Desktop placement is below the Lap HUD. Mobile uses a reduced upper-left map that remains above the bottom driving controls and away from the right-side Position HUD. The map hides during the compact finish presentation.
 - `npm run validate` passes: strict typecheck, zero-warning lint, 72 tests across 15 files, 82.9% statement coverage, runtime verification of 27 GLBs and 28 PNGs, and production build.
-- Live desktop and mobile acceptance remain required before this checkpoint can be marked accepted.
+- PR #49 passed branch CI run `33350027338`, merged to `main` at `b10308fdbe44025c953145daaf48360d46363b78`, and passed main validation and GitHub Pages deployment in run `33350273528`.
+- Manny confirmed on 2026-08-31 that the live minimap looks good and approved its track-agnostic topology model.
+- Status: **LIVE ACCEPTED — RESPONSIVE SHARED-TOPOLOGY RACE MINIMAP COMPLETE.**
+
+## Shared player/AI driver-sprite states: branch complete
+
+- Runtime audit found that player sprites already selected rear, optional front, steering, hit, and victory states, while AI production drivers loaded only the neutral rear texture.
+- One shared selector now governs player and AI priority: victory, hit, front during rear view, steering, then neutral rear. AI-to-AI and player-to-AI contacts activate hit for every involved production driver.
+- Accu's neutral sprite position moves deeper into Pink Precision's cockpit so the modeled steering control can remain in front.
+- Manny approved the missing front views for Lavi, corrected Manaconda, and Accu on 2026-08-31. Deterministic pixel cleanup converted their baked checkerboards to true alpha without generative redraw.
+- Accu's approved steer-left, steer-right, and victory wheel apertures now have genuine transparency. Runtime byte revisions were bumped for all three affected character packages.
+- Every active production driver package now declares all six states, and the manifest type makes `front` mandatory for production sprite packages.
+- `npm run validate` passes: strict typecheck, zero-warning lint, 76 tests across 16 files, 83.0% statement coverage, runtime verification of 27 GLBs and 36 decoded PNGs including transparent-corner and Accu-aperture regression gates, and production build.
+- Status: **BRANCH COMPLETE — PUBLICATION APPROVAL REMAINS.**
 
 ## Lula production status — complete
 

@@ -252,6 +252,18 @@ Run this matrix for every future production character, in addition to its slice-
 
 For live acceptance, complete at least one desktop and one mobile race. Confirm that all eight driver heads are recognizable, move continuously around the correct course shape, the player remains easy to identify in a cluster, mobile controls remain unobstructed, and the map disappears when results open.
 
+## Shared driver-sprite state matrix
+
+- Every active production driver supplies rear, front, steer-left, steer-right, hit, and victory as 512 x 512 transparent PNGs with transparent corners and no baked checkerboard or neutral-white background islands.
+- The player and every production AI racer use the same state priority: victory, hit, front during rear view, steering, then neutral rear.
+- Positive steering selects steer-left and negative steering selects steer-right for both player and AI racers; the dead zone returns to rear.
+- A kart contact activates hit for every involved production driver, including AI-to-AI contacts, for the same governed reaction window.
+- Each AI finisher activates victory independently of the player's finish state.
+- Holding desktop or mobile rear view activates front for all visible production racers because the camera faces the fronts of their karts; releasing rear view restores each racer's simulation-driven state.
+- Accu's body remains behind Pink Precision's modeled steering control in neutral, turning, hit, and victory views. Her sprite contains no opaque white/checkerboard pixels inside steering-wheel openings.
+
+Live acceptance requires one desktop and one mobile race with Accu plus at least three different production AI identities. Exercise rear view, observe both steering directions, make player-to-AI and AI-to-AI contact, and finish the race. Confirm correct frames, clean transparency, cockpit depth, and recovery to the neutral state.
+
 ## Manaconda / Wayfinder manual matrix
 
 - AA-09 renders Manaconda's approved portrait and identifies the kart as The Wayfinder rather than a placeholder or fallback prototype.
@@ -260,7 +272,7 @@ For live acceptance, complete at least one desktop and one mobile race. Confirm 
 - Visual left/right steering selects the matching approved frame; collision selects hit briefly; finishing selects victory.
 - Chase and rear cameras confirm Wayfinder's grille/navigation core points forward and the rear satchel/twin exhausts remain behind Manaconda. No 180-degree visual correction is applied.
 - The selected AA-09 profile remains 7 / 6 / 6 / 6 / 6 / 5 throughout the race.
-- Desktop and mobile both load the controlled `manaconda-runtime-20260820-1` URLs rather than cached pre-integration assets.
+- Desktop and mobile both load the controlled `manaconda-runtime-20260831-2` URLs rather than cached pre-integration assets.
 
 ## Accu / Pink Precision manual matrix
 
@@ -270,7 +282,7 @@ For live acceptance, complete at least one desktop and one mobile race. Confirm 
 - Visual left/right steering selects the matching approved frame; collision selects hit briefly; finishing selects victory.
 - Chase and rear cameras confirm the cannon and nose point forward while the antennae and exhausts remain behind Accu. No visual-root rotation is applied.
 - The selected AA-11 profile remains 8 / 4 / 10 / 3 / 5 / 6 throughout the race.
-- Desktop and mobile both load the controlled `accu-runtime-20260820-1` URLs rather than cached pre-integration assets.
+- Desktop and mobile both load the controlled `accu-runtime-20260831-2` URLs rather than cached pre-integration assets.
 
 ## Slice 0 evidence boundary
 
