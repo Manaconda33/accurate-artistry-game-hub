@@ -68,8 +68,8 @@ All normalized files use genuine sRGBA transparency, exact PRD dimensions, alpha
 - 2D asset package: Approved and normalized on `agent/mcfleurdel-production`
 - Kart GLB design: Approved — Candidate 9, 2026-08-27
 - Production integration: Front-action expansion deployed under `mcfleurdel-runtime-20260901-2` through PR #65 and main run `33563732551`
-- Live verification: Bundle revision and four deployed PNG hashes verified; desktop/mobile camera-action playtest pending
+- Live verification: Passed on 2026-09-01 against checkpoint `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`. Both steering directions, hit, victory, chase restoration, transparency, cockpit placement, and single modeled-wheel presentation passed. The reviewed black-curl interiors and arm gaps remain transparent.
 
 ## Next action
 
-Verify rear-view steering, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation in the deployed desktop/mobile build.
+Preserve the accepted front-action files, controlled revision, front placement, modeled-wheel ownership, and pale-matte regression guard during later roster work.

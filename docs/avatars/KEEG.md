@@ -72,8 +72,8 @@ Character layers must contain no kart or steering-wheel geometry. Runtime portra
 - 2D asset package: Approved and staged on `agent/keeg-production`
 - Kart GLB design: Approved — Candidate 3 Revision 6, 2026-08-26
 - Production integration: Front-action expansion deployed under `keeg-runtime-20260901-3` through PR #65 and main run `33563732551`
-- Live verification: Bundle revision and four deployed PNG hashes verified; desktop/mobile camera-action playtest pending
+- Live verification: Passed on 2026-09-01 against checkpoint `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`. Both steering directions, hit, victory, chase restoration, cockpit placement, transparency, and single modeled-wheel presentation passed.
 
 ## Next action
 
-Verify rear-view steering, hit, victory, chase restoration, cockpit placement, and single-wheel presentation in the deployed desktop/mobile build.
+Preserve the accepted front-action files, controlled revision, front placement, and modeled-wheel ownership during later roster work.
