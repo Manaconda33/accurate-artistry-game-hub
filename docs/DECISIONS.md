@@ -172,3 +172,14 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Evidence:** PR #59 head CI run `33464307463` and main run `33464380102` passed. Deployed response hashes matched the approved local files. Manny reported the requested steering, hit, victory, chase restoration, transparency, cockpit, and wheel checks passed on 2026-09-01.
 - **Product impact:** Kraken's pilot is complete. The one-character rollout may begin the next active driver's separately reviewed package.
 - **Approval:** Manny reported "Passed" after testing the deployed checkpoint on 2026-09-01.
+
+## ADR-036: Approve the Manaconda and Krios front-action batch
+
+- **Date:** 2026-09-01
+- **Status:** Approved
+- **Context:** Kraken's live pilot passed, unlocking the next rollout package. Manny authorized two drivers per batch and selected the next active-roster pair: Manaconda and Krios.
+- **Decision:** Add approved front-steer-left, front-steer-right, front-hit, and front-victory frames for both drivers. Preserve each character's existing front placement and kart contract. Manaconda's four sprites each contain exactly one steering wheel because The Wayfinder is wheel-free. Krios's sprites contain no steering wheel or kart geometry because The Hornbreaker supplies the modeled control.
+- **Transparency correction:** Krios's first review sheet retained baked pale matte inside the closed horn loops. Manny rejected that defect. The approved revision clears the enclosed horn apertures to alpha in both steering frames and victory; the hit frame was already clean. The runtime gate must reject future loss of the two substantial enclosed transparent horn apertures.
+- **Controlled revisions:** `manaconda-runtime-20260901-3` and `krios-runtime-20260901-2`.
+- **Scope:** Existing chase art, neutral front art, kart GLBs, placement, physics, stats, camera geometry, and shared selector behavior remain unchanged.
+- **Approval:** Manny approved the revised two-driver package on 2026-09-01.

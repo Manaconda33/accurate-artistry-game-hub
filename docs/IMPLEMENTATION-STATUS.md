@@ -29,8 +29,8 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 ## Front-facing action-state parity — in progress
 
 - Manny approved closing the rear-camera action-state gap on 2026-09-01. The target package adds front-steer-left, front-steer-right, front-hit, and front-victory without replacing any approved chase or neutral-front art.
-- Nine active production drivers require four camera-facing action states each. Kraken's completed package leaves 32 new raster approvals across the other eight active drivers.
-- Rollout remains one character at a time. Kraken is the pilot because his approved front-victory frame reduces the first package to three new candidates and provides an existing authority for the camera-facing victory contract.
+- Nine active production drivers require four camera-facing action states each. Kraken's completed package and the approved Manaconda/Krios batch leave 24 new raster approvals across the other six active drivers.
+- Rollout normally remains one character at a time. Kraken was the pilot; after its live acceptance, Manny authorized two drivers per batch for the remaining rollout.
 - Runtime infrastructure may use the approved neutral front frame as a rollout fallback. No new raster enters a runtime path and no character revision changes until Manny approves that character's candidate package.
 - Manny approved Kraken's front-steer-left, front-steer-right, and front-hit candidates on 2026-09-01. They are integrated with the unchanged approved front-victory frame under controlled revision `kraken-runtime-20260901-2`.
 - The runtime gate now decodes all four Kraken front-action PNGs, enforces 512 x 512 non-interlaced RGBA data, and rejects non-transparent corners.
@@ -39,6 +39,16 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - The live page serves bundle `index-DwfeHgzB.js`, which references `kraken-runtime-20260901-2` and the three new front-action paths. SHA-256 checks against the four deployed camera-facing action responses match the approved local files: left `6c35c015d1208dbfb922b1a7986bf81002497bbed7d8d73c882de094ca5cfa34`, right `f6404831ebdb3ea8619d0e15f43c0430dc3e6042652b7eb37bd47bbb735b5dd8`, hit `5f1c4abe842599e2d4fddc4fa9529e24acc0008914228b0fca86fa793eef7666`, victory `4e77db3a622b6fc472bbd031329e9cc80bc3c119dbeab427a9ccf97cbc596609`.
 - Manny reported the requested live test passed on 2026-09-01. Kraken's four camera-facing action states, return to chase-facing actions, alpha edges, seated placement, and single-wheel presentation all pass.
 - Status: **LIVE ACCEPTED — KRAKEN FRONT-ACTION PILOT COMPLETE; NEXT DRIVER UNLOCKED.**
+
+### Manaconda and Krios batch — approved, integration in progress
+
+- Manny approved Manaconda's four camera-facing action frames on 2026-09-01. Each frame preserves the approved front footprint, Driftwood Crest, Paprika, and exactly one sprite-owned steering wheel for the wheel-free Wayfinder.
+- Manny approved Krios's four camera-facing action frames on 2026-09-01 after the enclosed pale matte between his horns was cleared to genuine transparency. Krios's frames contain no wheel or kart geometry because The Hornbreaker supplies the modeled steering control.
+- The approved runtime derivatives are 512 x 512 non-interlaced sRGBA PNGs with transparent corners. Krios's steering and victory frames retain two substantial enclosed transparent horn apertures as a build-time regression contract.
+- Controlled revisions are `manaconda-runtime-20260901-3` and `krios-runtime-20260901-2`.
+- Runtime SHA-256 values: Manaconda left `20216cef593ac6fe564cbbaefaffa9264a2ee6211bcece1c567099378163901e`, right `888049aa7be403254a2d0b632da5692ab7b30251826524bc5f2abbcd44137feb`, hit `35097ef795d91497482d2da62ca5dffe70301cc10e5fc13d33327e7d2f3d976e`, victory `969016a528b01b65a2ff541397b134c70feb6679225493006e6222ef2bb47127`; Krios left `5ed347c6c873dbdcdc17e537862b276789b3a761dca2a7733141dcea6ca58a0d`, right `c04e7edb9093f520b57e2f02e85de7aebf1f133f5ca02bb9196ae1522ec51789`, hit `e5743a6e1f62d02ea50dcb3d0afcfb5c6b2d39440122ce93e887f1028d24e127`, victory `a2e7a50042d22583d96570fe0354dbf1ae272f5b022dad99f8f82127e13b061f`.
+- Clean local validation passed on 2026-09-01: `npm ci`, strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized runtime GLBs, 48 decoded runtime PNGs, Krios horn-aperture verification, and a production Vite build.
+- Status: **VISUALLY APPROVED AND LOCALLY VALIDATED — CI, DEPLOYMENT, AND LIVE PLAYTEST PENDING.**
 
 ## Cleo archive status — complete
 

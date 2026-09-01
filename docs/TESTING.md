@@ -181,6 +181,8 @@ Run this matrix for every future production character, in addition to its slice-
 - The Hornbreaker's low broad chassis, integrated front ram horns, oversized studded tires, open cockpit, and twin rear exhausts load without clipping or detached housings.
 - Krios sits correctly in the cockpit without floating or obscuring the kart silhouette.
 - Rear, front, steer-left, steer-right, hit, and victory driver states load from the controlled Krios runtime revision.
+- Rear view preserves steering, hit, and victory through Krios's matching front-facing action frames. No Krios frame contains wheel or kart geometry.
+- Front-steer-left, front-steer-right, and front-victory retain two substantial transparent enclosed horn apertures; no pale or checkerboard matte remains between the horns.
 - Chase and rear views confirm the integrated ram horns remain at the race-forward nose and the rear exhausts remain behind Krios.
 - Krios appears no more than once as an AI opponent when the player selects another character.
 - CI materializes and validates all three AA-10 GLBs: `kart.glb`, `kart-lod1.glb`, and `kart-lod2.glb`. Each must begin with the binary glTF signature and declare `extras.forward: "-Z"`.
@@ -277,6 +279,7 @@ Live acceptance requires one desktop and one mobile race with Accu plus at least
 - `Race as Manaconda` loads the wheel-free Wayfinder and the approved rear driver frame; no second modeled steering wheel appears.
 - Manaconda sits within the recessed cockpit without floating or clipping, and the wheel contained in each driver frame reads in front of him.
 - Visual left/right steering selects the matching approved frame; collision selects hit briefly; finishing selects victory.
+- Rear view preserves steering, hit, and victory through Manaconda's matching front-facing action frames. Each contains exactly one visible wheel, and The Wayfinder adds no modeled duplicate.
 - Chase and rear cameras confirm Wayfinder's grille/navigation core points forward and the rear satchel/twin exhausts remain behind Manaconda. No 180-degree visual correction is applied.
 - The selected AA-09 profile remains 7 / 6 / 6 / 6 / 6 / 5 throughout the race.
 - Desktop and mobile both load the controlled `manaconda-runtime-20260831-2` URLs rather than cached pre-integration assets.

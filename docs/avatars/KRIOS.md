@@ -38,8 +38,12 @@ Manny approved the following art on 2026-08-22:
 - `driver/steer-right.png`: chase-camera right-turn frame
 - `driver/hit.png`: chase-camera impact-recoil frame
 - `driver/victory.png`: seated over-the-shoulder victory frame
+- `driver/front-steer-left.png`: front-facing left-turn frame
+- `driver/front-steer-right.png`: front-facing right-turn frame
+- `driver/front-hit.png`: front-facing impact-recoil frame
+- `driver/front-victory.png`: front-facing dominant victory frame
 
-All seven approved runtime derivatives are sRGB RGBA PNGs with genuine transparency. The portrait is 256 x 256; all six driver frames are 512 x 512. Character layers contain no kart or steering-wheel geometry.
+All eleven approved runtime derivatives are sRGB RGBA PNGs with genuine transparency. The portrait is 256 x 256; all ten driver frames are 512 x 512. Character layers contain no kart or steering-wheel geometry. The camera-facing steering and victory frames preserve two transparent enclosed horn apertures.
 
 ## Provenance and transformation
 
@@ -59,6 +63,10 @@ Manny supplied the definitive Krios character-and-kart reference, confirmed that
 - Steer-right frame: Approved
 - Hit frame: Approved
 - Victory frame: Approved
+- Front-steer-left frame: Approved on 2026-09-01
+- Front-steer-right frame: Approved on 2026-09-01
+- Front-hit frame: Approved on 2026-09-01
+- Front-victory frame: Approved on 2026-09-01
 - Complete 2D package validation: Passed
 - Kart GLB design: Approved by Manny on 2026-08-22 (Hornbreaker Candidate 7)
 - Deterministic GLB package: Generated and validated

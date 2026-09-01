@@ -4,7 +4,7 @@
 - **Current phase:** Driver-art and Wayfinder packages approved; runtime integration staged for validation
 - **Intake status:** Approved
 - **Character lock:** Approved by Manny on 2026-08-16
-- **Kart lock:** *The Wayfinder*, approved by Manny on 2026-08-16
+- **Kart lock:** _The Wayfinder_, approved by Manny on 2026-08-16
 - **Balance mapping lock:** AA-09 Technical Cruiser, approved by Manny on 2026-08-16
 - **Asset approval:** Portrait, all five driver states, and wheel-free Wayfinder GLBs approved by Manny on 2026-08-20
 - **Implementation verification:** Live mobile production checkpoint accepted; separate desktop evidence not yet recorded
@@ -39,18 +39,20 @@ This record preserves Manny's supplied writing and racing image as a source refe
 
 ## Required assets
 
-| Asset | Required format | Status |
-| --- | --- | --- |
-| Portrait | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared |
-| Rear / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB | Approved and prepared |
-| The Wayfinder | GLB with PRD hierarchy and LOD budgets | Approved and prepared |
+| Asset                                                                    | Required format                                 | Status                |
+| ------------------------------------------------------------------------ | ----------------------------------------------- | --------------------- |
+| Portrait                                                                 | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared |
+| Rear / steer-left / steer-right / hit / victory                          | 512 x 512 transparent PNG, sRGB                 | Approved and prepared |
+| Front / front-steer-left / front-steer-right / front-hit / front-victory | 512 x 512 transparent PNG, sRGB                 | Approved and prepared |
+| The Wayfinder                                                            | GLB with PRD hierarchy and LOD budgets          | Approved and prepared |
 
 ## Approval record
 
 - Character lock, kart lock, balance mapping, and source transformation: approved.
 - Portrait, rear, steer-left, steer-right, hit, and victory: approved by Manny on 2026-08-20 and prepared at the PRD runtime paths.
+- Front was approved on 2026-08-31. Front-steer-left, front-steer-right, front-hit, and front-victory were approved on 2026-09-01 with exactly one sprite-owned wheel in each frame.
 - Manny approved the wheel-free Wayfinder LOD0, LOD1, and LOD2 package on 2026-08-20. The required `SteeringWheel` hierarchy node remains as an empty runtime anchor because all approved Manaconda driver frames already contain the visible wheel.
-- The AA-09 manifest entry now selects Manaconda's portrait, five driver states, Wayfinder GLB, Technical Cruiser statistics, and controlled `manaconda-runtime-20260820-1` asset revision.
+- The AA-09 manifest entry selects Manaconda's portrait, ten driver states, Wayfinder GLB, Technical Cruiser statistics, and controlled `manaconda-runtime-20260901-3` asset revision.
 - The first deployed integration at merge commit `63f2af05ba4a8631594786f2d4ea171b5278778a` passed portrait, Wayfinder loading, duplicate-wheel, and steering-state checks on Manny's mobile device. The chase-camera check failed because the navigation grille faced backward.
 - Runtime camera evidence supersedes the GLB metadata assumption: Wayfinder requires a 180-degree visual-root yaw to align its grille/navigation core with race forward. This transform changes only the rendered model; physics, controls, checkpoints, camera, and driver sprite remain unchanged.
 - Orientation hotfix merge `b88eb635bf928e52a5e34ad218b938fcd7610cfc` deployed through successful Actions run `32430647474`. Manny confirmed on mobile that the navigation grille now faces race-forward with the satchel and exhausts behind him.
