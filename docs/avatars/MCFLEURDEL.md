@@ -67,9 +67,9 @@ All normalized files use genuine sRGBA transparency, exact PRD dimensions, alpha
 - Balance mapping: Approved, AA-07 High-Speed Cruiser
 - 2D asset package: Approved and normalized on `agent/mcfleurdel-production`
 - Kart GLB design: Approved — Candidate 9, 2026-08-27
-- Production integration: Front-action expansion integrated locally under `mcfleurdel-runtime-20260901-2`; publication pending
-- Live verification: Existing package accepted; front-action expansion pending deployed desktop/mobile verification
+- Production integration: Front-action expansion deployed under `mcfleurdel-runtime-20260901-2` through PR #65 and main run `33563732551`
+- Live verification: Bundle revision and four deployed PNG hashes verified; desktop/mobile camera-action playtest pending
 
 ## Next action
 
-Publish the approved AA-07 front-action expansion, then verify rear-view steering, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation on desktop/mobile.
+Verify rear-view steering, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation in the deployed desktop/mobile build.

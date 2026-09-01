@@ -53,4 +53,4 @@ All three files are deterministic binary glTF, use meters, declare `extras.forwa
 
 ## Next gate
 
-Publish `mcfleurdel-runtime-20260901-2`, then verify both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and single-wheel presentation in the deployed desktop/mobile build.
+`mcfleurdel-runtime-20260901-2` deployed through PR #65 and main run `33563732551`. The live bundle references the controlled revision, and all four deployed front-action PNG responses match the approved SHA-256 values above. Verify both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and single-wheel presentation in the desktop/mobile build.
