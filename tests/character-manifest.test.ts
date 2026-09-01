@@ -191,6 +191,18 @@ describe('character manifest', () => {
     expect(keeg.driver?.steerRight).toContain(`?v=${KEEG_ASSET_REVISION}`);
     expect(keeg.driver?.hit).toContain(`?v=${KEEG_ASSET_REVISION}`);
     expect(keeg.driver?.victory).toContain(`?v=${KEEG_ASSET_REVISION}`);
+    expect(keeg.driver?.frontSteerLeft).toContain(
+      `/assets/characters/aa-04/driver/front-steer-left.png?v=${KEEG_ASSET_REVISION}`,
+    );
+    expect(keeg.driver?.frontSteerRight).toContain(
+      `/assets/characters/aa-04/driver/front-steer-right.png?v=${KEEG_ASSET_REVISION}`,
+    );
+    expect(keeg.driver?.frontHit).toContain(
+      `/assets/characters/aa-04/driver/front-hit.png?v=${KEEG_ASSET_REVISION}`,
+    );
+    expect(keeg.driver?.frontVictory).toContain(
+      `/assets/characters/aa-04/driver/front-victory.png?v=${KEEG_ASSET_REVISION}`,
+    );
     expect(keeg.stats).toEqual({
       speed: 7,
       acceleration: 7,
@@ -217,6 +229,18 @@ describe('character manifest', () => {
     expect(mcfleurdel.driver?.steerRight).toContain(`?v=${MCFLEURDEL_ASSET_REVISION}`);
     expect(mcfleurdel.driver?.hit).toContain(`?v=${MCFLEURDEL_ASSET_REVISION}`);
     expect(mcfleurdel.driver?.victory).toContain(`?v=${MCFLEURDEL_ASSET_REVISION}`);
+    expect(mcfleurdel.driver?.frontSteerLeft).toContain(
+      `/assets/characters/aa-07/driver/front-steer-left.png?v=${MCFLEURDEL_ASSET_REVISION}`,
+    );
+    expect(mcfleurdel.driver?.frontSteerRight).toContain(
+      `/assets/characters/aa-07/driver/front-steer-right.png?v=${MCFLEURDEL_ASSET_REVISION}`,
+    );
+    expect(mcfleurdel.driver?.frontHit).toContain(
+      `/assets/characters/aa-07/driver/front-hit.png?v=${MCFLEURDEL_ASSET_REVISION}`,
+    );
+    expect(mcfleurdel.driver?.frontVictory).toContain(
+      `/assets/characters/aa-07/driver/front-victory.png?v=${MCFLEURDEL_ASSET_REVISION}`,
+    );
     expect(mcfleurdel.stats).toEqual({
       speed: 8,
       acceleration: 6,

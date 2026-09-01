@@ -123,6 +123,50 @@ const countEnclosedTransparentRegions = (decoded, width, height, minimumPixels) 
   return qualifyingRegions;
 };
 
+const largestPaleNeutralComponentInRects = (decoded, width, height, rects) => {
+  const candidate = new Uint8Array(width * height);
+  for (const [left, top, right, bottom] of rects) {
+    for (let y = top; y < bottom; y += 1) {
+      for (let x = left; x < right; x += 1) {
+        const pixel = y * width + x;
+        const offset = pixel * 4;
+        const red = decoded[offset];
+        const green = decoded[offset + 1];
+        const blue = decoded[offset + 2];
+        const alpha = decoded[offset + 3];
+        const maximum = Math.max(red, green, blue);
+        const minimum = Math.min(red, green, blue);
+        if (alpha > 16 && (red + green + blue) / 3 > 85 && maximum - minimum < 45) {
+          candidate[pixel] = 1;
+        }
+      }
+    }
+  }
+
+  const visited = new Uint8Array(width * height);
+  let largest = 0;
+  for (let start = 0; start < width * height; start += 1) {
+    if (candidate[start] === 0 || visited[start] !== 0) continue;
+    const stack = [start];
+    visited[start] = 1;
+    let pixels = 0;
+    while (stack.length > 0) {
+      const pixel = stack.pop();
+      const x = pixel % width;
+      pixels += 1;
+      for (const neighbor of [pixel - width, pixel + width, pixel - 1, pixel + 1]) {
+        if (neighbor < 0 || neighbor >= width * height || visited[neighbor] !== 0) continue;
+        const neighborX = neighbor % width;
+        if (Math.abs(neighborX - x) > 1 || candidate[neighbor] === 0) continue;
+        visited[neighbor] = 1;
+        stack.push(neighbor);
+      }
+    }
+    largest = Math.max(largest, pixels);
+  }
+  return largest;
+};
+
 const lulaProtectedRects = {
   'portrait.png': [82, 66, 180, 170],
   'front.png': [205, 55, 310, 185],
@@ -157,6 +201,10 @@ const runtimePngs = [
   ['public/assets/characters/aa-04/driver/steer-right.png', 512, 512],
   ['public/assets/characters/aa-04/driver/hit.png', 512, 512],
   ['public/assets/characters/aa-04/driver/victory.png', 512, 512],
+  ['public/assets/characters/aa-04/driver/front-steer-left.png', 512, 512],
+  ['public/assets/characters/aa-04/driver/front-steer-right.png', 512, 512],
+  ['public/assets/characters/aa-04/driver/front-hit.png', 512, 512],
+  ['public/assets/characters/aa-04/driver/front-victory.png', 512, 512],
   ['public/assets/characters/aa-07/portrait.png', 256, 256],
   ['public/assets/characters/aa-07/driver/front.png', 512, 512],
   ['public/assets/characters/aa-07/driver/rear.png', 512, 512],
@@ -164,6 +212,10 @@ const runtimePngs = [
   ['public/assets/characters/aa-07/driver/steer-right.png', 512, 512],
   ['public/assets/characters/aa-07/driver/hit.png', 512, 512],
   ['public/assets/characters/aa-07/driver/victory.png', 512, 512],
+  ['public/assets/characters/aa-07/driver/front-steer-left.png', 512, 512],
+  ['public/assets/characters/aa-07/driver/front-steer-right.png', 512, 512],
+  ['public/assets/characters/aa-07/driver/front-hit.png', 512, 512],
+  ['public/assets/characters/aa-07/driver/front-victory.png', 512, 512],
   ['public/assets/characters/aa-08/portrait.png', 256, 256],
   ['public/assets/characters/aa-08/driver/front.png', 512, 512],
   ['public/assets/characters/aa-08/driver/rear.png', 512, 512],
@@ -195,6 +247,14 @@ const newTransparentFronts = new Set([
   'public/assets/characters/aa-10/driver/front-steer-right.png',
   'public/assets/characters/aa-10/driver/front-hit.png',
   'public/assets/characters/aa-10/driver/front-victory.png',
+  'public/assets/characters/aa-04/driver/front-steer-left.png',
+  'public/assets/characters/aa-04/driver/front-steer-right.png',
+  'public/assets/characters/aa-04/driver/front-hit.png',
+  'public/assets/characters/aa-04/driver/front-victory.png',
+  'public/assets/characters/aa-07/driver/front-steer-left.png',
+  'public/assets/characters/aa-07/driver/front-steer-right.png',
+  'public/assets/characters/aa-07/driver/front-hit.png',
+  'public/assets/characters/aa-07/driver/front-victory.png',
   'public/assets/characters/aa-11/driver/front.png',
 ]);
 
@@ -208,6 +268,17 @@ const accuApertureRects = {
   'steer-left.png': [90, 225, 128, 261],
   'steer-right.png': [371, 199, 424, 230],
   'victory.png': [86, 293, 119, 321],
+};
+
+const mcfleurdelSteeringMatteRects = {
+  'front-steer-left.png': [
+    [65, 175, 131, 271],
+    [315, 265, 386, 391],
+  ],
+  'front-steer-right.png': [
+    [90, 200, 126, 301],
+    [140, 365, 181, 401],
+  ],
 };
 
 for (const [path, expectedWidth, expectedHeight] of runtimePngs) {
@@ -295,6 +366,25 @@ for (const [path, expectedWidth, expectedHeight] of runtimePngs) {
       if (residualBackground > 0) {
         throw new Error(
           `${path} retains ${String(residualBackground)} opaque neutral checker pixels in its steering-wheel aperture.`,
+        );
+      }
+    }
+  }
+
+  if (path.includes('/aa-07/driver/front-steer-')) {
+    const filename = path.split('/').at(-1);
+    const rects = mcfleurdelSteeringMatteRects[filename];
+    if (rects !== undefined) {
+      const decoded = decodeRgbaRows(pixels, width, height);
+      const largestMatteComponent = largestPaleNeutralComponentInRects(
+        decoded,
+        width,
+        height,
+        rects,
+      );
+      if (largestMatteComponent >= 30) {
+        throw new Error(
+          `${path} retains a ${String(largestMatteComponent)}-pixel pale matte component in an approved transparent hair or arm gap.`,
         );
       }
     }

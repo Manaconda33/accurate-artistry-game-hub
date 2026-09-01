@@ -49,6 +49,10 @@ Manny approved the complete 2D design package on 2026-08-27:
 - `driver/steer-right.png`: approved
 - `driver/hit.png`: approved with view-specific hair-color inversion
 - `driver/victory.png`: approved with view-specific hair-color inversion
+- `driver/front-steer-left.png`: approved on 2026-09-01 after false-white curl and arm-gap cleanup
+- `driver/front-steer-right.png`: approved on 2026-09-01 after false-white curl and arm-gap cleanup
+- `driver/front-hit.png`: approved on 2026-09-01
+- `driver/front-victory.png`: approved on 2026-09-01
 
 All normalized files use genuine sRGBA transparency, exact PRD dimensions, alpha spanning 0–1, and fully transparent corner pixels. Driver layers contain no kart or steering-wheel geometry.
 
@@ -63,9 +67,9 @@ All normalized files use genuine sRGBA transparency, exact PRD dimensions, alpha
 - Balance mapping: Approved, AA-07 High-Speed Cruiser
 - 2D asset package: Approved and normalized on `agent/mcfleurdel-production`
 - Kart GLB design: Approved — Candidate 9, 2026-08-27
-- Production integration: Staged on `agent/mcfleurdel-production`; CI and deployment pending
-- Live verification: Pending
+- Production integration: Front-action expansion integrated locally under `mcfleurdel-runtime-20260901-2`; publication pending
+- Live verification: Existing package accepted; front-action expansion pending deployed desktop/mobile verification
 
 ## Next action
 
-Validate the staged AA-07 package in repository CI, then merge, deploy, and complete desktop/mobile live acceptance.
+Publish the approved AA-07 front-action expansion, then verify rear-view steering, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation on desktop/mobile.

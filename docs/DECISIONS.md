@@ -193,3 +193,14 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Evidence:** PR #62 head run `33507676888` and main run `33507775105` passed. PR #63 merged at `2ca852b47f16b8221275ee2b5542650d609b9a0d`; main run `33508253050` passed. The deployed bundle references both controlled revisions, and all eight response hashes match the approved files. Manny confirmed the requested live checks on 2026-09-01.
 - **Product impact:** The Manaconda and Krios batch is complete. The next approved two-driver batch may enter visual review.
 - **Approval:** Manny reported "Confirmed" after testing the deployed checkpoint on 2026-09-01.
+
+## ADR-038: Approve the Keeg and McFleurdel front-action batch
+
+- **Date:** 2026-09-01
+- **Status:** Approved
+- **Context:** After the Manaconda and Krios batch passed live testing, Manny authorized Keeg and McFleurdel as the next two-driver front-action batch. Keeg's first steering pair did not separate the directions clearly. McFleurdel's first review retained green and white matte in hair and arm gaps.
+- **Decision:** Add four approved front-facing action frames for both drivers. Keeg's steering frames use opposite camera-side leans and distinct arm positions. McFleurdel's frames preserve black hair on the viewer's left and white hair on the viewer's right, with transparent black-curl interiors and arm gaps.
+- **Regression controls:** The runtime gate decodes all eight files, checks 512 x 512 non-interlaced RGBA data and transparent corners, and rejects a connected pale matte component of 30 pixels or more in McFleurdel's reviewed steering gaps.
+- **Controlled revisions:** `keeg-runtime-20260901-3` and `mcfleurdel-runtime-20260901-2`.
+- **Scope:** Existing chase art, neutral front art, kart GLBs, placement, physics, stats, camera geometry, and shared selector behavior remain unchanged.
+- **Approval:** Manny approved Keeg first, then approved McFleurdel after the corrected steering transparency review on 2026-09-01.

@@ -53,6 +53,10 @@ Manny approved the complete production driver-art package on 2026-08-26:
 - `driver/steer-right.png`: approved
 - `driver/hit.png`: approved
 - `driver/victory.png`: approved
+- `driver/front-steer-left.png`: approved on 2026-09-01
+- `driver/front-steer-right.png`: approved on 2026-09-01
+- `driver/front-hit.png`: approved on 2026-09-01
+- `driver/front-victory.png`: approved on 2026-09-01
 
 Character layers must contain no kart or steering-wheel geometry. Runtime portrait target is 256 x 256 transparent PNG. Each driver state target is 512 x 512 transparent PNG.
 
@@ -67,9 +71,9 @@ Character layers must contain no kart or steering-wheel geometry. Runtime portra
 - Balance mapping: Approved, AA-04 Balanced Racer
 - 2D asset package: Approved and staged on `agent/keeg-production`
 - Kart GLB design: Approved — Candidate 3 Revision 6, 2026-08-26
-- Production integration: Complete with controlled repair revision `keeg-runtime-20260826-2`; live mobile acceptance recorded 2026-08-27
-- Live verification: Pending
+- Production integration: Front-action expansion integrated locally under `keeg-runtime-20260901-3`; publication pending
+- Live verification: Existing package accepted; front-action expansion pending deployed desktop/mobile verification
 
 ## Next action
 
-Validate the staged AA-04 manifest activation in repository CI, then merge, deploy, and complete desktop/mobile live acceptance.
+Publish the approved AA-04 front-action expansion, then verify rear-view steering, hit, victory, chase restoration, cockpit placement, and single-wheel presentation on desktop/mobile.
