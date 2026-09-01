@@ -71,9 +71,9 @@ Character layers must contain no kart or steering-wheel geometry. Runtime portra
 - Balance mapping: Approved, AA-04 Balanced Racer
 - 2D asset package: Approved and staged on `agent/keeg-production`
 - Kart GLB design: Approved — Candidate 3 Revision 6, 2026-08-26
-- Production integration: Front-action expansion integrated locally under `keeg-runtime-20260901-3`; publication pending
-- Live verification: Existing package accepted; front-action expansion pending deployed desktop/mobile verification
+- Production integration: Front-action expansion deployed under `keeg-runtime-20260901-3` through PR #65 and main run `33563732551`
+- Live verification: Bundle revision and four deployed PNG hashes verified; desktop/mobile camera-action playtest pending
 
 ## Next action
 
-Publish the approved AA-04 front-action expansion, then verify rear-view steering, hit, victory, chase restoration, cockpit placement, and single-wheel presentation on desktop/mobile.
+Verify rear-view steering, hit, victory, chase restoration, cockpit placement, and single-wheel presentation in the deployed desktop/mobile build.

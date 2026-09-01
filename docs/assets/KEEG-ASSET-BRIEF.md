@@ -73,4 +73,4 @@ Manny approved Keeg's four camera-facing action frames on 2026-09-01. The two st
 
 ## Next gate
 
-Publish `keeg-runtime-20260901-3`, then verify both steering directions, hit, victory, chase-state restoration, cockpit placement, and single-wheel presentation in the deployed desktop/mobile build.
+`keeg-runtime-20260901-3` deployed through PR #65 and main run `33563732551`. The live bundle references the controlled revision, and all four deployed front-action PNG responses match the approved SHA-256 values above. Verify both steering directions, hit, victory, chase-state restoration, cockpit placement, and single-wheel presentation in the desktop/mobile build.
