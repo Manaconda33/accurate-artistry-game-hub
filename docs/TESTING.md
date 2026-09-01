@@ -267,6 +267,8 @@ For live acceptance, complete at least one desktop and one mobile race. Confirm 
 - Releasing rear view during Kraken's steering or hit state must restore the matching chase-oriented action rather than leaving a front-facing frame active. All transitions must preserve his approved seated footprint, clean alpha edge, cockpit depth, and single modeled steering wheel.
 - Accu's body remains behind Pink Precision's modeled steering control in neutral, turning, hit, and victory views. Her sprite contains no opaque white/checkerboard pixels inside steering-wheel openings.
 
+Kraken live acceptance passed on 2026-09-01. Manny confirmed the requested steering, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-wheel checks against deployed checkpoint `6b0b9239fa34edc521b4fa4e18a19a8397deaea3`.
+
 Live acceptance requires one desktop and one mobile race with Accu plus at least three different production AI identities. Exercise rear view, observe both steering directions, make player-to-AI and AI-to-AI contact, and finish the race. Confirm correct frames, clean transparency, cockpit depth, and recovery to the neutral state.
 
 ## Manaconda / Wayfinder manual matrix

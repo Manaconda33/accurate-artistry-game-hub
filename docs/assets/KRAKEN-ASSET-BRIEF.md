@@ -73,7 +73,8 @@ The production model must declare `extras.forward: "-Z"` and use the shared `NEG
 - All three files use four opaque materials, the exact thirteen-node hierarchy, meters, and `extras.forward: "-Z"`.
 - SHA-256/LFS object IDs: LOD0 `4a28349e51b0f6936a67bc8160d1b627fb9f77144ab063368e863d644e64a5c9`; LOD1 `c000af29a53fa79810d759b460f7a6a3b72c2f1605b9ff300245c080a95a8bfe`; LOD2 `ca73a74e96ff58769abc83db3b8662b498445144f28497b58213d71022e13546`.
 - Live acceptance: Manny confirmed selection portrait and stats, production kart loading, race-forward maw/eyes, rear/front/steering/hit/victory frames, and unique AI-opponent appearance on 2026-08-21.
+- Front-action live acceptance: Manny confirmed the deployed steering, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-wheel presentation on 2026-09-01.
 
 ## Integration gate
 
-The original production package is complete and live accepted. The approved front-action pilot is integrated and automated validation is required before deployment; product-owner live confirmation of the four camera-facing action states remains the final pilot gate.
+Complete. The original production package and the four-state front-action pilot are live accepted under `kraken-runtime-20260901-2`. The next active driver's separately approved package may begin.
