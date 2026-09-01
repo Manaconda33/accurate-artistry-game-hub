@@ -6,7 +6,7 @@
 
 PRD baseline: **v1.1, working implementation amendment 2.0**.
 
-Latest verified live character checkpoint: `6b0b9239fa34edc521b4fa4e18a19a8397deaea3` — Kraken's front-action pilot passed Manny's live playtest on 2026-09-01. Rear-view steering in both directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-wheel ownership are accepted under `kraken-runtime-20260901-2`.
+Latest verified live character checkpoint: `2ca852b47f16b8221275ee2b5542650d609b9a0d`. Manaconda's and Krios's front-action packages passed Manny's live playtest on 2026-09-01. Rear-view steering in both directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership are accepted under `manaconda-runtime-20260901-3` and `krios-runtime-20260901-2`.
 
 The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
@@ -40,17 +40,18 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - Manny reported the requested live test passed on 2026-09-01. Kraken's four camera-facing action states, return to chase-facing actions, alpha edges, seated placement, and single-wheel presentation all pass.
 - Status: **LIVE ACCEPTED — KRAKEN FRONT-ACTION PILOT COMPLETE; NEXT DRIVER UNLOCKED.**
 
-### Manaconda and Krios batch — approved, integration in progress
+### Manaconda and Krios batch — live accepted
 
 - Manny approved Manaconda's four camera-facing action frames on 2026-09-01. Each frame preserves the approved front footprint, Driftwood Crest, Paprika, and exactly one sprite-owned steering wheel for the wheel-free Wayfinder.
-- Manny approved Krios's four camera-facing action frames on 2026-09-01 after the enclosed pale matte between his horns was cleared to genuine transparency. Krios's frames contain no wheel or kart geometry because The Hornbreaker supplies the modeled steering control.
+- Manny approved Krios's four camera-facing action frames on 2026-09-01 after the enclosed pale matte between his horns was cleared to transparency. Krios's frames contain no wheel or kart geometry because The Hornbreaker supplies the modeled steering control.
 - The approved runtime derivatives are 512 x 512 non-interlaced sRGBA PNGs with transparent corners. Krios's steering and victory frames retain two substantial enclosed transparent horn apertures as a build-time regression contract.
 - Controlled revisions are `manaconda-runtime-20260901-3` and `krios-runtime-20260901-2`.
 - Runtime SHA-256 values: Manaconda left `20216cef593ac6fe564cbbaefaffa9264a2ee6211bcece1c567099378163901e`, right `888049aa7be403254a2d0b632da5692ab7b30251826524bc5f2abbcd44137feb`, hit `35097ef795d91497482d2da62ca5dffe70301cc10e5fc13d33327e7d2f3d976e`, victory `969016a528b01b65a2ff541397b134c70feb6679225493006e6222ef2bb47127`; Krios left `5ed347c6c873dbdcdc17e537862b276789b3a761dca2a7733141dcea6ca58a0d`, right `c04e7edb9093f520b57e2f02e85de7aebf1f133f5ca02bb9196ae1522ec51789`, hit `e5743a6e1f62d02ea50dcb3d0afcfb5c6b2d39440122ce93e887f1028d24e127`, victory `a2e7a50042d22583d96570fe0354dbf1ae272f5b022dad99f8f82127e13b061f`.
 - Clean local validation passed on 2026-09-01: `npm ci`, strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized runtime GLBs, 48 decoded runtime PNGs, Krios horn-aperture verification, and a production Vite build.
 - PR #62 head CI run `33507676888` passed. The PR merged to `main` at `7b58fdff7ca3c0d67a4ca70c1df0f6ddf287889f`; main run `33507775105` passed validation and GitHub Pages deployment.
 - The live page serves bundle `index-BTjqiGYl.js`, which references both controlled revisions and all eight new front-action paths. SHA-256 checks against every deployed PNG response match the approved local hashes recorded above.
-- Status: **LIVE DEPLOYED — MANACONDA AND KRIOS REQUIRE PRODUCT-OWNER CAMERA/ACTION PLAYTEST.**
+- Manny confirmed the live playtest on 2026-09-01 against deployed checkpoint `2ca852b47f16b8221275ee2b5542650d609b9a0d`. Both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership pass. Manaconda shows exactly one wheel. Krios uses The Hornbreaker's modeled wheel with no duplicate, and the areas between his horns remain transparent.
+- Status: **LIVE ACCEPTED — MANACONDA AND KRIOS FRONT-ACTION BATCH COMPLETE; NEXT TWO-DRIVER BATCH UNLOCKED.**
 
 ## Cleo archive status — complete
 
@@ -244,8 +245,8 @@ Continuity closure completed by PR #32:
 
 ## Next recommended action
 
-Playtest the deployed Manaconda and Krios camera-facing steering, hit, and victory packages. Do not begin the next front-action batch, Slice 5, or a PRD reorder until Manny accepts this live checkpoint.
+Begin visual review for the next two-driver front-action batch: Keeg and McFleurdel. Do not integrate their new raster files or change their controlled revisions until Manny approves both candidate packages.
 
 ## Approval gate
 
-No approval remains pending for Toph, Cleo, or McFleurdel. Manaconda and Krios front-action art is visually approved and deployed; live camera/action acceptance remains pending.
+No approval remains pending for the Manaconda and Krios front-action batch. Keeg and McFleurdel remain separately approval-gated for visual review and public integration.
