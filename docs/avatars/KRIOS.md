@@ -80,6 +80,7 @@ Manny supplied the definitive Krios character-and-kart reference, confirmed that
 - Merge checkpoint CI: Passed, run `32591411527` on commit `ddbb2dea9e7f5e558cb8d5e76501b99219416f65`
 - Live verification: Passed. Manny confirmed on 2026-08-26 that Krios is in the live game and all assets load as intended.
 - Production status: **LIVE ACCEPTED — KRIOS PRODUCTION INTEGRATION COMPLETE.**
+- Front-action parity: Deployed from merge `7b58fdff7ca3c0d67a4ca70c1df0f6ddf287889f` under `krios-runtime-20260901-2`; live camera/action acceptance pending.
 
 ## Runtime verification closure
 
@@ -87,4 +88,4 @@ The repository continuity review on 2026-08-26 found that `tools/verify-runtime-
 
 ## Next action
 
-Krios requires no further character-production work. Continue Slice 3 with the next approved character package. Any future Krios visual or balance change requires a new approval and fresh validation checkpoint.
+Playtest the deployed front-facing steering, hit, and victory states, including transparent horn apertures, modeled-wheel ownership, and restoration of matching chase states.
