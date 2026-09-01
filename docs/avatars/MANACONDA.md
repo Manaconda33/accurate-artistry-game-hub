@@ -57,7 +57,8 @@ This record preserves Manny's supplied writing and racing image as a source refe
 - Runtime camera evidence supersedes the GLB metadata assumption: Wayfinder requires a 180-degree visual-root yaw to align its grille/navigation core with race forward. This transform changes only the rendered model; physics, controls, checkpoints, camera, and driver sprite remain unchanged.
 - Orientation hotfix merge `b88eb635bf928e52a5e34ad218b938fcd7610cfc` deployed through successful Actions run `32430647474`. Manny confirmed on mobile that the navigation grille now faces race-forward with the satchel and exhausts behind him.
 - The live mobile production package is accepted. A separate desktop check remains unrecorded under the cross-platform acceptance matrix.
+- The four-state front-action package is deployed from merge `7b58fdff7ca3c0d67a4ca70c1df0f6ddf287889f` under `manaconda-runtime-20260901-3`; live camera/action acceptance remains pending.
 
 ## Next action
 
-Retain the accepted mobile package on main and record a desktop confirmation when that platform is next tested.
+Playtest the deployed front-facing steering, hit, and victory states, including one-wheel presentation and restoration of matching chase states.

@@ -48,7 +48,9 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - Controlled revisions are `manaconda-runtime-20260901-3` and `krios-runtime-20260901-2`.
 - Runtime SHA-256 values: Manaconda left `20216cef593ac6fe564cbbaefaffa9264a2ee6211bcece1c567099378163901e`, right `888049aa7be403254a2d0b632da5692ab7b30251826524bc5f2abbcd44137feb`, hit `35097ef795d91497482d2da62ca5dffe70301cc10e5fc13d33327e7d2f3d976e`, victory `969016a528b01b65a2ff541397b134c70feb6679225493006e6222ef2bb47127`; Krios left `5ed347c6c873dbdcdc17e537862b276789b3a761dca2a7733141dcea6ca58a0d`, right `c04e7edb9093f520b57e2f02e85de7aebf1f133f5ca02bb9196ae1522ec51789`, hit `e5743a6e1f62d02ea50dcb3d0afcfb5c6b2d39440122ce93e887f1028d24e127`, victory `a2e7a50042d22583d96570fe0354dbf1ae272f5b022dad99f8f82127e13b061f`.
 - Clean local validation passed on 2026-09-01: `npm ci`, strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized runtime GLBs, 48 decoded runtime PNGs, Krios horn-aperture verification, and a production Vite build.
-- Status: **VISUALLY APPROVED AND LOCALLY VALIDATED — CI, DEPLOYMENT, AND LIVE PLAYTEST PENDING.**
+- PR #62 head CI run `33507676888` passed. The PR merged to `main` at `7b58fdff7ca3c0d67a4ca70c1df0f6ddf287889f`; main run `33507775105` passed validation and GitHub Pages deployment.
+- The live page serves bundle `index-BTjqiGYl.js`, which references both controlled revisions and all eight new front-action paths. SHA-256 checks against every deployed PNG response match the approved local hashes recorded above.
+- Status: **LIVE DEPLOYED — MANACONDA AND KRIOS REQUIRE PRODUCT-OWNER CAMERA/ACTION PLAYTEST.**
 
 ## Cleo archive status — complete
 
@@ -242,8 +244,8 @@ Continuity closure completed by PR #32:
 
 ## Next recommended action
 
-Continue with the next approved Slice 3 character package. Do not begin Slice 5 or reorder the PRD roadmap without Manny approval.
+Playtest the deployed Manaconda and Krios camera-facing steering, hit, and victory packages. Do not begin the next front-action batch, Slice 5, or a PRD reorder until Manny accepts this live checkpoint.
 
 ## Approval gate
 
-No approval remains pending for Toph, Krios, Cleo, or McFleurdel. The next character intake remains separately approval-gated.
+No approval remains pending for Toph, Cleo, or McFleurdel. Manaconda and Krios front-action art is visually approved and deployed; live camera/action acceptance remains pending.

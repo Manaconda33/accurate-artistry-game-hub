@@ -7,7 +7,7 @@
 - Balance profile: AA-10 Straight-Line Heavy
 - Kart: The Hornbreaker
 - Package status: **approved, merged to `main`, deployed, and live accepted**
-- Front-action parity: **approved and staged for controlled deployment**
+- Front-action parity: **approved and deployed; live camera/action playtest pending**
 
 ## Canonical character lock
 
@@ -101,3 +101,5 @@ This requirement was added during the 2026-08-26 continuity cleanup after a usag
 ## Integration gate
 
 **Complete.** Krios is active in the production manifest, The Hornbreaker and all approved driver states load in the deployed game, repository CI has passed, and Manny has live-accepted the production package. No further Krios integration work is pending.
+
+Front-action PR #62 merged at `7b58fdff7ca3c0d67a4ca70c1df0f6ddf287889f`; main run `33507775105` passed validation and Pages deployment. All four deployed response hashes match the approved files, including the corrected transparent horn apertures. Camera-facing steering, hit, victory, modeled-wheel ownership, and chase-state restoration await Manny's live playtest.
