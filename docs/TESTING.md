@@ -271,6 +271,8 @@ For live acceptance, complete at least one desktop and one mobile race. Confirm 
 
 Kraken live acceptance passed on 2026-09-01. Manny confirmed the requested steering, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-wheel checks against deployed checkpoint `6b0b9239fa34edc521b4fa4e18a19a8397deaea3`.
 
+Manaconda and Krios live acceptance passed on 2026-09-01 against deployed checkpoint `2ca852b47f16b8221275ee2b5542650d609b9a0d`. Manny confirmed both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership. Manaconda shows exactly one sprite-owned wheel. Krios uses The Hornbreaker's modeled wheel without a duplicate, and no pale matte remains between his horns.
+
 Live acceptance requires one desktop and one mobile race with Accu plus at least three different production AI identities. Exercise rear view, observe both steering directions, make player-to-AI and AI-to-AI contact, and finish the race. Confirm correct frames, clean transparency, cockpit depth, and recovery to the neutral state.
 
 ## Manaconda / Wayfinder manual matrix

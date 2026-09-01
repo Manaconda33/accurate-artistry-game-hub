@@ -183,3 +183,13 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Controlled revisions:** `manaconda-runtime-20260901-3` and `krios-runtime-20260901-2`.
 - **Scope:** Existing chase art, neutral front art, kart GLBs, placement, physics, stats, camera geometry, and shared selector behavior remain unchanged.
 - **Approval:** Manny approved the revised two-driver package on 2026-09-01.
+
+## ADR-037: Accept the Manaconda and Krios front-action batch
+
+- **Date:** 2026-09-01
+- **Status:** Approved
+- **Context:** PR #62 deployed the approved Manaconda and Krios camera-facing steering, hit, and victory packages. PR #63 recorded the deployed bundle and matching response hashes. The rollout blocked the next pair until Manny completed the live camera/action check.
+- **Decision:** Accept `manaconda-runtime-20260901-3` and `krios-runtime-20260901-2`. Preserve all eight front-action files, the shared selector behavior, each driver's approved front placement, and the existing steering-control ownership rules. Manaconda's sprites retain exactly one wheel. Krios's sprites remain wheel-free, and the enclosed areas between his horns remain transparent.
+- **Evidence:** PR #62 head run `33507676888` and main run `33507775105` passed. PR #63 merged at `2ca852b47f16b8221275ee2b5542650d609b9a0d`; main run `33508253050` passed. The deployed bundle references both controlled revisions, and all eight response hashes match the approved files. Manny confirmed the requested live checks on 2026-09-01.
+- **Product impact:** The Manaconda and Krios batch is complete. The next approved two-driver batch may enter visual review.
+- **Approval:** Manny reported "Confirmed" after testing the deployed checkpoint on 2026-09-01.
