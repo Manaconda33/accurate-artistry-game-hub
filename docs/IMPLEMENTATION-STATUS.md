@@ -35,7 +35,9 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - Manny approved Kraken's front-steer-left, front-steer-right, and front-hit candidates on 2026-09-01. They are integrated with the unchanged approved front-victory frame under controlled revision `kraken-runtime-20260901-2`.
 - The runtime gate now decodes all four Kraken front-action PNGs, enforces 512 x 512 non-interlaced RGBA data, and rejects non-transparent corners.
 - Local `npm run validate` passed on 2026-09-01: strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized GLBs, 40 decoded runtime PNGs, and a production Vite build.
-- Status: **PRD AMENDMENT 2.0 ACTIVE — KRAKEN PILOT APPROVED, LIVE VERIFICATION PENDING.**
+- PR #59 head CI run `33464307463` passed. The PR merged to `main` at `6bb689d6b3b6511e601d8445088ec011388a0497`; main run `33464380102` passed validation and GitHub Pages deployment.
+- The live page serves bundle `index-DwfeHgzB.js`, which references `kraken-runtime-20260901-2` and the three new front-action paths. SHA-256 checks against the four deployed camera-facing action responses match the approved local files: left `6c35c015d1208dbfb922b1a7986bf81002497bbed7d8d73c882de094ca5cfa34`, right `f6404831ebdb3ea8619d0e15f43c0430dc3e6042652b7eb37bd47bbb735b5dd8`, hit `5f1c4abe842599e2d4fddc4fa9529e24acc0008914228b0fca86fa793eef7666`, victory `4e77db3a622b6fc472bbd031329e9cc80bc3c119dbeab427a9ccf97cbc596609`.
+- Status: **LIVE DEPLOYED — KRAKEN FRONT-ACTION PILOT REQUIRES PRODUCT-OWNER DESKTOP/MOBILE PLAYTEST.**
 
 ## Cleo archive status — complete
 
