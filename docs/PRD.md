@@ -6,7 +6,7 @@
 
 High-Fidelity HTML5 Kart Racer Vertical Slice + Modular Mini-Game Hub
 
-Version 1.1 - Final approved baseline; working implementation amendment 1.9
+Version 1.1 - Final approved baseline; working implementation amendment 2.0
 
 August 16, 2026
 
@@ -45,6 +45,10 @@ Approved August 31, 2026. Every AI racer must use its selected character's Speed
 ## Approved implementation amendment 1.9 - Complete and shared driver-sprite states
 
 Approved August 31, 2026. Every active production character must provide the full transparent 512 x 512 driver package: rear, front, steer-left, steer-right, hit, and victory. Transparent openings inside props such as steering wheels must contain alpha rather than baked white or checkerboard pixels. Player and AI racers must use one state-selection contract: steering selects the matching turn frame, a kart impact temporarily selects hit, finishing selects victory, and the player rear-view camera selects front for every visible production driver because the camera is facing the fronts of their karts. Each character may define governed neutral and front placement overrides so the driver remains behind the modeled steering controls and seated in the cockpit. Existing identity, kart, stat, and approved-art locks remain unchanged; new or repaired raster derivatives require visual review before publication.
+
+## Approved implementation amendment 2.0 - Camera-facing action-state parity
+
+Approved September 1, 2026. Every active production character must extend the driver package with `front-steer-left.png`, `front-steer-right.png`, `front-hit.png`, and `front-victory.png`. When the camera faces the front of a kart, the shared player/AI selector must preserve the simulated action and choose the matching front-facing frame rather than a rear-oriented action frame or neutral front substitution. Left/right names continue to describe the kart's commanded turn direction, not the viewer's screen side. During the one-character-at-a-time rollout, a missing front-facing action frame must fall back to that character's approved neutral `front.png`; it must never show a rear-facing action from the front camera or blank the driver. New raster derivatives remain outside runtime paths until Manny approves the character's front-facing action package. Existing chase art, neutral front art, identity, kart, stats, physics, camera geometry, and steering-control ownership remain unchanged.
 
 # Contents
 
@@ -792,11 +796,13 @@ PNG
 transparent  
 sRGB  
   
-Required: rear.png / front.png / steer-left.png / steer-right.png / hit.png / victory.png
+Required: rear.png / front.png / steer-left.png / steer-right.png / hit.png / victory.png / front-steer-left.png / front-steer-right.png / front-hit.png / front-victory.png
 
 Rear is the default seated driving frame. Left and right trigger on hard steering or corresponding drift. Hit triggers for spinout, explosive hit, or major collision stun. Victory triggers after finish, on podium, and optionally for a major Purple Burst boost.
 
 Front is the seated view used only when the camera faces the front of the kart. It must preserve character identity, cockpit placement, steering-hand continuity, and kart occlusion. Front art requires its own product-owner approval and may not be created by mirroring another frame.
+
+Front-steer-left, front-steer-right, front-hit, and front-victory preserve the corresponding simulated action when the camera faces the front of the kart. They must keep the approved neutral-front seated footprint, camera-facing anatomy, cockpit occlusion, and character-specific steering-control ownership. They require product-owner approval and may not be inferred by mirroring rear-oriented art. Until a character's action package is approved, the neutral front frame is the only allowed camera-facing fallback.
 
 ## 11.6 Sprite Atlas
 

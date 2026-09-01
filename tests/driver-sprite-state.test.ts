@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
+  driverFrameFallbacks,
   isDriverFrontFacingCamera,
+  isFrontFacingDriverFrame,
   modeledSteeringControlPosition,
   selectDriverFrame,
   shouldShowModeledSteeringControl,
@@ -42,6 +44,23 @@ describe('shared driver sprite state', () => {
         steering: -0.3,
       }),
     ).toBe('steerRight');
+
+    expect(
+      selectDriverFrame({
+        finished: false,
+        frontFacingCamera: true,
+        hitSeconds: 0,
+        steering: 0.3,
+      }),
+    ).toBe('frontSteerLeft');
+    expect(
+      selectDriverFrame({
+        finished: false,
+        frontFacingCamera: true,
+        hitSeconds: 0,
+        steering: -0.3,
+      }),
+    ).toBe('frontSteerRight');
   });
 
   it('gives finish and collision reactions priority over camera and steering', () => {
@@ -52,7 +71,7 @@ describe('shared driver sprite state', () => {
         hitSeconds: 0.2,
         steering: 1,
       }),
-    ).toBe('hit');
+    ).toBe('frontHit');
     expect(
       selectDriverFrame({
         finished: true,
@@ -60,7 +79,27 @@ describe('shared driver sprite state', () => {
         hitSeconds: 0.2,
         steering: 1,
       }),
-    ).toBe('victory');
+    ).toBe('frontVictory');
+  });
+
+  it('falls missing front actions back to neutral front before rear', () => {
+    expect(driverFrameFallbacks('frontSteerLeft')).toEqual(['frontSteerLeft', 'front', 'rear']);
+    expect(driverFrameFallbacks('frontHit')).toEqual(['frontHit', 'front', 'rear']);
+    expect(driverFrameFallbacks('frontVictory')).toEqual(['frontVictory', 'front', 'rear']);
+    expect(driverFrameFallbacks('hit')).toEqual(['hit', 'rear']);
+  });
+
+  it('classifies every camera-facing action as front-facing', () => {
+    for (const frame of [
+      'front',
+      'frontSteerLeft',
+      'frontSteerRight',
+      'frontHit',
+      'frontVictory',
+    ] as const) {
+      expect(isFrontFacingDriverFrame(frame)).toBe(true);
+    }
+    expect(isFrontFacingDriverFrame('rear')).toBe(false);
   });
 
   it('returns to the neutral rear frame inside the steering dead zone', () => {
@@ -78,7 +117,15 @@ describe('shared driver sprite state', () => {
     for (const frame of ['rear', 'steerLeft', 'steerRight', 'hit', 'victory'] as const) {
       expect(shouldShowModeledSteeringControl(true, frame)).toBe(false);
     }
-    expect(shouldShowModeledSteeringControl(true, 'front')).toBe(true);
+    for (const frame of [
+      'front',
+      'frontSteerLeft',
+      'frontSteerRight',
+      'frontHit',
+      'frontVictory',
+    ] as const) {
+      expect(shouldShowModeledSteeringControl(true, frame)).toBe(true);
+    }
     expect(shouldShowModeledSteeringControl(false, 'rear')).toBe(true);
   });
 
@@ -86,7 +133,15 @@ describe('shared driver sprite state', () => {
     const authored = [0, 1.46, 0.48] as const;
     const front = [0, 1.46, -0.46] as const;
 
-    expect(modeledSteeringControlPosition('front', authored, front)).toBe(front);
+    for (const frame of [
+      'front',
+      'frontSteerLeft',
+      'frontSteerRight',
+      'frontHit',
+      'frontVictory',
+    ] as const) {
+      expect(modeledSteeringControlPosition(frame, authored, front)).toBe(front);
+    }
     for (const frame of ['rear', 'steerLeft', 'steerRight', 'hit', 'victory'] as const) {
       expect(modeledSteeringControlPosition(frame, authored, front)).toBe(authored);
     }

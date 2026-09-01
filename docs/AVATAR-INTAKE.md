@@ -21,7 +21,7 @@ Before an approved package is marked ready, the implementer must record and veri
 
 - A base-aware, controlled revision for every public runtime asset URL. Change that revision (or the filename) whenever bytes at a stable URL change.
 - Production LFS materialization: `lfs: true` checkout, `git lfs fsck`, and a build-time binary-signature check for every required GLB.
-- A driver-frame selector that preloads rear, steer-left, steer-right, hit, and victory frames. Steering must select the matching visual-side frame; collision and finish states must take precedence; a frame-load failure must retain the rear frame rather than blanking the driver.
+- A driver-frame selector that preloads rear, front, steer-left, steer-right, hit, victory, front-steer-left, front-steer-right, front-hit, and front-victory frames. Steering must select the matching kart-turn direction; collision and finish states must take precedence. A missing chase-oriented action frame retains rear, while a missing camera-facing action frame retains front; neither failure may blank the driver or expose the wrong facing.
 - Chase- and rear-camera verification of kart nose, steering wheel, driver, cockpit, wheel, and mount orientation. Correct an authored-axis mismatch only at the visual root and record the exact transform; gameplay physics and coordinates remain canonical.
 - Fresh desktop and mobile manual confirmation that the selected production kart—not the fallback—renders and remains controlled through the race.
 
@@ -81,6 +81,10 @@ Before an approved package is marked ready, the implementer must record and veri
 - 512×512 steer-right frame:
 - 512×512 hit frame:
 - 512×512 victory frame:
+- 512×512 front-steer-left frame:
+- 512×512 front-steer-right frame:
+- 512×512 front-hit frame:
+- 512×512 front-victory frame:
 - Kart GLB or approved fallback configuration:
 - Source and rights/provenance notes:
 

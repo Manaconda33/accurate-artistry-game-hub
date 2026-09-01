@@ -1,4 +1,14 @@
-export type DriverFrame = 'rear' | 'front' | 'steerLeft' | 'steerRight' | 'hit' | 'victory';
+export type DriverFrame =
+  | 'rear'
+  | 'front'
+  | 'steerLeft'
+  | 'steerRight'
+  | 'hit'
+  | 'victory'
+  | 'frontSteerLeft'
+  | 'frontSteerRight'
+  | 'frontHit'
+  | 'frontVictory';
 
 export interface DriverSpriteState {
   finished: boolean;
@@ -25,19 +35,35 @@ export function isDriverFrontFacingCamera(
 }
 
 export function selectDriverFrame(state: DriverSpriteState): DriverFrame {
-  if (state.finished) return 'victory';
-  if (state.hitSeconds > 0) return 'hit';
-  if (state.frontFacingCamera) return 'front';
-  if (state.steering > 0.15) return 'steerLeft';
-  if (state.steering < -0.15) return 'steerRight';
-  return 'rear';
+  if (state.finished) return state.frontFacingCamera ? 'frontVictory' : 'victory';
+  if (state.hitSeconds > 0) return state.frontFacingCamera ? 'frontHit' : 'hit';
+  if (state.steering > 0.15) return state.frontFacingCamera ? 'frontSteerLeft' : 'steerLeft';
+  if (state.steering < -0.15) return state.frontFacingCamera ? 'frontSteerRight' : 'steerRight';
+  return state.frontFacingCamera ? 'front' : 'rear';
+}
+
+export function isFrontFacingDriverFrame(frame: DriverFrame): boolean {
+  return (
+    frame === 'front' ||
+    frame === 'frontSteerLeft' ||
+    frame === 'frontSteerRight' ||
+    frame === 'frontHit' ||
+    frame === 'frontVictory'
+  );
+}
+
+export function driverFrameFallbacks(frame: DriverFrame): readonly DriverFrame[] {
+  if (frame === 'front') return ['front', 'rear'];
+  if (isFrontFacingDriverFrame(frame)) return [frame, 'front', 'rear'];
+  if (frame === 'rear') return ['rear'];
+  return [frame, 'rear'];
 }
 
 export function shouldShowModeledSteeringControl(
   driverSpriteIncludesSteeringControl: boolean,
   frame: DriverFrame,
 ): boolean {
-  return !driverSpriteIncludesSteeringControl || frame === 'front';
+  return !driverSpriteIncludesSteeringControl || isFrontFacingDriverFrame(frame);
 }
 
 export function modeledSteeringControlPosition(
@@ -45,5 +71,7 @@ export function modeledSteeringControlPosition(
   defaultPosition: LocalPosition3,
   frontPosition?: LocalPosition3,
 ): LocalPosition3 {
-  return frame === 'front' && frontPosition !== undefined ? frontPosition : defaultPosition;
+  return isFrontFacingDriverFrame(frame) && frontPosition !== undefined
+    ? frontPosition
+    : defaultPosition;
 }

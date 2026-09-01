@@ -150,3 +150,15 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Evidence:** PR #56 CI run `33447987037` and main validation/deployment run `33448083520` passed. Manny then approved the deployed chase-camera hair edge, rear-camera seated composition and visible wheel, chase-state wheel suppression, and grass relaunch behavior.
 - **Product impact:** Accu and Pink Precision now pass their runtime camera-presentation checkpoint without changing approved PNG or GLB bytes, physics, camera selection, or other drivers.
 - **Approval:** Manny approved the deployed correction on 2026-08-31.
+
+## ADR-034: Preserve driver actions in front-facing camera views
+
+- **Date:** 2026-09-01
+- **Status:** Approved
+- **Context:** Amendment 1.9 completed one neutral front frame per active production driver, but rear-camera steering fell back to neutral front while hit and victory could expose rear-oriented action art. This breaks pose continuity when the camera faces the front of a kart.
+- **Decision:** Add front-steer-left, front-steer-right, front-hit, and front-victory to the production driver contract. Select action first and facing second for player and AI racers. During the one-character-at-a-time rollout, missing front actions use neutral front as the only allowed front-facing fallback.
+- **Rationale:** The camera should change the view of the simulated state, not erase or reverse the state. A neutral-front fallback preserves facing without publishing unapproved art.
+- **Scope:** No approved chase or neutral-front raster is replaced. Identity, kart geometry, stats, physics, camera placement, and steering-control ownership remain unchanged. Each character's new raster package and public integration remain separately approval-gated.
+- **Rollout:** Kraken is first because his approved front-victory frame already satisfies one quarter of the new contract.
+- **Kraken pilot approval:** Manny approved Kraken's front-steer-left, front-steer-right, and front-hit candidates on 2026-09-01. Integrate them with the unchanged approved front-victory frame and require live verification before beginning another driver.
+- **Approval:** Manny directed the project to address the missing front-facing steering, hit, and victory states on 2026-09-01.

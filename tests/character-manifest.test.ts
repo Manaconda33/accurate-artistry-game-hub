@@ -84,6 +84,18 @@ describe('character manifest', () => {
     expect(kraken.assetState).toBe('production');
     expect(kraken.kart).toContain(`/assets/characters/aa-05/kart.glb?v=${KRAKEN_ASSET_REVISION}`);
     expect(kraken.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(kraken.driver?.frontSteerLeft).toContain(
+      `/assets/characters/aa-05/driver/front-steer-left.png?v=${KRAKEN_ASSET_REVISION}`,
+    );
+    expect(kraken.driver?.frontSteerRight).toContain(
+      `/assets/characters/aa-05/driver/front-steer-right.png?v=${KRAKEN_ASSET_REVISION}`,
+    );
+    expect(kraken.driver?.frontHit).toContain(
+      `/assets/characters/aa-05/driver/front-hit.png?v=${KRAKEN_ASSET_REVISION}`,
+    );
+    expect(kraken.driver?.frontVictory).toContain(
+      `/assets/characters/aa-05/driver/front-victory.png?v=${KRAKEN_ASSET_REVISION}`,
+    );
     expect(kraken.driver?.rear).toContain(`?v=${KRAKEN_ASSET_REVISION}`);
     expect(kraken.driver?.front).toContain(`?v=${KRAKEN_ASSET_REVISION}`);
     expect(kraken.driver?.steerLeft).toContain(`?v=${KRAKEN_ASSET_REVISION}`);

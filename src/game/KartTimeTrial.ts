@@ -18,7 +18,9 @@ import { characterManifest, type CharacterDefinition } from '../characters/manif
 import { selectAiRoster } from '../characters/raceRoster';
 import { normalizeMinimapTrack, type MinimapState } from './ui/Minimap';
 import {
+  driverFrameFallbacks,
   isDriverFrontFacingCamera,
+  isFrontFacingDriverFrame,
   modeledSteeringControlPosition,
   selectDriverFrame,
   shouldShowModeledSteeringControl,
@@ -585,6 +587,10 @@ export class KartTimeTrial {
       steerRight: driver.steerRight,
       hit: driver.hit,
       victory: driver.victory,
+      frontSteerLeft: driver.frontSteerLeft,
+      frontSteerRight: driver.frontSteerRight,
+      frontHit: driver.frontHit,
+      frontVictory: driver.frontVictory,
     };
     const rearTexture = loader.load(driver.rear);
     rearTexture.colorSpace = THREE.SRGBColorSpace;
@@ -637,7 +643,9 @@ export class KartTimeTrial {
   }
 
   private applyDriverFrame(visual: DriverSpriteVisual, frame: DriverFrame): void {
-    const texture = visual.textures.get(frame) ?? visual.textures.get('rear');
+    const texture = driverFrameFallbacks(frame)
+      .map((candidate) => visual.textures.get(candidate))
+      .find((candidate) => candidate !== undefined);
     if (texture === undefined) return;
     const material = visual.sprite.material;
     if (material.map !== texture) {
@@ -645,10 +653,9 @@ export class KartTimeTrial {
       material.needsUpdate = true;
     }
     const defaultPosition = visual.character.driverSpritePosition ?? [0, 0.95, -0.12];
-    const position =
-      frame === 'front'
-        ? (visual.character.frontDriverSpritePosition ?? defaultPosition)
-        : defaultPosition;
+    const position = isFrontFacingDriverFrame(frame)
+      ? (visual.character.frontDriverSpritePosition ?? defaultPosition)
+      : defaultPosition;
     visual.sprite.position.set(...position);
     if (visual.modeledSteeringControl !== null) {
       const defaultControlPosition = visual.modeledSteeringControlDefaultPosition;
