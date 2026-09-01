@@ -29,7 +29,7 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 ## Front-facing action-state parity — in progress
 
 - Manny approved closing the rear-camera action-state gap on 2026-09-01. The target package adds front-steer-left, front-steer-right, front-hit, and front-victory without replacing any approved chase or neutral-front art.
-- Nine active production drivers require four camera-facing action states each. Kraken's completed package and the approved Manaconda/Krios batch leave 24 new raster approvals across the other six active drivers.
+- Nine active production drivers require four camera-facing action states each. Kraken, Manaconda, Krios, Keeg, and McFleurdel now have approved packages, leaving 16 raster approvals across the other four active drivers.
 - Rollout normally remains one character at a time. Kraken was the pilot; after its live acceptance, Manny authorized two drivers per batch for the remaining rollout.
 - Runtime infrastructure may use the approved neutral front frame as a rollout fallback. No new raster enters a runtime path and no character revision changes until Manny approves that character's candidate package.
 - Manny approved Kraken's front-steer-left, front-steer-right, and front-hit candidates on 2026-09-01. They are integrated with the unchanged approved front-victory frame under controlled revision `kraken-runtime-20260901-2`.
@@ -52,6 +52,16 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - The live page serves bundle `index-BTjqiGYl.js`, which references both controlled revisions and all eight new front-action paths. SHA-256 checks against every deployed PNG response match the approved local hashes recorded above.
 - Manny confirmed the live playtest on 2026-09-01 against deployed checkpoint `2ca852b47f16b8221275ee2b5542650d609b9a0d`. Both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership pass. Manaconda shows exactly one wheel. Krios uses The Hornbreaker's modeled wheel with no duplicate, and the areas between his horns remain transparent.
 - Status: **LIVE ACCEPTED — MANACONDA AND KRIOS FRONT-ACTION BATCH COMPLETE; NEXT TWO-DRIVER BATCH UNLOCKED.**
+
+### Keeg and McFleurdel batch — approved and locally validated
+
+- Manny approved Keeg's four camera-facing action frames on 2026-09-01. The steering frames use opposite camera-side leans and distinct arm positions. All four remain free of wheel and kart geometry because The Mycelial Majesty supplies the modeled steering control.
+- Manny approved McFleurdel's four camera-facing action frames on 2026-09-01 after rejecting residual white matte in both steering frames. The approved cleanup makes the black-hair curl interiors and arm gaps transparent while preserving the white hair and silver costume details.
+- Controlled revisions are `keeg-runtime-20260901-3` and `mcfleurdel-runtime-20260901-2`.
+- Runtime SHA-256 values: Keeg left `907140e23dc8d41e566d2ab013baa95c2a1d553bb3c5c56ea541a3136397f9a2`, right `75009c11ab0628999d9530e8c5846e3ca48f4979a72395a6f0478b5ba36c5e06`, hit `6d6b61d687525a2bfb63a575fba95d113bcbf9072dcf76d8585b9bff6f89304d`, victory `dcdfc3ca451660e61db013b9699029f12ef2242008556c3b9355a2a53b8f790b`; McFleurdel left `d69dc042efab13389fd259bfcee8556328657bda3e06ce1cbcdb155f4ab62a41`, right `e2c99f93a3f33fb627967de88852cfe49289f0fe6fffc007beda1c1aa079ce7b`, hit `440b48865114ac4fc2c6acde6f5133c001c3a4c18ccb5fc72772791e874f1c21`, victory `cb5be9ae847303aa8edf74204e809a1bb690754784d671f145243eb1b195f36f`.
+- The runtime PNG gate now covers all eight new files. McFleurdel's two steering frames also fail validation if a connected pale matte component of 30 pixels or more reappears in the approved hair or arm gaps.
+- Local `npm run validate` passed on 2026-09-01: strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized runtime GLBs, 56 decoded runtime PNGs, the McFleurdel matte regression check, and a production Vite build.
+- Status: **APPROVED AND LOCALLY VALIDATED — PUBLICATION AND LIVE ACCEPTANCE REMAIN GATED.**
 
 ## Cleo archive status — complete
 
@@ -245,8 +255,8 @@ Continuity closure completed by PR #32:
 
 ## Next recommended action
 
-Begin visual review for the next two-driver front-action batch: Keeg and McFleurdel. Do not integrate their new raster files or change their controlled revisions until Manny approves both candidate packages.
+Request publication approval for the locally validated Keeg and McFleurdel front-action batch. After deployment, run the desktop/mobile camera and action-state acceptance matrix before starting the next pair.
 
 ## Approval gate
 
-No approval remains pending for the Manaconda and Krios front-action batch. Keeg and McFleurdel remain separately approval-gated for visual review and public integration.
+Keeg and McFleurdel have cleared visual approval. Their public integration, deployment, and live desktop/mobile acceptance remain gated.

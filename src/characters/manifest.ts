@@ -51,8 +51,8 @@ export const ACCU_ASSET_REVISION = 'accu-runtime-20260831-2';
 export const KRAKEN_ASSET_REVISION = 'kraken-runtime-20260901-2';
 export const CLEO_ASSET_REVISION = 'cleo-runtime-20260821-1';
 export const KRIOS_ASSET_REVISION = 'krios-runtime-20260901-2';
-export const KEEG_ASSET_REVISION = 'keeg-runtime-20260826-2';
-export const MCFLEURDEL_ASSET_REVISION = 'mcfleurdel-runtime-20260827-1';
+export const KEEG_ASSET_REVISION = 'keeg-runtime-20260901-3';
+export const MCFLEURDEL_ASSET_REVISION = 'mcfleurdel-runtime-20260901-2';
 export const TOPH_ASSET_REVISION = 'toph-runtime-20260828-1';
 export const LULA_ASSET_REVISION = 'lula-runtime-20260830-2';
 
@@ -263,6 +263,19 @@ const keeg: CharacterDefinition = {
     steerRight: assetUrl('assets/characters/aa-04/driver/steer-right.png', KEEG_ASSET_REVISION),
     hit: assetUrl('assets/characters/aa-04/driver/hit.png', KEEG_ASSET_REVISION),
     victory: assetUrl('assets/characters/aa-04/driver/victory.png', KEEG_ASSET_REVISION),
+    frontSteerLeft: assetUrl(
+      'assets/characters/aa-04/driver/front-steer-left.png',
+      KEEG_ASSET_REVISION,
+    ),
+    frontSteerRight: assetUrl(
+      'assets/characters/aa-04/driver/front-steer-right.png',
+      KEEG_ASSET_REVISION,
+    ),
+    frontHit: assetUrl('assets/characters/aa-04/driver/front-hit.png', KEEG_ASSET_REVISION),
+    frontVictory: assetUrl(
+      'assets/characters/aa-04/driver/front-victory.png',
+      KEEG_ASSET_REVISION,
+    ),
   },
   stats: { speed: 7, acceleration: 7, weight: 5, handling: 7, miniTurbo: 5, traction: 5 },
 };
@@ -288,6 +301,22 @@ const mcfleurdel: CharacterDefinition = {
     ),
     hit: assetUrl('assets/characters/aa-07/driver/hit.png', MCFLEURDEL_ASSET_REVISION),
     victory: assetUrl('assets/characters/aa-07/driver/victory.png', MCFLEURDEL_ASSET_REVISION),
+    frontSteerLeft: assetUrl(
+      'assets/characters/aa-07/driver/front-steer-left.png',
+      MCFLEURDEL_ASSET_REVISION,
+    ),
+    frontSteerRight: assetUrl(
+      'assets/characters/aa-07/driver/front-steer-right.png',
+      MCFLEURDEL_ASSET_REVISION,
+    ),
+    frontHit: assetUrl(
+      'assets/characters/aa-07/driver/front-hit.png',
+      MCFLEURDEL_ASSET_REVISION,
+    ),
+    frontVictory: assetUrl(
+      'assets/characters/aa-07/driver/front-victory.png',
+      MCFLEURDEL_ASSET_REVISION,
+    ),
   },
   stats: { speed: 8, acceleration: 6, weight: 7, handling: 5, miniTurbo: 4, traction: 6 },
 };

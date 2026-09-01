@@ -6,7 +6,7 @@
 - Runtime ID: `aa-07`
 - Balance profile: AA-07 High-Speed Cruiser
 - Kart: The Fleur de Nuit
-- Package status: **2D art and kart approved; deterministic runtime package staged pending CI**
+- Package status: **Production package live; front-action expansion approved and integrated locally pending publication**
 
 ## Runtime PNG contract
 
@@ -19,8 +19,14 @@
 | `public/assets/characters/aa-07/driver/steer-right.png` | 512 x 512 | Chase-camera right steering  | `bc944b339db304739a688d4dd23cc8da51b76394147252d41473e8bef78a753b` |
 | `public/assets/characters/aa-07/driver/hit.png`         | 512 x 512 | Chase-camera impact reaction | `a27326721f4ceac8f0fc1336636a0487ff4d35265faa9cf5a04d76a92d7bfb9e` |
 | `public/assets/characters/aa-07/driver/victory.png`     | 512 x 512 | Chase-camera victory turn    | `42d5c3ce61fec1b21765cb18875cc1a92ac83fbf69cf3452e48beb81ffba944b` |
+| `public/assets/characters/aa-07/driver/front-steer-left.png` | 512 x 512 | Front-facing left steering | `d69dc042efab13389fd259bfcee8556328657bda3e06ce1cbcdb155f4ab62a41` |
+| `public/assets/characters/aa-07/driver/front-steer-right.png` | 512 x 512 | Front-facing right steering | `e2c99f93a3f33fb627967de88852cfe49289f0fe6fffc007beda1c1aa079ce7b` |
+| `public/assets/characters/aa-07/driver/front-hit.png` | 512 x 512 | Front-facing impact reaction | `440b48865114ac4fc2c6acde6f5133c001c3a4c18ccb5fc72772791e874f1c21` |
+| `public/assets/characters/aa-07/driver/front-victory.png` | 512 x 512 | Front-facing victory pose | `cb5be9ae847303aa8edf74204e809a1bb690754784d671f145243eb1b195f36f` |
 
 Every file is sRGB RGBA with alpha spanning fully transparent to fully opaque and four fully transparent corner pixels. The approved hit and victory frames intentionally invert the visible hair-color placement to white on the viewer's left and black on the viewer's right.
+
+The four approved front-action frames preserve black hair on the viewer's left and white hair on the viewer's right. The steering frames contain transparent gaps inside the black curls and behind both arms. The runtime gate rejects any connected pale matte component of 30 pixels or more in those reviewed gap regions.
 
 ## Driver-state behavior
 
@@ -47,4 +53,4 @@ All three files are deterministic binary glTF, use meters, declare `extras.forwa
 
 ## Next gate
 
-Publish the approved GLBs through Git LFS, run the full runtime gate and repository validation, then merge/deploy for live product-owner acceptance.
+Publish `mcfleurdel-runtime-20260901-2`, then verify both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and single-wheel presentation in the deployed desktop/mobile build.

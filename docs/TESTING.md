@@ -167,7 +167,8 @@ Run this matrix for every future production character, in addition to its slice-
 - The approved purple-and-silver grand-tourer body, mushroom crest and fixtures, four connected wheels, open cockpit, and angled chassis-mounted steering assembly load without clipping or floating geometry.
 - Keeg sits correctly in the cockpit with the steering wheel forward of the driver.
 - Keeg's driving hands align with the steering-wheel center; the wheel must not cross his abdomen or float below his hands in chase view.
-- Rear, front, steer-left, steer-right, hit, and victory driver states load from `keeg-runtime-20260826-2`.
+- All ten driver states load from `keeg-runtime-20260901-3`.
+- Rear view preserves steering, hit, and victory through Keeg's matching front-facing action frames. The two steering silhouettes must read as opposite directions, and no Keeg front-action frame may contain wheel or kart geometry.
 - Chase and rear views confirm the mushroom shield is at the race-forward nose and the exhausts remain behind Keeg.
 - Keeg appears no more than once as an AI opponent when the player selects another character.
 - CI materializes and validates all three AA-04 GLBs; each begins with the binary glTF signature and declares `extras.forward: "-Z"`.
@@ -194,7 +195,9 @@ Run this matrix for every future production character, in addition to its slice-
 - `Race as McFleurdel` loads The Fleur de Nuit rather than the fallback kart.
 - The approved black body, raised silver fleur-de-lis, black nose shield, plum throne cockpit, attached silver trim, four connected wheels, ivory candles, and violet flames load without clipping or floating geometry.
 - McFleurdel sits correctly in the cockpit with the steering wheel forward of the driver.
-- Rear, front, steer-left, steer-right, hit, and victory states load from `mcfleurdel-runtime-20260827-1`.
+- All ten driver states load from `mcfleurdel-runtime-20260901-2`.
+- Rear view preserves steering, hit, and victory through McFleurdel's matching front-facing action frames. Her front-action hair remains black on the viewer's left and white on the viewer's right.
+- Front-steer-left and front-steer-right must expose transparent background inside the black-hair curls and behind both arms. Any connected pale matte component of 30 pixels or more in the reviewed gap regions fails the runtime gate.
 - Chase and rear views confirm the fleur-de-lis shield is at the race-forward nose and exhausts remain behind McFleurdel.
 - McFleurdel appears no more than once as an AI opponent when the player selects another character.
 - CI materializes and validates all three AA-07 GLBs; each begins with the binary glTF signature and declares `extras.forward: "-Z"`.

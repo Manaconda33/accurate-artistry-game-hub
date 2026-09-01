@@ -6,7 +6,7 @@
 - Runtime ID: `aa-04`
 - Balance profile: AA-04 Balanced Racer
 - Kart: The Mycelial Majesty
-- Package status: **2D art and kart approved; LFS verified; manifest activation staged pending CI**
+- Package status: **Production package live; front-action expansion approved and integrated locally pending publication**
 
 ## Canonical character lock
 
@@ -25,6 +25,10 @@ Driver art and kart art remain separate runtime layers. Driver PNGs contain no s
 | `public/assets/characters/aa-04/driver/steer-right.png` | 512 x 512 | Chase-camera right steering | `5b6288894fc2ccd6029c245920c8987cbc1b5a67e4fcd9416fce22e618a0b499` |
 | `public/assets/characters/aa-04/driver/hit.png` | 512 x 512 | Chase-camera impact reaction | `30c44e3ad74dd6219a403365ac55a54470967e37f3e7c0288b901ee4c87aa7ff` |
 | `public/assets/characters/aa-04/driver/victory.png` | 512 x 512 | Chase-camera victory turn | `bde98ae1841c061baf92966df8909a817af63b2d03f6c1a443e7b0dac7d56540` |
+| `public/assets/characters/aa-04/driver/front-steer-left.png` | 512 x 512 | Front-facing left steering | `907140e23dc8d41e566d2ab013baa95c2a1d553bb3c5c56ea541a3136397f9a2` |
+| `public/assets/characters/aa-04/driver/front-steer-right.png` | 512 x 512 | Front-facing right steering | `75009c11ab0628999d9530e8c5846e3ca48f4979a72395a6f0478b5ba36c5e06` |
+| `public/assets/characters/aa-04/driver/front-hit.png` | 512 x 512 | Front-facing impact reaction | `6d6b61d687525a2bfb63a575fba95d113bcbf9072dcf76d8585b9bff6f89304d` |
+| `public/assets/characters/aa-04/driver/front-victory.png` | 512 x 512 | Front-facing victory pose | `dcdfc3ca451660e61db013b9699029f12ef2242008556c3b9355a2a53b8f790b` |
 
 Every approved file is sRGB RGBA with alpha spanning fully transparent to fully opaque and four fully transparent corner pixels. Runtime PNGs belong in normal Git under ADR-012.
 
@@ -65,6 +69,8 @@ The initial live publication corrupted the seven normal-Git PNG payloads while l
 
 The live cockpit check found the generic driver mount placed Keeg's hands above the steering-wheel center. AA-04 therefore uses the character-specific runtime mount `[0, 0.72, -0.12]`; sprite scale, depth, approved artwork, and kart geometry remain unchanged.
 
+Manny approved Keeg's four camera-facing action frames on 2026-09-01. The two steering frames use opposing camera-side leans and distinct arm positions. All four frames contain no steering wheel or kart geometry because The Mycelial Majesty supplies the modeled steering control. The controlled front-action revision is `keeg-runtime-20260901-3`.
+
 ## Next gate
 
-**Complete.** Keeg is active in the production manifest. The Mycelial Majesty and all approved driver states load in the deployed game, and Manny confirmed the corrected cockpit alignment in the live mobile build on 2026-08-27. No further Keeg integration work is pending.
+Publish `keeg-runtime-20260901-3`, then verify both steering directions, hit, victory, chase-state restoration, cockpit placement, and single-wheel presentation in the deployed desktop/mobile build.
