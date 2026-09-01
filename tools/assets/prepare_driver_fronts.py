@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Prepare approved front driver art and repair Accu's wheel apertures.
 
-The approved source candidates contain a baked light checkerboard. This tool
-removes only edge-connected neutral pixels, produces premultiplied-alpha
+Approved source candidates can contain a baked light checkerboard or flat
+black matte. This tool removes only edge-connected neutral pixels, produces premultiplied-alpha
 512x512 runtime sprites, and clears the neutral checker remnants inside three
 known Accu steering-wheel apertures without redrawing character art.
 """
@@ -26,10 +26,20 @@ def neighboring(mask: np.ndarray) -> np.ndarray:
     return expanded
 
 
-def edge_connected_checkerboard(rgb: np.ndarray) -> np.ndarray:
+def edge_connected_neutral_background(rgb: np.ndarray) -> np.ndarray:
     maximum = rgb.max(axis=2)
     minimum = rgb.min(axis=2)
-    candidate = (minimum >= 208) & ((maximum - minimum) <= 24)
+    corner_samples = np.concatenate(
+        (rgb[0, :], rgb[-1, :], rgb[:, 0], rgb[:, -1]), axis=0
+    )
+    border_median = np.median(corner_samples, axis=0)
+    dark_matte = float(border_median.max()) < 64
+    if dark_matte:
+        # Keep the threshold deliberately tight so black hair, horns, and outlines
+        # remain foreground even when they touch the silhouette edge.
+        candidate = (maximum <= 10) & ((maximum - minimum) <= 8)
+    else:
+        candidate = (minimum >= 208) & ((maximum - minimum) <= 24)
     height, width = candidate.shape
     background = np.zeros_like(candidate)
     queue: deque[tuple[int, int]] = deque()
@@ -53,14 +63,64 @@ def edge_connected_checkerboard(rgb: np.ndarray) -> np.ndarray:
         if x + 1 < width:
             queue.append((y, x + 1))
 
-    # Absorb only pale antialias spill adjoining confirmed background.
-    for _ in range(2):
+    # Absorb only neutral antialias spill adjoining confirmed background.
+    if dark_matte:
         edge = neighboring(background) & ~background
-        spill = edge & (minimum >= 190) & ((maximum - minimum) <= 42)
-        if not spill.any():
-            break
-        background |= spill
+        background |= edge & (maximum <= 20) & ((maximum - minimum) <= 14)
+    else:
+        for _ in range(2):
+            edge = neighboring(background) & ~background
+            spill = edge & (minimum >= 190) & ((maximum - minimum) <= 42)
+            if not spill.any():
+                break
+            background |= spill
     return background
+
+
+def enclosed_upper_neutral_background(
+    rgb: np.ndarray, background: np.ndarray, minimum_pixels: int = 200
+) -> np.ndarray:
+    """Find large enclosed pale-matte islands in the upper character silhouette.
+
+    This is opt-in for silhouettes such as Krios's closed horn loops. The size
+    and location gates keep small neutral highlights, teeth, and metal details.
+    """
+    maximum = rgb.max(axis=2)
+    minimum = rgb.min(axis=2)
+    candidate = (
+        ~background
+        & (minimum >= 150)
+        & ((maximum - minimum) <= 70)
+    )
+    height, width = candidate.shape
+    visited = np.zeros_like(candidate)
+    enclosed = np.zeros_like(candidate)
+    minimum_y = round(height * 0.12)
+    maximum_y = round(height * 0.42)
+
+    for start_y, start_x in zip(*np.where(candidate & ~visited)):
+        queue: deque[tuple[int, int]] = deque([(int(start_y), int(start_x))])
+        component: list[tuple[int, int]] = []
+        top = int(start_y)
+        while queue:
+            y, x = queue.popleft()
+            if visited[y, x] or not candidate[y, x]:
+                continue
+            visited[y, x] = True
+            component.append((y, x))
+            top = min(top, y)
+            if y:
+                queue.append((y - 1, x))
+            if y + 1 < height:
+                queue.append((y + 1, x))
+            if x:
+                queue.append((y, x - 1))
+            if x + 1 < width:
+                queue.append((y, x + 1))
+        if len(component) >= minimum_pixels and minimum_y <= top <= maximum_y:
+            ys, xs = zip(*component)
+            enclosed[np.asarray(ys), np.asarray(xs)] = True
+    return enclosed
 
 
 def premultiplied_resize(image: Image.Image, size: tuple[int, int]) -> Image.Image:
@@ -89,9 +149,17 @@ def premultiplied_resize(image: Image.Image, size: tuple[int, int]) -> Image.Ima
     )
 
 
-def prepare_front(source: Path, target: Path, size: int = 512, padding: float = 0.025) -> None:
+def prepare_front(
+    source: Path,
+    target: Path,
+    size: int = 512,
+    padding: float = 0.025,
+    clear_enclosed_upper_matte: bool = False,
+) -> None:
     rgb = np.asarray(Image.open(source).convert("RGB"))
-    background = edge_connected_checkerboard(rgb)
+    background = edge_connected_neutral_background(rgb)
+    if clear_enclosed_upper_matte:
+        background |= enclosed_upper_neutral_background(rgb, background)
     rgba = np.dstack((rgb, np.where(background, 0, 255).astype(np.uint8)))
     rgba[background, :3] = 0
     image = Image.fromarray(rgba, "RGBA")

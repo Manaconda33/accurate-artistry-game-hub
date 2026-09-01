@@ -95,6 +95,34 @@ const decodeRgbaRows = (filtered, width, height) => {
   return decoded;
 };
 
+const countEnclosedTransparentRegions = (decoded, width, height, minimumPixels) => {
+  const visited = new Uint8Array(width * height);
+  let qualifyingRegions = 0;
+  for (let start = 0; start < width * height; start += 1) {
+    if (visited[start] !== 0 || decoded[start * 4 + 3] !== 0) continue;
+    const stack = [start];
+    visited[start] = 1;
+    let pixels = 0;
+    let touchesEdge = false;
+    while (stack.length > 0) {
+      const pixel = stack.pop();
+      const x = pixel % width;
+      const y = Math.floor(pixel / width);
+      pixels += 1;
+      touchesEdge ||= x === 0 || y === 0 || x === width - 1 || y === height - 1;
+      for (const neighbor of [pixel - width, pixel + width, pixel - 1, pixel + 1]) {
+        if (neighbor < 0 || neighbor >= width * height || visited[neighbor] !== 0) continue;
+        const neighborX = neighbor % width;
+        if (Math.abs(neighborX - x) > 1 || decoded[neighbor * 4 + 3] !== 0) continue;
+        visited[neighbor] = 1;
+        stack.push(neighbor);
+      }
+    }
+    if (!touchesEdge && pixels >= minimumPixels) qualifyingRegions += 1;
+  }
+  return qualifyingRegions;
+};
+
 const lulaProtectedRects = {
   'portrait.png': [82, 66, 180, 170],
   'front.png': [205, 55, 310, 185],
@@ -108,6 +136,14 @@ const runtimePngs = [
   ['public/assets/characters/aa-05/driver/front-hit.png', 512, 512],
   ['public/assets/characters/aa-05/driver/front-victory.png', 512, 512],
   ['public/assets/characters/aa-09/driver/front.png', 512, 512],
+  ['public/assets/characters/aa-09/driver/front-steer-left.png', 512, 512],
+  ['public/assets/characters/aa-09/driver/front-steer-right.png', 512, 512],
+  ['public/assets/characters/aa-09/driver/front-hit.png', 512, 512],
+  ['public/assets/characters/aa-09/driver/front-victory.png', 512, 512],
+  ['public/assets/characters/aa-10/driver/front-steer-left.png', 512, 512],
+  ['public/assets/characters/aa-10/driver/front-steer-right.png', 512, 512],
+  ['public/assets/characters/aa-10/driver/front-hit.png', 512, 512],
+  ['public/assets/characters/aa-10/driver/front-victory.png', 512, 512],
   ['public/assets/characters/aa-11/driver/front.png', 512, 512],
   ['public/assets/characters/aa-11/driver/rear.png', 512, 512],
   ['public/assets/characters/aa-11/driver/steer-left.png', 512, 512],
@@ -151,7 +187,21 @@ const newTransparentFronts = new Set([
   'public/assets/characters/aa-05/driver/front-hit.png',
   'public/assets/characters/aa-05/driver/front-victory.png',
   'public/assets/characters/aa-09/driver/front.png',
+  'public/assets/characters/aa-09/driver/front-steer-left.png',
+  'public/assets/characters/aa-09/driver/front-steer-right.png',
+  'public/assets/characters/aa-09/driver/front-hit.png',
+  'public/assets/characters/aa-09/driver/front-victory.png',
+  'public/assets/characters/aa-10/driver/front-steer-left.png',
+  'public/assets/characters/aa-10/driver/front-steer-right.png',
+  'public/assets/characters/aa-10/driver/front-hit.png',
+  'public/assets/characters/aa-10/driver/front-victory.png',
   'public/assets/characters/aa-11/driver/front.png',
+]);
+
+const kriosHornApertureFronts = new Set([
+  'public/assets/characters/aa-10/driver/front-steer-left.png',
+  'public/assets/characters/aa-10/driver/front-steer-right.png',
+  'public/assets/characters/aa-10/driver/front-victory.png',
 ]);
 
 const accuApertureRects = {
@@ -207,6 +257,16 @@ for (const [path, expectedWidth, expectedHeight] of runtimePngs) {
     const corners = [0, width - 1, (height - 1) * width, width * height - 1];
     if (corners.some((pixel) => decoded[pixel * 4 + 3] !== 0)) {
       throw new Error(`${path} must have transparent corners after checkerboard removal.`);
+    }
+  }
+
+  if (kriosHornApertureFronts.has(path)) {
+    const decoded = decodeRgbaRows(pixels, width, height);
+    const hornApertures = countEnclosedTransparentRegions(decoded, width, height, 400);
+    if (hornApertures < 2) {
+      throw new Error(
+        `${path} must preserve two transparent enclosed horn apertures; found ${String(hornApertures)}.`,
+      );
     }
   }
 

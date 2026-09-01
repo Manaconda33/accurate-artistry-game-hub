@@ -40,6 +40,18 @@ describe('character manifest', () => {
     expect(manaconda.driver?.steerRight).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
     expect(manaconda.driver?.hit).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
     expect(manaconda.driver?.victory).toContain(`?v=${MANACONDA_ASSET_REVISION}`);
+    expect(manaconda.driver?.frontSteerLeft).toContain(
+      `/assets/characters/aa-09/driver/front-steer-left.png?v=${MANACONDA_ASSET_REVISION}`,
+    );
+    expect(manaconda.driver?.frontSteerRight).toContain(
+      `/assets/characters/aa-09/driver/front-steer-right.png?v=${MANACONDA_ASSET_REVISION}`,
+    );
+    expect(manaconda.driver?.frontHit).toContain(
+      `/assets/characters/aa-09/driver/front-hit.png?v=${MANACONDA_ASSET_REVISION}`,
+    );
+    expect(manaconda.driver?.frontVictory).toContain(
+      `/assets/characters/aa-09/driver/front-victory.png?v=${MANACONDA_ASSET_REVISION}`,
+    );
     expect(manaconda.stats).toEqual({
       speed: 7,
       acceleration: 6,
@@ -142,6 +154,18 @@ describe('character manifest', () => {
     expect(krios.driver?.steerRight).toContain(`?v=${KRIOS_ASSET_REVISION}`);
     expect(krios.driver?.hit).toContain(`?v=${KRIOS_ASSET_REVISION}`);
     expect(krios.driver?.victory).toContain(`?v=${KRIOS_ASSET_REVISION}`);
+    expect(krios.driver?.frontSteerLeft).toContain(
+      `/assets/characters/aa-10/driver/front-steer-left.png?v=${KRIOS_ASSET_REVISION}`,
+    );
+    expect(krios.driver?.frontSteerRight).toContain(
+      `/assets/characters/aa-10/driver/front-steer-right.png?v=${KRIOS_ASSET_REVISION}`,
+    );
+    expect(krios.driver?.frontHit).toContain(
+      `/assets/characters/aa-10/driver/front-hit.png?v=${KRIOS_ASSET_REVISION}`,
+    );
+    expect(krios.driver?.frontVictory).toContain(
+      `/assets/characters/aa-10/driver/front-victory.png?v=${KRIOS_ASSET_REVISION}`,
+    );
     expect(krios.stats).toEqual({
       speed: 10,
       acceleration: 4,

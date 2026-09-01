@@ -46,11 +46,11 @@ export const STAT_TOTAL = 36;
 export const NEGATIVE_Z_KART_VISUAL_YAW = Math.PI;
 
 export const LAVI_ASSET_REVISION = 'lavi-runtime-20260831-4';
-export const MANACONDA_ASSET_REVISION = 'manaconda-runtime-20260831-2';
+export const MANACONDA_ASSET_REVISION = 'manaconda-runtime-20260901-3';
 export const ACCU_ASSET_REVISION = 'accu-runtime-20260831-2';
 export const KRAKEN_ASSET_REVISION = 'kraken-runtime-20260901-2';
 export const CLEO_ASSET_REVISION = 'cleo-runtime-20260821-1';
-export const KRIOS_ASSET_REVISION = 'krios-runtime-20260822-1';
+export const KRIOS_ASSET_REVISION = 'krios-runtime-20260901-2';
 export const KEEG_ASSET_REVISION = 'keeg-runtime-20260826-2';
 export const MCFLEURDEL_ASSET_REVISION = 'mcfleurdel-runtime-20260827-1';
 export const TOPH_ASSET_REVISION = 'toph-runtime-20260828-1';
@@ -104,6 +104,19 @@ const manaconda: CharacterDefinition = {
     ),
     hit: assetUrl('assets/characters/aa-09/driver/hit.png', MANACONDA_ASSET_REVISION),
     victory: assetUrl('assets/characters/aa-09/driver/victory.png', MANACONDA_ASSET_REVISION),
+    frontSteerLeft: assetUrl(
+      'assets/characters/aa-09/driver/front-steer-left.png',
+      MANACONDA_ASSET_REVISION,
+    ),
+    frontSteerRight: assetUrl(
+      'assets/characters/aa-09/driver/front-steer-right.png',
+      MANACONDA_ASSET_REVISION,
+    ),
+    frontHit: assetUrl('assets/characters/aa-09/driver/front-hit.png', MANACONDA_ASSET_REVISION),
+    frontVictory: assetUrl(
+      'assets/characters/aa-09/driver/front-victory.png',
+      MANACONDA_ASSET_REVISION,
+    ),
   },
   stats: { speed: 7, acceleration: 6, weight: 6, handling: 6, miniTurbo: 6, traction: 5 },
 };
@@ -214,6 +227,19 @@ const krios: CharacterDefinition = {
     steerRight: assetUrl('assets/characters/aa-10/driver/steer-right.png', KRIOS_ASSET_REVISION),
     hit: assetUrl('assets/characters/aa-10/driver/hit.png', KRIOS_ASSET_REVISION),
     victory: assetUrl('assets/characters/aa-10/driver/victory.png', KRIOS_ASSET_REVISION),
+    frontSteerLeft: assetUrl(
+      'assets/characters/aa-10/driver/front-steer-left.png',
+      KRIOS_ASSET_REVISION,
+    ),
+    frontSteerRight: assetUrl(
+      'assets/characters/aa-10/driver/front-steer-right.png',
+      KRIOS_ASSET_REVISION,
+    ),
+    frontHit: assetUrl('assets/characters/aa-10/driver/front-hit.png', KRIOS_ASSET_REVISION),
+    frontVictory: assetUrl(
+      'assets/characters/aa-10/driver/front-victory.png',
+      KRIOS_ASSET_REVISION,
+    ),
   },
   stats: { speed: 10, acceleration: 4, weight: 9, handling: 3, miniTurbo: 4, traction: 6 },
 };
