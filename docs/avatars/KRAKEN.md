@@ -42,6 +42,8 @@ Manny approved the following art on 2026-08-21:
 - `driver/victory.png`: chase-camera over-the-shoulder victory frame
 - `driver/front-victory.png`: front-facing victory frame retained for camera-facing finish presentation
 
+Amendment 2.0 adds front-steer-left, front-steer-right, and front-hit to Kraken's package. Manny approved the three candidates on 2026-09-01, and they are integrated without altering the existing approved front-victory frame or any chase-oriented art.
+
 All runtime derivatives are sRGB RGBA PNGs with genuine transparency. The portrait is 256 x 256; every driver frame is 512 x 512. Character layers contain no kart or steering-wheel geometry.
 
 ## Provenance and transformation
@@ -55,11 +57,12 @@ Manny supplied the definitive character-and-kart reference and directed its use 
 - Kart design lock: Approved
 - Balance mapping: Approved, AA-05
 - Driver art: Approved
+- Front-action parity: All four frames approved; live runtime verification pending
 - Runtime PNG preparation: Complete
 - Kart GLB: Approved and prepared in three deterministic LODs
-- Manifest production integration: Complete under controlled revision `kraken-runtime-20260821-1`
+- Manifest production integration: Front-action pilot integrated under controlled revision `kraken-runtime-20260901-2`
 - Live verification: Accepted by Manny on 2026-08-21
 
 ## Next action
 
-Kraken's production package is complete. Continue the governed one-character-at-a-time avatar intake workflow with the next approved racer.
+Validate and deploy the Kraken pilot, then confirm both steering directions, hit, victory, transparency, cockpit placement, and wheel ownership in the live game before proceeding to the next active driver.

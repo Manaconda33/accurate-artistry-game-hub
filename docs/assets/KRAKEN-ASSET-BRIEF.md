@@ -6,7 +6,7 @@
 - Runtime ID: `aa-05`
 - Balance profile: AA-05 Drift Specialist
 - Kart: The Abyssal Drifter
-- Package status: approved production package prepared; live verification pending
+- Package status: original production package live accepted; front-action parity pilot approved and integrated for live verification
 
 ## Canonical character lock
 
@@ -25,6 +25,9 @@ Driver art and kart art remain separate runtime layers. Driver PNGs must not con
 | `public/assets/characters/aa-05/driver/steer-right.png`   | 512 x 512 | Chase-camera right steering         |
 | `public/assets/characters/aa-05/driver/hit.png`           | 512 x 512 | Chase-camera impact reaction        |
 | `public/assets/characters/aa-05/driver/victory.png`       | 512 x 512 | Chase-camera victory turn           |
+| `public/assets/characters/aa-05/driver/front-steer-left.png`  | 512 x 512 | Front-facing left steering       |
+| `public/assets/characters/aa-05/driver/front-steer-right.png` | 512 x 512 | Front-facing right steering      |
+| `public/assets/characters/aa-05/driver/front-hit.png`         | 512 x 512 | Front-facing impact reaction     |
 | `public/assets/characters/aa-05/driver/front-victory.png` | 512 x 512 | Front-facing victory presentation   |
 
 Every file must remain sRGB RGBA with non-opaque alpha and transparent corner pixels. Runtime art belongs in normal Git under ADR-012. High-resolution masters do not belong at these paths.
@@ -36,6 +39,13 @@ Every file must remain sRGB RGBA with non-opaque alpha and transparent corner pi
 - Hit takes precedence over steering and shows Kraken recoiling while his hips remain forward.
 - Chase victory keeps his hips and legs facing the kart while his torso turns back toward the viewer. It must not read as a full-body 180-degree about-face.
 - Front and front-victory are separate approved views. Neither may be inferred by mirroring a rear frame.
+
+## Front-facing action parity pilot
+
+- The approved neutral front and front-victory frames remain unchanged.
+- Front-steer-left, front-steer-right, and front-hit candidates were prepared with genuine alpha and the 512 x 512 runtime dimensions, then approved by Manny on 2026-09-01.
+- The steering candidates preserve kart-input direction: left leans toward Kraken's own left, and right leans toward his own right. The hit candidate preserves the approved seated footprint while translating the chase recoil and blue electrical reaction into the front view.
+- The three approved frames are integrated under controlled revision `kraken-runtime-20260901-2`. The existing neutral front, front-victory, and all chase-oriented art remain unchanged.
 
 ## Definitive kart direction
 
@@ -54,7 +64,7 @@ The production model must declare `extras.forward: "-Z"` and use the shared `NEG
 ## Current verification
 
 - Portrait: 256 x 256, sRGB RGBA, transparent
-- Seven driver frames: 512 x 512, sRGB RGBA, transparent
+- Ten driver frames: 512 x 512, sRGB RGBA, transparent
 - Approved art contains no steering wheel or kart geometry
 - Manny approved LOD0 Candidate 3 on 2026-08-21 after reviewing the GLB directly in the interactive 3D viewer.
 - The approved steering assembly keeps the rim clear of the shell, mounts its column on the nose-facing side, and connects through an indigo-purple dashboard housing.
@@ -66,4 +76,4 @@ The production model must declare `extras.forward: "-Z"` and use the shared `NEG
 
 ## Integration gate
 
-Complete. The approved GLBs are materialized through Git LFS, the runtime asset gate passes, AA-05 is active in the production manifest, and product-owner live acceptance confirms the approved kart rather than the fallback.
+The original production package is complete and live accepted. The approved front-action pilot is integrated and automated validation is required before deployment; product-owner live confirmation of the four camera-facing action states remains the final pilot gate.

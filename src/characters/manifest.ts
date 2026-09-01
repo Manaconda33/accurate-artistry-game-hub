@@ -31,6 +31,10 @@ export interface CharacterDefinition {
     steerRight: string;
     hit: string;
     victory: string;
+    frontSteerLeft?: string;
+    frontSteerRight?: string;
+    frontHit?: string;
+    frontVictory?: string;
   };
   stats: CharacterStats;
 }
@@ -44,7 +48,7 @@ export const NEGATIVE_Z_KART_VISUAL_YAW = Math.PI;
 export const LAVI_ASSET_REVISION = 'lavi-runtime-20260831-4';
 export const MANACONDA_ASSET_REVISION = 'manaconda-runtime-20260831-2';
 export const ACCU_ASSET_REVISION = 'accu-runtime-20260831-2';
-export const KRAKEN_ASSET_REVISION = 'kraken-runtime-20260821-1';
+export const KRAKEN_ASSET_REVISION = 'kraken-runtime-20260901-2';
 export const CLEO_ASSET_REVISION = 'cleo-runtime-20260821-1';
 export const KRIOS_ASSET_REVISION = 'krios-runtime-20260822-1';
 export const KEEG_ASSET_REVISION = 'keeg-runtime-20260826-2';
@@ -148,6 +152,19 @@ const kraken: CharacterDefinition = {
     steerRight: assetUrl('assets/characters/aa-05/driver/steer-right.png', KRAKEN_ASSET_REVISION),
     hit: assetUrl('assets/characters/aa-05/driver/hit.png', KRAKEN_ASSET_REVISION),
     victory: assetUrl('assets/characters/aa-05/driver/victory.png', KRAKEN_ASSET_REVISION),
+    frontSteerLeft: assetUrl(
+      'assets/characters/aa-05/driver/front-steer-left.png',
+      KRAKEN_ASSET_REVISION,
+    ),
+    frontSteerRight: assetUrl(
+      'assets/characters/aa-05/driver/front-steer-right.png',
+      KRAKEN_ASSET_REVISION,
+    ),
+    frontHit: assetUrl('assets/characters/aa-05/driver/front-hit.png', KRAKEN_ASSET_REVISION),
+    frontVictory: assetUrl(
+      'assets/characters/aa-05/driver/front-victory.png',
+      KRAKEN_ASSET_REVISION,
+    ),
   },
   stats: { speed: 6, acceleration: 7, weight: 5, handling: 6, miniTurbo: 9, traction: 3 },
 };

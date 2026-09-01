@@ -4,7 +4,7 @@
 
 **Slice 3 — Character Selection & Avatar Ingestion**
 
-PRD baseline: **v1.1, working implementation amendment 1.9**.
+PRD baseline: **v1.1, working implementation amendment 2.0**.
 
 Latest verified live character checkpoint: `ef74ca9eabb2a242c02d35d72c55377ee9b5529c` — Lula's corrected production package passed mobile playtesting after the front-camera-only placement fix aligned her hands with The Verdant Hart steering wheel. Her portrait, kart, transparent sprite package, consistent skin tone, all six driver states, orientation, AI identity, and runtime behavior are accepted. Lula now supersedes Toph as the latest verified live character checkpoint.
 
@@ -25,6 +25,17 @@ Production character packages currently represented in `characterManifest`:
 - Accu / Pink Precision — AA-11
 
 Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placeholder and available for future approved assignment. The twelve-slot Character Select architecture remains intact.
+
+## Front-facing action-state parity — in progress
+
+- Manny approved closing the rear-camera action-state gap on 2026-09-01. The target package adds front-steer-left, front-steer-right, front-hit, and front-victory without replacing any approved chase or neutral-front art.
+- Nine active production drivers require four camera-facing action states each. Kraken already owns an approved `front-victory.png`, leaving 35 new raster approvals across the active roster.
+- Rollout remains one character at a time. Kraken is the pilot because his approved front-victory frame reduces the first package to three new candidates and provides an existing authority for the camera-facing victory contract.
+- Runtime infrastructure may use the approved neutral front frame as a rollout fallback. No new raster enters a runtime path and no character revision changes until Manny approves that character's candidate package.
+- Manny approved Kraken's front-steer-left, front-steer-right, and front-hit candidates on 2026-09-01. They are integrated with the unchanged approved front-victory frame under controlled revision `kraken-runtime-20260901-2`.
+- The runtime gate now decodes all four Kraken front-action PNGs, enforces 512 x 512 non-interlaced RGBA data, and rejects non-transparent corners.
+- Local `npm run validate` passed on 2026-09-01: strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized GLBs, 40 decoded runtime PNGs, and a production Vite build.
+- Status: **PRD AMENDMENT 2.0 ACTIVE — KRAKEN PILOT APPROVED, LIVE VERIFICATION PENDING.**
 
 ## Cleo archive status — complete
 
