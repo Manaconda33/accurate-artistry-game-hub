@@ -6,7 +6,7 @@
 - Runtime ID: `aa-07`
 - Balance profile: AA-07 High-Speed Cruiser
 - Kart: The Fleur de Nuit
-- Package status: **Production package live; front-action expansion approved and integrated locally pending publication**
+- Package status: **Production package live; front-action expansion approved, deployed, and live accepted**
 
 ## Runtime PNG contract
 
@@ -51,6 +51,8 @@ Manny approved Candidate 9 on 2026-08-27 after the candle silhouette, black body
 
 All three files are deterministic binary glTF, use meters, declare `extras.forward: "-Z"`, preserve the required runtime nodes, and keep black body material separate from the silver fleur/trim material.
 
-## Next gate
+## Front-action acceptance
 
-`mcfleurdel-runtime-20260901-2` deployed through PR #65 and main run `33563732551`. The live bundle references the controlled revision, and all four deployed front-action PNG responses match the approved SHA-256 values above. Verify both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and single-wheel presentation in the desktop/mobile build.
+`mcfleurdel-runtime-20260901-2` deployed through PR #65 and main run `33563732551`. The live bundle references the controlled revision, and all four deployed front-action PNG responses match the approved SHA-256 values above.
+
+Manny accepted the live front-action package on 2026-09-01 against deployed checkpoint `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`. Both steering directions, hit, victory, chase-state restoration, cockpit placement, transparency, and modeled-wheel ownership pass. No sprite-owned duplicate wheel appears, and the reviewed black-curl interiors and arm gaps remain transparent.

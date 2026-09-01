@@ -6,7 +6,7 @@
 
 PRD baseline: **v1.1, working implementation amendment 2.0**.
 
-Latest verified live character checkpoint: `2ca852b47f16b8221275ee2b5542650d609b9a0d`. Manaconda's and Krios's front-action packages passed Manny's live playtest on 2026-09-01. Rear-view steering in both directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership are accepted under `manaconda-runtime-20260901-3` and `krios-runtime-20260901-2`.
+Latest verified live character checkpoint: `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`. Keeg's and McFleurdel's front-action packages passed Manny's live playtest on 2026-09-01. Rear-view steering in both directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership are accepted under `keeg-runtime-20260901-3` and `mcfleurdel-runtime-20260901-2`.
 
 The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
@@ -29,7 +29,7 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 ## Front-facing action-state parity — in progress
 
 - Manny approved closing the rear-camera action-state gap on 2026-09-01. The target package adds front-steer-left, front-steer-right, front-hit, and front-victory without replacing any approved chase or neutral-front art.
-- Nine active production drivers require four camera-facing action states each. Kraken, Manaconda, Krios, Keeg, and McFleurdel now have approved packages, leaving 16 raster approvals across the other four active drivers.
+- Nine active production drivers require four camera-facing action states each. Kraken, Manaconda, Krios, Keeg, and McFleurdel now have live-accepted packages, leaving 16 raster approvals across Lavi, Toph, Lula, and Accu.
 - Rollout normally remains one character at a time. Kraken was the pilot; after its live acceptance, Manny authorized two drivers per batch for the remaining rollout.
 - Runtime infrastructure may use the approved neutral front frame as a rollout fallback. No new raster enters a runtime path and no character revision changes until Manny approves that character's candidate package.
 - Manny approved Kraken's front-steer-left, front-steer-right, and front-hit candidates on 2026-09-01. They are integrated with the unchanged approved front-victory frame under controlled revision `kraken-runtime-20260901-2`.
@@ -53,7 +53,7 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - Manny confirmed the live playtest on 2026-09-01 against deployed checkpoint `2ca852b47f16b8221275ee2b5542650d609b9a0d`. Both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership pass. Manaconda shows exactly one wheel. Krios uses The Hornbreaker's modeled wheel with no duplicate, and the areas between his horns remain transparent.
 - Status: **LIVE ACCEPTED — MANACONDA AND KRIOS FRONT-ACTION BATCH COMPLETE; NEXT TWO-DRIVER BATCH UNLOCKED.**
 
-### Keeg and McFleurdel batch — live deployed; playtest pending
+### Keeg and McFleurdel batch — live accepted
 
 - Manny approved Keeg's four camera-facing action frames on 2026-09-01. The steering frames use opposite camera-side leans and distinct arm positions. All four remain free of wheel and kart geometry because The Mycelial Majesty supplies the modeled steering control.
 - Manny approved McFleurdel's four camera-facing action frames on 2026-09-01 after rejecting residual white matte in both steering frames. The approved cleanup makes the black-hair curl interiors and arm gaps transparent while preserving the white hair and silver costume details.
@@ -63,7 +63,9 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - Local `npm run validate` passed on 2026-09-01: strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized runtime GLBs, 56 decoded runtime PNGs, the McFleurdel matte regression check, and a production Vite build.
 - PR #65 head CI run `33563640441` passed. The PR merged to `main` at `8a63a2de5aaffc1b605d9afc0a6e448615b03755`; main run `33563732551` passed validation and GitHub Pages deployment.
 - The live page serves `assets/index-CmnuEd5x.js` and `assets/KartTimeTrial-C3p-RRyJ.js`. The game bundle references both controlled revisions, and SHA-256 checks against every deployed PNG response match the approved hashes recorded above.
-- Status: **LIVE DEPLOYED — KEEG AND MCFLEURDEL REQUIRE PRODUCT-OWNER CAMERA/ACTION PLAYTEST.**
+- PR #66 recorded the deployment evidence and merged at `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`; main run `33564231150` passed validation and GitHub Pages deployment.
+- Manny confirmed the live playtest on 2026-09-01 against deployed checkpoint `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`. Both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership pass. Keeg and McFleurdel each show exactly one modeled wheel with no sprite duplicate, and McFleurdel's reviewed hair and arm gaps remain transparent.
+- Status: **LIVE ACCEPTED — KEEG AND MCFLEURDEL FRONT-ACTION BATCH COMPLETE; NEXT TWO-DRIVER BATCH AWAITS APPROVAL.**
 
 ## Cleo archive status — complete
 
@@ -253,12 +255,12 @@ Continuity closure completed by PR #32:
 - Live acceptance found that the seven published AA-04 PNG payloads were only partially decodable and that Character Select's separate hard-coded kart-name lookup omitted Keeg. The correction restores the exact approved PNG exports, derives the displayed name from the manifest, and adds decode-level PNG verification to CI.
 - Manny's subsequent mobile check passed the portrait, kart identity, PNG loading, and remaining runtime behavior but found Keeg's hands above the steering-wheel center. The bounded cockpit correction lowered only AA-04's driver sprite mount to `[0, 0.72, -0.12]`.
 - Manny confirmed the corrected live mobile deployment on 2026-08-27. Keeg's portrait, The Mycelial Majesty name/model, all six driver states, cockpit alignment, orientation, and runtime behavior pass. Keeg's AA-04 production checkpoint is complete.
-- The front-action expansion is merged and deployed; desktop/mobile camera-action acceptance remains pending.
+- The front-action expansion is merged, deployed, and live accepted under `keeg-runtime-20260901-3`.
 
 ## Next recommended action
 
-Playtest the deployed Keeg and McFleurdel camera-facing steering, hit, and victory packages on desktop/mobile. Do not start the next pair until this live checkpoint is accepted.
+Await Manny's approval to begin the recommended Lavi and Toph front-action batch. Do not create candidates, modify runtime assets, or change controlled revisions before that approval. Lula and Accu remain the final active drivers after the recommended batch.
 
 ## Approval gate
 
-Keeg and McFleurdel have cleared visual approval and deployment. Live desktop/mobile camera-action acceptance remains gated.
+No approval remains pending for the Keeg and McFleurdel front-action batch. Lavi and Toph remain separately approval-gated for candidate creation, visual review, public integration, deployment, and live acceptance.

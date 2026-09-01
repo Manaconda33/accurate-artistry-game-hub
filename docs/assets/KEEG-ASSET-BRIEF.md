@@ -6,7 +6,7 @@
 - Runtime ID: `aa-04`
 - Balance profile: AA-04 Balanced Racer
 - Kart: The Mycelial Majesty
-- Package status: **Production package live; front-action expansion approved and integrated locally pending publication**
+- Package status: **Production package live; front-action expansion approved, deployed, and live accepted**
 
 ## Canonical character lock
 
@@ -71,6 +71,8 @@ The live cockpit check found the generic driver mount placed Keeg's hands above 
 
 Manny approved Keeg's four camera-facing action frames on 2026-09-01. The two steering frames use opposing camera-side leans and distinct arm positions. All four frames contain no steering wheel or kart geometry because The Mycelial Majesty supplies the modeled steering control. The controlled front-action revision is `keeg-runtime-20260901-3`.
 
-## Next gate
+## Front-action acceptance
 
-`keeg-runtime-20260901-3` deployed through PR #65 and main run `33563732551`. The live bundle references the controlled revision, and all four deployed front-action PNG responses match the approved SHA-256 values above. Verify both steering directions, hit, victory, chase-state restoration, cockpit placement, and single-wheel presentation in the desktop/mobile build.
+`keeg-runtime-20260901-3` deployed through PR #65 and main run `33563732551`. The live bundle references the controlled revision, and all four deployed front-action PNG responses match the approved SHA-256 values above.
+
+Manny accepted the live front-action package on 2026-09-01 against deployed checkpoint `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`. Both steering directions, hit, victory, chase-state restoration, cockpit placement, transparency, and modeled-wheel ownership pass. No sprite-owned duplicate wheel appears.

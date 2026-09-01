@@ -204,3 +204,13 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Controlled revisions:** `keeg-runtime-20260901-3` and `mcfleurdel-runtime-20260901-2`.
 - **Scope:** Existing chase art, neutral front art, kart GLBs, placement, physics, stats, camera geometry, and shared selector behavior remain unchanged.
 - **Approval:** Manny approved Keeg first, then approved McFleurdel after the corrected steering transparency review on 2026-09-01.
+
+## ADR-039: Accept the Keeg and McFleurdel front-action batch
+
+- **Date:** 2026-09-01
+- **Status:** Approved
+- **Context:** PR #65 deployed the approved Keeg and McFleurdel camera-facing steering, hit, and victory packages. PR #66 recorded the deployed bundle, regression coverage, and matching response hashes. The rollout blocked the next pair until Manny completed the live camera/action check.
+- **Decision:** Accept `keeg-runtime-20260901-3` and `mcfleurdel-runtime-20260901-2`. Preserve all eight front-action files, the shared selector behavior, each driver's approved front placement, and their modeled steering-control ownership. McFleurdel's reviewed black-curl interiors and arm gaps remain transparent.
+- **Evidence:** PR #65 head run `33563640441` and main run `33563732551` passed. PR #66 merged at `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`; main run `33564231150` passed. The deployed bundle references both controlled revisions, and all eight response hashes match the approved files. Manny confirmed both steering directions, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation on 2026-09-01.
+- **Product impact:** The Keeg and McFleurdel batch is complete. Lavi, Toph, Lula, and Accu remain on the governed neutral-front fallback until their separately approved packages are published.
+- **Approval:** Manny's final "Approved" records product-owner live acceptance and authorizes publication of this documentation checkpoint.
