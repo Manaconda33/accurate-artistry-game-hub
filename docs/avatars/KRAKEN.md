@@ -57,12 +57,12 @@ Manny supplied the definitive character-and-kart reference and directed its use 
 - Kart design lock: Approved
 - Balance mapping: Approved, AA-05
 - Driver art: Approved
-- Front-action parity: All four frames approved; live runtime verification pending
+- Front-action parity: Live accepted by Manny on 2026-09-01
 - Runtime PNG preparation: Complete
 - Kart GLB: Approved and prepared in three deterministic LODs
 - Manifest production integration: Front-action pilot integrated under controlled revision `kraken-runtime-20260901-2`
-- Live verification: Accepted by Manny on 2026-08-21
+- Live verification: Original production package accepted on 2026-08-21; front-action parity accepted on 2026-09-01
 
 ## Next action
 
-Validate and deploy the Kraken pilot, then confirm both steering directions, hit, victory, transparency, cockpit placement, and wheel ownership in the live game before proceeding to the next active driver.
+Preserve the accepted `kraken-runtime-20260901-2` package. The one-character rollout may proceed to the next active driver.

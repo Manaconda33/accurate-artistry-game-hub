@@ -6,7 +6,7 @@
 
 PRD baseline: **v1.1, working implementation amendment 2.0**.
 
-Latest verified live character checkpoint: `ef74ca9eabb2a242c02d35d72c55377ee9b5529c` — Lula's corrected production package passed mobile playtesting after the front-camera-only placement fix aligned her hands with The Verdant Hart steering wheel. Her portrait, kart, transparent sprite package, consistent skin tone, all six driver states, orientation, AI identity, and runtime behavior are accepted. Lula now supersedes Toph as the latest verified live character checkpoint.
+Latest verified live character checkpoint: `6b0b9239fa34edc521b4fa4e18a19a8397deaea3` — Kraken's front-action pilot passed Manny's live playtest on 2026-09-01. Rear-view steering in both directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-wheel ownership are accepted under `kraken-runtime-20260901-2`.
 
 The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
@@ -29,7 +29,7 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 ## Front-facing action-state parity — in progress
 
 - Manny approved closing the rear-camera action-state gap on 2026-09-01. The target package adds front-steer-left, front-steer-right, front-hit, and front-victory without replacing any approved chase or neutral-front art.
-- Nine active production drivers require four camera-facing action states each. Kraken already owns an approved `front-victory.png`, leaving 35 new raster approvals across the active roster.
+- Nine active production drivers require four camera-facing action states each. Kraken's completed package leaves 32 new raster approvals across the other eight active drivers.
 - Rollout remains one character at a time. Kraken is the pilot because his approved front-victory frame reduces the first package to three new candidates and provides an existing authority for the camera-facing victory contract.
 - Runtime infrastructure may use the approved neutral front frame as a rollout fallback. No new raster enters a runtime path and no character revision changes until Manny approves that character's candidate package.
 - Manny approved Kraken's front-steer-left, front-steer-right, and front-hit candidates on 2026-09-01. They are integrated with the unchanged approved front-victory frame under controlled revision `kraken-runtime-20260901-2`.
@@ -37,7 +37,8 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - Local `npm run validate` passed on 2026-09-01: strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized GLBs, 40 decoded runtime PNGs, and a production Vite build.
 - PR #59 head CI run `33464307463` passed. The PR merged to `main` at `6bb689d6b3b6511e601d8445088ec011388a0497`; main run `33464380102` passed validation and GitHub Pages deployment.
 - The live page serves bundle `index-DwfeHgzB.js`, which references `kraken-runtime-20260901-2` and the three new front-action paths. SHA-256 checks against the four deployed camera-facing action responses match the approved local files: left `6c35c015d1208dbfb922b1a7986bf81002497bbed7d8d73c882de094ca5cfa34`, right `f6404831ebdb3ea8619d0e15f43c0430dc3e6042652b7eb37bd47bbb735b5dd8`, hit `5f1c4abe842599e2d4fddc4fa9529e24acc0008914228b0fca86fa793eef7666`, victory `4e77db3a622b6fc472bbd031329e9cc80bc3c119dbeab427a9ccf97cbc596609`.
-- Status: **LIVE DEPLOYED — KRAKEN FRONT-ACTION PILOT REQUIRES PRODUCT-OWNER DESKTOP/MOBILE PLAYTEST.**
+- Manny reported the requested live test passed on 2026-09-01. Kraken's four camera-facing action states, return to chase-facing actions, alpha edges, seated placement, and single-wheel presentation all pass.
+- Status: **LIVE ACCEPTED — KRAKEN FRONT-ACTION PILOT COMPLETE; NEXT DRIVER UNLOCKED.**
 
 ## Cleo archive status — complete
 

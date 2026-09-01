@@ -162,3 +162,13 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Rollout:** Kraken is first because his approved front-victory frame already satisfies one quarter of the new contract.
 - **Kraken pilot approval:** Manny approved Kraken's front-steer-left, front-steer-right, and front-hit candidates on 2026-09-01. Integrate them with the unchanged approved front-victory frame and require live verification before beginning another driver.
 - **Approval:** Manny directed the project to address the missing front-facing steering, hit, and victory states on 2026-09-01.
+
+## ADR-035: Accept Kraken's front-action pilot
+
+- **Date:** 2026-09-01
+- **Status:** Approved
+- **Context:** PR #59 deployed Kraken's approved front-steer-left, front-steer-right, and front-hit frames with the unchanged approved front-victory frame. The one-character rollout blocked the next driver until live verification passed.
+- **Decision:** Accept Kraken's `kraken-runtime-20260901-2` camera-facing action package. Preserve its four front-action files, shared selector behavior, neutral-front fallback contract, placement, and steering-control ownership.
+- **Evidence:** PR #59 head CI run `33464307463` and main run `33464380102` passed. Deployed response hashes matched the approved local files. Manny reported the requested steering, hit, victory, chase restoration, transparency, cockpit, and wheel checks passed on 2026-09-01.
+- **Product impact:** Kraken's pilot is complete. The one-character rollout may begin the next active driver's separately reviewed package.
+- **Approval:** Manny reported "Passed" after testing the deployed checkpoint on 2026-09-01.
