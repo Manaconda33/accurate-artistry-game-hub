@@ -1,13 +1,13 @@
 # Avatar intake: Lavi
 
 - **Intake date:** 2026-08-16
-- **Current phase:** Front-action placement correction validated locally; publication pending
+- **Current phase:** Front-action placement correction live deployed; retest pending
 - **Intake status:** Approved
 - **Character lock:** Approved by Manny on 2026-08-16
 - **Kart lock:** Approved by Manny on 2026-08-16
 - **Balance mapping lock:** AA-02 Feather Technician, approved by Manny on 2026-08-16
 - **Asset approval:** Portrait, all ten driver frames, and Potato's three-LOD GLB package approved and prepared
-- **Implementation verification:** Approved portrait, Potato, and all ten driver states are live. Bundle and deployed-byte verification passed, but Manny rejected the camera-facing `[0, 0.45, -0.12]` placement because Lavi sits too low behind Potato. The local correction raises only the five camera-facing states to `[0, 0.9, -0.12]`.
+- **Implementation verification:** Approved portrait, Potato, and all ten driver states are live. PR #70 deployed `[0, 0.9, -0.12]` for the five camera-facing states after Manny rejected the lower placement. Main validation, Pages deployment, and live bundle verification passed. Product-owner cockpit retesting remains open.
 
 This record captures Manny's written description and the supplied reference image. Image observations remain reference-only unless they appear in an approved lock. Lavi is assigned stable roster ID `aa-02` and balance profile AA-02 Feather Technician.
 
@@ -141,4 +141,4 @@ These details are observations, not approved locks:
 
 ## Next implementation action
 
-Publish the placement-only correction after Manny approves the checkpoint. Then retest Lavi's neutral front, both steering directions, hit, victory, chase restoration, cockpit placement, and Potato's single modeled steering wheel before recording live acceptance.
+Retest Lavi's deployed neutral front, both steering directions, hit, victory, chase restoration, cockpit placement, and Potato's single modeled steering wheel before recording live acceptance.

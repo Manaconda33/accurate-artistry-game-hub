@@ -230,10 +230,11 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 ## ADR-041: Correct Lavi's camera-facing placement and accept Toph
 
 - **Date:** 2026-09-02
-- **Status:** Approved for local correction; publication pending
+- **Status:** Deployed; live acceptance pending
 - **Context:** The deployed Lavi and Toph batch passed asset delivery and state selection. Manny accepted Toph. Lavi's camera-facing layer rendered too low behind Potato's tall body, leaving the head near the modeled wheel and hiding the torso.
 - **Decision:** Preserve Toph at `[0, 0.45, -0.12]`. Raise only Lavi's neutral front and four front-action states to `[0, 0.9, -0.12]`. Keep Lavi's chase-facing states at the existing default position.
 - **Rationale:** Lavi's neutral front image places the hands about 0.46 world units below the face at the runtime sprite scale. Raising the layer by 0.45 moves the hands to Potato's wheel while exposing enough upper body for a seated composition. The value also matches the proven front-height correction used by Accu without copying Accu's depth or wheel override.
 - **Scope:** No PNG or GLB bytes change. Toph, Potato, camera logic, physics, stats, action selection, chase-facing placement, and modeled steering controls remain unchanged.
-- **Approval gate:** Publishing, merging, deploying, and recording Lavi's live acceptance require Manny's explicit approval.
+- **Deployment evidence:** PR #70 head run `33664237133` passed. The PR merged at `ac39b1ad490999007429713a3f5b82aca274f1dc`; main run `33664361276` passed validation and Pages deployment. The live bundle maps Lavi to `[0, 0.9, -0.12]` and preserves Toph at `[0, 0.45, -0.12]`.
+- **Approval gate:** Recording Lavi's live acceptance requires Manny's explicit approval after the deployed cockpit retest.
 - **Approval:** Manny rejected Lavi's low live placement and confirmed Toph passes on 2026-09-02.
