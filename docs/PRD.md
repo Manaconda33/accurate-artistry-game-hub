@@ -52,6 +52,8 @@ Approved September 1, 2026. Every active production character must extend the dr
 
 Rollout checkpoint, September 2, 2026: Manny approved the Lavi and Toph camera-facing steering, hit, and victory candidates. Their eight approved files may enter runtime integration under new controlled revisions while publication, deployment, and live acceptance remain separately gated. Lula and Accu remain on the governed neutral-front fallback until their own candidate packages are approved.
 
+Live review checkpoint, September 2, 2026: Toph's deployed front-action package passed. Lavi's art and state behavior passed, but the shared `[0, 0.45, -0.12]` front placement left the camera-facing layer too low behind Potato's body. Lavi requires a character-specific `[0, 0.9, -0.12]` front placement and another deployed cockpit check. Toph remains unchanged and accepted. Lula and Accu remain gated.
+
 # Contents
 
 - 1\. Document Control

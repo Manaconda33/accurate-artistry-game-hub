@@ -263,7 +263,7 @@ describe('character manifest', () => {
     expect(lavi.displayName).toBe('Lavi');
     expect(lavi.assetState).toBe('production');
     expect(lavi.kart).toContain(`/assets/characters/aa-02/kart.glb?v=${LAVI_ASSET_REVISION}`);
-    expect(lavi.frontDriverSpritePosition).toEqual([0, 0.45, -0.12]);
+    expect(lavi.frontDriverSpritePosition).toEqual([0, 0.9, -0.12]);
     expect(lavi.driver?.front).toContain(`?v=${LAVI_ASSET_REVISION}`);
     expect(lavi.driver?.steerLeft).toContain(`?v=${LAVI_ASSET_REVISION}`);
     expect(lavi.driver?.steerRight).toContain(`?v=${LAVI_ASSET_REVISION}`);
