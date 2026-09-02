@@ -6,9 +6,9 @@
 
 PRD baseline: **v1.1, working implementation amendment 2.0**.
 
-Latest verified live deployment checkpoint: `842778422b6be45b6e4c5da5f4a0b7772e030b74`. Keeg's and McFleurdel's front-action packages remain the latest live-accepted batch under `keeg-runtime-20260901-3` and `mcfleurdel-runtime-20260901-2`.
+Latest verified live deployment checkpoint: `ac39b1ad490999007429713a3f5b82aca274f1dc`. Keeg's and McFleurdel's front-action packages remain the latest fully live-accepted batch under `keeg-runtime-20260901-3` and `mcfleurdel-runtime-20260901-2`; Toph's package is also live accepted.
 
-Current deployment checkpoint: Lavi's and Toph's eight runtime frames are live under `lavi-runtime-20260902-5` and `toph-runtime-20260902-2`; deployed hash and bundle verification passed. Manny's 2026-09-02 live review accepted Toph and rejected only Lavi's camera-facing placement because the layer sits too low behind Potato's body.
+Current deployment checkpoint: PR #70 deployed Lavi's placement-only correction at `ac39b1ad490999007429713a3f5b82aca274f1dc`. The live bundle maps Lavi's five camera-facing states to `[0, 0.9, -0.12]` and preserves Toph at `[0, 0.45, -0.12]`. Lavi's live cockpit retest remains open.
 
 The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
@@ -69,7 +69,7 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - Manny confirmed the live playtest on 2026-09-01 against deployed checkpoint `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`. Both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership pass. Keeg and McFleurdel each show exactly one modeled wheel with no sprite duplicate, and McFleurdel's reviewed hair and arm gaps remain transparent.
 - Status: **LIVE ACCEPTED — KEEG AND MCFLEURDEL FRONT-ACTION BATCH COMPLETE; LAVI AND TOPH BATCH APPROVED.**
 
-### Lavi and Toph batch — Toph accepted; Lavi correction validated locally
+### Lavi and Toph batch — Toph accepted; Lavi correction deployed
 
 - Manny approved both four-frame candidate sheets on 2026-09-02. Lavi's front actions preserve the native generated alpha. Toph's reviewed derivatives remove the opaque checkerboard and one-pixel edge fringe from the generated previews.
 - Both steering pairs follow commanded kart direction: left leans toward the viewer's right and right leans toward the viewer's left. Both packages are free of wheel and kart geometry because Potato and The Grave Shift supply modeled steering controls.
@@ -81,9 +81,11 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - PR #68 head CI run `33661673756` passed. The PR merged to `main` at `842778422b6be45b6e4c5da5f4a0b7772e030b74`; main run `33661819292` passed validation and GitHub Pages deployment.
 - The live page serves `assets/index-BLnZQ_xQ.js`. The bundle references both controlled revisions and all eight action paths, and SHA-256 checks against every deployed PNG response match the approved hashes recorded above.
 - Manny confirmed Toph passes the live camera/action matrix on 2026-09-02. Toph's placement, steering directions, hit, victory, chase restoration, transparency, and single-wheel presentation are accepted.
-- Lavi's local correction raises only the five camera-facing states to `[0, 0.9, -0.12]`. Sprite bytes, chase-facing placement, Potato, modeled-wheel ownership, camera behavior, physics, stats, and Toph remain unchanged.
+- Lavi's correction raises only the five camera-facing states to `[0, 0.9, -0.12]`. Sprite bytes, chase-facing placement, Potato, modeled-wheel ownership, camera behavior, physics, stats, and Toph remain unchanged.
 - Fresh correction validation passed on 2026-09-02: `npm ci`, strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized runtime GLBs, 64 decoded runtime PNGs, and a production Vite build.
-- Status: **LOCAL PASS — LAVI PLACEMENT CORRECTION AWAITS PUBLICATION APPROVAL AND LIVE RETEST.**
+- PR #70 head CI run `33664237133` passed. The PR merged to `main` at `ac39b1ad490999007429713a3f5b82aca274f1dc`; main run `33664361276` passed validation and GitHub Pages deployment.
+- The live page serves `assets/index-CjbkWPH8.js`. The bundle maps Lavi to `[0, 0.9, -0.12]`, preserves Toph at `[0, 0.45, -0.12]`, and retains both controlled revisions and all eight approved action paths.
+- Status: **LIVE DEPLOYED — LAVI PLACEMENT CORRECTION REQUIRES PRODUCT-OWNER RETEST.**
 
 ## Cleo archive status — complete
 
@@ -277,8 +279,8 @@ Continuity closure completed by PR #32:
 
 ## Next recommended action
 
-Request publication approval for Lavi's placement-only correction. After deployment, retest Lavi's neutral front, steering, hit, victory, chase restoration, cockpit placement, and single modeled wheel. Do not begin the Lula and Accu batch until Lavi passes.
+Retest Lavi's deployed neutral front, steering, hit, victory, chase restoration, cockpit placement, and single modeled wheel. Do not begin the Lula and Accu batch until Lavi passes.
 
 ## Approval gate
 
-Toph's front-action expansion is live accepted. Lavi's art and action behavior passed, but the placement correction remains gated for publication, deployment, and live acceptance. Lula and Accu remain gated before candidate creation.
+Toph's front-action expansion is live accepted. Lavi's placement correction is deployed; live acceptance remains gated. Lula and Accu remain gated before candidate creation.
