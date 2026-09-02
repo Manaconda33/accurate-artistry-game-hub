@@ -50,6 +50,8 @@ Approved August 31, 2026. Every active production character must provide the ful
 
 Approved September 1, 2026. Every active production character must extend the driver package with `front-steer-left.png`, `front-steer-right.png`, `front-hit.png`, and `front-victory.png`. When the camera faces the front of a kart, the shared player/AI selector must preserve the simulated action and choose the matching front-facing frame rather than a rear-oriented action frame or neutral front substitution. Left/right names continue to describe the kart's commanded turn direction, not the viewer's screen side. During the one-character-at-a-time rollout, a missing front-facing action frame must fall back to that character's approved neutral `front.png`; it must never show a rear-facing action from the front camera or blank the driver. New raster derivatives remain outside runtime paths until Manny approves the character's front-facing action package. Existing chase art, neutral front art, identity, kart, stats, physics, camera geometry, and steering-control ownership remain unchanged.
 
+Rollout checkpoint, September 2, 2026: Manny approved the Lavi and Toph camera-facing steering, hit, and victory candidates. Their eight approved files may enter runtime integration under new controlled revisions while publication, deployment, and live acceptance remain separately gated. Lula and Accu remain on the governed neutral-front fallback until their own candidate packages are approved.
+
 # Contents
 
 - 1\. Document Control

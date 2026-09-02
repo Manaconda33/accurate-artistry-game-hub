@@ -51,15 +51,27 @@ Production assets follow PRD sections 2.1, 23, and 27:
 | Steer-right frame | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
 | Hit frame         | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
 | Victory frame     | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
+| Front-steer-left frame | 512 x 512 PNG, transparent, sRGB            | Approved and integrated 2026-09-02 |
+| Front-steer-right frame | 512 x 512 PNG, transparent, sRGB           | Approved and integrated 2026-09-02 |
+| Front-hit frame   | 512 x 512 PNG, transparent, sRGB                 | Approved and integrated 2026-09-02 |
+| Front-victory frame | 512 x 512 PNG, transparent, sRGB              | Approved and integrated 2026-09-02 |
 | Potato kart       | GLB with PRD hierarchy and LOD budgets           | Approved and prepared |
 
-Generated concepts remain candidates until Manny approves them. Approval of the portrait does not automatically approve the five driver states or Potato's 3D asset.
+Generated concepts remain candidates until Manny approves them. Approval of one asset does not automatically approve another driver state or Potato's 3D asset.
 
 ## Front driver candidate 1
 
 - **Approval:** Manny approved the direct front seated pose and deterministic checkerboard removal on 2026-08-31.
 - **Production derivative:** `public/assets/characters/aa-02/driver/front.png`.
 - **Production validation:** 512 x 512 sRGB RGBA PNG with transparent corners; SHA-256 `36a8fddd94c6f4f62f904145d4a54b08e2649b29fdfe7f9310d6e3d7cf483fa8`.
+
+## Front-action package
+
+- **Approval:** Manny approved the four camera-facing action candidates on 2026-09-02.
+- **Direction contract:** Commanded left leans toward the viewer's right; commanded right leans toward the viewer's left.
+- **Steering-control ownership:** No front-action sprite contains a wheel or kart. Potato supplies the modeled steering wheel.
+- **Runtime files and SHA-256:** `front-steer-left.png` `1a8f3594fe94da9f85d62a390862f6ba043057549d129e03fb8dd4f6a6d50ba6`; `front-steer-right.png` `25d25b7896844651a559521afd5b0a1be69d3cb6b5d3326e69892770a7c9f958`; `front-hit.png` `05303e58b4f79b0369edfd8f9b8b6e9168156d49de9236307309880384da2719`; `front-victory.png` `b08725190e2234c0014151db0073ee7522ac94c508d4a99654d333046d0f6c8c`.
+- **Validation:** Each file is a 512 x 512 non-interlaced sRGBA PNG with decoded RGBA data and transparent corners.
 
 ## Potato 3D candidate 4
 
@@ -140,8 +152,9 @@ Generated concepts remain candidates until Manny approves them. Approval of the 
 
 ## Runtime delivery and integration record
 
-- **Controlled revision:** `lavi-runtime-20260831-4`. Public runtime URLs combine Vite’s base URL with this query revision. Change it whenever Potato or Lavi’s delivered runtime bytes change at a stable path.
+- **Controlled revision:** `lavi-runtime-20260902-5`. Public runtime URLs combine Vite's base URL with this query revision. Change it whenever Potato or Lavi's delivered runtime bytes change at a stable path.
 - **LFS deployment rule:** the Pages build materializes LFS, passes `git lfs fsck`, and runs `tools/verify-runtime-assets.mjs`; all three Potato GLBs must have the `glTF` binary signature before deployment.
-- **Driver runtime contract:** preload all six states. Player and AI use the same priority selector: victory, hit, front during rear view, steering, then rear.
+- **Driver runtime contract:** preload all ten states. Player and AI preserve victory, hit, and steering when the camera changes facing; neutral front remains the rollout fallback for any missing front action.
+- **Front-action publication state:** Approved and validated locally. Public branch, pull request, deployment, and live acceptance remain gated.
 - **Visual alignment:** load-time `model.rotation.y = Math.PI` corrects Potato’s visual root to the game’s negative-Z forward direction. It is not a physics, camera, checkpoint, or mount-coordinate change.
 - **Live acceptance:** Manny confirmed Potato loading, steering-state artwork, and correct steering-wheel-forward orientation in the mobile GitHub Pages build on 2026-08-16.

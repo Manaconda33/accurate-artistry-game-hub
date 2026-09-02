@@ -8,6 +8,8 @@ PRD baseline: **v1.1, working implementation amendment 2.0**.
 
 Latest verified live character checkpoint: `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`. Keeg's and McFleurdel's front-action packages passed Manny's live playtest on 2026-09-01. Rear-view steering in both directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership are accepted under `keeg-runtime-20260901-3` and `mcfleurdel-runtime-20260901-2`.
 
+Current local checkpoint: Manny approved the Lavi and Toph front-action candidates on 2026-09-02. Their eight runtime frames are integrated and validated locally under `lavi-runtime-20260902-5` and `toph-runtime-20260902-2`. Nothing from this checkpoint has been pushed, opened as a pull request, merged, or deployed.
+
 The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
 ## Active production roster state
@@ -29,7 +31,7 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 ## Front-facing action-state parity — in progress
 
 - Manny approved closing the rear-camera action-state gap on 2026-09-01. The target package adds front-steer-left, front-steer-right, front-hit, and front-victory without replacing any approved chase or neutral-front art.
-- Nine active production drivers require four camera-facing action states each. Kraken, Manaconda, Krios, Keeg, and McFleurdel now have live-accepted packages, leaving 16 raster approvals across Lavi, Toph, Lula, and Accu.
+- Nine active production drivers require four camera-facing action states each. Kraken, Manaconda, Krios, Keeg, and McFleurdel have live-accepted packages. Lavi and Toph are approved and integrated locally, leaving eight raster approvals across Lula and Accu.
 - Rollout normally remains one character at a time. Kraken was the pilot; after its live acceptance, Manny authorized two drivers per batch for the remaining rollout.
 - Runtime infrastructure may use the approved neutral front frame as a rollout fallback. No new raster enters a runtime path and no character revision changes until Manny approves that character's candidate package.
 - Manny approved Kraken's front-steer-left, front-steer-right, and front-hit candidates on 2026-09-01. They are integrated with the unchanged approved front-victory frame under controlled revision `kraken-runtime-20260901-2`.
@@ -65,7 +67,18 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - The live page serves `assets/index-CmnuEd5x.js` and `assets/KartTimeTrial-C3p-RRyJ.js`. The game bundle references both controlled revisions, and SHA-256 checks against every deployed PNG response match the approved hashes recorded above.
 - PR #66 recorded the deployment evidence and merged at `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`; main run `33564231150` passed validation and GitHub Pages deployment.
 - Manny confirmed the live playtest on 2026-09-01 against deployed checkpoint `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`. Both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership pass. Keeg and McFleurdel each show exactly one modeled wheel with no sprite duplicate, and McFleurdel's reviewed hair and arm gaps remain transparent.
-- Status: **LIVE ACCEPTED — KEEG AND MCFLEURDEL FRONT-ACTION BATCH COMPLETE; NEXT TWO-DRIVER BATCH AWAITS APPROVAL.**
+- Status: **LIVE ACCEPTED — KEEG AND MCFLEURDEL FRONT-ACTION BATCH COMPLETE; LAVI AND TOPH BATCH APPROVED.**
+
+### Lavi and Toph batch — approved and validated locally
+
+- Manny approved both four-frame candidate sheets on 2026-09-02. Lavi's front actions preserve the native generated alpha. Toph's reviewed derivatives remove the opaque checkerboard and one-pixel edge fringe from the generated previews.
+- Both steering pairs follow commanded kart direction: left leans toward the viewer's right and right leans toward the viewer's left. Both packages are free of wheel and kart geometry because Potato and The Grave Shift supply modeled steering controls.
+- Controlled revisions are `lavi-runtime-20260902-5` and `toph-runtime-20260902-2`. Both retain the accepted front placement `[0, 0.45, -0.12]`; no kart, camera, physics, stat, chase-art, or neutral-front bytes changed.
+- Runtime SHA-256 values: Lavi left `1a8f3594fe94da9f85d62a390862f6ba043057549d129e03fb8dd4f6a6d50ba6`, right `25d25b7896844651a559521afd5b0a1be69d3cb6b5d3326e69892770a7c9f958`, hit `05303e58b4f79b0369edfd8f9b8b6e9168156d49de9236307309880384da2719`, victory `b08725190e2234c0014151db0073ee7522ac94c508d4a99654d333046d0f6c8c`; Toph left `d2842af32df5e92c10454497b8da3cba92591e52324df571f67bd0ebf7c4f39b`, right `663c18ef0a5fbcbb0cffc796bcd9c209675941a95fc082903360a536b9a33f48`, hit `bf2411404f6311bcb648966ca64f5c5f06a4ce4e3b728ca75fd3f0d56323691d`, victory `96ee0fcf6a8ca14e12db258ba58797d8161ca463e33d6c86a19db4bbe2beea9c`.
+- Clean local validation passed on 2026-09-02: `npm ci`, strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized runtime GLBs, 64 decoded runtime PNGs, and a production Vite build.
+- The built bundle references both controlled revisions and all eight new runtime paths. Every copied `dist/` PNG hash matches its approved source hash.
+- Review sheets, discarded candidates, temporary generated files, and Python cache files remain outside the repository.
+- Status: **LOCAL PASS — PUBLICATION, DEPLOYMENT, AND LIVE ACCEPTANCE AWAIT MANNY'S APPROVAL.**
 
 ## Cleo archive status — complete
 
@@ -259,8 +272,8 @@ Continuity closure completed by PR #32:
 
 ## Next recommended action
 
-Await Manny's approval to begin the recommended Lavi and Toph front-action batch. Do not create candidates, modify runtime assets, or change controlled revisions before that approval. Lula and Accu remain the final active drivers after the recommended batch.
+Await Manny's approval to publish the validated Lavi and Toph integration checkpoint. After deployment, verify both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and modeled-wheel ownership before recording live acceptance. Lula and Accu remain the final active drivers.
 
 ## Approval gate
 
-No approval remains pending for the Keeg and McFleurdel front-action batch. Lavi and Toph remain separately approval-gated for candidate creation, visual review, public integration, deployment, and live acceptance.
+Lavi and Toph have passed candidate review and local integration. Publishing the branch, opening and merging the pull request, deploying the checkpoint, and recording live acceptance remain separately approval-gated. Lula and Accu remain gated before candidate creation.

@@ -142,6 +142,8 @@ For live acceptance, collide Accu and a light racer with comparable approach spe
 - Lavi's rear driver artwork sits convincingly in the cockpit without floating, clipping, or obscuring the kart silhouette.
 - Holding visual left/right steering switches Lavi to the matching approved steer-left/steer-right frame within two rendered frames; releasing steering restores the rear frame.
 - Collision impulse selects the approved hit frame briefly, and a completed player race selects the approved victory frame.
+- Rear view preserves Lavi's steering, hit, and victory state through the four matching front-action frames from `lavi-runtime-20260902-5`.
+- Lavi's commanded-left and commanded-right poses lean toward opposite camera sides. None of the four front-action sprites contains wheel or kart geometry; Potato supplies the only steering wheel.
 - Lavi's AA-02 profile feels nimble and responsive and remains the controlled player kart throughout the race.
 - Selecting a placeholder profile starts the same race with a monogram/fallback kart and that profile's statistics; it does not borrow Lavi's identity or final art.
 - Simulated missing portrait replaces the image with the correct monogram; simulated missing GLB loads the fallback kart and does not crash or change physics.
@@ -210,7 +212,9 @@ Run this matrix for every future production character, in addition to its slice-
 - `Race as Toph` loads The Grave Shift rather than the fallback kart.
 - The approved purple-dominant armored body, bronze perimeter, low splitter, integrated sidepods, flat skull shield, angular thorn crown, enclosed rear engine, connected wide tires, and twin violet exhausts load without clipping or floating geometry.
 - Toph sits correctly in the open cockpit with the steering wheel forward of the driver.
-- Rear, front, steer-left, steer-right, hit, and corrected victory states load from `toph-runtime-20260828-1`.
+- All ten driver states load from `toph-runtime-20260902-2`.
+- Rear view preserves commanded steering, hit, and victory through Toph's matching front-action frames. Commanded left and right lean toward opposite camera sides.
+- Toph's front-action files have transparent corners and no retained checkerboard or pale fringe. None contains wheel or kart geometry; The Grave Shift supplies the only steering wheel.
 - Chase and rear views confirm the skull shield remains at the race-forward nose and the enclosed engine/exhausts remain behind Toph.
 - Toph appears no more than once as an AI opponent when the player selects another character.
 - CI materializes and validates all three AA-08 GLBs; each begins with the binary glTF signature and declares `extras.forward: "-Z"`.
@@ -277,6 +281,8 @@ Kraken live acceptance passed on 2026-09-01. Manny confirmed the requested steer
 Manaconda and Krios live acceptance passed on 2026-09-01 against deployed checkpoint `2ca852b47f16b8221275ee2b5542650d609b9a0d`. Manny confirmed both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership. Manaconda shows exactly one sprite-owned wheel. Krios uses The Hornbreaker's modeled wheel without a duplicate, and no pale matte remains between his horns.
 
 Keeg and McFleurdel live acceptance passed on 2026-09-01 against deployed checkpoint `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`. Manny confirmed both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership. Both drivers use their karts' modeled wheels without sprite duplicates. McFleurdel's reviewed black-curl interiors and arm gaps remain transparent.
+
+Lavi and Toph candidate approval passed on 2026-09-02. Local integration must verify all eight approved source hashes, both controlled revisions, complete PNG decoding, transparent corners, preserved front placement `[0, 0.45, -0.12]`, and modeled-wheel ownership before publication. Live acceptance remains open until the deployed game passes both steering directions, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation for both drivers.
 
 Live acceptance requires one desktop and one mobile race with Accu plus at least three different production AI identities. Exercise rear view, observe both steering directions, make player-to-AI and AI-to-AI contact, and finish the race. Confirm correct frames, clean transparency, cockpit depth, and recovery to the neutral state.
 

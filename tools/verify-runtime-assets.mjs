@@ -175,6 +175,10 @@ const lulaProtectedRects = {
 
 const runtimePngs = [
   ['public/assets/characters/aa-02/driver/front.png', 512, 512],
+  ['public/assets/characters/aa-02/driver/front-steer-left.png', 512, 512],
+  ['public/assets/characters/aa-02/driver/front-steer-right.png', 512, 512],
+  ['public/assets/characters/aa-02/driver/front-hit.png', 512, 512],
+  ['public/assets/characters/aa-02/driver/front-victory.png', 512, 512],
   ['public/assets/characters/aa-05/driver/front-steer-left.png', 512, 512],
   ['public/assets/characters/aa-05/driver/front-steer-right.png', 512, 512],
   ['public/assets/characters/aa-05/driver/front-hit.png', 512, 512],
@@ -223,6 +227,10 @@ const runtimePngs = [
   ['public/assets/characters/aa-08/driver/steer-right.png', 512, 512],
   ['public/assets/characters/aa-08/driver/hit.png', 512, 512],
   ['public/assets/characters/aa-08/driver/victory.png', 512, 512],
+  ['public/assets/characters/aa-08/driver/front-steer-left.png', 512, 512],
+  ['public/assets/characters/aa-08/driver/front-steer-right.png', 512, 512],
+  ['public/assets/characters/aa-08/driver/front-hit.png', 512, 512],
+  ['public/assets/characters/aa-08/driver/front-victory.png', 512, 512],
   ['public/assets/characters/aa-03/portrait.png', 256, 256],
   ['public/assets/characters/aa-03/driver/front.png', 512, 512],
   ['public/assets/characters/aa-03/driver/rear.png', 512, 512],
@@ -234,6 +242,10 @@ const runtimePngs = [
 
 const newTransparentFronts = new Set([
   'public/assets/characters/aa-02/driver/front.png',
+  'public/assets/characters/aa-02/driver/front-steer-left.png',
+  'public/assets/characters/aa-02/driver/front-steer-right.png',
+  'public/assets/characters/aa-02/driver/front-hit.png',
+  'public/assets/characters/aa-02/driver/front-victory.png',
   'public/assets/characters/aa-05/driver/front-steer-left.png',
   'public/assets/characters/aa-05/driver/front-steer-right.png',
   'public/assets/characters/aa-05/driver/front-hit.png',
@@ -255,6 +267,10 @@ const newTransparentFronts = new Set([
   'public/assets/characters/aa-07/driver/front-steer-right.png',
   'public/assets/characters/aa-07/driver/front-hit.png',
   'public/assets/characters/aa-07/driver/front-victory.png',
+  'public/assets/characters/aa-08/driver/front-steer-left.png',
+  'public/assets/characters/aa-08/driver/front-steer-right.png',
+  'public/assets/characters/aa-08/driver/front-hit.png',
+  'public/assets/characters/aa-08/driver/front-victory.png',
   'public/assets/characters/aa-11/driver/front.png',
 ]);
 

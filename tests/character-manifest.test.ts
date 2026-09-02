@@ -267,6 +267,18 @@ describe('character manifest', () => {
     expect(lavi.driver?.front).toContain(`?v=${LAVI_ASSET_REVISION}`);
     expect(lavi.driver?.steerLeft).toContain(`?v=${LAVI_ASSET_REVISION}`);
     expect(lavi.driver?.steerRight).toContain(`?v=${LAVI_ASSET_REVISION}`);
+    expect(lavi.driver?.frontSteerLeft).toContain(
+      `/assets/characters/aa-02/driver/front-steer-left.png?v=${LAVI_ASSET_REVISION}`,
+    );
+    expect(lavi.driver?.frontSteerRight).toContain(
+      `/assets/characters/aa-02/driver/front-steer-right.png?v=${LAVI_ASSET_REVISION}`,
+    );
+    expect(lavi.driver?.frontHit).toContain(
+      `/assets/characters/aa-02/driver/front-hit.png?v=${LAVI_ASSET_REVISION}`,
+    );
+    expect(lavi.driver?.frontVictory).toContain(
+      `/assets/characters/aa-02/driver/front-victory.png?v=${LAVI_ASSET_REVISION}`,
+    );
     expect(lavi.stats).toEqual({
       speed: 5,
       acceleration: 8,
@@ -304,6 +316,18 @@ describe('character manifest', () => {
     expect(toph.driver?.steerRight).toContain(`?v=${TOPH_ASSET_REVISION}`);
     expect(toph.driver?.hit).toContain(`?v=${TOPH_ASSET_REVISION}`);
     expect(toph.driver?.victory).toContain(`?v=${TOPH_ASSET_REVISION}`);
+    expect(toph.driver?.frontSteerLeft).toContain(
+      `/assets/characters/aa-08/driver/front-steer-left.png?v=${TOPH_ASSET_REVISION}`,
+    );
+    expect(toph.driver?.frontSteerRight).toContain(
+      `/assets/characters/aa-08/driver/front-steer-right.png?v=${TOPH_ASSET_REVISION}`,
+    );
+    expect(toph.driver?.frontHit).toContain(
+      `/assets/characters/aa-08/driver/front-hit.png?v=${TOPH_ASSET_REVISION}`,
+    );
+    expect(toph.driver?.frontVictory).toContain(
+      `/assets/characters/aa-08/driver/front-victory.png?v=${TOPH_ASSET_REVISION}`,
+    );
     expect(toph.stats).toEqual({
       speed: 7,
       acceleration: 5,
