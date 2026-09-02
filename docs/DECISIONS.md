@@ -214,3 +214,15 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Evidence:** PR #65 head run `33563640441` and main run `33563732551` passed. PR #66 merged at `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`; main run `33564231150` passed. The deployed bundle references both controlled revisions, and all eight response hashes match the approved files. Manny confirmed both steering directions, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation on 2026-09-01.
 - **Product impact:** The Keeg and McFleurdel batch is complete. Lavi, Toph, Lula, and Accu remain on the governed neutral-front fallback until their separately approved packages are published.
 - **Approval:** Manny's final "Approved" records product-owner live acceptance and authorizes publication of this documentation checkpoint.
+
+## ADR-040: Approve the Lavi and Toph front-action batch
+
+- **Date:** 2026-09-02
+- **Status:** Approved
+- **Context:** Keeg and McFleurdel passed live acceptance, leaving Lavi, Toph, Lula, and Accu on the neutral-front rollout fallback. Manny approved Lavi and Toph as the next two-driver batch, then reviewed their four camera-facing action candidates per driver.
+- **Decision:** Integrate the approved front-steer-left, front-steer-right, front-hit, and front-victory frames for Lavi and Toph. Commanded left leans toward the viewer's right; commanded right leans toward the viewer's left. Both packages remain free of wheel and kart geometry because Potato and The Grave Shift supply modeled steering controls.
+- **Transparency treatment:** Lavi's generated files preserve native alpha. Toph's generated previews contained an opaque checkerboard, so the reviewed derivatives remove the edge-connected background and a one-pixel alpha fringe without changing the approved character artwork. The runtime gate must decode all eight files as 512 x 512 non-interlaced RGBA PNGs and reject non-transparent corners.
+- **Controlled revisions:** `lavi-runtime-20260902-5` and `toph-runtime-20260902-2`.
+- **Scope:** Existing chase art, neutral front art, kart GLBs, placement, physics, stats, camera geometry, and modeled steering controls remain unchanged.
+- **Publication gate:** This approval authorizes local runtime integration and validation. Publishing the branch, opening or merging a pull request, deploying, and recording live acceptance require a later explicit approval.
+- **Approval:** Manny approved both candidate sheets on 2026-09-02.
