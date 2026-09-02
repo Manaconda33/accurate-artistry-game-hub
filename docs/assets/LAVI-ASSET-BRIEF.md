@@ -155,6 +155,6 @@ Generated concepts remain candidates until Manny approves them. Approval of one 
 - **Controlled revision:** `lavi-runtime-20260902-5`. Public runtime URLs combine Vite's base URL with this query revision. Change it whenever Potato or Lavi's delivered runtime bytes change at a stable path.
 - **LFS deployment rule:** the Pages build materializes LFS, passes `git lfs fsck`, and runs `tools/verify-runtime-assets.mjs`; all three Potato GLBs must have the `glTF` binary signature before deployment.
 - **Driver runtime contract:** preload all ten states. Player and AI preserve victory, hit, and steering when the camera changes facing; neutral front remains the rollout fallback for any missing front action.
-- **Front-action publication state:** Approved and validated locally. Public branch, pull request, deployment, and live acceptance remain gated.
+- **Front-action publication state:** Deployed through PR #68 and main run `33661819292`. The live bundle references `lavi-runtime-20260902-5`, and all four deployed front-action PNG responses match the approved SHA-256 values. Desktop/mobile camera-action playtesting remains open.
 - **Visual alignment:** load-time `model.rotation.y = Math.PI` corrects Potato’s visual root to the game’s negative-Z forward direction. It is not a physics, camera, checkpoint, or mount-coordinate change.
 - **Live acceptance:** Manny confirmed Potato loading, steering-state artwork, and correct steering-wheel-forward orientation in the mobile GitHub Pages build on 2026-08-16.

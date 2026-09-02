@@ -6,9 +6,9 @@
 
 PRD baseline: **v1.1, working implementation amendment 2.0**.
 
-Latest verified live character checkpoint: `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`. Keeg's and McFleurdel's front-action packages passed Manny's live playtest on 2026-09-01. Rear-view steering in both directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership are accepted under `keeg-runtime-20260901-3` and `mcfleurdel-runtime-20260901-2`.
+Latest verified live deployment checkpoint: `842778422b6be45b6e4c5da5f4a0b7772e030b74`. Keeg's and McFleurdel's front-action packages remain the latest live-accepted batch under `keeg-runtime-20260901-3` and `mcfleurdel-runtime-20260901-2`.
 
-Current local checkpoint: Manny approved the Lavi and Toph front-action candidates on 2026-09-02. Their eight runtime frames are integrated and validated locally under `lavi-runtime-20260902-5` and `toph-runtime-20260902-2`. Nothing from this checkpoint has been pushed, opened as a pull request, merged, or deployed.
+Current deployment checkpoint: Manny approved the Lavi and Toph front-action candidates on 2026-09-02. Their eight runtime frames are live under `lavi-runtime-20260902-5` and `toph-runtime-20260902-2`; deployed hash and bundle verification passed. Product-owner camera/action playtesting remains open.
 
 The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
@@ -31,7 +31,7 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 ## Front-facing action-state parity — in progress
 
 - Manny approved closing the rear-camera action-state gap on 2026-09-01. The target package adds front-steer-left, front-steer-right, front-hit, and front-victory without replacing any approved chase or neutral-front art.
-- Nine active production drivers require four camera-facing action states each. Kraken, Manaconda, Krios, Keeg, and McFleurdel have live-accepted packages. Lavi and Toph are approved and integrated locally, leaving eight raster approvals across Lula and Accu.
+- Nine active production drivers require four camera-facing action states each. Kraken, Manaconda, Krios, Keeg, and McFleurdel have live-accepted packages. Lavi and Toph are live deployed with playtesting pending, leaving eight raster approvals across Lula and Accu.
 - Rollout normally remains one character at a time. Kraken was the pilot; after its live acceptance, Manny authorized two drivers per batch for the remaining rollout.
 - Runtime infrastructure may use the approved neutral front frame as a rollout fallback. No new raster enters a runtime path and no character revision changes until Manny approves that character's candidate package.
 - Manny approved Kraken's front-steer-left, front-steer-right, and front-hit candidates on 2026-09-01. They are integrated with the unchanged approved front-victory frame under controlled revision `kraken-runtime-20260901-2`.
@@ -69,7 +69,7 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - Manny confirmed the live playtest on 2026-09-01 against deployed checkpoint `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`. Both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership pass. Keeg and McFleurdel each show exactly one modeled wheel with no sprite duplicate, and McFleurdel's reviewed hair and arm gaps remain transparent.
 - Status: **LIVE ACCEPTED — KEEG AND MCFLEURDEL FRONT-ACTION BATCH COMPLETE; LAVI AND TOPH BATCH APPROVED.**
 
-### Lavi and Toph batch — approved and validated locally
+### Lavi and Toph batch — live deployed; playtest pending
 
 - Manny approved both four-frame candidate sheets on 2026-09-02. Lavi's front actions preserve the native generated alpha. Toph's reviewed derivatives remove the opaque checkerboard and one-pixel edge fringe from the generated previews.
 - Both steering pairs follow commanded kart direction: left leans toward the viewer's right and right leans toward the viewer's left. Both packages are free of wheel and kart geometry because Potato and The Grave Shift supply modeled steering controls.
@@ -78,7 +78,9 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - Clean local validation passed on 2026-09-02: `npm ci`, strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized runtime GLBs, 64 decoded runtime PNGs, and a production Vite build.
 - The built bundle references both controlled revisions and all eight new runtime paths. Every copied `dist/` PNG hash matches its approved source hash.
 - Review sheets, discarded candidates, temporary generated files, and Python cache files remain outside the repository.
-- Status: **LOCAL PASS — PUBLICATION, DEPLOYMENT, AND LIVE ACCEPTANCE AWAIT MANNY'S APPROVAL.**
+- PR #68 head CI run `33661673756` passed. The PR merged to `main` at `842778422b6be45b6e4c5da5f4a0b7772e030b74`; main run `33661819292` passed validation and GitHub Pages deployment.
+- The live page serves `assets/index-BLnZQ_xQ.js`. The bundle references both controlled revisions and all eight action paths, and SHA-256 checks against every deployed PNG response match the approved hashes recorded above.
+- Status: **LIVE DEPLOYED — LAVI AND TOPH REQUIRE PRODUCT-OWNER CAMERA/ACTION PLAYTEST.**
 
 ## Cleo archive status — complete
 
@@ -272,8 +274,8 @@ Continuity closure completed by PR #32:
 
 ## Next recommended action
 
-Await Manny's approval to publish the validated Lavi and Toph integration checkpoint. After deployment, verify both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and modeled-wheel ownership before recording live acceptance. Lula and Accu remain the final active drivers.
+Playtest the deployed Lavi and Toph camera-facing steering, hit, and victory packages on desktop/mobile. Verify chase-state restoration, transparency, cockpit placement, and single-wheel presentation. Do not begin the Lula and Accu batch until this live checkpoint is accepted.
 
 ## Approval gate
 
-Lavi and Toph have passed candidate review and local integration. Publishing the branch, opening and merging the pull request, deploying the checkpoint, and recording live acceptance remain separately approval-gated. Lula and Accu remain gated before candidate creation.
+Lavi and Toph have cleared candidate review, integration, CI, merge, deployment, and deployed-byte verification. Live desktop/mobile camera-action acceptance remains gated. Lula and Accu remain gated before candidate creation.
