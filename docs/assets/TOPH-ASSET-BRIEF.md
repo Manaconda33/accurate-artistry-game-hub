@@ -54,7 +54,7 @@ Candidate 2 replaced the rejected rounded/clown-like Candidate 1 with the defini
 | `public/assets/characters/aa-08/kart-lod1.glb` | LOD1 | 4,452 | `1d3b62f715e6288b01447eafe2a81a07b09fe676019b1849ff3b5b78ad9c4d23` |
 | `public/assets/characters/aa-08/kart-lod2.glb` | LOD2 | 2,344 | `2c38dd14a334443fff3f872fc618210642f51dfc8b612bf1f075b347a5a65be7` |
 
-All three GLBs have 13 required nodes and `extras.forward: "-Z"`. The controlled runtime revision is `toph-runtime-20260902-2`. LFS publication materialized successfully in CI. The front-action revision deployed through PR #68 and main run `33661819292`; the live bundle and all four deployed front-action PNG hashes match the approved checkpoint. Desktop/mobile camera-action playtesting remains open.
+All three GLBs have 13 required nodes and `extras.forward: "-Z"`. The controlled runtime revision is `toph-runtime-20260902-2`. LFS publication materialized successfully in CI. The front-action revision deployed through PR #68 and main run `33661819292`; the live bundle and all four deployed front-action PNG hashes match the approved checkpoint. Manny accepted the live camera/action package on 2026-09-02 with `[0, 0.45, -0.12]` preserved.
 
 ## Live acceptance
 

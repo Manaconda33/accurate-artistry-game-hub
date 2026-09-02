@@ -70,7 +70,7 @@ const lavi: CharacterDefinition = {
   kartName: 'Potato',
   kart: assetUrl('assets/characters/aa-02/kart.glb', LAVI_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
-  frontDriverSpritePosition: [0, 0.45, -0.12],
+  frontDriverSpritePosition: [0, 0.9, -0.12],
   driver: {
     rear: assetUrl('assets/characters/aa-02/driver/rear.png', LAVI_ASSET_REVISION),
     front: assetUrl('assets/characters/aa-02/driver/front.png', LAVI_ASSET_REVISION),

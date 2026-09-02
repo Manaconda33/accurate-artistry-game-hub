@@ -1,13 +1,13 @@
 # Avatar intake: Lavi
 
 - **Intake date:** 2026-08-16
-- **Current phase:** Front-action expansion live deployed; playtest pending
+- **Current phase:** Front-action placement correction validated locally; publication pending
 - **Intake status:** Approved
 - **Character lock:** Approved by Manny on 2026-08-16
 - **Kart lock:** Approved by Manny on 2026-08-16
 - **Balance mapping lock:** AA-02 Feather Technician, approved by Manny on 2026-08-16
 - **Asset approval:** Portrait, all ten driver frames, and Potato's three-LOD GLB package approved and prepared
-- **Implementation verification:** Approved portrait, Potato, and all ten driver states are live in the Character Select and race runtime. The front-action expansion deployed through PR #68 and main run `33661819292`; bundle and deployed-byte verification passed. Product-owner camera/action playtesting remains open.
+- **Implementation verification:** Approved portrait, Potato, and all ten driver states are live. Bundle and deployed-byte verification passed, but Manny rejected the camera-facing `[0, 0.45, -0.12]` placement because Lavi sits too low behind Potato. The local correction raises only the five camera-facing states to `[0, 0.9, -0.12]`.
 
 This record captures Manny's written description and the supplied reference image. Image observations remain reference-only unless they appear in an approved lock. Lavi is assigned stable roster ID `aa-02` and balance profile AA-02 Feather Technician.
 
@@ -127,6 +127,7 @@ These details are observations, not approved locks:
 - **Asset revision:** `lavi-runtime-20260902-5`. All runtime paths use Vite's base URL and this controlled revision query so stale Pages or browser responses cannot reuse earlier package bytes.
 - **Deployment integrity:** Pages checks out LFS, passes `git lfs fsck`, and `tools/verify-runtime-assets.mjs` requires the three Potato files to begin with the binary `glTF` signature before build output is deployed.
 - **Driver-frame mapping:** The shared selector preloads all ten states. Rear view preserves commanded steering, hit, and victory through the matching front-action frame; a missing camera-facing action retains neutral front.
+- **Camera-facing placement:** `[0, 0.9, -0.12]` for neutral front, front-steer-left, front-steer-right, front-hit, and front-victory. Chase-facing states retain the shared default. This correction does not change sprite bytes or Potato's modeled wheel.
 - **Visual-axis adjustment:** Potato’s actual rendered forward is positive Z while this race runtime moves forward along negative Z. The load path applies `model.rotation.y = Math.PI` to Potato’s visual root only. Physics, checkpoints, input, camera, mount hierarchy, and driver billboard coordinates remain unchanged.
 - **Manual acceptance:** Manny confirmed the production Potato loads, driver steering states render, and the steering wheel is forward of Lavi in the live mobile race on 2026-08-16.
 
@@ -140,4 +141,4 @@ These details are observations, not approved locks:
 
 ## Next implementation action
 
-Verify the deployed revision, both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and Potato's single modeled steering wheel on desktop/mobile before recording live acceptance.
+Publish the placement-only correction after Manny approves the checkpoint. Then retest Lavi's neutral front, both steering directions, hit, victory, chase restoration, cockpit placement, and Potato's single modeled steering wheel before recording live acceptance.

@@ -140,6 +140,7 @@ For live acceptance, collide Accu and a light racer with comparable approach spe
 - Potato reads as one opaque natural russet body with a continuous sculpted cockpit, rooted rear sprouts, connected wheels/axles, and no body clipping or translucency.
 - Potato's steering wheel sits in front of Lavi, and its intended nose faces the race direction; a rear-camera check confirms the visual alignment is not reversed.
 - Lavi's rear driver artwork sits convincingly in the cockpit without floating, clipping, or obscuring the kart silhouette.
+- Lavi's five camera-facing frames use `[0, 0.9, -0.12]` so the upper body clears Potato's tall nose and the hands align with the modeled steering wheel. Toph's accepted `[0, 0.45, -0.12]` placement must not change.
 - Holding visual left/right steering switches Lavi to the matching approved steer-left/steer-right frame within two rendered frames; releasing steering restores the rear frame.
 - Collision impulse selects the approved hit frame briefly, and a completed player race selects the approved victory frame.
 - Rear view preserves Lavi's steering, hit, and victory state through the four matching front-action frames from `lavi-runtime-20260902-5`.
@@ -282,7 +283,7 @@ Manaconda and Krios live acceptance passed on 2026-09-01 against deployed checkp
 
 Keeg and McFleurdel live acceptance passed on 2026-09-01 against deployed checkpoint `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`. Manny confirmed both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership. Both drivers use their karts' modeled wheels without sprite duplicates. McFleurdel's reviewed black-curl interiors and arm gaps remain transparent.
 
-Lavi and Toph candidate approval passed on 2026-09-02. Local integration must verify all eight approved source hashes, both controlled revisions, complete PNG decoding, transparent corners, preserved front placement `[0, 0.45, -0.12]`, and modeled-wheel ownership before publication. Live acceptance remains open until the deployed game passes both steering directions, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation for both drivers.
+Lavi and Toph candidate approval passed on 2026-09-02. Their eight deployed source hashes, controlled revisions, PNG decoding, transparent corners, and modeled-wheel ownership passed. Manny accepted Toph's live package at `[0, 0.45, -0.12]`. Lavi's actions passed, but `[0, 0.45, -0.12]` placed the camera-facing layer too low behind Potato; the correction uses `[0, 0.9, -0.12]` for all five camera-facing states and requires another deployed cockpit check.
 
 Live acceptance requires one desktop and one mobile race with Accu plus at least three different production AI identities. Exercise rear view, observe both steering directions, make player-to-AI and AI-to-AI contact, and finish the race. Confirm correct frames, clean transparency, cockpit depth, and recovery to the neutral state.
 
