@@ -1,13 +1,13 @@
 # Avatar intake: Lavi
 
 - **Intake date:** 2026-08-16
-- **Current phase:** Front-action integration validated locally; publication pending
+- **Current phase:** Front-action expansion live deployed; playtest pending
 - **Intake status:** Approved
 - **Character lock:** Approved by Manny on 2026-08-16
 - **Kart lock:** Approved by Manny on 2026-08-16
 - **Balance mapping lock:** AA-02 Feather Technician, approved by Manny on 2026-08-16
 - **Asset approval:** Portrait, all ten driver frames, and Potato's three-LOD GLB package approved and prepared
-- **Implementation verification:** Approved portrait, Potato, and all six base driver states are live in the Character Select and race runtime. Manny confirmed the corrected live mobile result on 2026-08-16. The four front-action additions are validated locally but not yet published.
+- **Implementation verification:** Approved portrait, Potato, and all ten driver states are live in the Character Select and race runtime. The front-action expansion deployed through PR #68 and main run `33661819292`; bundle and deployed-byte verification passed. Product-owner camera/action playtesting remains open.
 
 This record captures Manny's written description and the supplied reference image. Image observations remain reference-only unless they appear in an approved lock. Lavi is assigned stable roster ID `aa-02` and balance profile AA-02 Feather Technician.
 
@@ -140,4 +140,4 @@ These details are observations, not approved locks:
 
 ## Next implementation action
 
-Publish the validated front-action integration only after Manny approves the public checkpoint. Then verify the deployed revision, action transitions, transparency, cockpit placement, and Potato's single modeled steering wheel before recording live acceptance.
+Verify the deployed revision, both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and Potato's single modeled steering wheel on desktop/mobile before recording live acceptance.
