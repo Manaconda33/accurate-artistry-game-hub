@@ -1,0 +1,73 @@
+name: McFleurdel Outfit Bridge
+
+on:
+  push:
+    branches:
+      - art/mcfleurdel-checkerboard-outfit
+    paths:
+      - tools/build-mcfleurdel-outfit.py
+      - .github/workflows/mcfleurdel-outfit-bridge.yml
+
+permissions:
+  contents: write
+
+jobs:
+  build-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: art/mcfleurdel-checkerboard-outfit
+          lfs: true
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install image dependencies
+        run: python -m pip install --disable-pip-version-check pillow==11.3.0 numpy==2.3.2
+
+      - name: Build outfit candidates
+        run: python tools/build-mcfleurdel-outfit.py
+
+      - name: Verify candidate dimensions and alpha
+        run: |
+          python - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          expected = {
+              Path('public/assets/characters/aa-07/portrait.png'): (256, 256),
+              Path('public/assets/characters/aa-07/driver/front.png'): (512, 512),
+              Path('public/assets/characters/aa-07/driver/front-steer-left.png'): (512, 512),
+              Path('public/assets/characters/aa-07/driver/front-steer-right.png'): (512, 512),
+              Path('public/assets/characters/aa-07/driver/front-hit.png'): (512, 512),
+          }
+          for path, size in expected.items():
+              im = Image.open(path).convert('RGBA')
+              assert im.size == size, (path, im.size)
+              alpha = im.getchannel('A')
+              lo, hi = alpha.getextrema()
+              assert lo == 0 and hi == 255, (path, (lo, hi))
+              assert all(im.getpixel(p)[3] == 0 for p in [(0,0),(size[0]-1,0),(0,size[1]-1),(size[0]-1,size[1]-1)])
+              print(path, size, 'alpha', (lo, hi))
+          PY
+
+      - name: Commit Batch 1 candidates
+        run: |
+          git config user.name 'Manaconda33'
+          git config user.email 'manny.a.martinez33@gmail.com'
+          git add \
+            public/assets/characters/aa-07/portrait.png \
+            public/assets/characters/aa-07/driver/front.png \
+            public/assets/characters/aa-07/driver/front-steer-left.png \
+            public/assets/characters/aa-07/driver/front-steer-right.png \
+            public/assets/characters/aa-07/driver/front-hit.png
+          if git diff --cached --quiet; then
+            echo 'No generated changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Generate McFleurdel checkerboard outfit Batch 1 [outfit-generated]'
+          git push origin HEAD:art/mcfleurdel-checkerboard-outfit
