@@ -29,12 +29,43 @@ describe('Circuit Alpha environment scene', () => {
     expect(track.samples.map((point) => point.toArray())).toEqual(before);
   });
 
-  it('keeps the Crest Ramp long axis aligned to the track-local forward axis', () => {
+  it('stages the visible start-finish gantry ahead of the starting grid', () => {
+    const track = new CircuitAlpha();
+    const scene = createTrackScene(track);
+    const gate = scene.getObjectByName('start-finish-gate');
+    expect(gate).toBeInstanceOf(THREE.Group);
+
+    const tangent = track.checkpointTangent(0);
+    const spawn = track.checkpointPosition(0).addScaledVector(tangent, 8);
+    const forwardOffset = (gate as THREE.Group).position.clone().sub(spawn).dot(tangent);
+    expect(forwardOffset).toBeGreaterThan(10);
+  });
+
+  it('builds the Crest Ramp as a forward-rising wedge', () => {
     const scene = createTrackScene(new CircuitAlpha());
     const deck = scene.getObjectByName('crest-ramp-deck');
     expect(deck).toBeInstanceOf(THREE.Mesh);
-    const geometry = (deck as THREE.Mesh).geometry as THREE.BoxGeometry;
-    expect(geometry.parameters.depth).toBeGreaterThan(geometry.parameters.width);
+
+    const geometry = (deck as THREE.Mesh).geometry as THREE.BufferGeometry;
+    geometry.computeBoundingBox();
+    const bounds = geometry.boundingBox;
+    expect(bounds).not.toBeNull();
+    if (bounds === null) throw new Error('Missing Crest Ramp bounds');
+    const size = bounds.getSize(new THREE.Vector3());
+    expect(size.z).toBeGreaterThan(size.x);
+
+    const position = geometry.getAttribute('position');
+    const nearYs: number[] = [];
+    const farYs: number[] = [];
+    for (let index = 0; index < position.count; index += 1) {
+      if (position.getZ(index) < 0) nearYs.push(position.getY(index));
+      else farYs.push(position.getY(index));
+    }
+    expect(Math.max(...farYs) - Math.max(...nearYs)).toBeGreaterThan(1);
+
+    const approachEdge = scene.getObjectByName('crest-ramp-approach-edge');
+    expect(approachEdge).toBeInstanceOf(THREE.Mesh);
+    expect((approachEdge as THREE.Mesh).position.z).toBeLessThan(0);
   });
 
   it('uses instancing for repeated trackside dressing', () => {
