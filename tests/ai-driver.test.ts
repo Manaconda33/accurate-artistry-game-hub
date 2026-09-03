@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   AiDriver,
   aiLookaheadMeters,
+  aiRequestedDriftTier,
   aiTargetSpeed,
   rubberBandFactor,
 } from '../src/game/ai/AiDriver';
@@ -45,6 +46,14 @@ describe('spline AI driver', () => {
     expect(aiTargetSpeed(33, 0.28, 0, 0)).toBe(33);
     expect(aiTargetSpeed(27.4, 0.82, 0, 0)).toBe(27.4);
     expect(aiTargetSpeed(30, 0.82, 0.5, 0)).toBeGreaterThan(aiTargetSpeed(30, 0.28, 0.5, 0));
+  });
+
+  it('requests stronger drift tiers only for sufficiently demanding corners', () => {
+    expect(aiRequestedDriftTier(0.5, 20, 0.8)).toBeUndefined();
+    expect(aiRequestedDriftTier(0.68, 20, 0.4)).toBe('blue');
+    expect(aiRequestedDriftTier(0.75, 20, 0.4)).toBe('orange');
+    expect(aiRequestedDriftTier(0.9, 20, 0.6)).toBe('purple');
+    expect(aiRequestedDriftTier(0.9, 10, 0.8)).toBeUndefined();
   });
 
   it('commits to a clear adjacent lane when a slower racer blocks its line', () => {
