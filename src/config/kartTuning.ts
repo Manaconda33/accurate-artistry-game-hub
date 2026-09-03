@@ -55,11 +55,10 @@ function lerp(from: number, to: number, amount: number): number {
 
 export function createKartTuning(stats: DriverStats): KartTuning {
   return {
-    // Candidate B+ keeps the accepted Speed-7 ceiling at 29.5 m/s while
-    // compressing the full Speed 1-10 spread to 3 m/s. Speed remains the
-    // authoritative sustained straight-line stat without overwhelming the
-    // other five equal-budget attributes on Circuit Alpha.
-    maxSpeed: 27.5 + normalizedStat(stats.speed) * 3,
+    // Candidate D keeps the accepted Speed-7 ceiling at 29.5 m/s while
+    // restoring a 4.5 m/s Speed 1-10 spread. This preserves a visible
+    // straight-line identity without returning to the original dominant spread.
+    maxSpeed: 26.5 + normalizedStat(stats.speed) * 4.5,
     acceleration: 4 + 0.55 * stats.acceleration,
     mass: 105 + normalizedStat(stats.weight) * 75,
     steeringRate: 1.3 + normalizedStat(stats.handling) * 1.1,
@@ -74,10 +73,10 @@ export function handlingCornerSpeedMultiplier(
 ): number {
   const handlingN = normalizedStat(handling);
   const severity = Math.min(1, Math.max(0, (Math.abs(steeringMagnitude) - 0.18) / 0.82));
-  // Candidate B+ makes Handling a real pace stat in technical sections while
-  // leaving straight-line ceilings unchanged. At full steering demand the
-  // governed speed loss spans 25% at Handling 1 to 5% at Handling 10.
-  const fullSteerLoss = 0.25 - 0.2 * handlingN;
+  // Candidate D retains Handling as a physical pace stat but narrows the
+  // full-steer spread after normalized AI corner demand exposed double-counting.
+  // Full steering now loses 20% at Handling 1 and 7% at Handling 10.
+  const fullSteerLoss = 0.2 - 0.13 * handlingN;
   return 1 - fullSteerLoss * severity * severity;
 }
 
@@ -89,7 +88,10 @@ export function aiCornerTargetSpeed(
   handling: number,
 ): number {
   const baseCornerPenalty = lerp(0.48, 0.34, clamp01(pace));
-  const handlingPenaltyFactor = lerp(1.2, 0.72, clamp01(normalizedStat(handling)));
+  // The shared physical Handling ceiling already differentiates corner speed.
+  // AI braking gets only a modest Handling adjustment so it does not reward
+  // the same stat twice as strongly.
+  const handlingPenaltyFactor = lerp(1.08, 0.9, clamp01(normalizedStat(handling)));
   const cornerPenalty = baseCornerPenalty * handlingPenaltyFactor;
   return (
     characterMaxSpeed *
@@ -106,21 +108,19 @@ export function aiRequestedDriftTier(
   miniTurbo: number,
 ): DriftBoostTier | undefined {
   const turboN = clamp01(normalizedStat(miniTurbo));
-  // The lookahead turn angle is a better drift-opportunity signal than raw
-  // spline steering alone. High Mini-Turbo lowers the demand/speed gates and
-  // raises effective aggression, so those builds deliberately exploit more
-  // corners while low-Mini-Turbo builds remain selective.
   const demand = Math.max(Math.abs(steering), clamp01(cornerDemand));
-  const minimumSpeed = lerp(13, 9.5, turboN);
-  const demandGate = lerp(0.68, 0.54, turboN);
-  const aggressionGate = lerp(0.38, 0.18, turboN);
-  const effectiveAggression = clamp01(aggression + 0.18 * turboN);
+  // High Mini-Turbo still sees more opportunities, but Candidate D reduces the
+  // frequency boost exposed by angle-normalized corner demand.
+  const minimumSpeed = lerp(13, 10.5, turboN);
+  const demandGate = lerp(0.68, 0.58, turboN);
+  const aggressionGate = lerp(0.38, 0.24, turboN);
+  const effectiveAggression = clamp01(aggression + 0.1 * turboN);
   if (speed <= minimumSpeed || demand <= demandGate || effectiveAggression <= aggressionGate) {
     return undefined;
   }
 
-  const purpleDemand = lerp(0.82, 0.74, turboN);
-  const orangeDemand = lerp(0.72, 0.64, turboN);
+  const purpleDemand = lerp(0.82, 0.76, turboN);
+  const orangeDemand = lerp(0.72, 0.66, turboN);
   if (demand >= purpleDemand && effectiveAggression >= 0.48) return 'purple';
   if (demand >= orangeDemand && effectiveAggression >= 0.36) return 'orange';
   return 'blue';
