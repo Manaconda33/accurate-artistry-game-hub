@@ -6,7 +6,7 @@
 
 PRD baseline: **v1.1, working implementation amendment 2.1**.
 
-Manny explicitly authorized a bounded Circuit Alpha environment-art/camera polish pass under the existing track/rendering requirements. This work does **not** advance the roadmap to Slice 5 or Slice 6.
+Manny explicitly authorized a bounded Circuit Alpha environment-art/camera polish pass under the existing track/rendering requirements. That pass is now **LIVE ACCEPTED / CLOSED** and does **not** advance the roadmap to Slice 5 or Slice 6.
 
 Jennifer / The Hearthwarden and the Manaconda's Minigame Mayhem rebrand remain **LIVE ACCEPTED / CLOSED**.
 
@@ -14,100 +14,110 @@ Jennifer / The Hearthwarden and the Manaconda's Minigame Mayhem rebrand remain *
 
 - Repository: `Manaconda33/manacondas-minigame-mayhem`
 - Live URL: `https://manaconda33.github.io/manacondas-minigame-mayhem/`
-- Release: PR **#83 — Finish at gantry and tighten race camera framing**
-- Product-owner publication approval: **2026-09-03**
+- Final runtime release: PR **#83 — Finish at gantry and tighten race camera framing**
 - PR #83 merge: `da9275771941e7e112a6153af3d5d1cd97ea2bf2`
 - Main CI / Pages run: **33809002419** — validation passed and deployment passed
 - GitHub Pages artifact: **9914060220**
 - Pages artifact digest: `sha256:4005c0b896469a02883bd3a83c22cf6c187bfadf5d1310c185d11df440d1f0e3`
-- Final live acceptance of PR #83: **pending**
+- Deployment-record checkpoint before final acceptance: `4d96262919f71ce01bc3b586e037c2046ea45b3e`
+- Deployment-record run: **33809192455** — validation passed and deployment passed
+- Product-owner final live acceptance: **2026-09-03 — APPROVED**
 
-## Product-owner live review already accepted
+## Circuit Alpha environment-art / camera pass — final accepted state
 
-Manny tested the preceding deployed Circuit Alpha build and recorded:
+The bounded pass materially improved Circuit Alpha presentation while preserving the governed race topology and physics contract.
 
-- start/finish gantry ahead of the grid during countdown/start — **PASS**
-- racers drive toward and pass under the gantry — **PASS**
-- Crest Ramp presents the short low edge first and rises down-track — **PASS**
-- pre-race crane-down camera — **PASS**
-- settled chase-camera height/angle — **PASS**
-- rear-view height/angle — **PASS**
-- mobile frame pacing — **PASS**
+Accepted visual/environment changes include:
 
-The overall Circuit Alpha environment-art direction, gantry staging, ramp wedge, crane movement, camera heights/angles, and mobile pacing are therefore accepted.
+- deeper dusk sky and atmospheric presentation;
+- layered asphalt wear and shoulders;
+- alternating curbs and reflectors;
+- instanced forest, rocks, and distant mountains;
+- rebuilt center mesa and additional trackside landmarks;
+- start/finish gantry and underpass architecture;
+- upgraded boost-pad and checkpoint presentation;
+- Crest Ramp rebuilt as a forward-rising wedge aligned to the course;
+- pre-race crane-down camera during the 3 / 2 / 1 countdown;
+- lower chase and rear-view camera heights;
+- tighter final chase/rear framing to emphasize the driver and kart;
+- visual start/finish staging in front of the starting grid;
+- lap-completion crossing aligned to the visible gantry.
 
-## PR #83 deployed corrections
+## Final product-owner acceptance matrix
 
-### Finish-line alignment
+Manny's deployed live review recorded all required presentation gates as passing:
 
-The starting grid remains unchanged at the original checkpoint-0 origin plus 8 m along the opening tangent.
+- start/finish gantry is ahead of the grid during countdown/start — **PASS**
+- racers launch toward and pass under the gantry — **PASS**
+- Crest Ramp presents the short low edge first and rises toward the far/down-track edge — **PASS**
+- pre-race crane-down during 3 / 2 / 1 — **PASS**
+- lower chase-camera height/angle — **PASS**
+- lower rear-view height/angle — **PASS**
+- chase framing at the tighter distance — **PASS**
+- rear-view framing at the tighter distance — **PASS**
+- lap 3 / race finish occurs at the gantry rather than before it — **PASS**
+- mobile frame pacing remains acceptable — **PASS**
 
-`CircuitAlpha` now separates the grid origin from the lap-completion crossing:
+The Circuit Alpha environment-art/camera polish pass is therefore **LIVE ACCEPTED / CLOSED**.
 
-- `checkpointPosition(0)` remains the original geometric origin used by the starting grid;
-- `startFinishDistance` is **22 m** along the course from that origin;
-- `lapCheckpointPosition(0)` resolves to that 22 m point, matching the approved visible gantry;
-- `lapCheckpointPosition(1..11)` remains identical to the existing checkpoint positions;
-- player and AI checkpoint-overlap detection use `lapCheckpointPosition`.
+## Final camera / finish values
 
-Intended live behavior: lap 3 / race completion registers as the racer crosses beneath the visible gantry rather than at the old loop origin.
-
-### Tighter race-camera framing
-
-Only longitudinal camera distance changed:
-
-- chase distance: **7.4 m → 5.6 m** (about 24.3% closer)
-- rear-view distance: **7.0 m → 5.3 m** (about 24.3% closer)
-
-Preserved presentation values:
-
+- chase distance: **5.6 m**
 - chase height: **3.15 m**
+- rear-view distance: **5.3 m**
 - rear-view height: **3.05 m**
 - look target height: **1.15 m**
 - PerspectiveCamera FOV: **62°**
 - crane duration: **2.85 s**
-- smoothing and accepted view angles unchanged
+- start/finish distance from the original checkpoint-0/grid origin: **22 m**
+- player spawn remains **8 m** beyond the original checkpoint-0 origin
 
-## Protected gameplay / presentation contract
+`checkpointPosition(0)` remains the starting-grid origin. `lapCheckpointPosition(0)` is the 22 m visible gantry crossing used for lap completion. Checkpoints 1–11 retain their prior positions.
 
-PR #83 does not change:
+## Protected gameplay contract
 
-- the 384 canonical Circuit Alpha samples or Catmull-Rom topology
-- loop length or road width
-- checkpoints 1–11 or checkpoint ordering
-- player/AI starting grid positions
-- asphalt, dirt, grass, boost, and ramp classification
-- ramp trigger or ramp boost behavior
-- kart physics, tuning, collisions, or AI navigation
-- three-lap requirement
-- countdown timing
-- accepted crane-down motion
-- camera heights, FOV, look targets, or smoothing
-- roster statistics or character assets
-- item scope
+The accepted Circuit Alpha pass did not change:
 
-The intentional behavior change is that checkpoint 0 for lap completion now coincides with the visible start/finish gantry.
+- the 384 canonical Catmull-Rom track samples or course topology;
+- loop length or road width;
+- checkpoints 1–11 or checkpoint order;
+- player/AI starting grid positions;
+- asphalt, dirt, grass, boost, and ramp gameplay classification;
+- ramp trigger or ramp boost behavior;
+- kart physics, driver tuning, collision behavior, or AI navigation;
+- three-lap requirement;
+- countdown timing;
+- roster statistics or character assets;
+- item scope.
+
+The intentional gameplay-facing correction was limited to making checkpoint 0 for lap completion coincide with the visible start/finish gantry.
+
+No PRD deviation is recorded.
 
 ## Validation evidence
 
-The final PR #83 head `3614de78a62cd483ae32dba6923194d8bcfbb1b6` passed PR run **33808711461** with:
+Final PR #83 head `3614de78a62cd483ae32dba6923194d8bcfbb1b6` passed PR CI run **33808711461** with:
 
-- Git LFS runtime-asset verification
-- strict TypeScript typecheck
-- ESLint with zero warnings
-- full Vitest CI suite
-- production Vite build
+- Git LFS runtime-asset verification;
+- strict TypeScript typecheck;
+- ESLint with zero warnings;
+- full Vitest CI suite;
+- production Vite build.
 
-The merged production commit `da9275771941e7e112a6153af3d5d1cd97ea2bf2` passed main run **33809002419** with the same validation plus successful GitHub Pages artifact upload and deployment.
+Merged runtime commit `da9275771941e7e112a6153af3d5d1cd97ea2bf2` passed main run **33809002419** with the same validation plus successful GitHub Pages artifact upload and deployment.
 
-Regression coverage verifies:
+Deployment-record checkpoint `4d96262919f71ce01bc3b586e037c2046ea45b3e` passed main run **33809192455** and deployed successfully.
 
-- the starting-grid origin remains separate from the 22 m lap finish crossing;
-- checkpoints 1–11 retain their existing positions;
-- the visible gantry position matches `lapCheckpointPosition(0)`;
-- player and seven-profile AI race checkpoint detection use the same lap checkpoint positions;
-- AI still completes three validated laps;
-- chase/rear camera distances are tighter while accepted camera heights remain unchanged.
+Regression coverage verifies that:
+
+- environment construction does not mutate canonical track samples;
+- the gantry is staged ahead of the starting grid;
+- the visible gantry matches the lap finish crossing;
+- the Crest Ramp is a forward-rising wedge aligned to course-forward;
+- player and AI checkpoint detection use the same lap checkpoint positions;
+- seven-profile AI simulation still completes three valid laps;
+- closer chase/rear distances preserve accepted heights;
+- required environment landmarks and repeated-scenery instancing remain intact.
 
 The existing production-build large-chunk warning remains known and non-blocking.
 
@@ -128,32 +138,31 @@ Cleo / The Gilded Stitch remains archived and inactive. AA-01 and AA-06 remain g
 
 ## Known defects / unresolved issues
 
-No automated defect is recorded against the deployed PR #83 build.
+No new defect was reported in Manny's final Circuit Alpha acceptance pass.
 
-PR #83 still requires Manny's live visual/gameplay acceptance. Automated checks do not substitute for product-owner review.
+The existing production-build large-chunk warning remains known and non-blocking.
 
 ## Deferred work
 
-- Final Circuit Alpha environment-art acceptance remains open until PR #83 finish crossing and closer chase/rear framing pass live review.
-- No external PBR texture set, HDR environment, baked AO asset, post-processing stack, or authored track GLB is introduced here.
+- No external PBR texture set, HDR environment, baked AO asset, post-processing stack, or authored track GLB was introduced in this bounded pass.
 - AA-01 and AA-06 remain unfilled.
-- Items remain Slice 5 work and are not authorized by this pass.
+- Items remain Slice 5 work and are not authorized by this closeout.
 
 ## Next recommended action
 
-**Stop at the live acceptance gate.**
+**Stop at the next product-owner approval boundary.**
 
-Live-check only:
+Circuit Alpha environment-art/camera work requires no further acceptance action.
 
-- lap 3 does not finish before the gantry and registers as the racer crosses beneath it;
-- chase framing shows the player kart/driver at the requested larger scale without clipping or reducing road readability;
-- rear-view framing is similarly closer without clipping;
-- accepted crane movement, camera heights/angles, gantry staging, ramp presentation, and mobile pacing remain regression-free.
+The next implementation action must be selected explicitly by Manny, for example:
 
-If these pass, record final acceptance and close the Circuit Alpha environment-art/camera polish pass.
+- begin another Slice 3 character intake using AA-01 or AA-06; or
+- approve a different PRD-defined bounded scope.
+
+Do not silently advance to Slice 5, Slice 6, or materially reorder the roadmap.
 
 ## Approval state
 
-**Circuit Alpha finish-line / camera-framing correction: DEPLOYED / LIVE ACCEPTANCE PENDING.**
+**Circuit Alpha environment-art / camera polish: LIVE ACCEPTED / CLOSED.**
 
 The project roadmap remains at Slice 3.
