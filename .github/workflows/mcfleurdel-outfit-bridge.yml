@@ -5,7 +5,7 @@ on:
     branches:
       - art/mcfleurdel-checkerboard-outfit
     paths:
-      - tools/build-mcfleurdel-outfit.py
+      - tools/build-mcfleurdel-outfit-batch2.py
       - .github/workflows/mcfleurdel-outfit-bridge.yml
 
 permissions:
@@ -30,44 +30,45 @@ jobs:
       - name: Install image dependencies
         run: python -m pip install --disable-pip-version-check pillow==11.3.0 numpy==2.3.2
 
-      - name: Build outfit candidates
-        run: python tools/build-mcfleurdel-outfit.py
+      - name: Build Batch 2 outfit candidates
+        run: python tools/build-mcfleurdel-outfit-batch2.py
 
       - name: Verify candidate dimensions and alpha
         run: |
           python - <<'PY'
           from PIL import Image
           from pathlib import Path
-          expected = {
-              Path('public/assets/characters/aa-07/portrait.png'): (256, 256),
-              Path('public/assets/characters/aa-07/driver/front.png'): (512, 512),
-              Path('public/assets/characters/aa-07/driver/front-steer-left.png'): (512, 512),
-              Path('public/assets/characters/aa-07/driver/front-steer-right.png'): (512, 512),
-              Path('public/assets/characters/aa-07/driver/front-hit.png'): (512, 512),
-          }
-          for path, size in expected.items():
+          expected = [
+              Path('public/assets/characters/aa-07/driver/front-victory.png'),
+              Path('public/assets/characters/aa-07/driver/rear.png'),
+              Path('public/assets/characters/aa-07/driver/steer-left.png'),
+              Path('public/assets/characters/aa-07/driver/steer-right.png'),
+              Path('public/assets/characters/aa-07/driver/hit.png'),
+              Path('public/assets/characters/aa-07/driver/victory.png'),
+          ]
+          for path in expected:
               im = Image.open(path).convert('RGBA')
-              assert im.size == size, (path, im.size)
-              alpha = im.getchannel('A')
-              lo, hi = alpha.getextrema()
+              assert im.size == (512, 512), (path, im.size)
+              lo, hi = im.getchannel('A').getextrema()
               assert lo == 0 and hi == 255, (path, (lo, hi))
-              assert all(im.getpixel(p)[3] == 0 for p in [(0,0),(size[0]-1,0),(0,size[1]-1),(size[0]-1,size[1]-1)])
-              print(path, size, 'alpha', (lo, hi))
+              assert all(im.getpixel(p)[3] == 0 for p in [(0,0),(511,0),(0,511),(511,511)])
+              print(path, im.size, 'alpha', (lo, hi))
           PY
 
-      - name: Commit Batch 1 candidates
+      - name: Commit Batch 2 candidates
         run: |
           git config user.name 'Manaconda33'
           git config user.email 'manny.a.martinez33@gmail.com'
           git add \
-            public/assets/characters/aa-07/portrait.png \
-            public/assets/characters/aa-07/driver/front.png \
-            public/assets/characters/aa-07/driver/front-steer-left.png \
-            public/assets/characters/aa-07/driver/front-steer-right.png \
-            public/assets/characters/aa-07/driver/front-hit.png
+            public/assets/characters/aa-07/driver/front-victory.png \
+            public/assets/characters/aa-07/driver/rear.png \
+            public/assets/characters/aa-07/driver/steer-left.png \
+            public/assets/characters/aa-07/driver/steer-right.png \
+            public/assets/characters/aa-07/driver/hit.png \
+            public/assets/characters/aa-07/driver/victory.png
           if git diff --cached --quiet; then
             echo 'No generated changes to commit.'
             exit 0
           fi
-          git commit -m 'Generate McFleurdel checkerboard outfit Batch 1 [outfit-generated]'
+          git commit -m 'Generate McFleurdel checkerboard outfit Batch 2 [outfit-generated]'
           git push origin HEAD:art/mcfleurdel-checkerboard-outfit
