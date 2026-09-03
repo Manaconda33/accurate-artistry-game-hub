@@ -1,7 +1,9 @@
 import RAPIER from '@dimforge/rapier3d-compat';
 import * as THREE from 'three';
 import {
+  aiCornerTargetSpeed,
   aiDriftTargetTier,
+  aiRequestedDriftTier,
   driftBoostProfile,
   driftThresholds,
   handlingCornerSpeedMultiplier,
@@ -21,6 +23,10 @@ export interface DriveInput {
   drift: boolean;
   speedLimitMultiplier?: number;
   aiDriftTarget?: DriftBoostTier;
+  aiCornerDemand?: number;
+  aiPace?: number;
+  aiAggression?: number;
+  aiBlockerSpeed?: number;
 }
 
 export type DriftTier = 'none' | 'blue' | 'orange' | 'purple';
@@ -95,7 +101,37 @@ export class KartController {
       input.steering * this.tuning.steeringRate * steeringScale * (this.drifting ? 1.45 : 1);
     this.currentSteer = THREE.MathUtils.damp(this.currentSteer, steeringTarget, 10, dt);
 
-    const driftStarted = input.drift && !this.previousDriftPressed;
+    const speedLimitMultiplier = THREE.MathUtils.clamp(input.speedLimitMultiplier ?? 1, 1, 1.04);
+    let effectiveThrottle = input.throttle;
+    let effectiveBrake = input.brake;
+    if (input.aiCornerDemand !== undefined && input.aiPace !== undefined) {
+      let aiTargetSpeed = aiCornerTargetSpeed(
+        this.tuning.maxSpeed,
+        input.aiPace,
+        input.aiCornerDemand,
+        speedLimitMultiplier,
+        this.stats.handling,
+      );
+      if (input.aiBlockerSpeed !== undefined) {
+        aiTargetSpeed = Math.min(aiTargetSpeed, input.aiBlockerSpeed + 0.4);
+      }
+      effectiveThrottle = forwardSpeed < aiTargetSpeed ? 1 : 0.2;
+      effectiveBrake = forwardSpeed > aiTargetSpeed + 2;
+    }
+
+    const automaticAiDriftTarget =
+      input.aiAggression === undefined
+        ? undefined
+        : aiRequestedDriftTier(
+            input.steering,
+            Math.abs(forwardSpeed),
+            input.aiAggression,
+            this.stats.miniTurbo,
+          );
+    const driftPressed =
+      input.aiAggression === undefined ? input.drift : automaticAiDriftTarget !== undefined;
+    const requestedAiDriftTarget = automaticAiDriftTarget ?? input.aiDriftTarget;
+    const driftStarted = driftPressed && !this.previousDriftPressed;
     if (
       driftStarted &&
       grounded &&
@@ -106,14 +142,14 @@ export class KartController {
       this.driftDirection = Math.sign(input.steering);
       this.driftCharge = 0;
       this.aiDriftTarget =
-        input.aiDriftTarget === undefined
+        requestedAiDriftTarget === undefined
           ? 'none'
-          : aiDriftTargetTier(input.aiDriftTarget, this.stats.miniTurbo);
+          : aiDriftTargetTier(requestedAiDriftTarget, this.stats.miniTurbo);
       this.body.applyImpulse({ x: 0, y: this.tuning.mass * 1.25, z: 0 }, true);
     }
 
     if (this.drifting) {
-      if (!input.drift || Math.abs(forwardSpeed) < 3 || this.airborneSeconds > 0.6) {
+      if (!driftPressed || Math.abs(forwardSpeed) < 3 || this.airborneSeconds > 0.6) {
         this.releaseDrift();
       } else if (grounded) {
         const steerQuality = THREE.MathUtils.clamp(Math.abs(input.steering), 0.65, 1.35);
@@ -124,7 +160,7 @@ export class KartController {
         }
       }
     }
-    this.previousDriftPressed = input.drift;
+    this.previousDriftPressed = driftPressed;
 
     if (Math.abs(forwardSpeed) > 0.35) {
       const direction = forwardSpeed >= 0 ? 1 : -0.65;
@@ -134,7 +170,6 @@ export class KartController {
 
     const speedMultiplier = surfaceSpeedMultiplier(surface, this.stats.traction);
     const accelerationMultiplier = surfaceAccelerationMultiplier(surface, this.stats.traction);
-    const speedLimitMultiplier = THREE.MathUtils.clamp(input.speedLimitMultiplier ?? 1, 1, 1.04);
     const handlingMultiplier = handlingCornerSpeedMultiplier(this.stats.handling, input.steering);
     const maxForward =
       this.tuning.maxSpeed * speedMultiplier * speedLimitMultiplier * handlingMultiplier;
@@ -168,7 +203,7 @@ export class KartController {
     const centerGrounded = Math.abs(velocity.y) < 0.35 && this.hasCenterGroundSupport();
     const driveSupported = grounded || centerGrounded;
 
-    if (input.throttle > 0 && driveSupported) {
+    if (effectiveThrottle > 0 && driveSupported) {
       if ((surface === 'dirt' || surface === 'grass') && forwardSpeed > boostedMax) {
         const tractionN = (this.stats.traction - 1) / 9;
         const surfaceLoss =
@@ -186,13 +221,13 @@ export class KartController {
       if (playableFloor > 0 && forwardSpeed > 3) {
         forwardSpeed = Math.max(forwardSpeed, Math.min(playableFloor, boostedMax));
       }
-    } else if (input.throttle < 0 && driveSupported) {
+    } else if (effectiveThrottle < 0 && driveSupported) {
       forwardSpeed = Math.max(-this.tuning.reverseSpeed, forwardSpeed - acceleration * 0.72 * dt);
     } else {
       forwardSpeed = THREE.MathUtils.damp(forwardSpeed, 0, 0.65, dt);
     }
 
-    if (input.brake) forwardSpeed = THREE.MathUtils.damp(forwardSpeed, 0, 5.5, dt);
+    if (effectiveBrake) forwardSpeed = THREE.MathUtils.damp(forwardSpeed, 0, 5.5, dt);
 
     const retainedLateral = THREE.MathUtils.damp(
       lateralSpeed,
