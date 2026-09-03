@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
+  aiCornerTargetSpeed,
   aiDriftTargetTier,
+  aiRequestedDriftTier,
   createKartTuning,
   driftBoostProfile,
   driftThresholds,
@@ -51,6 +53,21 @@ describe('kart tuning and surface behavior', () => {
     expect(handlingCornerSpeedMultiplier(9, 1)).toBeLessThan(1);
   });
 
+  it('makes AI corner target speed respect the racer Handling stat', () => {
+    const lowHandling = aiCornerTargetSpeed(30, 0.6, 0.5, 1, 2);
+    const highHandling = aiCornerTargetSpeed(30, 0.6, 0.5, 1, 9);
+    expect(highHandling).toBeGreaterThan(lowHandling);
+    expect(aiCornerTargetSpeed(30, 0.6, 0, 1, 2)).toBe(30);
+    expect(aiCornerTargetSpeed(30, 0.6, 0, 1.04, 9)).toBeCloseTo(31.2);
+  });
+
+  it('makes high Mini-Turbo seek drift opportunities earlier', () => {
+    expect(aiRequestedDriftTier(0.6, 12, 0.3, 2)).toBeUndefined();
+    expect(aiRequestedDriftTier(0.6, 12, 0.3, 9)).toBe('blue');
+    expect(aiRequestedDriftTier(0.77, 18, 0.5, 9)).toBe('purple');
+    expect(aiRequestedDriftTier(0.77, 18, 0.5, 4)).toBe('orange');
+  });
+
   it('makes grass slower than dirt and asphalt', () => {
     const traction = sliceOneDriver.traction;
     expect(surfaceSpeedMultiplier('grass', traction)).toBeLessThan(
@@ -82,7 +99,7 @@ describe('kart tuning and surface behavior', () => {
     expect(blue.speedMultiplier).toBeLessThan(purple.speedMultiplier);
   });
 
-  it('limits AI drift ambition according to the Mini-Turbo stat', () => {
+  it('limits AI drift reward tier according to the Mini-Turbo stat', () => {
     expect(aiDriftTargetTier('purple', 4)).toBe('blue');
     expect(aiDriftTargetTier('purple', 6)).toBe('orange');
     expect(aiDriftTargetTier('purple', 9)).toBe('purple');
