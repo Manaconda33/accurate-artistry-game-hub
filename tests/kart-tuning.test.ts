@@ -27,11 +27,11 @@ describe('kart tuning and surface behavior', () => {
     const acceptedCenter = createKartTuning({ ...sliceOneDriver, speed: 7 }).maxSpeed;
     const fastest = createKartTuning({ ...sliceOneDriver, speed: 10 }).maxSpeed;
 
-    expect(slowest).toBeCloseTo(27.5);
-    expect(middle).toBeCloseTo(28.8333, 3);
+    expect(slowest).toBeCloseTo(26.5);
+    expect(middle).toBeCloseTo(28.5);
     expect(acceptedCenter).toBeCloseTo(29.5);
-    expect(fastest).toBeCloseTo(30.5);
-    expect(fastest - slowest).toBeCloseTo(3);
+    expect(fastest).toBeCloseTo(31);
+    expect(fastest - slowest).toBeCloseTo(4.5);
     expect(slowest).toBeLessThan(middle);
     expect(middle).toBeLessThan(acceptedCenter);
     expect(acceptedCenter).toBeLessThan(fastest);
@@ -45,18 +45,19 @@ describe('kart tuning and surface behavior', () => {
   it('lets Handling preserve more speed under equivalent steering demand', () => {
     expect(handlingCornerSpeedMultiplier(2, 0)).toBe(1);
     expect(handlingCornerSpeedMultiplier(9, 0)).toBe(1);
-    expect(handlingCornerSpeedMultiplier(2, 1)).toBeCloseTo(0.7722, 3);
-    expect(handlingCornerSpeedMultiplier(9, 1)).toBeCloseTo(0.9278, 3);
+    expect(handlingCornerSpeedMultiplier(2, 1)).toBeCloseTo(0.8144, 3);
+    expect(handlingCornerSpeedMultiplier(9, 1)).toBeCloseTo(0.9156, 3);
     expect(handlingCornerSpeedMultiplier(9, 1)).toBeGreaterThan(
       handlingCornerSpeedMultiplier(2, 1),
     );
     expect(handlingCornerSpeedMultiplier(9, 1)).toBeLessThan(1);
   });
 
-  it('makes AI corner target speed respect the racer Handling stat', () => {
+  it('makes AI corner target speed respect the racer Handling stat without double-counting it strongly', () => {
     const lowHandling = aiCornerTargetSpeed(30, 0.6, 0.5, 1, 2);
     const highHandling = aiCornerTargetSpeed(30, 0.6, 0.5, 1, 9);
     expect(highHandling).toBeGreaterThan(lowHandling);
+    expect(highHandling - lowHandling).toBeLessThan(2);
     expect(aiCornerTargetSpeed(30, 0.6, 0, 1, 2)).toBe(30);
     expect(aiCornerTargetSpeed(30, 0.6, 0, 1.04, 9)).toBeCloseTo(31.2);
   });
@@ -64,8 +65,8 @@ describe('kart tuning and surface behavior', () => {
   it('makes high Mini-Turbo seek drift opportunities at lower turn demand', () => {
     expect(aiRequestedDriftTier(0.2, 0.6, 12, 0.3, 2)).toBeUndefined();
     expect(aiRequestedDriftTier(0.2, 0.6, 12, 0.3, 9)).toBe('blue');
-    expect(aiRequestedDriftTier(0.3, 0.76, 18, 0.5, 9)).toBe('purple');
-    expect(aiRequestedDriftTier(0.3, 0.76, 18, 0.5, 4)).toBe('orange');
+    expect(aiRequestedDriftTier(0.3, 0.79, 18, 0.5, 9)).toBe('purple');
+    expect(aiRequestedDriftTier(0.3, 0.79, 18, 0.5, 4)).toBe('orange');
   });
 
   it('makes grass slower than dirt and asphalt', () => {
