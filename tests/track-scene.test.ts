@@ -29,16 +29,18 @@ describe('Circuit Alpha environment scene', () => {
     expect(track.samples.map((point) => point.toArray())).toEqual(before);
   });
 
-  it('stages the visible start-finish gantry ahead of the starting grid', () => {
+  it('stages the visible start-finish gantry ahead of the grid at the race finish crossing', () => {
     const track = new CircuitAlpha();
     const scene = createTrackScene(track);
     const gate = scene.getObjectByName('start-finish-gate');
     expect(gate).toBeInstanceOf(THREE.Group);
+    if (!(gate instanceof THREE.Group)) throw new Error('Missing start-finish gate');
 
     const tangent = track.checkpointTangent(0);
     const spawn = track.checkpointPosition(0).addScaledVector(tangent, 8);
-    const forwardOffset = (gate as THREE.Group).position.clone().sub(spawn).dot(tangent);
+    const forwardOffset = gate.position.clone().sub(spawn).dot(tangent);
     expect(forwardOffset).toBeGreaterThan(10);
+    expect(gate.position.distanceTo(track.lapCheckpointPosition(0))).toBeLessThan(0.001);
   });
 
   it('builds the Crest Ramp as a forward-rising wedge', () => {

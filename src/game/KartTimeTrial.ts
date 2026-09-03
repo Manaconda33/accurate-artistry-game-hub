@@ -301,7 +301,7 @@ export class KartTimeTrial {
 
   private nearestCheckpoint(position: THREE.Vector3): number {
     for (let index = 0; index < this.track.checkpointIndices.length; index += 1) {
-      if (position.distanceToSquared(this.track.checkpointPosition(index)) < 13 * 13) return index;
+      if (position.distanceToSquared(this.track.lapCheckpointPosition(index)) < 13 * 13) return index;
     }
     return -1;
   }

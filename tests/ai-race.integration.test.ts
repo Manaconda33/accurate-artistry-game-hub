@@ -55,7 +55,7 @@ describe('Rapier spline AI integration', () => {
         world.step();
         let checkpoint = -1;
         for (let index = 0; index < track.checkpointIndices.length; index += 1) {
-          if (position.distanceToSquared(track.checkpointPosition(index)) < 13 * 13) {
+          if (position.distanceToSquared(track.lapCheckpointPosition(index)) < 13 * 13) {
             checkpoint = index;
             break;
           }

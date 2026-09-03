@@ -11,6 +11,14 @@ describe('Circuit Alpha topology', () => {
     expect(new Set(track.checkpointIndices).size).toBe(12);
   });
 
+  it('keeps the starting grid origin separate from the visible finish-line crossing', () => {
+    const origin = track.checkpointPosition(0);
+    const finish = track.lapCheckpointPosition(0);
+    expect(origin.distanceTo(finish)).toBeGreaterThan(20);
+    expect(origin.distanceTo(finish)).toBeLessThan(24);
+    expect(track.lapCheckpointPosition(1).distanceTo(track.checkpointPosition(1))).toBeLessThan(0.001);
+  });
+
   it('projects the required Slice 1 surfaces from shared topology', () => {
     expect(track.project(track.curve.getPointAt(0.1)).surface).toBe('asphalt');
     const dirtPoint = track.curve.getPointAt(0.27);

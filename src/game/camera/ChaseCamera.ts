@@ -1,9 +1,9 @@
 import * as THREE from 'three';
 
 const INTRO_DURATION_SECONDS = 2.85;
-const CHASE_DISTANCE = 7.4;
+const CHASE_DISTANCE = 5.6;
 const CHASE_HEIGHT = 3.15;
-const REAR_DISTANCE = 7.0;
+const REAR_DISTANCE = 5.3;
 const REAR_HEIGHT = 3.05;
 const INTRO_DISTANCE = 2.2;
 const INTRO_HEIGHT = 16;

@@ -13,7 +13,7 @@ function advance(cameraRig: ChaseCamera, seconds: number, rearView = false): voi
 }
 
 describe('race camera presentation', () => {
-  it('cranes down from an elevated grid view into the lower chase position', () => {
+  it('cranes down from an elevated grid view into the tighter lower chase position', () => {
     const camera = new THREE.PerspectiveCamera();
     const rig = new ChaseCamera(camera);
     const position = new THREE.Vector3(0, 0, 0);
@@ -26,10 +26,11 @@ describe('race camera presentation', () => {
     advance(rig, 3.1);
     expect(camera.position.y).toBeGreaterThan(2.9);
     expect(camera.position.y).toBeLessThan(3.4);
-    expect(camera.position.z).toBeLessThan(-7);
+    expect(camera.position.z).toBeLessThan(-5.3);
+    expect(camera.position.z).toBeGreaterThan(-5.9);
   });
 
-  it('keeps the rear camera at a similarly low racing height', () => {
+  it('keeps the rear camera at the accepted height while moving it closer', () => {
     const camera = new THREE.PerspectiveCamera();
     const rig = new ChaseCamera(camera);
 
@@ -38,6 +39,7 @@ describe('race camera presentation', () => {
 
     expect(camera.position.y).toBeGreaterThan(2.8);
     expect(camera.position.y).toBeLessThan(3.4);
-    expect(camera.position.z).toBeGreaterThan(6.5);
+    expect(camera.position.z).toBeGreaterThan(5.0);
+    expect(camera.position.z).toBeLessThan(5.5);
   });
 });
