@@ -263,3 +263,13 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Deployment evidence:** Manny authorized publication on 2026-09-03. PR #73 head run `33708240532` passed, the PR merged at `735da4015bca6f9610f6a358672804f4c73b35f9`, and main run `33708310011` passed validation and Pages deployment. The live `assets/index-D84iBLTd.js` bundle references both revisions and all eight paths; every deployed PNG response matches the approved SHA-256 value.
 - **Approval gate:** Publication and deployment are complete. Product-owner desktop/mobile camera-action playtesting remains required before recording live acceptance and closing the rollout.
 - **Approval:** Manny approved Accu's four-frame review set after approving Lula's set, then authorized publication on 2026-09-03.
+
+## ADR-044: Accept Lula and Accu and close the front-action rollout
+
+- **Date:** 2026-09-03
+- **Status:** Approved
+- **Context:** PR #73 deployed the final eight front-facing action frames. PR #74 recorded the deployed bundle, response hashes, and remaining live test gate.
+- **Decision:** Accept `lula-runtime-20260903-3` and `accu-runtime-20260903-3`. Preserve all eight front-action files, shared selector behavior, approved placements, transparent internal gaps, and modeled-wheel ownership. The front-action rollout is complete for all nine active production drivers.
+- **Evidence:** PR #73 head run `33708240532` and main run `33708310011` passed. PR #74 merged at `95fcf26fb699065cd9082951b3e8a3e18790e8a2`; main run `33708825661` passed validation and Pages deployment. The live bundle references both controlled revisions, and all eight response hashes match the approved files. Manny confirmed both steering directions, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation on 2026-09-03.
+- **Product impact:** No active production driver remains on the neutral-front fallback because of missing camera-facing action art. New character, asset, or gameplay work requires separate approval.
+- **Approval:** Manny's final "Approved" records product-owner live acceptance and authorizes publication of this documentation checkpoint.

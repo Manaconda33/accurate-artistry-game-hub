@@ -9,7 +9,7 @@
 - **Asset approval:** Portrait and five original driver states approved by Manny on 2026-08-20; front approved on 2026-08-31
 - **Kart-model approval:** Pink Precision Candidate 1 approved by Manny on 2026-08-20
 - **Implementation verification:** Live accepted on desktop/mobile by Manny on 2026-08-31
-- **Front-action rollout:** Four-frame package approved and deployed through PR #73 on 2026-09-03; live playtest pending
+- **Front-action rollout:** Four-frame package deployed through PR #73 and live accepted by Manny on 2026-09-03
 
 Manny created the supplied Accu reference art and approved transforming it into production game assets. The attached pink-hat design is Accu's canonical appearance for this game and supersedes earlier descriptions that conflict with it.
 
@@ -56,4 +56,4 @@ Manny created the supplied Accu reference art and approved transforming it into 
 
 ## Front-action rollout
 
-Manny approved Accu's front-steer-left, front-steer-right, front-hit, and front-victory review set on 2026-09-03. It preserves the broad pink hat and bow, two-tone hair, heart-pattern top, seated orientation, `[0, 0.9, 0.22]` front placement contract, and Pink Precision's modeled-wheel ownership. The art contains no duplicate wheel. The four files are deployed under `accu-runtime-20260903-3` at checkpoint `735da4015bca6f9610f6a358672804f4c73b35f9`; the live bundle revision and all four response hashes are verified. Desktop/mobile camera-action acceptance remains pending.
+Manny approved Accu's front-steer-left, front-steer-right, front-hit, and front-victory review set on 2026-09-03. It preserves the broad pink hat and bow, two-tone hair, heart-pattern top, seated orientation, `[0, 0.9, 0.22]` front placement contract, and Pink Precision's modeled-wheel ownership. The art contains no duplicate wheel. The four files are deployed under `accu-runtime-20260903-3` at checkpoint `735da4015bca6f9610f6a358672804f4c73b35f9`; the live bundle revision and all four response hashes are verified. Manny accepted the desktop/mobile camera-action result on 2026-09-03.

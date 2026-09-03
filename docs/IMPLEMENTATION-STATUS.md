@@ -6,9 +6,9 @@
 
 PRD baseline: **v1.1, working implementation amendment 2.0**.
 
-Latest verified live deployment checkpoint: `735da4015bca6f9610f6a358672804f4c73b35f9`. The Lula and Accu front-action batch is deployed under `lula-runtime-20260903-3` and `accu-runtime-20260903-3`; product-owner live playtesting remains open.
+Latest verified live deployment checkpoint: `95fcf26fb699065cd9082951b3e8a3e18790e8a2`. The Lula and Accu front-action batch is live accepted under `lula-runtime-20260903-3` and `accu-runtime-20260903-3`.
 
-Current deployment checkpoint: PR #73 deployed Lula and Accu's eight approved camera-facing action frames at `735da4015bca6f9610f6a358672804f4c73b35f9`. Main run `33708310011` passed validation and GitHub Pages deployment. The live bundle and all eight deployed PNG hashes match the approved source package. Live acceptance is pending.
+Current deployment checkpoint: PR #73 deployed Lula and Accu's eight approved camera-facing action frames at `735da4015bca6f9610f6a358672804f4c73b35f9`. PR #74 recorded the evidence and merged at `95fcf26fb699065cd9082951b3e8a3e18790e8a2`; main run `33708825661` passed validation and GitHub Pages deployment. Manny approved the live camera/action result on 2026-09-03.
 
 The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
@@ -28,10 +28,10 @@ Production character packages currently represented in `characterManifest`:
 
 Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placeholder and available for future approved assignment. The twelve-slot Character Select architecture remains intact.
 
-## Front-facing action-state parity — in progress
+## Front-facing action-state parity: complete
 
 - Manny approved closing the rear-camera action-state gap on 2026-09-01. The target package adds front-steer-left, front-steer-right, front-hit, and front-victory without replacing any approved chase or neutral-front art.
-- Nine active production drivers require four camera-facing action states each. Kraken, Manaconda, Krios, Keeg, McFleurdel, Lavi, and Toph have live-accepted packages. Lula and Accu's final eight candidates are visually approved and locally integrated; publication remains gated.
+- All nine active production drivers have four live-accepted camera-facing action states. The rollout is complete.
 - Rollout normally remains one character at a time. Kraken was the pilot; after its live acceptance, Manny authorized two drivers per batch for the remaining rollout.
 - Runtime infrastructure may use the approved neutral front frame as a rollout fallback. No new raster enters a runtime path and no character revision changes until Manny approves that character's candidate package.
 - Manny approved Kraken's front-steer-left, front-steer-right, and front-hit candidates on 2026-09-01. They are integrated with the unchanged approved front-victory frame under controlled revision `kraken-runtime-20260901-2`.
@@ -89,7 +89,7 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - Manny approved Lavi's corrected live cockpit presentation on 2026-09-03. Lavi and Toph now both pass steering-left, steering-right, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation.
 - Status: **LIVE ACCEPTED — LAVI AND TOPH FRONT-ACTION BATCH COMPLETE; LULA AND ACCU BATCH STARTED.**
 
-### Lula and Accu batch — live deployed; playtest pending
+### Lula and Accu batch: live accepted; rollout complete
 
 - Manny authorized Lula and Accu as the final two-driver front-action batch on 2026-09-03.
 - Prepare Lula first, then Accu, using each driver's approved neutral front frame and existing character record as the visual authority.
@@ -105,8 +105,9 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - Review sheets, discarded generations, temporary files, and Python caches remain outside the repository. No kart GLB, gameplay logic, physics, stats, camera geometry, or previously accepted asset changed.
 - PR #73 head CI run `33708240532` passed. The PR merged to `main` at `735da4015bca6f9610f6a358672804f4c73b35f9`; main run `33708310011` passed validation and GitHub Pages deployment.
 - The live page serves `assets/index-D84iBLTd.js`, which references both controlled revisions and all eight front-action paths. SHA-256 checks against every deployed PNG response match the approved hashes recorded above.
-- Approval gate: publication and deployment are complete. Product-owner desktop/mobile camera-action playtesting is the only remaining gate.
-- Status: **LIVE DEPLOYED — LULA AND ACCU REQUIRE PRODUCT-OWNER CAMERA/ACTION PLAYTEST.**
+- PR #74 recorded the deployment evidence and merged at `95fcf26fb699065cd9082951b3e8a3e18790e8a2`; main run `33708825661` passed validation and GitHub Pages deployment.
+- Manny approved the live desktop/mobile result on 2026-09-03. Lula and Accu pass steering-left, steering-right, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation.
+- Status: **LIVE ACCEPTED: LULA AND ACCU COMPLETE THE FRONT-ACTION ROLLOUT.**
 
 ## Cleo archive status — complete
 
@@ -300,8 +301,8 @@ Continuity closure completed by PR #32:
 
 ## Next recommended action
 
-Playtest the deployed Lula and Accu steering-left, steering-right, hit, victory, chase restoration, transparency, cockpit placement, and single modeled wheel on desktop and mobile.
+The front-facing action-state rollout is complete across all nine active production drivers. Resume another Slice 3 priority only after Manny approves its scope.
 
 ## Approval gate
 
-Lula and Accu have cleared visual approval, integration, validation, publication, and deployment. Live desktop/mobile camera-action acceptance remains gated.
+No front-action rollout gate remains. Any new character, asset, or gameplay scope keeps the PRD's normal approval gate.
