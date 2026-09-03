@@ -1,12 +1,6 @@
 import * as THREE from 'three';
 import { describe, expect, it } from 'vitest';
-import {
-  AiDriver,
-  aiLookaheadMeters,
-  aiRequestedDriftTier,
-  aiTargetSpeed,
-  rubberBandFactor,
-} from '../src/game/ai/AiDriver';
+import { AiDriver, aiLookaheadMeters, aiTargetSpeed, rubberBandFactor } from '../src/game/ai/AiDriver';
 import { CircuitAlpha } from '../src/game/track/CircuitAlpha';
 
 describe('spline AI driver', () => {
@@ -23,6 +17,9 @@ describe('spline AI driver', () => {
     const input = driver.input(position, at(track.tangents, 40).clone(), 18);
     expect(input.throttle).toBeGreaterThan(0);
     expect(Math.abs(input.steering)).toBeLessThanOrEqual(1);
+    expect(input.aiPace).toBe(0.7);
+    expect(input.aiAggression).toBe(0.6);
+    expect(input.aiCornerDemand).toBeGreaterThanOrEqual(0);
     expect(aiLookaheadMeters(0)).toBe(5);
     expect(aiLookaheadMeters(30)).toBe(14);
   });
@@ -42,18 +39,27 @@ describe('spline AI driver', () => {
     expect(rubberBandFactor(-99)).toBe(1);
   });
 
-  it('uses the character maximum on straights and pace only for corner speed', () => {
+  it('uses the character maximum on straights and pace only for base corner speed', () => {
     expect(aiTargetSpeed(33, 0.28, 0, 0)).toBe(33);
     expect(aiTargetSpeed(27.4, 0.82, 0, 0)).toBe(27.4);
     expect(aiTargetSpeed(30, 0.82, 0.5, 0)).toBeGreaterThan(aiTargetSpeed(30, 0.28, 0.5, 0));
   });
 
-  it('requests stronger drift tiers only for sufficiently demanding corners', () => {
-    expect(aiRequestedDriftTier(0.5, 20, 0.8)).toBeUndefined();
-    expect(aiRequestedDriftTier(0.68, 20, 0.4)).toBe('blue');
-    expect(aiRequestedDriftTier(0.75, 20, 0.4)).toBe('orange');
-    expect(aiRequestedDriftTier(0.9, 20, 0.6)).toBe('purple');
-    expect(aiRequestedDriftTier(0.9, 10, 0.8)).toBeUndefined();
+  it('sends blocker speed to shared physics instead of embedding character stats in AI', () => {
+    const track = new CircuitAlpha();
+    const index = 120;
+    const position = at(track.samples, index).clone();
+    const tangent = at(track.tangents, index).clone();
+    const blocker = position.clone().addScaledVector(tangent, 4);
+    const driver = new AiDriver(track, { laneOffset: 0, pace: 0.8, aggression: 0.7 }, 30);
+
+    const input = driver.input(position, tangent, 18, 0, [
+      { position: blocker, speed: 12, lateralOffset: 0 },
+    ]);
+
+    expect(input.aiBlockerSpeed).toBe(12);
+    expect(input.aiPace).toBe(0.8);
+    expect(input.aiAggression).toBe(0.7);
   });
 
   it('commits to a clear adjacent lane when a slower racer blocks its line', () => {
