@@ -23,6 +23,10 @@ interface NearbyRacer {
 
 const candidateLaneOffsets = [-3.3, -1.65, 0, 1.65, 3.3] as const;
 
+function normalizedStat(value: number): number {
+  return THREE.MathUtils.clamp((value - 1) / 9, 0, 1);
+}
+
 export function aiLookaheadMeters(speed: number): number {
   return THREE.MathUtils.lerp(5, 14, THREE.MathUtils.clamp(speed / 30, 0, 1));
 }
@@ -36,8 +40,18 @@ export function aiTargetSpeed(
   pace: number,
   corner: number,
   playerProgressDelta: number,
+  handling = 5,
 ): number {
-  const cornerPenalty = THREE.MathUtils.lerp(0.48, 0.34, THREE.MathUtils.clamp(pace, 0, 1));
+  const baseCornerPenalty = THREE.MathUtils.lerp(
+    0.48,
+    0.34,
+    THREE.MathUtils.clamp(pace, 0, 1),
+  );
+  // Candidate C makes AI corner ambition reflect the actual Handling stat.
+  // Low-Handling racers brake earlier; high-Handling racers are permitted to
+  // carry more of the speed that the shared kart controller can physically retain.
+  const handlingPenaltyFactor = THREE.MathUtils.lerp(1.2, 0.72, normalizedStat(handling));
+  const cornerPenalty = baseCornerPenalty * handlingPenaltyFactor;
   return (
     characterMaxSpeed *
     (1 - THREE.MathUtils.clamp(corner, 0, 1) * cornerPenalty) *
@@ -49,11 +63,28 @@ export function aiRequestedDriftTier(
   steering: number,
   speed: number,
   aggression: number,
+  miniTurbo = 5,
 ): DriftBoostTier | undefined {
   const steeringMagnitude = Math.abs(steering);
-  if (speed <= 11 || steeringMagnitude <= 0.62 || aggression <= 0.35) return undefined;
-  if (steeringMagnitude >= 0.82 && aggression >= 0.55) return 'purple';
-  if (steeringMagnitude >= 0.7 && aggression >= 0.4) return 'orange';
+  const turboN = normalizedStat(miniTurbo);
+  // High Mini-Turbo racers should deliberately seek more drift opportunities,
+  // not merely receive a stronger tier after the AI has already chosen to drift.
+  const minimumSpeed = THREE.MathUtils.lerp(13, 9.5, turboN);
+  const steeringGate = THREE.MathUtils.lerp(0.68, 0.54, turboN);
+  const aggressionGate = THREE.MathUtils.lerp(0.38, 0.18, turboN);
+  const effectiveAggression = THREE.MathUtils.clamp(aggression + 0.18 * turboN, 0, 1);
+  if (
+    speed <= minimumSpeed ||
+    steeringMagnitude <= steeringGate ||
+    effectiveAggression <= aggressionGate
+  ) {
+    return undefined;
+  }
+
+  const purpleSteering = THREE.MathUtils.lerp(0.82, 0.74, turboN);
+  const orangeSteering = THREE.MathUtils.lerp(0.72, 0.64, turboN);
+  if (steeringMagnitude >= purpleSteering && effectiveAggression >= 0.48) return 'purple';
+  if (steeringMagnitude >= orangeSteering && effectiveAggression >= 0.36) return 'orange';
   return 'blue';
 }
 
@@ -65,6 +96,8 @@ export class AiDriver {
     private readonly track: CircuitAlpha,
     private readonly profile: AiDriverProfile,
     private readonly characterMaxSpeed: number,
+    private readonly handling = 5,
+    private readonly miniTurbo = 5,
   ) {
     this.laneOffset = this.roadBoundedLane(profile.laneOffset);
   }
@@ -99,13 +132,19 @@ export class AiDriver {
       this.profile.pace,
       corner,
       playerProgressDelta,
+      this.handling,
     );
     const blocker = racersAhead.find(
       (racer) => racer.forwardGap < 5.5 && Math.abs(racer.lateralOffset - this.laneOffset) < 1.5,
     );
     if (blocker !== undefined) targetSpeed = Math.min(targetSpeed, blocker.speed + 0.4);
 
-    const driftTarget = aiRequestedDriftTier(steering, speed, this.profile.aggression);
+    const driftTarget = aiRequestedDriftTier(
+      steering,
+      speed,
+      this.profile.aggression,
+      this.miniTurbo,
+    );
     const input: DriveInput = {
       throttle: speed < targetSpeed ? 1 : 0.2,
       steering,
