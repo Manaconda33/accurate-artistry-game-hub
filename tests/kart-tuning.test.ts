@@ -27,11 +27,11 @@ describe('kart tuning and surface behavior', () => {
     const acceptedCenter = createKartTuning({ ...sliceOneDriver, speed: 7 }).maxSpeed;
     const fastest = createKartTuning({ ...sliceOneDriver, speed: 10 }).maxSpeed;
 
-    expect(slowest).toBeCloseTo(27);
-    expect(middle).toBeCloseTo(28.6667, 3);
+    expect(slowest).toBeCloseTo(27.5);
+    expect(middle).toBeCloseTo(28.8333, 3);
     expect(acceptedCenter).toBeCloseTo(29.5);
-    expect(fastest).toBeCloseTo(30.75);
-    expect(fastest - slowest).toBeCloseTo(3.75);
+    expect(fastest).toBeCloseTo(30.5);
+    expect(fastest - slowest).toBeCloseTo(3);
     expect(slowest).toBeLessThan(middle);
     expect(middle).toBeLessThan(acceptedCenter);
     expect(acceptedCenter).toBeLessThan(fastest);
