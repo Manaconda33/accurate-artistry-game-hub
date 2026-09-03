@@ -6,9 +6,9 @@
 
 PRD baseline: **v1.1, working implementation amendment 2.0**.
 
-Latest verified live deployment checkpoint: `ac39b1ad490999007429713a3f5b82aca274f1dc`. Keeg's and McFleurdel's front-action packages remain the latest fully live-accepted batch under `keeg-runtime-20260901-3` and `mcfleurdel-runtime-20260901-2`; Toph's package is also live accepted.
+Latest verified live deployment checkpoint: `ac39b1ad490999007429713a3f5b82aca274f1dc`. The Lavi and Toph front-action batch is live accepted under `lavi-runtime-20260902-5` and `toph-runtime-20260902-2`.
 
-Current deployment checkpoint: PR #70 deployed Lavi's placement-only correction at `ac39b1ad490999007429713a3f5b82aca274f1dc`. The live bundle maps Lavi's five camera-facing states to `[0, 0.9, -0.12]` and preserves Toph at `[0, 0.45, -0.12]`. Lavi's live cockpit retest remains open.
+Current deployment checkpoint: PR #70 deployed Lavi's placement-only correction at `ac39b1ad490999007429713a3f5b82aca274f1dc`. The live bundle maps Lavi's five camera-facing states to `[0, 0.9, -0.12]` and preserves Toph at `[0, 0.45, -0.12]`. Manny accepted Lavi's corrected live placement on 2026-09-03. Lula and Accu are the authorized final candidate batch.
 
 The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
@@ -31,7 +31,7 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 ## Front-facing action-state parity — in progress
 
 - Manny approved closing the rear-camera action-state gap on 2026-09-01. The target package adds front-steer-left, front-steer-right, front-hit, and front-victory without replacing any approved chase or neutral-front art.
-- Nine active production drivers require four camera-facing action states each. Kraken, Manaconda, Krios, Keeg, and McFleurdel have live-accepted packages. Lavi and Toph are live deployed with playtesting pending, leaving eight raster approvals across Lula and Accu.
+- Nine active production drivers require four camera-facing action states each. Kraken, Manaconda, Krios, Keeg, McFleurdel, Lavi, and Toph have live-accepted packages. Eight candidate approvals remain across Lula and Accu.
 - Rollout normally remains one character at a time. Kraken was the pilot; after its live acceptance, Manny authorized two drivers per batch for the remaining rollout.
 - Runtime infrastructure may use the approved neutral front frame as a rollout fallback. No new raster enters a runtime path and no character revision changes until Manny approves that character's candidate package.
 - Manny approved Kraken's front-steer-left, front-steer-right, and front-hit candidates on 2026-09-01. They are integrated with the unchanged approved front-victory frame under controlled revision `kraken-runtime-20260901-2`.
@@ -69,7 +69,7 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - Manny confirmed the live playtest on 2026-09-01 against deployed checkpoint `f8a2ed8be0d72fde62c9403dae4b15e94222f7da`. Both steering directions, hit, victory, chase-state restoration, transparency, cockpit placement, and steering-control ownership pass. Keeg and McFleurdel each show exactly one modeled wheel with no sprite duplicate, and McFleurdel's reviewed hair and arm gaps remain transparent.
 - Status: **LIVE ACCEPTED — KEEG AND MCFLEURDEL FRONT-ACTION BATCH COMPLETE; LAVI AND TOPH BATCH APPROVED.**
 
-### Lavi and Toph batch — Toph accepted; Lavi correction deployed
+### Lavi and Toph batch — live accepted
 
 - Manny approved both four-frame candidate sheets on 2026-09-02. Lavi's front actions preserve the native generated alpha. Toph's reviewed derivatives remove the opaque checkerboard and one-pixel edge fringe from the generated previews.
 - Both steering pairs follow commanded kart direction: left leans toward the viewer's right and right leans toward the viewer's left. Both packages are free of wheel and kart geometry because Potato and The Grave Shift supply modeled steering controls.
@@ -85,7 +85,20 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - Fresh correction validation passed on 2026-09-02: `npm ci`, strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized runtime GLBs, 64 decoded runtime PNGs, and a production Vite build.
 - PR #70 head CI run `33664237133` passed. The PR merged to `main` at `ac39b1ad490999007429713a3f5b82aca274f1dc`; main run `33664361276` passed validation and GitHub Pages deployment.
 - The live page serves `assets/index-CjbkWPH8.js`. The bundle maps Lavi to `[0, 0.9, -0.12]`, preserves Toph at `[0, 0.45, -0.12]`, and retains both controlled revisions and all eight approved action paths.
-- Status: **LIVE DEPLOYED — LAVI PLACEMENT CORRECTION REQUIRES PRODUCT-OWNER RETEST.**
+- PR #71 recorded the placement deployment evidence and merged at `cd9dad3013208e973421616d90b534c3bbfc4e77`; main run `33664925678` passed validation and GitHub Pages deployment.
+- Manny approved Lavi's corrected live cockpit presentation on 2026-09-03. Lavi and Toph now both pass steering-left, steering-right, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation.
+- Status: **LIVE ACCEPTED — LAVI AND TOPH FRONT-ACTION BATCH COMPLETE; LULA AND ACCU BATCH STARTED.**
+
+### Lula and Accu batch — candidate preparation authorized
+
+- Manny authorized Lula and Accu as the final two-driver front-action batch on 2026-09-03.
+- Prepare Lula first, then Accu, using each driver's approved neutral front frame and existing character record as the visual authority.
+- Each driver requires front-steer-left, front-steer-right, front-hit, and front-victory. Direction names follow commanded kart direction: left leans toward the viewer's right, and right leans toward the viewer's left.
+- Lula's candidates must preserve her approved front complexion, leaf forehead mark, green hair, seated footprint, wheel-free art, and `[0, 0.45, -0.12]` front placement contract. The Verdant Hart owns the modeled wheel.
+- Accu's candidates must preserve the pink-hat silhouette, two-tone pink hair, heart-pattern top, seated orientation, and front placement `[0, 0.9, 0.22]`. Pink Precision owns the modeled front wheel; candidate art must not add a duplicate.
+- Candidate review exports, discarded generations, temporary files, and Python caches remain outside the repository.
+- Approval gate: no candidate enters `public/assets`, no controlled revision changes, and no runtime or validator change is published until Manny approves that driver's four-frame candidate package. Publication, deployment, and live acceptance require later approvals.
+- Status: **IN PROGRESS — LULA CANDIDATE PREPARATION.**
 
 ## Cleo archive status — complete
 

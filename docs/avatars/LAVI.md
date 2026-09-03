@@ -1,7 +1,7 @@
 # Avatar intake: Lavi
 
 - **Intake date:** 2026-08-16
-- **Current phase:** Front-action placement correction live deployed; retest pending
+- **Current phase:** Front-action package live accepted
 - **Intake status:** Approved
 - **Character lock:** Approved by Manny on 2026-08-16
 - **Kart lock:** Approved by Manny on 2026-08-16
@@ -139,6 +139,6 @@ These details are observations, not approved locks:
 - **Repository treatment:** Not committed as a production asset. The image remains a landscape concept reference, not one of the required transparent portrait, driver-frame, or GLB deliverables.
 - **Asset brief:** `docs/assets/LAVI-ASSET-BRIEF.md`.
 
-## Next implementation action
+## Live front-action acceptance
 
-Retest Lavi's deployed neutral front, both steering directions, hit, victory, chase restoration, cockpit placement, and Potato's single modeled steering wheel before recording live acceptance.
+Manny accepted Lavi's corrected deployed placement on 2026-09-03. Neutral front, both steering directions, hit, victory, chase restoration, transparency, cockpit placement, and Potato's single modeled steering wheel pass at `[0, 0.9, -0.12]`. No further Lavi work is required for this rollout.

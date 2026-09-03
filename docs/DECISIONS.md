@@ -227,14 +227,26 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Publication gate:** This approval authorizes local runtime integration and validation. Publishing the branch, opening or merging a pull request, deploying, and recording live acceptance require a later explicit approval.
 - **Approval:** Manny approved both candidate sheets on 2026-09-02.
 
-## ADR-041: Correct Lavi's camera-facing placement and accept Toph
+## ADR-041: Correct and accept Lavi's camera-facing placement
 
-- **Date:** 2026-09-02
-- **Status:** Deployed; live acceptance pending
+- **Date:** 2026-09-03
+- **Status:** Approved
 - **Context:** The deployed Lavi and Toph batch passed asset delivery and state selection. Manny accepted Toph. Lavi's camera-facing layer rendered too low behind Potato's tall body, leaving the head near the modeled wheel and hiding the torso.
 - **Decision:** Preserve Toph at `[0, 0.45, -0.12]`. Raise only Lavi's neutral front and four front-action states to `[0, 0.9, -0.12]`. Keep Lavi's chase-facing states at the existing default position.
 - **Rationale:** Lavi's neutral front image places the hands about 0.46 world units below the face at the runtime sprite scale. Raising the layer by 0.45 moves the hands to Potato's wheel while exposing enough upper body for a seated composition. The value also matches the proven front-height correction used by Accu without copying Accu's depth or wheel override.
 - **Scope:** No PNG or GLB bytes change. Toph, Potato, camera logic, physics, stats, action selection, chase-facing placement, and modeled steering controls remain unchanged.
 - **Deployment evidence:** PR #70 head run `33664237133` passed. The PR merged at `ac39b1ad490999007429713a3f5b82aca274f1dc`; main run `33664361276` passed validation and Pages deployment. The live bundle maps Lavi to `[0, 0.9, -0.12]` and preserves Toph at `[0, 0.45, -0.12]`.
-- **Approval gate:** Recording Lavi's live acceptance requires Manny's explicit approval after the deployed cockpit retest.
-- **Approval:** Manny rejected Lavi's low live placement and confirmed Toph passes on 2026-09-02.
+- **Acceptance evidence:** PR #71 recorded the deployment evidence and merged at `cd9dad3013208e973421616d90b534c3bbfc4e77`; main run `33664925678` passed. Manny approved the corrected live cockpit result on 2026-09-03 after previously accepting Toph.
+- **Product impact:** The Lavi and Toph front-action batch is complete. Both drivers pass the full live camera/action matrix with their character-specific front placements and one modeled wheel each.
+- **Approval:** Manny's 2026-09-03 approval records Lavi's live acceptance and authorizes publication of the acceptance checkpoint.
+
+## ADR-042: Start the Lula and Accu front-action batch
+
+- **Date:** 2026-09-03
+- **Status:** Approved for candidate preparation
+- **Context:** Lavi and Toph passed live acceptance. Lula and Accu are the only active production drivers still using the neutral-front fallback for camera-facing steering, hit, and victory.
+- **Decision:** Prepare four camera-facing action candidates for Lula, then four for Accu. Each package must derive from the approved front-facing identity and retain the character's existing placement and steering-control ownership.
+- **Character constraints:** Lula retains her approved complexion, green hair, leaf forehead mark, seated footprint, wheel-free driver art, and `[0, 0.45, -0.12]` front placement. Accu retains her pink-hat silhouette, two-tone pink hair, heart-pattern top, seated orientation, `[0, 0.9, 0.22]` front placement, and Pink Precision's modeled front wheel.
+- **Scope:** Candidate preparation only. Existing runtime PNGs, kart GLBs, manifest revisions, gameplay code, physics, stats, cameras, and previously accepted drivers remain unchanged.
+- **Approval gate:** Manny must approve each driver's four-frame candidate package before runtime integration. Publishing runtime assets, deploying them, and recording live acceptance remain separate gates.
+- **Approval:** Manny directed the project to move onto Lula and Accu on 2026-09-03.

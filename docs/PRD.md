@@ -54,6 +54,8 @@ Rollout checkpoint, September 2, 2026: Manny approved the Lavi and Toph camera-f
 
 Live review checkpoint, September 2, 2026: Toph's deployed front-action package passed. Lavi's art and state behavior passed, but the shared `[0, 0.45, -0.12]` front placement left the camera-facing layer too low behind Potato's body. PR #70 deployed Lavi's character-specific `[0, 0.9, -0.12]` front placement without changing asset bytes or Toph. Lavi requires another live cockpit check. Lula and Accu remain gated.
 
+Live acceptance checkpoint, September 3, 2026: Manny approved Lavi's corrected deployed placement and closed the Lavi/Toph batch. Both drivers now pass steering-left, steering-right, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation in the live build. Manny also authorized Lula and Accu as the final two-driver front-action batch. Their candidate frames remain outside runtime paths until visual approval; publication, deployment, and live acceptance remain separate gates.
+
 # Contents
 
 - 1\. Document Control

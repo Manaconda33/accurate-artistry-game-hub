@@ -33,3 +33,7 @@ Candidate 4 preserves the approved low stag-racer silhouette while replacing exp
 | `public/assets/characters/aa-03/kart-lod2.glb` | LOD2 |     4,746 | `3a062ee6bee2502bdd3914063cc549a08e4de151ebf5bcfc3a52fe9658eb57f0` |
 
 All three GLBs provide 13 required nodes and `extras.forward: "-Z"`. The controlled runtime revision is `lula-runtime-20260830-2`. The branch-scoped LFS bridge uploaded the locked objects, and PR #44 CI run `33266092639` independently materialized and validated them. Main checkpoint `514113e` deployed the corrected transparent sprite palette, and checkpoint `ef74ca9` aligned the front-camera hands with the steering wheel. Manny accepted the complete live mobile package on 2026-08-30.
+
+## Front-action candidate gate
+
+Manny authorized candidate preparation on 2026-09-03. The package requires front-steer-left, front-steer-right, front-hit, and front-victory. Use the approved neutral front as the visual and footprint authority. Preserve the corrected complexion, green hair, leaf forehead mark, transparent internal gaps, wheel-free driver layer, and `[0, 0.45, -0.12]` placement. No candidate enters `public/assets`, changes `lula-runtime-20260830-2`, or receives publication status before Manny approves the four-frame review set.
