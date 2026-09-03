@@ -6,7 +6,7 @@
 
 PRD baseline: **v1.1, working implementation amendment 2.1**.
 
-Manny explicitly authorized a bounded Circuit Alpha environment-art pass on 2026-09-03 under the existing track/rendering requirements. This does **not** advance the roadmap to Slice 5 or Slice 6.
+Manny explicitly authorized a bounded Circuit Alpha environment-art pass under the existing track/rendering requirements. This visual-polish work does **not** advance the roadmap to Slice 5 or Slice 6.
 
 Jennifer / The Hearthwarden and the Manaconda's Minigame Mayhem rebrand remain **LIVE ACCEPTED / CLOSED**.
 
@@ -14,34 +14,26 @@ Jennifer / The Hearthwarden and the Manaconda's Minigame Mayhem rebrand remain *
 
 - Repository: `Manaconda33/manacondas-minigame-mayhem`
 - Live URL: `https://manaconda33.github.io/manacondas-minigame-mayhem/`
-- Candidate 1 visual release: PR **#78**
-- Candidate 1 merge: `4453cd8867078a31c837b6a7c8c9c5a768d46d9c`
-- Candidate 1 deployment record: PR **#79**
-- Current `main`: `4b47cea4027999676c23eb749bf96fcd1280da68`
-- Latest main CI / Pages run: **33798472639**
-- Result: validation **passed**; Pages deploy **passed**
+- Current visual correction release: PR **#80 — Lower race cameras and align Crest Ramp**
+- PR #80 merge: `c235b2dd647663acd99c75d0dd3fcd0c8f86e059`
+- Main CI / Pages run: **33802245643**
+- Validation result: **passed**
+- GitHub Pages deploy: **passed**
+- Pages artifact: `github-pages` artifact **9911548395**
+- Artifact digest: `sha256:de917224faecaefc398466c25d1ff3c2b26b79ad84d477e3f0532f00f0cb313b`
+- Product-owner live acceptance of the camera/ramp correction: **pending**
 
-## Circuit Alpha environment-art Candidate 1 — deployed, corrections requested
+## Circuit Alpha environment-art state
 
-Manny's direction remains: **give Circuit Alpha a major 3D environment-art pass without changing the track layout or gameplay.**
+Candidate 1's overall environment-art direction was positively received in live review. Manny specifically approved the visual punch-up and start/finish structure while requesting three bounded corrections before final acceptance:
 
-The deployed Candidate 1 environment treatment is positively accepted in overall direction. Manny specifically called out the start/finish structure and overall visual punch-up as successful, while requesting three bounded corrections before final acceptance:
+1. lower both chase and rear-view cameras;
+2. add a pre-race crane-down camera move into the final chase position;
+3. rotate/rebuild the Crest Ramp visual so its long axis follows the roadway.
 
-1. lower both chase and rear-view camera heights;
-2. add a pre-race camera move that cranes down from above the track into the final chase position;
-3. correct the Crest Ramp visual so its long axis runs parallel to the track rather than perpendicular to it.
+PR #80 implements and deploys those corrections.
 
-The supplied live screenshots show the elevated race camera allowing the 4.6 m start/finish crossbar to sit between camera and racer, and show the Crest Ramp's longer dimension spanning across the road.
-
-## Active correction candidate
-
-Branch: `polish/circuit-alpha-camera-ramp`
-
-Pull request: **#80 — Lower race cameras and align Crest Ramp**
-
-Validated code checkpoint before this status update: `6a7afb5f7edbe860c85b67f13e1ca683d0ad9745`.
-
-### Camera presentation
+### Camera presentation now live
 
 `src/game/camera/ChaseCamera.ts` now uses:
 
@@ -51,68 +43,56 @@ Validated code checkpoint before this status update: `6a7afb5f7edbe860c85b67f13e
 - rear-view height: **3.05 m**
 - look target height: **1.15 m**
 
-The previous race camera height was 5.2 m.
+For the first **2.85 seconds** of the race camera lifetime, the camera begins approximately 16 m above the track and smoothly cranes down into the lower chase position during the existing three-second countdown. The camera presentation does not alter countdown timing, simulation, controls, kart physics, AI, or race logic.
 
-For the first **2.85 seconds** of the race camera lifetime, the camera begins approximately 16 m above the track and 2.2 m behind the player, then uses smoothstep easing to crane down into the final lower chase position. This aligns with the existing three-second countdown without altering `RaceDirector`, countdown timing, simulation, controls, physics, or AI.
+### Crest Ramp correction now live
 
-The intro presentation ignores rear-view framing until the crane completes; normal chase/rear input behavior resumes afterward through the unchanged `ChaseCamera.update` call contract.
+The gameplay ramp trigger remains at track progress 0.5 and `src/game/track/CircuitAlpha.ts` remains unchanged.
 
-### Crest Ramp orientation
+Only the ramp presentation changed:
 
-The existing gameplay ramp trigger remains at progress 0.5 and `CircuitAlpha.ts` remains unchanged.
-
-Only visual geometry changed:
-
-- former deck: 9.0 m track-local X × 5.75 m track-local Z
-- corrected deck: **5.75 m X × 9.0 m Z**
-- side rails now run 9.1 m along local Z and sit at ±2.62 m local X
-- the deck is named `crest-ramp-deck` for regression inspection
-
-Because the ramp group already rotates its local Z axis to the track tangent, the corrected longer Z dimension now runs parallel to the roadway.
+- deck changed from 9.0 m local X × 5.75 m local Z to **5.75 m X × 9.0 m Z**
+- side rails now run along local Z
+- the ramp group's existing track-tangent rotation therefore places the long deck axis parallel to the roadway
 
 ## Protected gameplay contract
 
-The following remain unchanged by PR #80:
+The following remain unchanged by the environment/camera correction work:
 
 - `src/game/track/CircuitAlpha.ts`
 - all 384 canonical track samples and Catmull-Rom topology
 - loop length and road width
-- twelve checkpoints / three-lap validation
+- twelve checkpoints and three-lap validation
 - asphalt, dirt, grass, boost, and ramp gameplay classification
 - ramp trigger location and ramp boost behavior
 - player and AI physics/tuning
 - kart collisions
-- AI pathing/race logic
+- AI pathing and race logic
 - countdown timing
-- roster statistics / character assets
+- roster statistics and character assets
 - item scope
 
-The camera framing itself is intentionally changed under Manny's explicit live-review request.
+The camera framing itself is intentionally changed under Manny's explicit direction.
 
-## Automated regression evidence
+## Validation evidence
 
-New `tests/chase-camera.test.ts` verifies:
+PR #80 exact candidate head `7f98a51b5aa777655e92a8b3603fda733123b0b7` passed CI run **33802027617** before publication.
 
-- the first race view begins elevated above 12 m;
-- the camera cranes into a chase height between 2.9 and 3.4 m;
-- the settled chase camera remains behind the kart;
-- the rear-view camera uses the corresponding low height and moves ahead of the kart to look backward.
-
-`tests/track-scene.test.ts` now also verifies that `crest-ramp-deck` is longer along its track-local forward/depth axis than its width axis.
-
-Existing topology, surface, physics, AI, roster, runtime-asset, and gameplay regressions remain intact.
-
-PR #80 head run **33801880713** passed on 2026-09-03:
+The merged production checkpoint `c235b2dd647663acd99c75d0dd3fcd0c8f86e059` then passed main run **33802245643** with:
 
 - repository checkout
-- Git LFS runtime-asset verification
-- Node setup / lockfile install
+- Git LFS runtime-asset materialization / verification
+- Node setup and lockfile install
 - strict TypeScript typecheck
 - ESLint with zero warnings
 - full Vitest CI suite
+- camera crane / settled chase / rear-view regression tests
+- Crest Ramp orientation regression
+- existing Circuit Alpha topology and surface regressions
 - production Vite build
-
-Pages upload/deployment were correctly skipped on the pull-request run.
+- GitHub Pages configuration
+- Pages artifact upload
+- successful GitHub Pages deployment
 
 ## Active production roster state
 
@@ -131,34 +111,36 @@ Cleo / The Gilded Stitch remains archived and inactive. AA-01 and AA-06 remain g
 
 ## Known defects / unresolved issues
 
-No automated defect is currently recorded against the camera/ramp correction candidate.
+No automated defect is recorded against the deployed camera/ramp correction.
 
 The existing production-build large-chunk warning remains known and non-blocking.
 
-The new camera height, start crane, gantry clearance, ramp orientation, and frame pacing have not yet been evaluated in the deployed game. Automated camera-coordinate tests do not substitute for live visual judgment.
+The live build has not yet received product-owner acceptance for:
+
+- crane composition and smoothness during the countdown
+- final chase-camera height and kart visibility
+- rear-view height and readability
+- start/finish crossbar clearance
+- Crest Ramp orientation and approach readability
+- desktop/mobile frame pacing
+
+Automated coordinate/orientation tests do not substitute for live visual judgment.
 
 ## Deferred work
 
-- Publication and live acceptance of PR #80 remain pending Manny approval.
-- No external PBR texture set, HDR environment, baked AO asset, post-processing stack, or authored track GLB is introduced here.
+- Final live acceptance of the Circuit Alpha visual pass remains pending Manny's desktop/mobile playtest.
+- No external PBR texture set, HDR environment, baked AO asset, post-processing stack, or authored track GLB is part of this increment.
 - AA-01 and AA-06 remain unfilled.
 - Items remain Slice 5 work and are not authorized by this pass.
 
 ## Next recommended action
 
-**Stop at the publication gate after the exact PR #80 head passes CI.**
+**Stop at the live visual-acceptance gate.**
 
-If Manny approves publication, merge PR #80, verify the resulting main validation and Pages deployment, then conduct live desktop/mobile review of:
-
-- start crane composition and smoothness during 3 / 2 / 1;
-- final chase height and kart visibility;
-- rear-view height and readability;
-- start/finish crossbar clearance;
-- Crest Ramp orientation and approach readability;
-- eight-racer frame pacing and mobile performance.
+Manny should play the deployed build on desktop and mobile and evaluate the camera crane, settled chase/rear framing, start/finish clearance, Crest Ramp orientation, and performance. If it passes, record final acceptance of the Circuit Alpha visual pass. If not, make only bounded visual corrections and repeat the deployment gate.
 
 ## Approval state
 
-**Circuit Alpha camera/ramp correction: AUTOMATED VALIDATION PASSED / PUBLICATION PENDING.**
+**Circuit Alpha camera/ramp correction: DEPLOYED / LIVE ACCEPTANCE PENDING.**
 
-Candidate 1 remains deployed; final Circuit Alpha visual acceptance is pending these corrections and a subsequent live playtest.
+The project roadmap remains at Slice 3.
