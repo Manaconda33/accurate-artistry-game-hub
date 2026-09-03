@@ -8,7 +8,11 @@ describe('Slice 0 app shell', () => {
 
     mountAppShell(root);
 
+    expect(APP_TITLE).toBe("Manaconda's Minigame Mayhem");
     expect(root.querySelector('h1')?.textContent).toBe(APP_TITLE);
+    expect(root.querySelector('.title-mark svg')).not.toBeNull();
+    expect(root.querySelector('.title-screen .eyebrow')).toBeNull();
+    expect(root.querySelector('.title-mark')?.textContent.trim()).toBe('');
     expect(root.textContent).toContain('Enter the Hub');
     expect(root.querySelector('canvas')).toBeNull();
   });
@@ -26,7 +30,7 @@ describe('Slice 0 app shell', () => {
     expect(root.textContent).toContain('Race as Lavi');
 
     root.querySelector<HTMLElement>('[data-character="aa-06"]')?.click();
-    expect(root.textContent).toContain('Race as AA 06');
+    expect(root.textContent).toContain('Race as Racer 06');
     expect(root.textContent).toContain('Roster placeholder');
     expect(root.textContent).toContain('Fallback prototype');
     expect(root.textContent).not.toContain('Cleo');
@@ -45,6 +49,12 @@ describe('Slice 0 app shell', () => {
     expect(root.textContent).toContain('Race as Keeg');
     expect(root.textContent).toContain('The Mycelial Majesty');
     expect(root.textContent).not.toContain('Fallback prototype');
+
+    root.querySelector<HTMLElement>('[data-character="aa-12"]')?.click();
+    expect(root.textContent).toContain('Race as Jennifer');
+    expect(root.textContent).toContain('The Hearthwarden');
+    expect(root.textContent).toContain('All-Surface Heavy');
+    expect(root.textContent).not.toContain('Roster placeholder');
   });
 
   it('replaces a failed production portrait with the character monogram', () => {

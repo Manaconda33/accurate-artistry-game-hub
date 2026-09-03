@@ -169,7 +169,7 @@ MATERIALS = [
 
 def export_glb(parts):
     doc = {
-        "asset": {"version": "2.0", "generator": "Accurate Artistry procedural Abyssal Drifter builder"},
+        "asset": {"version": "2.0", "generator": "Minigame Mayhem procedural Abyssal Drifter builder"},
         "scene": 0, "scenes": [{"nodes": [0]}], "nodes": [], "meshes": [],
         "materials": MATERIALS, "buffers": [{}], "bufferViews": [], "accessors": [],
         "extras": {"lod": LOD, "forward": "-Z", "units": "meters", "approvedName": "The Abyssal Drifter"},

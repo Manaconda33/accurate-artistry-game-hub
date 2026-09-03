@@ -9,7 +9,7 @@
 
 ## Production style
 
-- Polished, colorful, high-contrast Accurate Artistry arcade presentation.
+- Polished, colorful, high-contrast Manaconda's Minigame Mayhem arcade presentation.
 - Anime-inspired 2D driver art paired with a stylized 3D kart.
 - Original visual language with no Hello Kitty imagery, copied marks, or licensed-character branding.
 

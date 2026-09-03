@@ -1,6 +1,6 @@
-**ACCURATE ARTISTRY**
+**MANACONDA'S**
 
-**GAME HUB**
+**MINIGAME MAYHEM**
 
 **Product Requirements Document**
 
@@ -61,6 +61,12 @@ Final candidate checkpoint, September 3, 2026: Manny approved Lula's four camera
 Deployment checkpoint, September 3, 2026: Manny authorized publication after local validation. PR #73 merged the eight approved frames at `735da4015bca6f9610f6a358672804f4c73b35f9`; main run `33708310011` passed validation and GitHub Pages deployment. The live bundle references both controlled revisions and all eight action paths, and every deployed PNG hash matches the approved source. Product-owner desktop/mobile live acceptance is the remaining gate.
 
 Final rollout acceptance, September 3, 2026: Manny approved Lula and Accu after testing the deployed camera-facing action package. Both drivers pass steering-left, steering-right, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation on desktop/mobile. All nine active production drivers now have live-accepted front-facing action states. The rollout is complete; new asset or gameplay work requires a separately approved PRD scope.
+
+## Approved implementation amendment 2.1 - Product and repository rebrand
+
+Approved September 3, 2026. The public product name is `Manaconda's Minigame Mayhem`. The title screen must show that exact name without a presentation line above it. The former AA monogram is replaced by an original minigame mark showing multiple arcade paths or tokens, and the same mark supplies the browser icon. User-facing placeholders must not expose the internal `aa-##` compatibility keys.
+
+The canonical public repository is `Manaconda33/manacondas-minigame-mayhem`, and the GitHub Pages base path is `/manacondas-minigame-mayhem/`. Active product copy, page metadata, package identity, repository guidance, current PRD records, asset-builder labels, and public links must use the new brand. Dated history snapshots may retain superseded names and URLs as historical evidence, but they are not current authority. A build-time brand check must reject the former display name or repository slug outside preserved history. This amendment also authorizes publishing Jennifer's approved AA-12 package in the same release. Desktop and mobile live acceptance remain required after deployment.
 
 # Contents
 
@@ -152,7 +158,7 @@ Final rollout acceptance, September 3, 2026: Manny approved Lula and Accu after 
 
 | **Field**                  | **Value**                                   |
 |----------------------------|---------------------------------------------|
-| Product                    | Accurate Artistry Game Hub                  |
+| Product                    | Manaconda's Minigame Mayhem                 |
 | Product Type               | Modular HTML5 browser-game hub              |
 | Vertical Slice             | 3D Kart Racer with 2D hybrid avatar drivers |
 | PRD Version                | 1.1 - Final                                 |
@@ -209,7 +215,7 @@ Small, reversible implementation decisions inside the approved requirements may 
 
 ## 2.1 Product Definition
 
-Accurate Artistry Game Hub is a modular browser-based arcade game platform that presents a shared Accurate Artistry identity across multiple mini-games while delivering one complete launch-quality vertical slice: an eight-racer, three-lap 3D kart race featuring twelve selectable Accurate Artistry avatars represented as 2D illustrated drivers inside stylized 3D karts.
+Manaconda's Minigame Mayhem is a modular browser-based arcade platform with one complete launch-quality vertical slice: an eight-racer, three-lap 3D kart race featuring twelve selectable illustrated drivers inside stylized 3D karts.
 
 The first release must prove both that the hub can support multiple future games without rebuilding its shell, and that browser technology can deliver a polished, responsive, visually rich kart-racing experience at a sustained target of 60 FPS.
 
@@ -417,7 +423,7 @@ The hub is a reusable launcher and shared presentation layer. The first version 
 
 Browser mini-games commonly fail in one of two ways: technically lightweight experiences lack the visual and mechanical feedback expected from modern arcade games, or visually ambitious prototypes lack a maintainable structure for expanding beyond one experience.
 
-Accurate Artistry Game Hub should demonstrate that the Accurate Artistry community can be represented through a high-quality interactive experience without requiring users to install a native executable. The Kart Racer is suited to this proof because it exercises 3D rendering, avatar integration, real-time physics, AI, audio, HUD, animation, input, camera systems, effects, and gameplay balance. If the architecture succeeds for this slice, the surrounding hub can host materially different mini-games while preserving menus, settings, loading, input routing, content management, and overall visual identity.
+Manaconda's Minigame Mayhem should demonstrate that its character roster can support a polished interactive experience without requiring users to install a native executable. The Kart Racer is suited to this proof because it exercises 3D rendering, avatar integration, real-time physics, AI, audio, HUD, animation, input, camera systems, effects, and gameplay balance. If the architecture succeeds for this slice, the surrounding collection can host materially different minigames while preserving menus, settings, loading, input routing, content management, and overall visual identity.
 
 # 5. Users, Roles, and Authority
 
@@ -465,7 +471,7 @@ Missing avatar art cannot make the race unusable.
 
 ## G-08 Legally Distinct Presentation
 
-Items, names, silhouettes, icons, VFX, audio, menus, environments, and characters use original Accurate Artistry presentation rather than reproducing protected franchise presentation.
+Items, names, silhouettes, icons, VFX, audio, menus, environments, and characters use original presentation for Manaconda's Minigame Mayhem rather than reproducing protected franchise presentation.
 
 # 7. Non-Goals
 
@@ -618,11 +624,11 @@ Results -\> Race Again / Character Select / Hub
 
 ## 10.2 Title Screen
 
-Must contain the Accurate Artistry Game Hub logo/title, animated environmental or splash background, PRESS START / CLICK TO PLAY, audio state, and a subtle intro-theme loop after browser audio activation. The first interaction must satisfy browser audio-unlock requirements.
+Must contain the Manaconda's Minigame Mayhem logo/title, an original minigame icon, animated environmental or splash background, PRESS START / CLICK TO PLAY, audio state, and a subtle intro-theme loop after browser audio activation. The first interaction must satisfy browser audio-unlock requirements. No presentation line appears above the product title.
 
 +--------------------------------------------------------------+  
-\| ACCURATE ARTISTRY \|  
-\| GAME HUB \|  
+\| MANACONDA'S \|
+\| MINIGAME MAYHEM \|
 \| \|  
 \| \[ animated background scene \] \|  
 \| \|  
@@ -633,7 +639,7 @@ Must contain the Accurate Artistry Game Hub logo/title, animated environmental o
 ## 10.3 Main Menu Hub
 
 +------------------------------------------------------------------+  
-\| ACCURATE ARTISTRY GAME HUB SETTINGS \|  
+\| MANACONDA'S MINIGAME MAYHEM SETTINGS \|
 \| \|  
 \| SELECT A GAME \|  
 \| \[ KART RACER / PLAY \] \[ FUTURE GAME / COMING SOON \] \[ FUTURE \] \|  
@@ -1471,6 +1477,10 @@ Persistent browser data is limited to volume settings, graphics settings, motion
 
 **HUB-005** Settings and Controls must be available from Main Menu.
 
+**HUB-006** The title screen must show `Manaconda's Minigame Mayhem`, omit the former presentation line, and use the approved minigame mark instead of a letter monogram.
+
+**HUB-007** Browser metadata and the favicon must use the current product name and approved minigame mark.
+
 ## Character Selection
 
 **CHAR-001** The system must load twelve roster entries from the character manifest.
@@ -1601,9 +1611,13 @@ Persistent browser data is limited to volume settings, graphics settings, motion
 
 **REPO-006** Slice 0 must not expand into Slice 1 gameplay implementation beyond a minimal app-shell proof.
 
+**REPO-007** The canonical repository and Pages base path must use `manacondas-minigame-mayhem`.
+
+**REPO-008** The production build must fail if the superseded product name or repository slug returns outside preserved history.
+
 # 27. Design and Content Requirements
 
-The visual language should read as polished, colorful, kinetic, high-contrast, arcade-oriented, and distinctly Accurate Artistry. The game may draw inspiration from the broad arcade-kart genre but must not reproduce another title's branding, item names, character designs, iconography, kart silhouettes, UI composition, track landmarks, sound design, or signature visual effects. Original presentation must extend beyond merely renaming familiar items. Item silhouettes, VFX, audio identity, and icons should be separately authored.
+The visual language should be polished, colorful, kinetic, high-contrast, arcade-oriented, and original. Arcade-kart games may inspire it, but branding, items, characters, karts, UI, landmarks, sound, and effects must remain distinct. Presentation must extend beyond renamed familiar items, with separately authored silhouettes, VFX, audio, and icons.
 
 # 28. Privacy, Security, Rights & Access
 
@@ -1671,7 +1685,7 @@ The project must live in a dedicated GitHub repository. Unless the product owner
 /  
 +-- docs/  
 \| +-- PRD.md  
-\| +-- Accurate_Artistry_Game_Hub_PRD_v1.1.docx  
+\| +-- Manacondas_Minigame_Mayhem_PRD_v1.1.docx
 \| +-- DECISIONS.md  
 \| +-- IMPLEMENTATION-STATUS.md  
 \| +-- TESTING.md  
@@ -1773,7 +1787,7 @@ Required runtime and build dependencies include Three.js, Rapier 3D, Howler.js o
 | D-009  | Single Circuit Alpha                          | Concentrates vertical-slice quality                                           |
 | D-010  | No backend                                    | Unnecessary for current product outcome                                       |
 | D-011  | Originalized item presentation                | Distinct product identity                                                     |
-| D-012  | 2D driver sprite mounted in 3D kart           | Preserves Accurate Artistry imagery while controlling asset cost              |
+| D-012  | 2D driver sprite mounted in 3D kart           | Preserves the approved illustrated roster while controlling asset cost        |
 | D-013  | GitHub repository before gameplay code        | Provides durable source of truth and cross-session continuity                 |
 | D-014  | DOCX approval artifact + Markdown working PRD | Combines reviewable final artifact with repo-native implementation reference  |
 | D-015  | Slice 0 bootstrap before Slice 1              | Prevents architecture, CI, docs, and binary policy from being bolted on later |
@@ -1788,7 +1802,7 @@ Create the canonical GitHub repository, establish the project structure, install
 
 ### Implementation Work
 
-- Create the GitHub repository (recommended name: accurate-artistry-game-hub). Default to private unless the product owner explicitly chooses otherwise; ask only if the repository owner/organization cannot be safely determined.
+- Create the GitHub repository (current name: manacondas-minigame-mayhem). Default to private unless the product owner explicitly chooses otherwise; ask only if the repository owner/organization cannot be safely determined.
 
 - Initialize a TypeScript/Vite application and select one package manager; commit its lockfile.
 
@@ -1800,7 +1814,7 @@ Create the canonical GitHub repository, establish the project structure, install
 
 - Create docs/IMPLEMENTATION-STATUS.md with current slice, completed requirements, work in progress, known defects, deferred work, next recommended action, and last verified commit.
 
-- Create docs/DECISIONS.md and seed it with the current approved decisions from Section 34 or link back to them while establishing the post-approval logging format.
+- Create docs/DECISIONS.md and seed it with the approved decisions from Section 34.
 
 - Create docs/TESTING.md documenting local and CI validation commands plus evidence expectations.
 
@@ -2365,6 +2379,53 @@ Deferred:
 PRD Changes:  
 Next Slice Ready: YES / NO
 
+## 35.8 Slice 7 - Jennifer release and product rebrand
+
+### Objective
+
+Publish Jennifer and The Hearthwarden while moving the public product, repository, and Pages URL to Manaconda's Minigame Mayhem.
+
+### Included
+
+- Jennifer's approved AA-12 runtime package and cockpit placement
+- title-screen, metadata, browser-icon, package, repository, and Pages-path rebrand
+- removal of the presentation line and player-facing AA monogram
+- current documentation and Word approval-artifact updates
+- build-time protection against superseded brand copy and paths
+
+The internal `aa-##` profile and asset keys remain stable compatibility identifiers. Dated history snapshots remain unchanged as historical evidence.
+
+### Acceptance Criteria
+
+- The title screen shows `Manaconda's Minigame Mayhem` with no presentation line above it.
+- The minigame route-and-token mark replaces the AA letter logo and supplies the favicon.
+- Jennifer is selectable as AA-12 and loads The Hearthwarden, all ten approved frames, and the 8 / 5 / 8 / 4 / 4 / 7 profile.
+- Active product copy, metadata, package identity, repository guidance, builder labels, and public links use the new brand.
+- The canonical repository is `Manaconda33/manacondas-minigame-mayhem` and the live site uses `/manacondas-minigame-mayhem/`.
+- Automated validation rejects the superseded display name or repository slug outside dated history.
+- Full local validation, pull-request CI, main CI, Pages deployment, and source-to-live asset checks pass.
+
+### Evidence Required
+
+Rendered desktop and mobile title screens, Jennifer selection and race entry, repository metadata, Pages response, production-bundle brand scan, asset hashes, CI results, and product-owner live playtest.
+
+### Approval Gate
+
+Manny approved the brand, repository rename, public URL change, Jennifer publication, and deployment on September 3, 2026. Product-owner live acceptance remains required after deployment.
+
+### Rollback
+
+Keep the last accepted deployment commit available. If the renamed Pages site fails, restore the prior source checkpoint on the renamed repository while retaining the new repository identity; do not restore the superseded public brand.
+
+### Done-Check
+
+Status: Local release gate passed; publication in progress
+Evidence: Brand guard; strict typecheck; zero-warning lint; 16 test files / 84 tests; 30 GLBs; 83 PNGs; production build; Git LFS fsck; 43-page Word PRD integrity and rendered review
+Defects: None recorded
+Deferred: Desktop and mobile live acceptance after deployment
+PRD Changes: Amendment 2.1, HUB-006, HUB-007, REPO-007, REPO-008, and Slice 7
+Next Slice Ready: NO
+
 # 36. Test Strategy
 
 ## 36.1 Unit Tests
@@ -2705,7 +2766,7 @@ Baseline: latest Chrome, latest Edge, latest Firefox, and current desktop Safari
 
 ## 38.1 Candidate Build
 
-AA-GH-v1.0.0-rcN
+MMM-v1.0.0-rcN
 
 The candidate must be tested independently from local development state.
 
@@ -2735,7 +2796,7 @@ Retain the previous successful production bundle. Rollback should restore the pr
 
 # 39. Final Definition of Done
 
-The Accurate Artistry Game Hub v1 vertical slice is complete only when a clean browser session can:
+The v1 vertical slice is complete only when a clean browser session can:
 
 Load site -\> enter Title Screen -\> activate audio -\> enter Hub -\> launch Kart Racer -\> choose any of 12 roster slots -\> start an eight-racer race -\> drive Circuit Alpha -\> drift through all three turbo tiers -\> collect and use items -\> complete three validated laps -\> receive a final rank -\> see complete results -\> replay or return to Hub
 
@@ -2745,7 +2806,7 @@ The same release candidate must also satisfy the 60 FPS performance criteria, ph
 
 | **ID** | **Decision Needed**                                                                         | **Responsible Point**          |
 |--------|---------------------------------------------------------------------------------------------|--------------------------------|
-| OQ-01  | Final mapping of specific Accurate Artistry avatars to AA-01 through AA-12 balance profiles | Slice 3                        |
+| OQ-01  | Final mapping of specific roster characters to AA-01 through AA-12 internal balance profiles | Slice 3                        |
 | OQ-02  | Canonical approved portrait/cutout source package                                           | Slice 3 / Slice 6 finalization |
 | OQ-03  | Circuit Alpha final environmental art theme                                                 | Before Slice 6 final art       |
 | OQ-04  | Production hosting provider/domain                                                          | Launch                         |
@@ -2763,7 +2824,7 @@ First executable implementation slice: Slice 0 - Repository & Project Bootstrap.
 
 Use the following prompt in Cowork with this final PRD available to the session. The same prompt is also delivered as a separate text file alongside this document.
 
-You are beginning implementation of Accurate Artistry Game Hub from the attached/available final PRD v1.1.  
+You are beginning implementation of Manaconda's Minigame Mayhem from the attached/available final PRD v1.1.
   
 Execute ONLY Slice 0 - Repository & Project Bootstrap. Do not begin Slice 1 physics or gameplay implementation.  
   
@@ -2771,7 +2832,7 @@ Treat the final PRD as the approved requirements baseline. GitHub must become th
   
 1. Repository creation and ownership  
 - Check my connected GitHub first for an existing repository clearly intended for this project. Do not create a duplicate if one already exists.  
-- If no project repository exists, create \`accurate-artistry-game-hub\`.  
+- If no project repository exists, create \`manacondas-minigame-mayhem\`.
 - Create it as PRIVATE unless I explicitly tell you otherwise.  
 - If GitHub gives you multiple plausible owners/organizations and you cannot safely infer the correct owner, ask me before creating the repository. Otherwise proceed without unnecessary clarification.  
   

@@ -276,7 +276,7 @@ TRANSLATIONS = {
 
 
 def export_glb(parts):
-    doc = {"asset": {"version": "2.0", "generator": "Accurate Artistry Pink Precision builder"}, "scene": 0,
+    doc = {"asset": {"version": "2.0", "generator": "Minigame Mayhem Pink Precision builder"}, "scene": 0,
            "scenes": [{"nodes": [0]}], "nodes": [], "meshes": [], "materials": MATERIALS, "buffers": [{}],
            "bufferViews": [], "accessors": [], "extras": {"lod": f"LOD{LOD}", "forward": "-Z", "units": "meters", "approvedName": "Pink Precision"}}
     blob = bytearray()

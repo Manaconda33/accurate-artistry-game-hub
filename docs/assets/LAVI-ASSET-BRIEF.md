@@ -14,7 +14,7 @@
 Production assets follow PRD sections 2.1, 23, and 27:
 
 - polished, colorful, kinetic, high-contrast, and arcade-oriented;
-- original Accurate Artistry presentation rather than another kart title's character, UI, or rendering language;
+- original Manaconda's Minigame Mayhem presentation rather than another kart title's character, UI, or rendering language;
 - a 2D illustrated driver designed to sit convincingly inside a stylized 3D kart;
 - lighting and material treatment matched to the 3D race scene so the driver does not read as a disconnected flat cutout;
 - no pixel-art requirement from the supplied collage.
@@ -42,20 +42,20 @@ Production assets follow PRD sections 2.1, 23, and 27:
 
 ## Required production deliverables
 
-| Asset             | Required format                                  | Approval state        |
-| ----------------- | ------------------------------------------------ | --------------------- |
-| Portrait          | 256 x 256 PNG, transparent, sRGB, straight alpha | Approved and prepared |
-| Rear driver frame | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
-| Front driver frame | 512 x 512 PNG, transparent, sRGB                | Approved and prepared 2026-08-31 |
-| Steer-left frame  | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
-| Steer-right frame | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
-| Hit frame         | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
-| Victory frame     | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared |
-| Front-steer-left frame | 512 x 512 PNG, transparent, sRGB            | Approved and integrated 2026-09-02 |
-| Front-steer-right frame | 512 x 512 PNG, transparent, sRGB           | Approved and integrated 2026-09-02 |
-| Front-hit frame   | 512 x 512 PNG, transparent, sRGB                 | Approved and integrated 2026-09-02 |
-| Front-victory frame | 512 x 512 PNG, transparent, sRGB              | Approved and integrated 2026-09-02 |
-| Potato kart       | GLB with PRD hierarchy and LOD budgets           | Approved and prepared |
+| Asset                   | Required format                                  | Approval state                     |
+| ----------------------- | ------------------------------------------------ | ---------------------------------- |
+| Portrait                | 256 x 256 PNG, transparent, sRGB, straight alpha | Approved and prepared              |
+| Rear driver frame       | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared              |
+| Front driver frame      | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared 2026-08-31   |
+| Steer-left frame        | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared              |
+| Steer-right frame       | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared              |
+| Hit frame               | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared              |
+| Victory frame           | 512 x 512 PNG, transparent, sRGB                 | Approved and prepared              |
+| Front-steer-left frame  | 512 x 512 PNG, transparent, sRGB                 | Approved and integrated 2026-09-02 |
+| Front-steer-right frame | 512 x 512 PNG, transparent, sRGB                 | Approved and integrated 2026-09-02 |
+| Front-hit frame         | 512 x 512 PNG, transparent, sRGB                 | Approved and integrated 2026-09-02 |
+| Front-victory frame     | 512 x 512 PNG, transparent, sRGB                 | Approved and integrated 2026-09-02 |
+| Potato kart             | GLB with PRD hierarchy and LOD budgets           | Approved and prepared              |
 
 Generated concepts remain candidates until Manny approves them. Approval of one asset does not automatically approve another driver state or Potato's 3D asset.
 

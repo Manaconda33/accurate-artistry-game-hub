@@ -4,11 +4,13 @@
 
 **Slice 3 — Character Selection & Avatar Ingestion**
 
-PRD baseline: **v1.1, working implementation amendment 2.0**.
+PRD baseline: **v1.1, working implementation amendment 2.1**.
 
 Latest verified live deployment checkpoint: `95fcf26fb699065cd9082951b3e8a3e18790e8a2`. The Lula and Accu front-action batch is live accepted under `lula-runtime-20260903-3` and `accu-runtime-20260903-3`.
 
 Current deployment checkpoint: PR #73 deployed Lula and Accu's eight approved camera-facing action frames at `735da4015bca6f9610f6a358672804f4c73b35f9`. PR #74 recorded the evidence and merged at `95fcf26fb699065cd9082951b3e8a3e18790e8a2`; main run `33708825661` passed validation and GitHub Pages deployment. Manny approved the live camera/action result on 2026-09-03.
+
+Current working release: Jennifer and The Hearthwarden are locally integrated, and the product rebrand to `Manaconda's Minigame Mayhem` is approved for publication. The complete local release gate passes. Repository rename, Pages migration, CI, deployment verification, and live desktop/mobile acceptance are in progress.
 
 The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
@@ -25,8 +27,39 @@ Production character packages currently represented in `characterManifest`:
 - Toph / The Grave Shift — AA-08
 - Lula / The Verdant Hart — AA-03
 - Accu / Pink Precision — AA-11
+- Jennifer / The Hearthwarden — AA-12
 
-Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placeholder and available for future approved assignment. The twelve-slot Character Select architecture remains intact.
+Cleo / The Gilded Stitch is archived and inactive. AA-01 and AA-06 are governed placeholders available for future approved assignments. The twelve-slot Character Select architecture remains intact.
+
+## Active character intake: Jennifer
+
+- Manny approved Jennifer's written character lock on 2026-09-03.
+- The supplied racer collage is definitive visual authority for Jennifer, her massive gray Newfoundland, and the kart design language. The written lock controls conflicts, including Jennifer's mandatory purple wire-rimmed glasses and the dog's gray coat.
+- Manny confirmed control of the reference and authorized transformation into public production game assets after the remaining approval gates pass.
+- Manny approved The Hearthwarden kart lock on 2026-09-03. It is a constructed pear-wood and bronze field roadster with forest-green panels, turquoise accents, a tree-of-life nose medallion, a right-rear Newfoundland perch, a left-rear staff mount, and one modeled steering wheel.
+- The Newfoundland is permanently aboard and appears in all ten wheel-free driver frames. Jennifer's portrait remains solo for small-size readability.
+- Manny approved AA-12 All-Surface Heavy for Jennifer and The Hearthwarden on 2026-09-03: Speed 8 / Acceleration 5 / Weight 8 / Handling 4 / Mini-Turbo 4 / Traction 7.
+- The mapping defines a planted all-surface racer with strong momentum, mass, and off-road retention. Lower launch recovery, turning response, and Mini-Turbo preserve meaningful weaknesses.
+- Manny approved Jennifer's corrected solo portrait design on 2026-09-03. It locks her natural bare face, dark-teal eyes, thin purple wire-rimmed glasses, calm smile, dense curls, braided half-up arrangement, feathers, turquoise jewelry, and forest-green floral robe.
+- The approved portrait preview is a 1254 x 1254 RGB export with a baked checkerboard. Two built-in background-extraction passes failed to produce genuine transparency, so the preview remains design authority rather than a runtime file.
+- Manny approved deterministic edge-connected background removal on 2026-09-03 but directed that cleanup be deferred until all eleven 2D designs are approved, immediately before the complete set is committed.
+- Manny approved Jennifer's complete ten-frame driver design set on 2026-09-03. Neutral, steer-left, steer-right, hit, and victory are represented in both camera orientations. The dog remains on Jennifer's physical right, and the art contains no kart, wheel, seat, staff, or tire geometry.
+- `tools/assets/prepare_jennifer_2d.py` deterministically removes edge-connected checker pixels, enclosed checker pockets between curls, and the narrow pale source outline before premultiplied-alpha resizing. The output is one 256 x 256 portrait and ten 512 x 512 driver frames under `public/assets/characters/aa-12/`.
+- All eleven AA-12 files are transparent sRGBA PNGs with transparent corners. Dark- and light-background contact-sheet review passes with clean curls, fur, robe fringe, and interior gaps. The runtime gate rejects any AA-12 file with an eight-pixel or larger opaque pale-neutral checker component; the largest current component is four pixels.
+- Local 2D checkpoint validation passed on 2026-09-03: normalization is byte-identical on rerun; strict typecheck and zero-warning lint pass; 16 Vitest files / 83 tests pass with 83.14% statement coverage; 27 materialized GLBs and 83 runtime PNGs decode successfully; and the production Vite build completes. The existing large-chunk warning is unchanged.
+- Manny approved The Hearthwarden Candidate 2 geometry on 2026-09-03. The deterministic package provides LOD0 at 14,220 triangles, LOD1 at 8,604, and LOD2 at 4,156. Each GLB uses four materials, thirteen required nodes, one steering-wheel node, and `extras.forward: "-Z"`.
+- Candidate 2 connects the tree-of-life medallion through a pear-wood boss and paired bronze braces, and sinks each rear herb stem into its remedy box. The package preserves the kart-right dog perch, kart-left staff rack, constructed willow panels, and separation from The Verdant Hart.
+- Local geometry checkpoint validation passed on 2026-09-03: all three GLBs reproduce byte for byte, strict typecheck and zero-warning lint pass, 16 Vitest files / 83 tests pass with 83.14% statement coverage, 30 materialized GLBs and 83 runtime PNGs validate, and the production Vite build completes. The existing large-chunk warning is unchanged.
+- Jennifer is locally integrated in `characterManifest` under controlled revision `jennifer-runtime-20260903-2`. AA-12 resolves to her approved portrait, all ten driver frames, The Hearthwarden, `NEGATIVE_Z_KART_VISUAL_YAW`, and the approved 8 / 5 / 8 / 4 / 4 / 7 profile.
+- Cockpit placement uses chase-facing driver position `[0, 0.92, -0.12]`, camera-facing position `[0, 0.84, -0.12]`, and camera-facing modeled-wheel position `[0, 1.86, -0.42]`. Jennifer's wheel-free art leaves The Hearthwarden's single modeled steering wheel visible.
+- The local cockpit evidence uses the production model scale and vertical offset with the approved PNGs because the remote preview window cannot reach the workspace loopback server. It confirms rear-structure lower-body occlusion, the dog on kart-right, and the front wheel between Jennifer's hands without covering her face. A deployed desktop/mobile playtest remains the visual authority for live acceptance.
+- Targeted manifest, app-shell, roster, and kart-controller validation passed with 43 tests. The full local gate then passed: strict typecheck, zero-warning lint, 16 Vitest files / 84 tests, 83.19% statement coverage, 30 materialized GLBs, 83 decoded runtime PNGs, and the production Vite build. The existing large-chunk warning is unchanged.
+- Manny approved publication together with the product, repository, Pages, and icon rebrand on 2026-09-03. Deployment and live acceptance remain pending.
+- The rebrand release gate passed with strict typecheck, zero-warning lint, 16 Vitest files / 84 tests, 83.19% statement coverage, 30 materialized GLBs, 83 decoded PNGs, the brand guard, production build, and `git lfs fsck`. The renamed 43-page Word PRD passed archive integrity and rendered review.
+- Jennifer's rebranded Hearthwarden LFS objects were published and fetch-verified in temporary bridge run `33788191680`. The run regenerated only LOD0, LOD1, and LOD2 with pinned dependencies, matched hashes `0415224b88770726152a3313b6e0fc517a626a6167558af7a6ccbd836b13f3f0`, `545d22ab7f17a17fa14bdb6281db80ac070af159f0a700a57a3694f828e880a8`, and `ff7cf64b9eb06defd47d708cf88dfd7780814d9a20d89ac967bc79c8d0baeeb9`, proved the pointers unchanged, uploaded only those object IDs, deleted the runner cache, fetched the objects back, and passed `git lfs fsck`. The temporary workflow was deleted before review.
+- AA-12 is assigned to Jennifer. AA-01 and AA-06 remain available.
+- Local mapping-lock validation passed on 2026-09-03: strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized GLBs, 72 decoded runtime PNGs, and a production Vite build. Jennifer's five changed records pass targeted Prettier checks; the repository-wide format check still reports 12 unrelated pre-existing files.
+- Next action: complete the rebrand release gate, commit and publish the approved package, rename the repository, verify CI and Pages, then request desktop/mobile live acceptance.
 
 ## Front-facing action-state parity: complete
 

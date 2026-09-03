@@ -1,6 +1,8 @@
 # Repository agent instructions
 
-The canonical repository `Manaconda33/accurate-artistry-game-hub` is public. Do not describe or treat it as private. Public visibility does not waive the existing approval gates for publishing code, assets, documentation, deployments, or protected project state.
+The canonical repository `Manaconda33/manacondas-minigame-mayhem` is public. Do not describe or treat it as private. Public visibility does not waive the existing approval gates for publishing code, assets, documentation, deployments, or protected project state.
+
+The product brand is `Manaconda's Minigame Mayhem`. Do not restore the prior product name, former repository slug, removed presentation line, or AA monogram. The `aa-##` profile and asset keys are retained only as internal compatibility identifiers and must not be presented as brand copy.
 
 Read `docs/PRD.md`, `docs/IMPLEMENTATION-STATUS.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, `docs/AVATAR-INTAKE.md`, `docs/ROSTER-MAPPING.md`, and `docs/LFS-PUBLISHING.md` before implementation work. Treat those files as authoritative over chat history.
 

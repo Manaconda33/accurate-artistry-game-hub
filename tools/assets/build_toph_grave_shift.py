@@ -188,7 +188,7 @@ def main():
     shared.TRANSLATIONS = TRANSLATIONS
     shared.MATERIALS = MATERIALS
     shared.APPROVED_NAME = "The Grave Shift"
-    shared.GENERATOR = "Accurate Artistry procedural Grave Shift builder"
+    shared.GENERATOR = "Minigame Mayhem procedural Grave Shift builder"
     shared.PREVIEW_TITLE = "THE GRAVE SHIFT"
     shared.CANDIDATE = "2"
     shared.USE_VERTEX_COLORS = True

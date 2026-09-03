@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  base: '/accurate-artistry-game-hub/',
+  base: '/manacondas-minigame-mayhem/',
   test: {
     environment: 'jsdom',
     coverage: {

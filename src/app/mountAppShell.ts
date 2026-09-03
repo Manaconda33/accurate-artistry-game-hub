@@ -5,7 +5,7 @@ import { isMobileSession } from './mobileSession';
 import { characterById, characterManifest, type CharacterDefinition } from '../characters/manifest';
 import { raceMinimapMarkup, updateRaceMinimap } from './raceMinimap';
 
-export const APP_TITLE = 'Accurate Artistry Game Hub';
+export const APP_TITLE = "Manaconda's Minigame Mayhem";
 
 export function markGameFinished(shell: HTMLElement): void {
   shell.classList.add('is-finished');
@@ -33,8 +33,15 @@ export function mountAppShell(root: HTMLElement): void {
   const renderTitle = (): void => {
     root.innerHTML = `
       <main class="screen title-screen">
-        <div class="title-mark">AA</div>
-        <p class="eyebrow">Accurate Artistry presents</p>
+        <div class="title-mark" aria-hidden="true">
+          <svg viewBox="0 0 72 72" role="presentation">
+            <rect class="mark-frame" x="5" y="5" width="62" height="62" rx="17" />
+            <path class="mark-route" d="M17 51 C 25 19, 43 59, 56 21" />
+            <circle class="mark-token mark-token-start" cx="17" cy="51" r="5" />
+            <rect class="mark-token mark-token-mid" x="31" y="31" width="10" height="10" rx="3" />
+            <path class="mark-token mark-token-finish" d="M56 14 L59 20 L66 21 L61 26 L62 33 L56 30 L50 33 L51 26 L46 21 L53 20 Z" />
+          </svg>
+        </div>
         <h1>${APP_TITLE}</h1>
         <p class="lead">A modular arcade playground. The eight-racer Circuit Alpha competition is ready.</p>
         ${button('Enter the Hub', 'enter', 'primary')}
@@ -45,7 +52,7 @@ export function mountAppShell(root: HTMLElement): void {
   const renderMenu = (): void => {
     root.innerHTML = `
       <main class="screen menu-screen">
-        <header><p class="eyebrow">Game Hub</p><h1>Choose an experience</h1></header>
+        <header><p class="eyebrow">Minigame collection</p><h1>Choose an experience</h1></header>
         <section class="game-grid">
           <article class="game-card playable">
             <span class="card-tag">Slice 3 playable</span>
@@ -110,7 +117,7 @@ export function mountAppShell(root: HTMLElement): void {
         () => {
           const fallback = document.createElement('span');
           fallback.className = 'portrait-fallback';
-          fallback.textContent = image.dataset.initials ?? 'AA';
+          fallback.textContent = image.dataset.initials ?? 'MM';
           image.replaceWith(fallback);
         },
         { once: true },

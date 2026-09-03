@@ -55,6 +55,7 @@ export const KEEG_ASSET_REVISION = 'keeg-runtime-20260901-3';
 export const MCFLEURDEL_ASSET_REVISION = 'mcfleurdel-runtime-20260901-2';
 export const TOPH_ASSET_REVISION = 'toph-runtime-20260902-2';
 export const LULA_ASSET_REVISION = 'lula-runtime-20260903-3';
+export const JENNIFER_ASSET_REVISION = 'jennifer-runtime-20260903-2';
 
 const assetUrl = (path: string, revision: string): string =>
   `${import.meta.env.BASE_URL}${path}?v=${revision}`;
@@ -401,6 +402,44 @@ const lula: CharacterDefinition = {
   stats: { speed: 5, acceleration: 8, weight: 3, handling: 7, miniTurbo: 6, traction: 7 },
 };
 
+const jennifer: CharacterDefinition = {
+  id: 'aa-12',
+  displayName: 'Jennifer',
+  descriptor: 'All-Surface Heavy',
+  initials: 'JN',
+  accent: '#2f8f6b',
+  assetState: 'production',
+  portrait: assetUrl('assets/characters/aa-12/portrait.png', JENNIFER_ASSET_REVISION),
+  kartName: 'The Hearthwarden',
+  kart: assetUrl('assets/characters/aa-12/kart.glb', JENNIFER_ASSET_REVISION),
+  kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  driverSpritePosition: [0, 0.92, -0.12],
+  frontDriverSpritePosition: [0, 0.84, -0.12],
+  frontModeledSteeringControlPosition: [0, 1.86, -0.42],
+  driver: {
+    rear: assetUrl('assets/characters/aa-12/driver/rear.png', JENNIFER_ASSET_REVISION),
+    front: assetUrl('assets/characters/aa-12/driver/front.png', JENNIFER_ASSET_REVISION),
+    steerLeft: assetUrl('assets/characters/aa-12/driver/steer-left.png', JENNIFER_ASSET_REVISION),
+    steerRight: assetUrl('assets/characters/aa-12/driver/steer-right.png', JENNIFER_ASSET_REVISION),
+    hit: assetUrl('assets/characters/aa-12/driver/hit.png', JENNIFER_ASSET_REVISION),
+    victory: assetUrl('assets/characters/aa-12/driver/victory.png', JENNIFER_ASSET_REVISION),
+    frontSteerLeft: assetUrl(
+      'assets/characters/aa-12/driver/front-steer-left.png',
+      JENNIFER_ASSET_REVISION,
+    ),
+    frontSteerRight: assetUrl(
+      'assets/characters/aa-12/driver/front-steer-right.png',
+      JENNIFER_ASSET_REVISION,
+    ),
+    frontHit: assetUrl('assets/characters/aa-12/driver/front-hit.png', JENNIFER_ASSET_REVISION),
+    frontVictory: assetUrl(
+      'assets/characters/aa-12/driver/front-victory.png',
+      JENNIFER_ASSET_REVISION,
+    ),
+  },
+  stats: { speed: 8, acceleration: 5, weight: 8, handling: 4, miniTurbo: 4, traction: 7 },
+};
+
 export const characterManifest: readonly CharacterDefinition[] = [
   lavi,
   manaconda,
@@ -411,10 +450,10 @@ export const characterManifest: readonly CharacterDefinition[] = [
   mcfleurdel,
   toph,
   lula,
+  jennifer,
   ...[
-    ['aa-01', 'AA 01', 'Balanced Pilot', 'A1', '#9b7cff', [6, 6, 6, 6, 6, 6]],
-    ['aa-06', 'AA 06', 'Grip Specialist', 'A6', '#d79a35', [6, 6, 5, 7, 5, 7]],
-    ['aa-12', 'AA 12', 'Momentum Driver', '12', '#d56b55', [8, 5, 8, 4, 5, 6]],
+    ['aa-01', 'Racer 01', 'Balanced Pilot', 'R1', '#9b7cff', [6, 6, 6, 6, 6, 6]],
+    ['aa-06', 'Racer 06', 'Grip Specialist', 'R6', '#d79a35', [6, 6, 5, 7, 5, 7]],
   ].map(([id, displayName, descriptor, initials, accent, values]) => {
     const [speed, acceleration, weight, handling, miniTurbo, traction] = values as [
       number,

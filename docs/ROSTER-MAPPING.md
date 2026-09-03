@@ -1,6 +1,6 @@
 # Roster profile allocation
 
-This ledger is the source of truth for mapping approved Accurate Artistry characters to the twelve fixed PRD balance profiles. Each AA profile may be assigned to one active production character only. An assigned profile is unavailable to every later character unless Manny explicitly approves a remap or retires the assigned character from production.
+This ledger is the source of truth for mapping approved Manaconda's Minigame Mayhem characters to the twelve fixed PRD balance profiles. Each internal profile may be assigned to one active production character only. An assigned profile is unavailable to every later character unless Manny explicitly approves a remap or retires the assigned character from production.
 
 ## Allocation rules
 
@@ -43,13 +43,21 @@ Stat order is Speed / Acceleration / Weight / Handling / Mini-Turbo / Traction.
 | AA-09   | Technical Cruiser   | Cruiser       | 7 / 6 / 6 / 6 / 6 / 5  | Assigned  | Manaconda  | The Wayfinder        | Manny, 2026-08-16 |
 | AA-10   | Straight-Line Heavy | Heavyweight   | 10 / 4 / 9 / 3 / 4 / 6 | Assigned  | Krios      | The Hornbreaker      | Manny, 2026-08-22 |
 | AA-11   | Collision Tank      | Heavyweight   | 8 / 4 / 10 / 3 / 5 / 6 | Assigned  | Accu       | Pink Precision       | Manny, 2026-08-20 |
-| AA-12   | All-Surface Heavy   | Heavyweight   | 8 / 5 / 8 / 4 / 4 / 7  | Available | -          | -                    | -                 |
+| AA-12   | All-Surface Heavy   | Heavyweight   | 8 / 5 / 8 / 4 / 4 / 7  | Assigned  | Jennifer   | The Hearthwarden     | Manny, 2026-09-03 |
 
 ## Front-action rollout checkpoint
 
 Manny approved Lula and Accu's four-frame camera-facing action packages, then accepted the deployed desktop/mobile result on 2026-09-03. Their AA-03 and AA-11 mappings, stats, karts, and approval dates remain unchanged. The eight PNGs are live accepted under `lula-runtime-20260903-3` and `accu-runtime-20260903-3`. All nine active production drivers now meet the front-action runtime contract.
 
+## Local integration checkpoint
+
+Jennifer's character lock, definitive reference, transformation rights, The Hearthwarden kart lock, and AA-12 All-Surface Heavy mapping were approved on 2026-09-03. The complete approved asset package is locally active in `characterManifest` under `jennifer-runtime-20260903-2`; publication and live acceptance remain pending. AA-01 and AA-06 remain available.
+
 ## Locked mapping rationale
+
+### AA-12: Jennifer / The Hearthwarden
+
+Jennifer's intended driving identity is a patient all-surface guardian that holds momentum across rough terrain. Speed 8, Weight 8, and Traction 7 give The Hearthwarden strong road presence, collision stability, and off-road retention. Acceleration 5 and Handling 4 make recovery and sudden corrections costly, while Mini-Turbo 4 keeps careful route choice more important than drift chaining. The profile remains distinct from Krios's Speed 10 straight-line heavy and Accu's Weight 10 collision tank. Manny approved the mapping on 2026-09-03.
 
 ### AA-03: Lula / The Verdant Hart
 

@@ -58,7 +58,7 @@ The bridge is not valid evidence for a binary that cannot be reproduced byte-for
 
 Every Slice 1+ checkpoint must provide a live GitHub deployment URL, normally:
 
-`https://manaconda33.github.io/accurate-artistry-game-hub/`
+`https://manaconda33.github.io/manacondas-minigame-mayhem/`
 
 The deployment must originate from the reported checkpoint commit after validation. The product owner uses it for manual confirmation. A passing deployment does not imply approval; the next slice remains locked until explicit approval is recorded.
 
@@ -191,6 +191,20 @@ Run this matrix for every future production character, in addition to its slice-
 - Krios appears no more than once as an AI opponent when the player selects another character.
 - CI materializes and validates all three AA-10 GLBs: `kart.glb`, `kart-lod1.glb`, and `kart-lod2.glb`. Each must begin with the binary glTF signature and declare `extras.forward: "-Z"`.
 - Product-owner acceptance is recorded only after the deployed game confirms Krios is present and all approved assets load as intended.
+
+## Jennifer / Hearthwarden local integration matrix
+
+- AA-12 renders Jennifer's approved portrait, All-Surface Heavy descriptor, and 8 / 5 / 8 / 4 / 4 / 7 statistics.
+- `Race as Jennifer` loads The Hearthwarden rather than a placeholder or fallback kart.
+- CI materializes and validates `public/assets/characters/aa-12/kart.glb`, `kart-lod1.glb`, and `kart-lod2.glb`. Each must begin with the binary glTF signature and declare `extras.forward: "-Z"`.
+- LOD0, LOD1, and LOD2 remain within 25,000, 12,000, and 5,000 triangles while preserving the required thirteen-node hierarchy and one `SteeringWheel` node.
+- Direct GLB review confirms that the tree-of-life medallion intersects its central pear-wood boss and paired bronze braces, and that every rear herb stem enters its remedy box.
+- The kart-right dog perch, kart-left staff rack, wide tires, open cockpit, woven side panels, and rear exhausts remain attached at every LOD.
+- All ten driver states load from `jennifer-runtime-20260903-2`; every frame is wheel-free and keeps the Newfoundland on Jennifer's physical right.
+- `NEGATIVE_Z_KART_VISUAL_YAW` keeps the tree-of-life medallion at the race-forward nose and the remedy cargo behind Jennifer.
+- Chase-facing position `[0, 0.92, -0.12]` seats Jennifer behind the rear structure without hiding her head, shoulders, or dog.
+- Camera-facing position `[0, 0.84, -0.12]` and modeled-wheel position `[0, 1.86, -0.42]` place The Hearthwarden's single wheel between Jennifer's hands without covering her face.
+- Product-owner acceptance is recorded only after the deployed desktop and mobile game confirms orientation, every driver state, cockpit occlusion, dog-side continuity, and single-wheel presentation.
 
 ## McFleurdel / Fleur de Nuit manual matrix
 

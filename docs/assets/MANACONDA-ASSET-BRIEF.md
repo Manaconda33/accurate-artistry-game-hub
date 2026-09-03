@@ -9,7 +9,7 @@
 
 ## Production style
 
-- Polished, colorful, kinetic, high-contrast Accurate Artistry presentation.
+- Polished, colorful, kinetic, high-contrast Manaconda's Minigame Mayhem presentation.
 - Original visual language; no copied character, vehicle, UI, pixel-art, or comic-panel treatment.
 - A 2D illustrated driver must sit convincingly within a stylized 3D kart, with race-scene-consistent lighting.
 

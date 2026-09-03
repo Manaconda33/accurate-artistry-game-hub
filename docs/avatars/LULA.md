@@ -10,7 +10,7 @@
 - 2D design package: Portrait, front, rear, steer-left, steer-right, hit, and corrected victory approved by Manny, 2026-08-29
 - 3D kart geometry: Candidate 4 approved by Manny, 2026-08-29
 - Runtime activation: Deployed and live accepted, 2026-08-30
-- Front-action rollout: Four-frame package deployed through PR #73 and live accepted by Manny, 2026-09-03
+- Front-action rollout: Four-frame package approved and deployed through PR #73, 2026-09-03; live playtest pending
 
 ## Character lock
 
@@ -41,4 +41,4 @@ The initial live package exposed opaque white background islands and hair-edge r
 
 ## Front-action rollout
 
-Manny approved Lula's front-steer-left, front-steer-right, front-hit, and front-victory review set on 2026-09-03. The package preserves her approved complexion, green hair, leaf forehead mark, seated footprint, wheel-free driver art, and front placement `[0, 0.45, -0.12]`. The four files are deployed under `lula-runtime-20260903-3` at checkpoint `735da4015bca6f9610f6a358672804f4c73b35f9`; the live bundle revision and all four response hashes are verified. Manny accepted the desktop/mobile camera-action result on 2026-09-03.
+Manny approved Lula's front-steer-left, front-steer-right, front-hit, and front-victory review set on 2026-09-03. The package preserves her approved complexion, green hair, leaf forehead mark, seated footprint, wheel-free driver art, and front placement `[0, 0.45, -0.12]`. The four files are deployed under `lula-runtime-20260903-3` at checkpoint `735da4015bca6f9610f6a358672804f4c73b35f9`; the live bundle revision and all four response hashes are verified. Desktop/mobile camera-action acceptance remains pending.

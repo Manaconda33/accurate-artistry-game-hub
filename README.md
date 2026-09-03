@@ -1,8 +1,8 @@
-# Accurate Artistry Game Hub
+# Manaconda's Minigame Mayhem
 
-Accurate Artistry Game Hub is a modular HTML5 mini-game platform whose first vertical slice is a high-fidelity 3D kart racer with hybrid 2D avatar drivers. The approved requirements baseline is Product Requirements Document v1.1.
+Manaconda's Minigame Mayhem is a modular HTML5 minigame collection whose first playable experience is a 3D kart racer with illustrated 2D drivers inside stylized 3D karts. The approved requirements baseline is Product Requirements Document v1.1.
 
-The canonical repository `Manaconda33/accurate-artistry-game-hub` is intentionally public. Publication and deployment changes remain approval-gated under the PRD workflow.
+The canonical repository `Manaconda33/manacondas-minigame-mayhem` is intentionally public. Publication and deployment changes remain approval-gated under the PRD workflow.
 
 ## Current state
 
@@ -12,7 +12,7 @@ The current implementation includes the competitive Grand Prix systems defined f
 
 ## Live test build
 
-[Open the latest GitHub Pages checkpoint](https://manaconda33.github.io/accurate-artistry-game-hub/)
+[Open the latest GitHub Pages checkpoint](https://manaconda33.github.io/manacondas-minigame-mayhem/)
 
 Every Slice 1+ checkpoint is deployed through the repository’s `github-pages` environment for product-owner manual confirmation.
 
@@ -74,7 +74,7 @@ The `src/game/` directories reserve PRD-defined system boundaries. Their presenc
 ## Project source of truth
 
 - [Approved implementation PRD](docs/PRD.md)
-- [Word PRD v1.1](docs/Accurate_Artistry_Game_Hub_PRD_v1.1.docx)
+- [Word PRD v1.1](docs/Manacondas_Minigame_Mayhem_PRD_v1.1.docx)
 - [Architecture decisions](docs/DECISIONS.md)
 - [Current implementation status](docs/IMPLEMENTATION-STATUS.md)
 - [Testing and evidence requirements](docs/TESTING.md)

@@ -61,11 +61,40 @@ canvas:focus-visible {
   margin-bottom: 2rem;
   border: 1px solid rgb(255 255 255 / 25%);
   border-radius: 1.25rem;
-  color: #f6d66a;
   background: rgb(255 255 255 / 7%);
-  font-weight: 900;
-  letter-spacing: -0.08em;
   box-shadow: 0 1rem 4rem rgb(0 0 0 / 35%);
+}
+.title-mark svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.mark-frame {
+  fill: #241232;
+  stroke: #d6a9ff;
+  stroke-width: 2;
+}
+.mark-route {
+  fill: none;
+  stroke: #f6d66a;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 4 8;
+}
+.mark-token {
+  stroke: #170d21;
+  stroke-width: 2;
+}
+.mark-token-start {
+  fill: #70e0cf;
+}
+.mark-token-mid {
+  fill: #ff7e9f;
+  transform: rotate(8deg);
+  transform-origin: 36px 36px;
+}
+.mark-token-finish {
+  fill: #f6d66a;
 }
 .eyebrow {
   margin: 0 0 0.8rem;

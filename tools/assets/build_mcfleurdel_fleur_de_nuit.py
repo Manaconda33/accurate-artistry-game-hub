@@ -183,7 +183,7 @@ def main():
     dummy_material = {"name": "UnusedViewerCompatibilitySlot", "alphaMode": "OPAQUE", "doubleSided": True, "pbrMetallicRoughness": {"baseColorFactor": [1, 1, 1, 1], "metallicFactor": 0.0, "roughnessFactor": 1.0}}
     shared.MATERIALS = [dummy_material, *MATERIALS]
     shared.APPROVED_NAME = "The Fleur de Nuit"
-    shared.GENERATOR = "Accurate Artistry procedural Fleur de Nuit builder"
+    shared.GENERATOR = "Minigame Mayhem procedural Fleur de Nuit builder"
     shared.PREVIEW_TITLE = "THE FLEUR DE NUIT"
     shared.CANDIDATE = "9"
     shared.USE_VERTEX_COLORS = False

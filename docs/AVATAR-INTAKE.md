@@ -25,6 +25,20 @@ Before an approved package is marked ready, the implementer must record and veri
 - Chase- and rear-camera verification of kart nose, steering wheel, driver, cockpit, wheel, and mount orientation. Correct an authored-axis mismatch only at the visual root and record the exact transform; gameplay physics and coordinates remain canonical.
 - Fresh desktop and mobile manual confirmation that the selected production kart—not the fallback—renders and remains controlled through the race.
 
+## Efficient 3D candidate workflow
+
+The Hearthwarden reached geometry approval in two candidates, the shortest kart review cycle recorded through 2026-09-03. Use this sequence for later karts:
+
+1. Lock the construction language, signature silhouette, asymmetrical features, and explicit exclusions before modeling.
+2. Inspect approved builders for scale, node names, material count, authored forward axis, and triangle budgets. Reuse the exporter and primitive helpers without copying another kart's identity.
+3. Generate LOD0, LOD1, and LOD2 from one deterministic source. Reject the build immediately if any LOD exceeds its budget or changes the required thirteen-node hierarchy.
+4. Review front three-quarter, rear three-quarter, top, and profile views before sending the GLB. Check the kart's signature details against the written lock and against the closest existing roster silhouette.
+5. Treat every prop, emblem, plant, bracket, exhaust, wheel, and steering column as structural geometry. Verify numerical overlap with its support so a favorable review angle cannot hide a floating part.
+6. Give every revised candidate new filenames and links. Do not overwrite a review URL because browser and viewer caches can show stale geometry.
+7. Send the direct LOD0 GLB with the review sheet. Keep LOD1 and LOD2 available for contract review, then rerun deterministic hash checks after the final correction.
+
+This process does not remove the product-owner geometry gate or the later in-game placement and live-playtest gates.
+
 ## Per-avatar intake template
 
 ### Identity
