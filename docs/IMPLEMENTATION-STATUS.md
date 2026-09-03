@@ -10,6 +10,8 @@ Manny explicitly authorized a bounded Circuit Alpha environment-art/camera polis
 
 Jennifer / The Hearthwarden and the Manaconda's Minigame Mayhem rebrand remain **LIVE ACCEPTED / CLOSED**.
 
+A bounded Circuit Alpha balance pass is now active under PR **#86**. Candidate F has passed the simulation gate and is **APPROVED FOR LIVE PLAYTEST**, but is not yet final accepted balance.
+
 ## Latest verified live checkpoint
 
 - Repository: `Manaconda33/manacondas-minigame-mayhem`
@@ -22,6 +24,50 @@ Jennifer / The Hearthwarden and the Manaconda's Minigame Mayhem rebrand remain *
 - Deployment-record checkpoint before final acceptance: `4d96262919f71ce01bc3b586e037c2046ea45b3e`
 - Deployment-record run: **33809192455** — validation passed and deployment passed
 - Product-owner final live acceptance: **2026-09-03 — APPROVED**
+
+## Active Candidate F balance checkpoint
+
+Candidate F keeps all existing racer stat allocations unchanged and changes only shared balance behavior:
+
+- Speed 7 remains anchored at **29.5 m/s**;
+- the Speed 1–10 sustained-asphalt spread is compressed to **3.0 m/s**;
+- Handling now contributes to shared physical corner-speed retention;
+- AI receives only a modest additional Handling-aware braking adjustment so Handling is not heavily double-counted;
+- Circuit Alpha AI corner demand uses normalized lookahead-angle geometry;
+- Mini-Turbo-aware AI seeks valid drift opportunities and respects governed blue/orange/purple tier limits;
+- Weight collision retention, Traction, surfaces, boost pads, ramp behavior, Circuit Alpha geometry, roster sampling, individual stat allocations, assets, and item scope remain unchanged.
+
+Candidate F source checkpoint: `0fce4d2be4c41ff2f7fddf69d13d74306a78f106`.
+
+PR CI run **33818180063** passed:
+
+- Git LFS verification;
+- strict TypeScript typecheck;
+- ESLint with zero warnings;
+- **20/20 test files and 102/102 tests**;
+- seven runtime AI profiles completing valid three-lap Rapier simulations for every manifest racer;
+- all 84 diagnostic racer/profile runs at **0% grass time**;
+- runtime asset verification;
+- production Vite build.
+
+The final **250,000-race** moderate-variance Monte Carlo produced these conditional win rates when each racer was present in an eight-racer field:
+
+- Keeg — **19.54%**
+- Krios — **18.56%**
+- McFleurdel — **18.12%**
+- Lavi — **14.21%**
+- Manaconda — **13.70%**
+- Jennifer — **11.76%**
+- Racer 06 — **11.28%**
+- Kraken — **10.36%**
+- Racer 01 — **8.68%**
+- Lula — **8.18%**
+- Accu — **7.88%**
+- Toph — **7.74%**
+
+Compared with Candidate E, Krios fell from **23.81% to 18.56%**, Lula rose from **6.16% to 8.18%**, the best-to-worst win-rate spread fell from **17.65 to 11.80 percentage points**, and field win-rate standard deviation fell by about **24.1%**.
+
+Manny approved Candidate F's simulation gate on **2026-09-03**. The next required evidence is a deployed product-owner playtest. This approval does not yet make Candidate F final accepted production balance.
 
 ## Circuit Alpha environment-art / camera pass — final accepted state
 
@@ -76,7 +122,7 @@ The Circuit Alpha environment-art/camera polish pass is therefore **LIVE ACCEPTE
 
 ## Protected gameplay contract
 
-The accepted Circuit Alpha pass did not change:
+The accepted Circuit Alpha environment pass did not change:
 
 - the 384 canonical Catmull-Rom track samples or course topology;
 - loop length or road width;
@@ -84,42 +130,12 @@ The accepted Circuit Alpha pass did not change:
 - player/AI starting grid positions;
 - asphalt, dirt, grass, boost, and ramp gameplay classification;
 - ramp trigger or ramp boost behavior;
-- kart physics, driver tuning, collision behavior, or AI navigation;
 - three-lap requirement;
 - countdown timing;
 - roster statistics or character assets;
 - item scope.
 
-The intentional gameplay-facing correction was limited to making checkpoint 0 for lap completion coincide with the visible start/finish gantry.
-
-No PRD deviation is recorded.
-
-## Validation evidence
-
-Final PR #83 head `3614de78a62cd483ae32dba6923194d8bcfbb1b6` passed PR CI run **33808711461** with:
-
-- Git LFS runtime-asset verification;
-- strict TypeScript typecheck;
-- ESLint with zero warnings;
-- full Vitest CI suite;
-- production Vite build.
-
-Merged runtime commit `da9275771941e7e112a6153af3d5d1cd97ea2bf2` passed main run **33809002419** with the same validation plus successful GitHub Pages artifact upload and deployment.
-
-Deployment-record checkpoint `4d96262919f71ce01bc3b586e037c2046ea45b3e` passed main run **33809192455** and deployed successfully.
-
-Regression coverage verifies that:
-
-- environment construction does not mutate canonical track samples;
-- the gantry is staged ahead of the starting grid;
-- the visible gantry matches the lap finish crossing;
-- the Crest Ramp is a forward-rising wedge aligned to course-forward;
-- player and AI checkpoint detection use the same lap checkpoint positions;
-- seven-profile AI simulation still completes three valid laps;
-- closer chase/rear distances preserve accepted heights;
-- required environment landmarks and repeated-scenery instancing remain intact.
-
-The existing production-build large-chunk warning remains known and non-blocking.
+The later Candidate F balance checkpoint intentionally changes shared Speed/Handling/AI Mini-Turbo behavior only as described above and remains pending live acceptance.
 
 ## Active production roster state
 
@@ -138,30 +154,33 @@ Cleo / The Gilded Stitch remains archived and inactive. AA-01 and AA-06 remain g
 
 ## Known defects / unresolved issues
 
-No new defect was reported in Manny's final Circuit Alpha acceptance pass.
-
-The existing production-build large-chunk warning remains known and non-blocking.
+- Candidate F has passed simulation and automated validation but still requires live product-owner playtest acceptance.
+- The existing production-build large-chunk warning remains known and non-blocking.
 
 ## Deferred work
 
-- No external PBR texture set, HDR environment, baked AO asset, post-processing stack, or authored track GLB was introduced in this bounded pass.
+- No external PBR texture set, HDR environment, baked AO asset, post-processing stack, or authored track GLB was introduced in the bounded environment pass.
 - AA-01 and AA-06 remain unfilled.
-- Items remain Slice 5 work and are not authorized by this closeout.
+- Items remain Slice 5 work and are not authorized by this balance checkpoint.
 
 ## Next recommended action
 
-**Stop at the next product-owner approval boundary.**
+**Deploy Candidate F and stop at the product-owner live playtest gate.**
 
-Circuit Alpha environment-art/camera work requires no further acceptance action.
+The live playtest should focus on whether:
 
-The next implementation action must be selected explicitly by Manny, for example:
+- Krios remains recognizably fastest without overwhelming the field;
+- high-Handling racers gain corner value without feeling artificially speed-limited;
+- Kraken/Toph Mini-Turbo identity is visible in AI behavior;
+- Accu still benefits from Weight without becoming either dominant or inert;
+- the pack feels competitive over multiple three-lap races;
+- existing surface, collision, ramp, boost, checkpoint, camera, mobile, and asset behavior remains intact.
 
-- begin another Slice 3 character intake using AA-01 or AA-06; or
-- approve a different PRD-defined bounded scope.
-
-Do not silently advance to Slice 5, Slice 6, or materially reorder the roadmap.
+Do not record Candidate F as final accepted balance until Manny explicitly approves the deployed playtest. Do not silently advance to Slice 5 or Slice 6.
 
 ## Approval state
+
+**Candidate F balance simulation gate: APPROVED / LIVE PLAYTEST REQUIRED.**
 
 **Circuit Alpha environment-art / camera polish: LIVE ACCEPTED / CLOSED.**
 
