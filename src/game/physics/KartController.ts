@@ -67,8 +67,6 @@ export class KartController {
     this.body = this.world.createRigidBody(
       RAPIER.RigidBodyDesc.dynamic()
         .setTranslation(spawn.x, 1.1, spawn.z)
-        // Forward deceleration and lateral grip are owned by this controller.
-        // Passive Rapier damping would make Acceleration determine terminal speed.
         .setLinearDamping(0)
         .setAngularDamping(5)
         .enabledRotations(false, true, false),
@@ -76,9 +74,6 @@ export class KartController {
     this.world.createCollider(
       RAPIER.ColliderDesc.cuboid(0.72, 0.34, 1.18)
         .setMass(this.tuning.mass)
-        // The kart is a raycast-driven arcade body, not a sliding tire model.
-        // Surface grip is applied explicitly below so collider friction must not
-        // consume engine acceleration or reduce the Speed-defined road maximum.
         .setFriction(0)
         .setFrictionCombineRule(RAPIER.CoefficientCombineRule.Min)
         .setRestitution(0.05),
@@ -124,6 +119,7 @@ export class KartController {
         ? undefined
         : aiRequestedDriftTier(
             input.steering,
+            input.aiCornerDemand ?? 0,
             Math.abs(forwardSpeed),
             input.aiAggression,
             this.stats.miniTurbo,
@@ -132,11 +128,12 @@ export class KartController {
       input.aiAggression === undefined ? input.drift : automaticAiDriftTarget !== undefined;
     const requestedAiDriftTarget = automaticAiDriftTarget ?? input.aiDriftTarget;
     const driftStarted = driftPressed && !this.previousDriftPressed;
+    const minimumDriftSteering = input.aiAggression === undefined ? 0.25 : 0.15;
     if (
       driftStarted &&
       grounded &&
       Math.abs(forwardSpeed) >= 6.5 &&
-      Math.abs(input.steering) >= 0.25
+      Math.abs(input.steering) >= minimumDriftSteering
     ) {
       this.drifting = true;
       this.driftDirection = Math.sign(input.steering);
@@ -210,9 +207,6 @@ export class KartController {
           (surface === 'grass' ? 8 : 5.5) * THREE.MathUtils.lerp(1.08, 0.92, tractionN);
         forwardSpeed = Math.max(boostedMax, forwardSpeed - surfaceLoss * dt);
       } else if (handlingMultiplier < 0.999 && forwardSpeed > boostedMax) {
-        // Corner speed is shed progressively rather than clamped in one frame.
-        // High Handling raises the sustainable corner ceiling; straight-line
-        // Speed remains unchanged once steering demand drops away.
         forwardSpeed = Math.max(boostedMax, forwardSpeed - 5.2 * dt);
       } else {
         forwardSpeed = Math.min(boostedMax, forwardSpeed + acceleration * dt);
