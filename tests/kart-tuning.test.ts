@@ -22,14 +22,17 @@ describe('kart tuning and surface behavior', () => {
   it('compresses the Speed 1-10 spread while preserving strict ordering', () => {
     const slowest = createKartTuning({ ...sliceOneDriver, speed: 1 }).maxSpeed;
     const middle = createKartTuning({ ...sliceOneDriver, speed: 5 }).maxSpeed;
+    const acceptedCenter = createKartTuning({ ...sliceOneDriver, speed: 7 }).maxSpeed;
     const fastest = createKartTuning({ ...sliceOneDriver, speed: 10 }).maxSpeed;
 
-    expect(slowest).toBeCloseTo(25.5);
-    expect(middle).toBeCloseTo(28.1667, 3);
-    expect(fastest).toBeCloseTo(31.5);
-    expect(fastest - slowest).toBeCloseTo(6);
+    expect(slowest).toBeCloseTo(27.5);
+    expect(middle).toBeCloseTo(28.8333, 3);
+    expect(acceptedCenter).toBeCloseTo(29.5);
+    expect(fastest).toBeCloseTo(30.5);
+    expect(fastest - slowest).toBeCloseTo(3);
     expect(slowest).toBeLessThan(middle);
-    expect(middle).toBeLessThan(fastest);
+    expect(middle).toBeLessThan(acceptedCenter);
+    expect(acceptedCenter).toBeLessThan(fastest);
   });
 
   it('uses the PRD launch-acceleration curve', () => {
@@ -40,10 +43,11 @@ describe('kart tuning and surface behavior', () => {
   it('lets Handling preserve more speed under equivalent steering demand', () => {
     expect(handlingCornerSpeedMultiplier(2, 0)).toBe(1);
     expect(handlingCornerSpeedMultiplier(9, 0)).toBe(1);
+    expect(handlingCornerSpeedMultiplier(2, 1)).toBeCloseTo(0.7722, 3);
+    expect(handlingCornerSpeedMultiplier(9, 1)).toBeCloseTo(0.9278, 3);
     expect(handlingCornerSpeedMultiplier(9, 1)).toBeGreaterThan(
       handlingCornerSpeedMultiplier(2, 1),
     );
-    expect(handlingCornerSpeedMultiplier(2, 1)).toBeGreaterThan(0.8);
     expect(handlingCornerSpeedMultiplier(9, 1)).toBeLessThan(1);
   });
 
