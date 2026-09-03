@@ -136,33 +136,46 @@ The existing production-build large-chunk warning remains known and non-blocking
 
 Cleo / The Gilded Stitch remains archived and inactive. AA-01 and AA-06 remain governed placeholders.
 
+## Active McFleurdel outfit candidate
+
+Manny authorized an outfit-only refresh of all eleven McFleurdel 2D assets using the supplied black-and-white checkerboard formalwear reference.
+
+- Branch: `art/mcfleurdel-checkerboard-outfit`
+- Pull request: **#85 — Refresh McFleurdel 2D outfit with checkerboard formalwear**
+- Candidate package: all eleven `aa-07` 2D PNGs updated on the branch
+- Batch 1 generation/validation run: **33811917223 — passed**
+- Batch 2 generation/validation run: **33812111707 — passed**
+- Temporary branch-only generation workflow: removed after both generated commits
+- Detailed scope, candidate SHA-256 values, and review checklist: `docs/work/Mcfleurdel-checkerboard-outfit-refresh.md` and `docs/work/Mcfleurdel-checkerboard-outfit-review.md`
+
+The candidate preserves the exact source alpha channel for every sprite, exact runtime dimensions, existing transparent negative space, approved pose/footprint, and existing hair/face geometry. The controlled production revision and production asset brief remain unchanged pending product-owner visual approval.
+
 ## Known defects / unresolved issues
 
 No new defect was reported in Manny's final Circuit Alpha acceptance pass.
 
 The existing production-build large-chunk warning remains known and non-blocking.
 
+McFleurdel's checkerboard outfit package is **candidate-only**. It has not yet received product-owner asset approval, runtime revision update, merge approval, or live deployment approval.
+
 ## Deferred work
 
-- No external PBR texture set, HDR environment, baked AO asset, post-processing stack, or authored track GLB was introduced in this bounded pass.
+- No external PBR texture set, HDR environment, baked AO asset, post-processing stack, or authored track GLB was introduced in the Circuit Alpha bounded pass.
 - AA-01 and AA-06 remain unfilled.
 - Items remain Slice 5 work and are not authorized by this closeout.
 
 ## Next recommended action
 
-**Stop at the next product-owner approval boundary.**
+**Stop at the McFleurdel visual asset-review gate.**
 
-Circuit Alpha environment-art/camera work requires no further acceptance action.
-
-The next implementation action must be selected explicitly by Manny, for example:
-
-- begin another Slice 3 character intake using AA-01 or AA-06; or
-- approve a different PRD-defined bounded scope.
+Review the eleven checkerboard outfit candidates in PR #85. If approved, update McFleurdel's controlled runtime revision and asset hashes/documentation, run normal CI, publish a live build, and perform the existing McFleurdel state/cockpit/transparency acceptance matrix. If any candidate fails visual review, correct only the outfit treatment while preserving the already-approved face, hair, posture, hand placement, transparency, and sprite-state contract.
 
 Do not silently advance to Slice 5, Slice 6, or materially reorder the roadmap.
 
 ## Approval state
 
 **Circuit Alpha environment-art / camera polish: LIVE ACCEPTED / CLOSED.**
+
+**McFleurdel checkerboard outfit refresh: CANDIDATE COMPLETE / PRODUCT-OWNER ASSET REVIEW REQUIRED.**
 
 The project roadmap remains at Slice 3.
