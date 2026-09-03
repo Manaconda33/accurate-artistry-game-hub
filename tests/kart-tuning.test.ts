@@ -61,11 +61,11 @@ describe('kart tuning and surface behavior', () => {
     expect(aiCornerTargetSpeed(30, 0.6, 0, 1.04, 9)).toBeCloseTo(31.2);
   });
 
-  it('makes high Mini-Turbo seek drift opportunities earlier', () => {
-    expect(aiRequestedDriftTier(0.6, 12, 0.3, 2)).toBeUndefined();
-    expect(aiRequestedDriftTier(0.6, 12, 0.3, 9)).toBe('blue');
-    expect(aiRequestedDriftTier(0.77, 18, 0.5, 9)).toBe('purple');
-    expect(aiRequestedDriftTier(0.77, 18, 0.5, 4)).toBe('orange');
+  it('makes high Mini-Turbo seek drift opportunities at lower turn demand', () => {
+    expect(aiRequestedDriftTier(0.2, 0.6, 12, 0.3, 2)).toBeUndefined();
+    expect(aiRequestedDriftTier(0.2, 0.6, 12, 0.3, 9)).toBe('blue');
+    expect(aiRequestedDriftTier(0.3, 0.76, 18, 0.5, 9)).toBe('purple');
+    expect(aiRequestedDriftTier(0.3, 0.76, 18, 0.5, 4)).toBe('orange');
   });
 
   it('makes grass slower than dirt and asphalt', () => {
