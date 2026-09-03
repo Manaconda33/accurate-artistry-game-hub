@@ -46,7 +46,7 @@ describe('Circuit Alpha environment scene', () => {
     const deck = scene.getObjectByName('crest-ramp-deck');
     expect(deck).toBeInstanceOf(THREE.Mesh);
 
-    const geometry = (deck as THREE.Mesh).geometry as THREE.BufferGeometry;
+    const geometry = (deck as THREE.Mesh).geometry;
     geometry.computeBoundingBox();
     const bounds = geometry.boundingBox;
     expect(bounds).not.toBeNull();
