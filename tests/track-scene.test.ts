@@ -29,6 +29,14 @@ describe('Circuit Alpha environment scene', () => {
     expect(track.samples.map((point) => point.toArray())).toEqual(before);
   });
 
+  it('keeps the Crest Ramp long axis aligned to the track-local forward axis', () => {
+    const scene = createTrackScene(new CircuitAlpha());
+    const deck = scene.getObjectByName('crest-ramp-deck');
+    expect(deck).toBeInstanceOf(THREE.Mesh);
+    const geometry = (deck as THREE.Mesh).geometry as THREE.BoxGeometry;
+    expect(geometry.parameters.depth).toBeGreaterThan(geometry.parameters.width);
+  });
+
   it('uses instancing for repeated trackside dressing', () => {
     const scene = createTrackScene(new CircuitAlpha());
 
