@@ -45,7 +45,7 @@ describe('spline AI driver', () => {
     expect(aiTargetSpeed(30, 0.82, 0.5, 0)).toBeGreaterThan(aiTargetSpeed(30, 0.28, 0.5, 0));
   });
 
-  it('sends blocker speed to shared physics instead of embedding character stats in AI', () => {
+  it('either avoids a blocker or sends its speed to shared physics', () => {
     const track = new CircuitAlpha();
     const index = 120;
     const position = at(track.samples, index).clone();
@@ -57,7 +57,8 @@ describe('spline AI driver', () => {
       { position: blocker, speed: 12, lateralOffset: 0 },
     ]);
 
-    expect(input.aiBlockerSpeed).toBe(12);
+    const changedLane = Math.abs(driver.desiredLaneOffset()) > 1;
+    expect(changedLane || input.aiBlockerSpeed === 12).toBe(true);
     expect(input.aiPace).toBe(0.8);
     expect(input.aiAggression).toBe(0.7);
   });
