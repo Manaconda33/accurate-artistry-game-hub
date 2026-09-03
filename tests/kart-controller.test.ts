@@ -54,6 +54,30 @@ describe('Rapier kart controller', () => {
     expect(kart.isFinite()).toBe(true);
   });
 
+  it('lets AI drift requests release automatically at the Mini-Turbo-governed target', () => {
+    const highTurbo = { ...sliceOneDriver, miniTurbo: 9 };
+    const { world, kart } = makeKart(highTurbo);
+    step(world, kart, { throttle: 1, steering: 0, brake: false, drift: false }, 180);
+    step(
+      world,
+      kart,
+      {
+        throttle: 1,
+        steering: 1,
+        brake: false,
+        drift: true,
+        aiDriftTarget: 'purple',
+      },
+      170,
+    );
+
+    expect(kart.feedback()).toMatchObject({
+      drifting: false,
+      driftTier: 'purple',
+      boostActive: true,
+    });
+  });
+
   it('keeps sustained grass driving above the playable floor', () => {
     const { world, kart } = makeKart();
     step(world, kart, { throttle: 1, steering: 0, brake: false, drift: false }, 600, 'grass');
@@ -86,6 +110,22 @@ describe('Rapier kart controller', () => {
         1,
       );
     }
+  });
+
+  it('lets high Handling preserve more speed under the same corner demand', () => {
+    const lowHandling: DriverStats = { ...sliceOneDriver, handling: 2 };
+    const highHandling: DriverStats = { ...sliceOneDriver, handling: 9 };
+    const low = makeKart(lowHandling);
+    const high = makeKart(highHandling);
+
+    step(low.world, low.kart, { throttle: 1, steering: 0, brake: false, drift: false }, 600);
+    step(high.world, high.kart, { throttle: 1, steering: 0, brake: false, drift: false }, 600);
+    expect(low.kart.speedMetersPerSecond()).toBeCloseTo(high.kart.speedMetersPerSecond(), 1);
+
+    step(low.world, low.kart, { throttle: 1, steering: 1, brake: false, drift: false }, 90);
+    step(high.world, high.kart, { throttle: 1, steering: 1, brake: false, drift: false }, 90);
+
+    expect(high.kart.speedMetersPerSecond() - low.kart.speedMetersPerSecond()).toBeGreaterThan(1.5);
   });
 
   it('permits only the explicit four-percent AI top-speed allowance', () => {
