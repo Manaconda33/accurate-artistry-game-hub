@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import {
+  aiDriftTargetTier,
   createKartTuning,
   driftBoostProfile,
   driftThresholds,
+  handlingCornerSpeedMultiplier,
   sliceOneDriver,
   surfaceAccelerationMultiplier,
   surfaceMinimumPlayableSpeed,
@@ -17,9 +19,32 @@ describe('kart tuning and surface behavior', () => {
     expect(tuning.mass).toBeGreaterThan(105);
   });
 
+  it('compresses the Speed 1-10 spread while preserving strict ordering', () => {
+    const slowest = createKartTuning({ ...sliceOneDriver, speed: 1 }).maxSpeed;
+    const middle = createKartTuning({ ...sliceOneDriver, speed: 5 }).maxSpeed;
+    const fastest = createKartTuning({ ...sliceOneDriver, speed: 10 }).maxSpeed;
+
+    expect(slowest).toBeCloseTo(25.5);
+    expect(middle).toBeCloseTo(28.1667, 3);
+    expect(fastest).toBeCloseTo(31.5);
+    expect(fastest - slowest).toBeCloseTo(6);
+    expect(slowest).toBeLessThan(middle);
+    expect(middle).toBeLessThan(fastest);
+  });
+
   it('uses the PRD launch-acceleration curve', () => {
     expect(createKartTuning({ ...sliceOneDriver, acceleration: 4 }).acceleration).toBeCloseTo(6.2);
     expect(createKartTuning({ ...sliceOneDriver, acceleration: 8 }).acceleration).toBeCloseTo(8.4);
+  });
+
+  it('lets Handling preserve more speed under equivalent steering demand', () => {
+    expect(handlingCornerSpeedMultiplier(2, 0)).toBe(1);
+    expect(handlingCornerSpeedMultiplier(9, 0)).toBe(1);
+    expect(handlingCornerSpeedMultiplier(9, 1)).toBeGreaterThan(
+      handlingCornerSpeedMultiplier(2, 1),
+    );
+    expect(handlingCornerSpeedMultiplier(2, 1)).toBeGreaterThan(0.8);
+    expect(handlingCornerSpeedMultiplier(9, 1)).toBeLessThan(1);
   });
 
   it('makes grass slower than dirt and asphalt', () => {
@@ -51,6 +76,13 @@ describe('kart tuning and surface behavior', () => {
     expect(blue.duration).toBeLessThan(orange.duration);
     expect(orange.duration).toBeLessThan(purple.duration);
     expect(blue.speedMultiplier).toBeLessThan(purple.speedMultiplier);
+  });
+
+  it('limits AI drift ambition according to the Mini-Turbo stat', () => {
+    expect(aiDriftTargetTier('purple', 4)).toBe('blue');
+    expect(aiDriftTargetTier('purple', 6)).toBe('orange');
+    expect(aiDriftTargetTier('purple', 9)).toBe('purple');
+    expect(aiDriftTargetTier('orange', 7)).toBe('orange');
   });
 
   it('keeps a ten-minute fixed-step numeric soak finite', () => {
