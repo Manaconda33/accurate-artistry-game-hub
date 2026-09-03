@@ -47,10 +47,11 @@ function normalizedStat(value: number): number {
 
 export function createKartTuning(stats: DriverStats): KartTuning {
   return {
-    // Candidate A compresses the Speed 1-10 spread from 10 m/s to 6 m/s.
-    // Speed remains authoritative for sustained straight-line velocity while
-    // reducing how much one Speed point can overwhelm the other five stats.
-    maxSpeed: 25.5 + normalizedStat(stats.speed) * 6,
+    // Candidate B keeps the accepted Speed-7 ceiling at 29.5 m/s while
+    // compressing the full Speed 1-10 spread to 3 m/s. Speed remains the
+    // authoritative sustained straight-line stat without overwhelming the
+    // other five equal-budget attributes on Circuit Alpha.
+    maxSpeed: 27.5 + normalizedStat(stats.speed) * 3,
     acceleration: 4 + 0.55 * stats.acceleration,
     mass: 105 + normalizedStat(stats.weight) * 75,
     steeringRate: 1.3 + normalizedStat(stats.handling) * 1.1,
@@ -65,7 +66,10 @@ export function handlingCornerSpeedMultiplier(
 ): number {
   const handlingN = normalizedStat(handling);
   const severity = Math.min(1, Math.max(0, (Math.abs(steeringMagnitude) - 0.18) / 0.82));
-  const fullSteerLoss = 0.18 - 0.12 * handlingN;
+  // Candidate B makes Handling a real pace stat in technical sections while
+  // leaving straight-line ceilings unchanged. At full steering demand the
+  // governed speed loss spans 25% at Handling 1 to 5% at Handling 10.
+  const fullSteerLoss = 0.25 - 0.2 * handlingN;
   return 1 - fullSteerLoss * severity * severity;
 }
 
