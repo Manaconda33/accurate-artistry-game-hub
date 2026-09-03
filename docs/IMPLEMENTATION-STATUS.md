@@ -6,89 +6,105 @@
 
 PRD baseline: **v1.1, working implementation amendment 2.1**.
 
-The Jennifer / The Hearthwarden publication and the product/repository rebrand to **Manaconda's Minigame Mayhem** are **LIVE ACCEPTED** as of 2026-09-03. Slice 3 remains the active roadmap slice for any future product-owner-approved character intake; no new character or gameplay scope is implicitly authorized by this closeout.
+Manny explicitly authorized a bounded Circuit Alpha environment-art pass on 2026-09-03 under the PRD's existing track and rendering/polish requirements. This is a visual-polish increment only; it does **not** advance the roadmap to Slice 5 or Slice 6 and does not authorize unrelated gameplay scope.
 
-The detailed status record immediately before this acceptance is preserved at `docs/history/IMPLEMENTATION-STATUS-through-2026-09-03-jennifer-rebrand-pre-acceptance.md`.
+The Jennifer / The Hearthwarden publication and the product/repository rebrand to **Manaconda's Minigame Mayhem** remain **LIVE ACCEPTED / CLOSED**. Their detailed pre-acceptance record is preserved at `docs/history/IMPLEMENTATION-STATUS-through-2026-09-03-jennifer-rebrand-pre-acceptance.md`.
 
-## Latest verified checkpoint
+## Latest verified live checkpoint
 
 - Repository: `Manaconda33/manacondas-minigame-mayhem`
 - Live URL: `https://manaconda33.github.io/manacondas-minigame-mayhem/`
-- Release PR: **#76 — Publish Jennifer and rebrand as Manaconda's Minigame Mayhem**
-- Merged checkpoint: `cec008cfb8e1ae12e8985e5d5104c094d2e36148`
-- Post-merge CI / Pages run: `33793923508`
-- Deployment result: validation **passed**; GitHub Pages deploy **passed**
-- Product-owner live acceptance: **Approved by Manny on 2026-09-03**
+- Current `main`: `90d27523413ca296333bfe13442e7a3e1bcf157a`
+- Jennifer/rebrand release PR: **#76 — Publish Jennifer and rebrand as Manaconda's Minigame Mayhem**
+- Jennifer/rebrand release merge: `cec008cfb8e1ae12e8985e5d5104c094d2e36148`
+- Acceptance closeout PR: **#77 — Record Jennifer and rebrand live acceptance**
+- Acceptance closeout merge: `90d27523413ca296333bfe13442e7a3e1bcf157a`
+- Latest verified main CI / Pages run: `33795517803`
+- Result: validation **passed**; GitHub Pages deploy **passed**
 
-## Jennifer / The Hearthwarden — live accepted
+## Active work: Circuit Alpha environment-art pass
 
-Jennifer is active in `characterManifest` as AA-12 All-Surface Heavy under controlled revision `jennifer-runtime-20260903-2`.
+### Approved scope
 
-Approved mapping:
+Manny's direction is: **give Circuit Alpha a major 3D environment-art pass without changing the track layout or gameplay.**
 
-- Speed 8
-- Acceleration 5
-- Weight 8
-- Handling 4
-- Mini-Turbo 4
-- Traction 7
+The pass is constrained to rendering and environment presentation. The following remain protected and unchanged:
 
-Runtime package:
+- `src/game/track/CircuitAlpha.ts`
+- the 384 canonical track samples and Catmull-Rom course topology
+- approximately 0.90 km loop length
+- road width and signed surface projection
+- twelve ordered checkpoints and three-lap validation
+- asphalt, dirt, grass, boost, and ramp gameplay classification
+- player and AI physics/tuning
+- kart collision behavior
+- AI pathing and race logic
+- camera coordinates and controls
+- roster statistics and character assets
+- item scope
 
-- one approved transparent portrait
-- ten approved transparent driver frames covering neutral, steering-left, steering-right, hit, and victory in chase-facing and camera-facing orientations
-- The Hearthwarden LOD0 / LOD1 / LOD2 GLBs
-- permanent gray Newfoundland companion on kart-right in all driver states
-- kart-left staff mount
-- one modeled steering wheel owned by The Hearthwarden
+### Candidate 1
 
-Live acceptance covers the product-owner test matrix requested after deployment: Jennifer's portrait and selection presentation, The Hearthwarden rather than a fallback kart, chase and rear-camera cockpit placement, steering-left, steering-right, hit, victory, dog-side continuity, and single-wheel presentation.
+Branch: `polish/circuit-alpha-environment`
 
-Jennifer's deployed Hearthwarden objects remain locked to these SHA-256 values:
+Pull request: **#78 — Build Circuit Alpha environment-art pass**
 
-- LOD0: `0415224b88770726152a3313b6e0fc517a626a6167558af7a6ccbd836b13f3f0`
-- LOD1: `545d22ab7f17a17fa14bdb6281db80ac070af159f0a700a57a3694f828e880a8`
-- LOD2: `ff7cf64b9eb06defd47d708cf88dfd7780814d9a20d89ac967bc79c8d0baeeb9`
+Validated candidate checkpoint before this status record: `9bea7e91aecb9c61ca68ee87a2562cef34fd309b`.
 
-Temporary LFS bridge run `33788191680` previously regenerated only those three objects from committed deterministic source, matched the locked hashes, uploaded the approved object IDs, cleared runner cache, fetched them back, and passed `git lfs fsck`. The temporary workflow was removed before review.
+Candidate 1 replaces the primitive scene dressing in `src/game/track/createTrackScene.ts` with a deterministic procedural environment pass:
 
-## Rebrand — live accepted
+- richer layered dusk sky shader with controlled sun glow
+- distinct PBR road, shoulder, and darker racing-wear layers
+- preserved partial-width Split S-Bend dirt lane
+- instanced alternating roadside curb blocks
+- instanced emissive roadside reflectors
+- deterministic instanced trackside forest with 64 trunks and 64 canopy instances
+- 36 instanced trackside rocks
+- 18 instanced distant mountain silhouettes
+- layered rocky/forested center mesa replacing the former single center cylinder
+- center-mesa beacon for mid-course visual orientation
+- constructed start/finish gantry
+- visual underpass architecture aligned to the PRD underpass section
+- upgraded visuals for both existing boost-pad locations
+- upgraded Crest Ramp visual at the existing ramp trigger
+- 24 instanced checkpoint pylons
+- sparse landmark beacons for route readability
 
-The current public identity is **Manaconda's Minigame Mayhem**.
+Repeated dressing uses `THREE.InstancedMesh` so the visual-density increase does not translate into hundreds of independent draw submissions.
 
-Verified release behavior:
+No new external texture, GLB, audio, or other binary asset was introduced in Candidate 1.
 
-- repository renamed to `Manaconda33/manacondas-minigame-mayhem`
-- GitHub Pages base migrated to `/manacondas-minigame-mayhem/`
-- title screen uses the exact product name
-- removed presentation line remains absent
-- former AA monogram is replaced by the approved original minigame mark
-- matching favicon/browser icon is deployed
-- active page metadata, package identity, repository guidance, PRD records, maintained asset-builder labels, and public links use the new brand
-- user-facing placeholders do not expose internal `aa-##` compatibility keys
-- build-time branding guard prevents the retired product name or repository slug from re-entering current product surfaces outside preserved dated history
+### Automated regression guard
 
-The exact Pages artifact from main run `33793923508` was inspected after deployment and confirmed the new title, metadata, asset base, icon, and Jennifer controlled revision.
+`tests/track-scene.test.ts` was added to verify the environment pass independently of gameplay topology.
 
-## Validation evidence
+It confirms that:
 
-Release branch validation and post-merge main validation both passed.
+- environment construction leaves all 384 canonical `CircuitAlpha.samples` unchanged
+- required visual landmarks are present
+- both boost-pad visuals and the crest-ramp visual are present at the existing scene contract
+- repeated curb, reflector, forest, rock, mountain, and checkpoint dressing remains instanced
+- expected deterministic instance counts remain stable
 
-The governed release gate included:
+Existing `tests/circuit-alpha.test.ts` continues to guard loop length, twelve checkpoints, and asphalt/dirt/grass/boost/ramp surface projection.
 
-- Git LFS runtime-object materialization and `git lfs fsck`
+### Validation evidence
+
+PR #78 head run **33797708233** completed successfully on 2026-09-03.
+
+Passed:
+
+- repository checkout
+- Git LFS runtime-asset materialization / verification
+- Node setup and lockfile install
 - strict TypeScript typecheck
 - ESLint with zero warnings
-- 16 Vitest files / 84 tests
-- 83.19% statement coverage at the release checkpoint
-- 30 materialized runtime GLBs
-- 83 decoded runtime PNGs
-- branding regression guard
-- production Vite build at the renamed Pages base
-- GitHub Pages artifact upload and deployment
-- 43-page renamed Word PRD archive-integrity and rendered page review before publication
+- full Vitest CI suite, including the new environment regression
+- production Vite build
 
-The documentation-only acceptance closeout does not change runtime code or asset bytes.
+GitHub Pages configuration, artifact upload, and deployment were correctly skipped because this is still an unmerged pull-request candidate.
+
+The candidate has therefore passed the automated code/build gate but has **not** passed visual or performance acceptance. A production deployment and product-owner desktop/mobile playtest remain required before the environment pass can be called complete.
 
 ## Active production roster state
 
@@ -103,36 +119,54 @@ The documentation-only acceptance closeout does not change runtime code or asset
 - Accu / Pink Precision — AA-11
 - Jennifer / The Hearthwarden — AA-12
 
-Cleo / The Gilded Stitch remains archived and inactive. AA-01 and AA-06 remain governed placeholders available for future approved assignments. The twelve-slot Character Select architecture remains intact.
+Cleo / The Gilded Stitch remains archived and inactive. AA-01 and AA-06 remain governed placeholders. The twelve-slot Character Select architecture remains intact.
 
 ## Completed requirements and acceptance criteria
 
-- Jennifer identity, source authority, kart direction, AA-12 mapping, portrait, complete ten-frame driver set, deterministic 2D normalization, Hearthwarden geometry, runtime integration, cockpit placement, publication, deployment, and desktop/mobile live acceptance are complete.
-- All ten active production drivers have the complete shared camera-facing/chase-facing driver-state contract required by amendment 2.0.
-- The product/repository/Pages rebrand defined by amendment 2.1 is deployed and product-owner accepted.
-- Existing previously live-accepted gameplay, character, and asset checkpoints remain unchanged by this release.
+- Jennifer / The Hearthwarden remains fully live accepted.
+- All ten active production drivers retain their complete shared chase-facing and camera-facing action-state contract.
+- The Manaconda's Minigame Mayhem product/repository/Pages rebrand remains live accepted.
+- Existing live-accepted gameplay, physics, AI, minimap, driver, kart, and surface checkpoints are unchanged by the Circuit Alpha candidate.
+- Candidate 1 satisfies its automated visual-scene composition and topology-preservation checks.
 
 ## Known defects / unresolved issues
 
-No defect is recorded from Manny's Jennifer/rebrand live-acceptance pass.
+No automated defect is recorded against Candidate 1.
 
-The existing production-build large-chunk warning remains known and non-blocking. Repository-wide Prettier history includes unrelated pre-existing formatting debt recorded in the prior status snapshot; it was not introduced by the Jennifer/rebrand release.
+The existing production-build large-chunk warning remains known and non-blocking.
+
+The environment-art pass has not yet been viewed in a deployed race. Potential visual issues such as scale, occlusion, roadside clutter, landmark placement, lighting balance, mobile readability, or runtime frame cost remain unresolved until live testing.
 
 ## Deferred work
 
+- Publication and live acceptance of Circuit Alpha Candidate 1 are pending Manny approval.
+- No new external PBR texture set, HDR environment, baked AO asset, post-processing stack, or authored track GLB is part of Candidate 1.
 - AA-01 and AA-06 character assignments remain unfilled.
-- Items remain Slice 5 work and are not authorized by this closeout.
-- Remaining Slice 6 presentation/audio/optimization work stays governed by the PRD and existing completion evidence.
-- Any future avatar intake must follow the one-character approval contract unless Manny explicitly approves a different batch process.
+- Items remain Slice 5 work and are not authorized by this pass.
+- Other Slice 6 presentation/audio/optimization work remains outside this bounded increment.
 
 ## Next recommended action
 
-**Stop at the approval boundary.** Jennifer and the rebrand require no further acceptance work.
+**Stop at the publication gate.**
 
-The next implementation action should be selected explicitly by Manny: either begin another Slice 3 character intake for AA-01 or AA-06, or approve a different PRD-defined scope. Do not silently advance to Slice 5 or materially reorder the roadmap.
+If Manny approves Candidate 1 for publication, merge PR #78, verify the resulting `main` validation and GitHub Pages deployment, then conduct desktop/mobile visual and performance playtesting of the live build.
+
+The live review should specifically evaluate:
+
+- dusk sky and horizon depth
+- road, shoulder, racing-wear, curb, and reflector readability at speed
+- trackside vegetation/rock density without visual obstruction
+- center mesa silhouette and route-orientation value
+- start/finish gantry scale
+- underpass clearance and lighting transition
+- boost-pad and Crest Ramp readability
+- checkpoint/landmark visual language
+- eight-racer frame pacing and any mobile performance regression
+
+Do not declare the environment pass complete from CI alone.
 
 ## Approval state
 
-**Jennifer + rebrand checkpoint: LIVE ACCEPTED / CLOSED.**
+**Circuit Alpha environment Candidate 1: AUTOMATED VALIDATION PASSED / PUBLICATION PENDING.**
 
-Further implementation requires a new product-owner direction or approval gate.
+The project roadmap remains at Slice 3. PR #78 must not merge until Manny explicitly authorizes publication for live visual playtesting.
