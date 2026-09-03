@@ -47,7 +47,7 @@ Stat order is Speed / Acceleration / Weight / Handling / Mini-Turbo / Traction.
 
 ## Front-action rollout checkpoint
 
-Manny approved Lula and Accu's four-frame camera-facing action packages on 2026-09-03. Their AA-03 and AA-11 mappings, stats, karts, and approval dates remain unchanged. The eight approved PNGs are locally integrated under `lula-runtime-20260903-3` and `accu-runtime-20260903-3`; publication and live acceptance remain gated.
+Manny approved Lula and Accu's four-frame camera-facing action packages, then accepted the deployed desktop/mobile result on 2026-09-03. Their AA-03 and AA-11 mappings, stats, karts, and approval dates remain unchanged. The eight PNGs are live accepted under `lula-runtime-20260903-3` and `accu-runtime-20260903-3`. All nine active production drivers now meet the front-action runtime contract.
 
 ## Locked mapping rationale
 

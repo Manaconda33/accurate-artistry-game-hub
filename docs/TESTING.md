@@ -285,13 +285,13 @@ Keeg and McFleurdel live acceptance passed on 2026-09-01 against deployed checkp
 
 Lavi and Toph live acceptance passed. Their eight deployed source hashes, controlled revisions, PNG decoding, transparent corners, and modeled-wheel ownership passed. Manny accepted Toph at `[0, 0.45, -0.12]` on 2026-09-02, then accepted Lavi's corrected `[0, 0.9, -0.12]` camera-facing placement on 2026-09-03. Both drivers pass steering-left, steering-right, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation.
 
-Lula and Accu are the final front-action batch. Manny approved all eight candidates on 2026-09-03. The locally integrated files preserve commanded-direction separation, forward-seated body orientation, identity locks, transparent corners and internal gaps, and modeled-wheel ownership without adding kart pixels. Lula retains `[0, 0.45, -0.12]`; Accu retains `[0, 0.9, 0.22]` and Pink Precision's front-only modeled-wheel position `[0, 1.46, -0.46]`.
+Lula and Accu are the final front-action batch. Manny approved all eight candidates and the deployed desktop/mobile result on 2026-09-03. The live files preserve commanded-direction separation, forward-seated body orientation, identity locks, transparent corners and internal gaps, and modeled-wheel ownership without adding kart pixels. Lula retains `[0, 0.45, -0.12]`; Accu retains `[0, 0.9, 0.22]` and Pink Precision's front-only modeled-wheel position `[0, 1.46, -0.46]`.
 
 PR #73 head run `33708240532` and main run `33708310011` passed. The merged checkpoint is `735da4015bca6f9610f6a358672804f4c73b35f9`. The live `assets/index-D84iBLTd.js` bundle exposes both controlled revisions and all eight action paths; all eight deployed PNG responses match the approved SHA-256 values. The runtime gate decodes 72 production PNGs. Review exports, discarded candidates, and Python caches remain outside the repository.
 
 The 2026-09-03 local checkpoint passed `npm run validate`: strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized GLBs, 72 decoded PNGs, and a production Vite build. The source and built hashes match for all eight new frames, and the bundle contains both new revisions and all eight paths.
 
-Live acceptance requires one desktop and one mobile race with Accu plus at least three different production AI identities. Exercise rear view, observe both steering directions, make player-to-AI and AI-to-AI contact, and finish the race. Confirm correct frames, clean transparency, cockpit depth, and recovery to the neutral state.
+Live acceptance passed on 2026-09-03 against checkpoint `95fcf26fb699065cd9082951b3e8a3e18790e8a2`. Manny confirmed Lula and Accu's steering-left, steering-right, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation. This closes the front-facing action-state rollout for all nine active production drivers.
 
 ## Manaconda / Wayfinder manual matrix
 

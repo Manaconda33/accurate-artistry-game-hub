@@ -60,6 +60,8 @@ Final candidate checkpoint, September 3, 2026: Manny approved Lula's four camera
 
 Deployment checkpoint, September 3, 2026: Manny authorized publication after local validation. PR #73 merged the eight approved frames at `735da4015bca6f9610f6a358672804f4c73b35f9`; main run `33708310011` passed validation and GitHub Pages deployment. The live bundle references both controlled revisions and all eight action paths, and every deployed PNG hash matches the approved source. Product-owner desktop/mobile live acceptance is the remaining gate.
 
+Final rollout acceptance, September 3, 2026: Manny approved Lula and Accu after testing the deployed camera-facing action package. Both drivers pass steering-left, steering-right, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation on desktop/mobile. All nine active production drivers now have live-accepted front-facing action states. The rollout is complete; new asset or gameplay work requires a separately approved PRD scope.
+
 # Contents
 
 - 1\. Document Control
