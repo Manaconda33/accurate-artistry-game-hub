@@ -12,7 +12,7 @@
 - Portrait runtime derivative: Normalized and validated, 2026-09-03
 - Ten driver-state designs: Approved by Manny, normalized, and validated, 2026-09-03
 - Kart GLB geometry: Candidate 2 approved and prepared, 2026-09-03
-- Runtime activation: Locally integrated under `jennifer-runtime-20260903-1`; publication pending
+- Runtime activation: Locally integrated under `jennifer-runtime-20260903-2`; publication pending
 
 ## Approved visual authority
 
@@ -68,9 +68,9 @@ Manny approved Candidate 2 on 2026-09-03. The model uses a constructed pear-wood
 
 | Runtime path                                   | LOD  | Triangles | SHA-256                                                            |
 | ---------------------------------------------- | ---- | --------: | ------------------------------------------------------------------ |
-| `public/assets/characters/aa-12/kart.glb`      | LOD0 |    14,220 | `2e787f1acef4fae95d12833424bb93939b3803233c40c51ed03d7c6e4ec18277` |
-| `public/assets/characters/aa-12/kart-lod1.glb` | LOD1 |     8,604 | `420461571b7bfb9202c91c94b0513d40dc933ba63796051bb14c7904468891d9` |
-| `public/assets/characters/aa-12/kart-lod2.glb` | LOD2 |     4,156 | `d139dbc9e263ad1090b208d217bc61df15d194a7f7d7b9025b131df1bd48d207` |
+| `public/assets/characters/aa-12/kart.glb`      | LOD0 |    14,220 | `0415224b88770726152a3313b6e0fc517a626a6167558af7a6ccbd836b13f3f0` |
+| `public/assets/characters/aa-12/kart-lod1.glb` | LOD1 |     8,604 | `545d22ab7f17a17fa14bdb6281db80ac070af159f0a700a57a3694f828e880a8` |
+| `public/assets/characters/aa-12/kart-lod2.glb` | LOD2 |     4,156 | `ff7cf64b9eb06defd47d708cf88dfd7780814d9a20d89ac967bc79c8d0baeeb9` |
 
 All three GLBs use four materials, the required thirteen-node hierarchy, exactly one `SteeringWheel` node, and `extras.forward: "-Z"`. Byte-identical reruns passed for LOD0 and LOD2. `tools/assets/build_jennifer_hearthwarden.py` is the deterministic source.
 
@@ -84,6 +84,6 @@ This package reached approval in two candidates. The short review cycle came fro
 - Current controlled asset revision in the character manifest
 - Runtime-asset gate coverage for every PNG and GLB
 
-All required outputs are present under controlled revision `jennifer-runtime-20260903-1`. Publication and live acceptance remain gated.
+All required outputs are present under controlled revision `jennifer-runtime-20260903-2`. Publication and live acceptance remain gated.
 
 The local integration gate passes strict typecheck, zero-warning lint, 16 Vitest files / 84 tests, 30 materialized GLBs, 83 decoded runtime PNGs, and the production build.

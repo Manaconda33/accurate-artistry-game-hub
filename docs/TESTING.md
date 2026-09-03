@@ -200,7 +200,7 @@ Run this matrix for every future production character, in addition to its slice-
 - LOD0, LOD1, and LOD2 remain within 25,000, 12,000, and 5,000 triangles while preserving the required thirteen-node hierarchy and one `SteeringWheel` node.
 - Direct GLB review confirms that the tree-of-life medallion intersects its central pear-wood boss and paired bronze braces, and that every rear herb stem enters its remedy box.
 - The kart-right dog perch, kart-left staff rack, wide tires, open cockpit, woven side panels, and rear exhausts remain attached at every LOD.
-- All ten driver states load from `jennifer-runtime-20260903-1`; every frame is wheel-free and keeps the Newfoundland on Jennifer's physical right.
+- All ten driver states load from `jennifer-runtime-20260903-2`; every frame is wheel-free and keeps the Newfoundland on Jennifer's physical right.
 - `NEGATIVE_Z_KART_VISUAL_YAW` keeps the tree-of-life medallion at the race-forward nose and the remedy cargo behind Jennifer.
 - Chase-facing position `[0, 0.92, -0.12]` seats Jennifer behind the rear structure without hiding her head, shoulders, or dog.
 - Camera-facing position `[0, 0.84, -0.12]` and modeled-wheel position `[0, 1.86, -0.42]` place The Hearthwarden's single wheel between Jennifer's hands without covering her face.

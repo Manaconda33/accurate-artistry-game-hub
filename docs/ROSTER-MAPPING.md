@@ -51,7 +51,7 @@ Manny approved Lula and Accu's four-frame camera-facing action packages, then ac
 
 ## Local integration checkpoint
 
-Jennifer's character lock, definitive reference, transformation rights, The Hearthwarden kart lock, and AA-12 All-Surface Heavy mapping were approved on 2026-09-03. The complete approved asset package is locally active in `characterManifest` under `jennifer-runtime-20260903-1`; publication and live acceptance remain pending. AA-01 and AA-06 remain available.
+Jennifer's character lock, definitive reference, transformation rights, The Hearthwarden kart lock, and AA-12 All-Surface Heavy mapping were approved on 2026-09-03. The complete approved asset package is locally active in `characterManifest` under `jennifer-runtime-20260903-2`; publication and live acceptance remain pending. AA-01 and AA-06 remain available.
 
 ## Locked mapping rationale
 

@@ -55,7 +55,7 @@ export const KEEG_ASSET_REVISION = 'keeg-runtime-20260901-3';
 export const MCFLEURDEL_ASSET_REVISION = 'mcfleurdel-runtime-20260901-2';
 export const TOPH_ASSET_REVISION = 'toph-runtime-20260902-2';
 export const LULA_ASSET_REVISION = 'lula-runtime-20260903-3';
-export const JENNIFER_ASSET_REVISION = 'jennifer-runtime-20260903-1';
+export const JENNIFER_ASSET_REVISION = 'jennifer-runtime-20260903-2';
 
 const assetUrl = (path: string, revision: string): string =>
   `${import.meta.env.BASE_URL}${path}?v=${revision}`;
