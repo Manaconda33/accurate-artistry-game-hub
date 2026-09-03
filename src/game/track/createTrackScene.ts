@@ -461,7 +461,8 @@ function createCenterMesa(): THREE.Group {
 }
 
 function createStartFinishGate(track: CircuitAlpha): THREE.Group {
-  const pose = poseAt(track, 0);
+  const visualProgress = 22 / track.curve.getLength();
+  const pose = poseAt(track, visualProgress);
   const gate = new THREE.Group();
   gate.name = 'start-finish-gate';
   gate.position.copy(pose.point);
@@ -619,24 +620,58 @@ function createBoostPad(track: CircuitAlpha, progress: number): THREE.Group {
 }
 
 function createRamp(track: CircuitAlpha): THREE.Group {
-  const pose = poseAt(track, 0.5, 0, 0.1);
+  const pose = poseAt(track, 0.5, 0, 0.04);
   const ramp = new THREE.Group();
   ramp.name = 'crest-ramp-visual';
   ramp.position.copy(pose.point);
   ramp.rotation.y = pose.yaw;
-  ramp.rotation.x = -THREE.MathUtils.degToRad(7);
 
-  const base = new THREE.Mesh(
-    new THREE.BoxGeometry(5.75, 0.22, 9),
+  const width = 5;
+  const length = 9.5;
+  const halfWidth = width / 2;
+  const halfLength = length / 2;
+  const lowHeight = 0.08;
+  const highHeight = 1.3;
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute(
+    'position',
+    new THREE.Float32BufferAttribute(
+      [
+        -halfWidth, 0, -halfLength,
+        halfWidth, 0, -halfLength,
+        -halfWidth, 0, halfLength,
+        halfWidth, 0, halfLength,
+        -halfWidth, lowHeight, -halfLength,
+        halfWidth, lowHeight, -halfLength,
+        -halfWidth, highHeight, halfLength,
+        halfWidth, highHeight, halfLength,
+      ],
+      3,
+    ),
+  );
+  geometry.setIndex([
+    0, 2, 1, 1, 2, 3,
+    4, 5, 6, 5, 7, 6,
+    0, 1, 4, 1, 5, 4,
+    2, 6, 3, 3, 6, 7,
+    0, 4, 2, 4, 6, 2,
+    1, 3, 5, 3, 7, 5,
+  ]);
+  geometry.computeVertexNormals();
+  geometry.computeBoundingBox();
+
+  const deck = new THREE.Mesh(
+    geometry,
     new THREE.MeshStandardMaterial({
       color: 0x5e4931,
       roughness: 0.72,
       metalness: 0.18,
     }),
   );
-  base.name = 'crest-ramp-deck';
-  base.receiveShadow = true;
-  ramp.add(base);
+  deck.name = 'crest-ramp-deck';
+  deck.receiveShadow = true;
+  deck.castShadow = true;
+  ramp.add(deck);
 
   const railMaterial = new THREE.MeshStandardMaterial({
     color: COLORS.gold,
@@ -645,11 +680,24 @@ function createRamp(track: CircuitAlpha): THREE.Group {
     roughness: 0.38,
     metalness: 0.3,
   });
+  const rise = highHeight - lowHeight;
+  const slope = Math.atan2(rise, length);
+  const railLength = Math.hypot(length, rise) + 0.08;
   for (const side of [-1, 1]) {
-    const rail = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.18, 9.1), railMaterial);
-    rail.position.set(side * 2.62, 0.18, 0);
+    const rail = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.18, railLength), railMaterial);
+    rail.position.set(side * (halfWidth - 0.12), (lowHeight + highHeight) / 2 + 0.1, 0);
+    rail.rotation.x = -slope;
     ramp.add(rail);
   }
+
+  const approachLip = new THREE.Mesh(
+    new THREE.BoxGeometry(width, 0.12, 0.28),
+    railMaterial,
+  );
+  approachLip.name = 'crest-ramp-approach-edge';
+  approachLip.position.set(0, lowHeight + 0.05, -halfLength + 0.14);
+  ramp.add(approachLip);
+
   return ramp;
 }
 
