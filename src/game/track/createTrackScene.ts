@@ -627,13 +627,14 @@ function createRamp(track: CircuitAlpha): THREE.Group {
   ramp.rotation.x = -THREE.MathUtils.degToRad(7);
 
   const base = new THREE.Mesh(
-    new THREE.BoxGeometry(9, 0.22, 5.75),
+    new THREE.BoxGeometry(5.75, 0.22, 9),
     new THREE.MeshStandardMaterial({
       color: 0x5e4931,
       roughness: 0.72,
       metalness: 0.18,
     }),
   );
+  base.name = 'crest-ramp-deck';
   base.receiveShadow = true;
   ramp.add(base);
 
@@ -645,8 +646,8 @@ function createRamp(track: CircuitAlpha): THREE.Group {
     metalness: 0.3,
   });
   for (const side of [-1, 1]) {
-    const rail = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.18, 5.85), railMaterial);
-    rail.position.set(side * 4.25, 0.18, 0);
+    const rail = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.18, 9.1), railMaterial);
+    rail.position.set(side * 2.62, 0.18, 0);
     ramp.add(rail);
   }
   return ramp;
