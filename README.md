@@ -74,7 +74,7 @@ The `src/game/` directories reserve PRD-defined system boundaries. Their presenc
 ## Project source of truth
 
 - [Approved implementation PRD](docs/PRD.md)
-- [Word PRD v1.1](docs/Accurate_Artistry_Game_Hub_PRD_v1.1.docx)
+- [Word PRD v1.1](docs/Manacondas_Minigame_Mayhem_PRD_v1.1.docx)
 - [Architecture decisions](docs/DECISIONS.md)
 - [Current implementation status](docs/IMPLEMENTATION-STATUS.md)
 - [Testing and evidence requirements](docs/TESTING.md)
