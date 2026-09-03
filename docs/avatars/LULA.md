@@ -10,6 +10,7 @@
 - 2D design package: Portrait, front, rear, steer-left, steer-right, hit, and corrected victory approved by Manny, 2026-08-29
 - 3D kart geometry: Candidate 4 approved by Manny, 2026-08-29
 - Runtime activation: Deployed and live accepted, 2026-08-30
+- Front-action rollout: Candidate preparation authorized by Manny, 2026-09-03
 
 ## Character lock
 
@@ -37,3 +38,7 @@ The profile gives Lula quick recovery, responsive control, and strong off-road g
 ## Live acceptance
 
 The initial live package exposed opaque white background islands and hair-edge ribbons that the original edge-connected checkerboard cleanup had missed. The deterministic `repair_lula_alpha.py` correction removes enclosed neutral background components and neighboring pale spill while protecting small face/eye highlights. Package review also found that the five chase-camera states had drifted to saturated orange skin; `repair_lula_skin_tone.py` constrains their exposed skin to the approved portrait/front complexion with no non-skin or alpha changes. Manny confirmed both repairs in the `514113e` mobile build. Main checkpoint `ef74ca9eabb2a242c02d35d72c55377ee9b5529c` then applied the accepted front-only `[0, 0.45, -0.12]` placement override. Manny confirmed the live mobile result on 2026-08-30; Lula's full production package is accepted.
+
+## Front-action rollout
+
+Prepare front-steer-left, front-steer-right, front-hit, and front-victory from Lula's approved neutral front and this character lock. Preserve her approved complexion, green hair, leaf forehead mark, seated footprint, wheel-free driver art, and front placement `[0, 0.45, -0.12]`. Candidate files remain outside runtime paths until Manny approves the four-frame package.
