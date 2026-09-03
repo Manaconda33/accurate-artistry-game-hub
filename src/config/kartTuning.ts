@@ -45,9 +45,17 @@ function normalizedStat(value: number): number {
   return (value - 1) / 9;
 }
 
+function clamp01(value: number): number {
+  return Math.min(1, Math.max(0, value));
+}
+
+function lerp(from: number, to: number, amount: number): number {
+  return from + (to - from) * amount;
+}
+
 export function createKartTuning(stats: DriverStats): KartTuning {
   return {
-    // Candidate B keeps the accepted Speed-7 ceiling at 29.5 m/s while
+    // Candidate B/C keeps the accepted Speed-7 ceiling at 29.5 m/s while
     // compressing the full Speed 1-10 spread to 3 m/s. Speed remains the
     // authoritative sustained straight-line stat without overwhelming the
     // other five equal-budget attributes on Circuit Alpha.
@@ -66,11 +74,60 @@ export function handlingCornerSpeedMultiplier(
 ): number {
   const handlingN = normalizedStat(handling);
   const severity = Math.min(1, Math.max(0, (Math.abs(steeringMagnitude) - 0.18) / 0.82));
-  // Candidate B makes Handling a real pace stat in technical sections while
+  // Candidate B/C makes Handling a real pace stat in technical sections while
   // leaving straight-line ceilings unchanged. At full steering demand the
   // governed speed loss spans 25% at Handling 1 to 5% at Handling 10.
   const fullSteerLoss = 0.25 - 0.2 * handlingN;
   return 1 - fullSteerLoss * severity * severity;
+}
+
+export function aiCornerTargetSpeed(
+  characterMaxSpeed: number,
+  pace: number,
+  corner: number,
+  speedLimitMultiplier: number,
+  handling: number,
+): number {
+  const baseCornerPenalty = lerp(0.48, 0.34, clamp01(pace));
+  // Candidate C makes AI braking use the same character Handling stat owned by
+  // the kart controller. Low Handling brakes earlier; high Handling is allowed
+  // to exploit more of the sustainable corner speed available to that kart.
+  const handlingPenaltyFactor = lerp(1.2, 0.72, clamp01(normalizedStat(handling)));
+  const cornerPenalty = baseCornerPenalty * handlingPenaltyFactor;
+  return (
+    characterMaxSpeed *
+    (1 - clamp01(corner) * cornerPenalty) *
+    Math.min(1.04, Math.max(1, speedLimitMultiplier))
+  );
+}
+
+export function aiRequestedDriftTier(
+  steering: number,
+  speed: number,
+  aggression: number,
+  miniTurbo: number,
+): DriftBoostTier | undefined {
+  const steeringMagnitude = Math.abs(steering);
+  const turboN = clamp01(normalizedStat(miniTurbo));
+  // High Mini-Turbo racers deliberately seek more drift opportunities instead
+  // of only receiving a better reward after some other AI rule chose to drift.
+  const minimumSpeed = lerp(13, 9.5, turboN);
+  const steeringGate = lerp(0.68, 0.54, turboN);
+  const aggressionGate = lerp(0.38, 0.18, turboN);
+  const effectiveAggression = clamp01(aggression + 0.18 * turboN);
+  if (
+    speed <= minimumSpeed ||
+    steeringMagnitude <= steeringGate ||
+    effectiveAggression <= aggressionGate
+  ) {
+    return undefined;
+  }
+
+  const purpleSteering = lerp(0.82, 0.74, turboN);
+  const orangeSteering = lerp(0.72, 0.64, turboN);
+  if (steeringMagnitude >= purpleSteering && effectiveAggression >= 0.48) return 'purple';
+  if (steeringMagnitude >= orangeSteering && effectiveAggression >= 0.36) return 'orange';
+  return 'blue';
 }
 
 export function surfaceSpeedMultiplier(surface: SurfaceType, traction: number): number {
