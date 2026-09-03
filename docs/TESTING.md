@@ -285,7 +285,11 @@ Keeg and McFleurdel live acceptance passed on 2026-09-01 against deployed checkp
 
 Lavi and Toph live acceptance passed. Their eight deployed source hashes, controlled revisions, PNG decoding, transparent corners, and modeled-wheel ownership passed. Manny accepted Toph at `[0, 0.45, -0.12]` on 2026-09-02, then accepted Lavi's corrected `[0, 0.9, -0.12]` camera-facing placement on 2026-09-03. Both drivers pass steering-left, steering-right, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation.
 
-Lula and Accu are the authorized final candidate batch. Before candidate approval, compare all four frames for each driver against the approved neutral front and character record. Verify commanded-direction separation, seated body orientation, identity locks, transparent corners and internal gaps, no kart pixels, and no duplicate steering wheel. Lula retains wheel-free driver art and `[0, 0.45, -0.12]`; Accu retains `[0, 0.9, 0.22]` and Pink Precision's modeled front wheel. No candidate may enter a runtime path before Manny's visual approval.
+Lula and Accu are the final front-action batch. Manny approved all eight candidates on 2026-09-03. The locally integrated files preserve commanded-direction separation, forward-seated body orientation, identity locks, transparent corners and internal gaps, and modeled-wheel ownership without adding kart pixels. Lula retains `[0, 0.45, -0.12]`; Accu retains `[0, 0.9, 0.22]` and Pink Precision's front-only modeled-wheel position `[0, 1.46, -0.46]`.
+
+Before publication, confirm that the manifest exposes ten revisioned driver states for both characters, all eight new source and built PNG hashes match, and the runtime gate decodes 72 production PNGs. Review exports, discarded candidates, and Python caches must remain outside the repository.
+
+The 2026-09-03 local checkpoint passed `npm run validate`: strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized GLBs, 72 decoded PNGs, and a production Vite build. The source and built hashes match for all eight new frames, and the bundle contains both new revisions and all eight paths.
 
 Live acceptance requires one desktop and one mobile race with Accu plus at least three different production AI identities. Exercise rear view, observe both steering directions, make player-to-AI and AI-to-AI contact, and finish the race. Confirm correct frames, clean transparency, cockpit depth, and recovery to the neutral state.
 

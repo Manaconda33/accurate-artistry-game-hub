@@ -243,10 +243,22 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 ## ADR-042: Start the Lula and Accu front-action batch
 
 - **Date:** 2026-09-03
-- **Status:** Approved for candidate preparation
+- **Status:** Completed
 - **Context:** Lavi and Toph passed live acceptance. Lula and Accu are the only active production drivers still using the neutral-front fallback for camera-facing steering, hit, and victory.
 - **Decision:** Prepare four camera-facing action candidates for Lula, then four for Accu. Each package must derive from the approved front-facing identity and retain the character's existing placement and steering-control ownership.
 - **Character constraints:** Lula retains her approved complexion, green hair, leaf forehead mark, seated footprint, wheel-free driver art, and `[0, 0.45, -0.12]` front placement. Accu retains her pink-hat silhouette, two-tone pink hair, heart-pattern top, seated orientation, `[0, 0.9, 0.22]` front placement, and Pink Precision's modeled front wheel.
 - **Scope:** Candidate preparation only. Existing runtime PNGs, kart GLBs, manifest revisions, gameplay code, physics, stats, cameras, and previously accepted drivers remain unchanged.
 - **Approval gate:** Manny must approve each driver's four-frame candidate package before runtime integration. Publishing runtime assets, deploying them, and recording live acceptance remain separate gates.
-- **Approval:** Manny directed the project to move onto Lula and Accu on 2026-09-03.
+- **Approval:** Manny directed the project to move onto Lula and Accu on 2026-09-03, approved Lula's four-frame review set, then approved Accu's set and authorized local integration.
+
+## ADR-043: Integrate the approved Lula and Accu front-action packages
+
+- **Date:** 2026-09-03
+- **Status:** Approved for local integration; publication pending
+- **Context:** Manny approved all eight camera-facing action frames in the final rollout batch. Lula and Accu are the last active production drivers on the neutral-front action fallback.
+- **Decision:** Add each driver's front-steer-left, front-steer-right, front-hit, and front-victory files to the ten-state runtime contract. Use controlled revisions `lula-runtime-20260903-3` and `accu-runtime-20260903-3`.
+- **Character constraints:** Lula keeps `[0, 0.45, -0.12]` and The Verdant Hart's modeled wheel. Accu keeps `[0, 0.9, 0.22]`, the front-only modeled-wheel position `[0, 1.46, -0.46]`, and Pink Precision's modeled wheel. None of the eight sprites contains a wheel or kart geometry.
+- **Scope:** Eight PNGs, their manifest URLs, runtime-asset validation, manifest tests, and governed records. Kart GLBs, chase art, neutral fronts, gameplay logic, physics, stats, camera geometry, and previously accepted packages remain unchanged.
+- **Verification:** Local validation passed with 16 test files / 83 tests, 72 decoded runtime PNGs, 27 materialized GLBs, matching source/build hashes, and both revision strings plus all eight new paths in the production bundle.
+- **Approval gate:** Manny's candidate approval authorizes local integration. Publication, PR merge, deployment, and live acceptance require later approval.
+- **Approval:** Manny approved Accu's four-frame review set on 2026-09-03 after approving Lula's set.

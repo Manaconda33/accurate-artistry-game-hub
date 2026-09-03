@@ -171,6 +171,10 @@ const lulaProtectedRects = {
   'portrait.png': [82, 66, 180, 170],
   'front.png': [205, 55, 310, 185],
   'victory.png': [300, 82, 400, 205],
+  'front-steer-left.png': [280, 45, 395, 165],
+  'front-steer-right.png': [105, 40, 235, 165],
+  'front-hit.png': [270, 40, 390, 165],
+  'front-victory.png': [210, 45, 325, 175],
 };
 
 const runtimePngs = [
@@ -198,6 +202,10 @@ const runtimePngs = [
   ['public/assets/characters/aa-11/driver/steer-right.png', 512, 512],
   ['public/assets/characters/aa-11/driver/hit.png', 512, 512],
   ['public/assets/characters/aa-11/driver/victory.png', 512, 512],
+  ['public/assets/characters/aa-11/driver/front-steer-left.png', 512, 512],
+  ['public/assets/characters/aa-11/driver/front-steer-right.png', 512, 512],
+  ['public/assets/characters/aa-11/driver/front-hit.png', 512, 512],
+  ['public/assets/characters/aa-11/driver/front-victory.png', 512, 512],
   ['public/assets/characters/aa-04/portrait.png', 256, 256],
   ['public/assets/characters/aa-04/driver/front.png', 512, 512],
   ['public/assets/characters/aa-04/driver/rear.png', 512, 512],
@@ -238,6 +246,10 @@ const runtimePngs = [
   ['public/assets/characters/aa-03/driver/steer-right.png', 512, 512],
   ['public/assets/characters/aa-03/driver/hit.png', 512, 512],
   ['public/assets/characters/aa-03/driver/victory.png', 512, 512],
+  ['public/assets/characters/aa-03/driver/front-steer-left.png', 512, 512],
+  ['public/assets/characters/aa-03/driver/front-steer-right.png', 512, 512],
+  ['public/assets/characters/aa-03/driver/front-hit.png', 512, 512],
+  ['public/assets/characters/aa-03/driver/front-victory.png', 512, 512],
 ];
 
 const newTransparentFronts = new Set([
@@ -272,6 +284,14 @@ const newTransparentFronts = new Set([
   'public/assets/characters/aa-08/driver/front-hit.png',
   'public/assets/characters/aa-08/driver/front-victory.png',
   'public/assets/characters/aa-11/driver/front.png',
+  'public/assets/characters/aa-11/driver/front-steer-left.png',
+  'public/assets/characters/aa-11/driver/front-steer-right.png',
+  'public/assets/characters/aa-11/driver/front-hit.png',
+  'public/assets/characters/aa-11/driver/front-victory.png',
+  'public/assets/characters/aa-03/driver/front-steer-left.png',
+  'public/assets/characters/aa-03/driver/front-steer-right.png',
+  'public/assets/characters/aa-03/driver/front-hit.png',
+  'public/assets/characters/aa-03/driver/front-victory.png',
 ]);
 
 const kriosHornApertureFronts = new Set([

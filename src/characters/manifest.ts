@@ -47,14 +47,14 @@ export const NEGATIVE_Z_KART_VISUAL_YAW = Math.PI;
 
 export const LAVI_ASSET_REVISION = 'lavi-runtime-20260902-5';
 export const MANACONDA_ASSET_REVISION = 'manaconda-runtime-20260901-3';
-export const ACCU_ASSET_REVISION = 'accu-runtime-20260831-2';
+export const ACCU_ASSET_REVISION = 'accu-runtime-20260903-3';
 export const KRAKEN_ASSET_REVISION = 'kraken-runtime-20260901-2';
 export const CLEO_ASSET_REVISION = 'cleo-runtime-20260821-1';
 export const KRIOS_ASSET_REVISION = 'krios-runtime-20260901-2';
 export const KEEG_ASSET_REVISION = 'keeg-runtime-20260901-3';
 export const MCFLEURDEL_ASSET_REVISION = 'mcfleurdel-runtime-20260901-2';
 export const TOPH_ASSET_REVISION = 'toph-runtime-20260902-2';
-export const LULA_ASSET_REVISION = 'lula-runtime-20260830-2';
+export const LULA_ASSET_REVISION = 'lula-runtime-20260903-3';
 
 const assetUrl = (path: string, revision: string): string =>
   `${import.meta.env.BASE_URL}${path}?v=${revision}`;
@@ -87,10 +87,7 @@ const lavi: CharacterDefinition = {
       LAVI_ASSET_REVISION,
     ),
     frontHit: assetUrl('assets/characters/aa-02/driver/front-hit.png', LAVI_ASSET_REVISION),
-    frontVictory: assetUrl(
-      'assets/characters/aa-02/driver/front-victory.png',
-      LAVI_ASSET_REVISION,
-    ),
+    frontVictory: assetUrl('assets/characters/aa-02/driver/front-victory.png', LAVI_ASSET_REVISION),
   },
   stats: { speed: 5, acceleration: 8, weight: 2, handling: 9, miniTurbo: 8, traction: 4 },
 };
@@ -156,6 +153,16 @@ const accu: CharacterDefinition = {
     steerRight: assetUrl('assets/characters/aa-11/driver/steer-right.png', ACCU_ASSET_REVISION),
     hit: assetUrl('assets/characters/aa-11/driver/hit.png', ACCU_ASSET_REVISION),
     victory: assetUrl('assets/characters/aa-11/driver/victory.png', ACCU_ASSET_REVISION),
+    frontSteerLeft: assetUrl(
+      'assets/characters/aa-11/driver/front-steer-left.png',
+      ACCU_ASSET_REVISION,
+    ),
+    frontSteerRight: assetUrl(
+      'assets/characters/aa-11/driver/front-steer-right.png',
+      ACCU_ASSET_REVISION,
+    ),
+    frontHit: assetUrl('assets/characters/aa-11/driver/front-hit.png', ACCU_ASSET_REVISION),
+    frontVictory: assetUrl('assets/characters/aa-11/driver/front-victory.png', ACCU_ASSET_REVISION),
   },
   stats: { speed: 8, acceleration: 4, weight: 10, handling: 3, miniTurbo: 5, traction: 6 },
 };
@@ -285,10 +292,7 @@ const keeg: CharacterDefinition = {
       KEEG_ASSET_REVISION,
     ),
     frontHit: assetUrl('assets/characters/aa-04/driver/front-hit.png', KEEG_ASSET_REVISION),
-    frontVictory: assetUrl(
-      'assets/characters/aa-04/driver/front-victory.png',
-      KEEG_ASSET_REVISION,
-    ),
+    frontVictory: assetUrl('assets/characters/aa-04/driver/front-victory.png', KEEG_ASSET_REVISION),
   },
   stats: { speed: 7, acceleration: 7, weight: 5, handling: 7, miniTurbo: 5, traction: 5 },
 };
@@ -322,10 +326,7 @@ const mcfleurdel: CharacterDefinition = {
       'assets/characters/aa-07/driver/front-steer-right.png',
       MCFLEURDEL_ASSET_REVISION,
     ),
-    frontHit: assetUrl(
-      'assets/characters/aa-07/driver/front-hit.png',
-      MCFLEURDEL_ASSET_REVISION,
-    ),
+    frontHit: assetUrl('assets/characters/aa-07/driver/front-hit.png', MCFLEURDEL_ASSET_REVISION),
     frontVictory: assetUrl(
       'assets/characters/aa-07/driver/front-victory.png',
       MCFLEURDEL_ASSET_REVISION,
@@ -362,10 +363,7 @@ const toph: CharacterDefinition = {
       TOPH_ASSET_REVISION,
     ),
     frontHit: assetUrl('assets/characters/aa-08/driver/front-hit.png', TOPH_ASSET_REVISION),
-    frontVictory: assetUrl(
-      'assets/characters/aa-08/driver/front-victory.png',
-      TOPH_ASSET_REVISION,
-    ),
+    frontVictory: assetUrl('assets/characters/aa-08/driver/front-victory.png', TOPH_ASSET_REVISION),
   },
   stats: { speed: 7, acceleration: 5, weight: 7, handling: 4, miniTurbo: 8, traction: 5 },
 };
@@ -389,6 +387,16 @@ const lula: CharacterDefinition = {
     steerRight: assetUrl('assets/characters/aa-03/driver/steer-right.png', LULA_ASSET_REVISION),
     hit: assetUrl('assets/characters/aa-03/driver/hit.png', LULA_ASSET_REVISION),
     victory: assetUrl('assets/characters/aa-03/driver/victory.png', LULA_ASSET_REVISION),
+    frontSteerLeft: assetUrl(
+      'assets/characters/aa-03/driver/front-steer-left.png',
+      LULA_ASSET_REVISION,
+    ),
+    frontSteerRight: assetUrl(
+      'assets/characters/aa-03/driver/front-steer-right.png',
+      LULA_ASSET_REVISION,
+    ),
+    frontHit: assetUrl('assets/characters/aa-03/driver/front-hit.png', LULA_ASSET_REVISION),
+    frontVictory: assetUrl('assets/characters/aa-03/driver/front-victory.png', LULA_ASSET_REVISION),
   },
   stats: { speed: 5, acceleration: 8, weight: 3, handling: 7, miniTurbo: 6, traction: 7 },
 };

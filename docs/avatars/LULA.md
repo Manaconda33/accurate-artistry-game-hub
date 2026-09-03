@@ -10,7 +10,7 @@
 - 2D design package: Portrait, front, rear, steer-left, steer-right, hit, and corrected victory approved by Manny, 2026-08-29
 - 3D kart geometry: Candidate 4 approved by Manny, 2026-08-29
 - Runtime activation: Deployed and live accepted, 2026-08-30
-- Front-action rollout: Candidate preparation authorized by Manny, 2026-09-03
+- Front-action rollout: Four-frame package approved by Manny and locally integrated, 2026-09-03
 
 ## Character lock
 
@@ -29,9 +29,9 @@ The profile gives Lula quick recovery, responsive control, and strong off-road g
 ## Runtime asset contract
 
 - Portrait: 256 × 256 transparent sRGBA PNG
-- Front, rear, steer-left, steer-right, hit, and victory: 512 × 512 transparent sRGBA PNG
+- Front, rear, steer-left, steer-right, hit, victory, front-steer-left, front-steer-right, front-hit, and front-victory: 512 × 512 transparent sRGBA PNG
 - Driver layers contain no kart, seat, or steering-wheel geometry
-- Runtime revision: `lula-runtime-20260830-2`
+- Runtime revision: `lula-runtime-20260903-3`
 - Candidate 4 produces deterministic LOD0/LOD1/LOD2 at 21,948 / 8,954 / 4,746 triangles
 - Every GLB provides 13 required nodes and `extras.forward: "-Z"`
 
@@ -41,4 +41,4 @@ The initial live package exposed opaque white background islands and hair-edge r
 
 ## Front-action rollout
 
-Prepare front-steer-left, front-steer-right, front-hit, and front-victory from Lula's approved neutral front and this character lock. Preserve her approved complexion, green hair, leaf forehead mark, seated footprint, wheel-free driver art, and front placement `[0, 0.45, -0.12]`. Candidate files remain outside runtime paths until Manny approves the four-frame package.
+Manny approved Lula's front-steer-left, front-steer-right, front-hit, and front-victory review set on 2026-09-03. The package preserves her approved complexion, green hair, leaf forehead mark, seated footprint, wheel-free driver art, and front placement `[0, 0.45, -0.12]`. The four files are locally integrated under `lula-runtime-20260903-3`; publication and live acceptance remain gated.

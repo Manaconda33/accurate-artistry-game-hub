@@ -45,6 +45,10 @@ Stat order is Speed / Acceleration / Weight / Handling / Mini-Turbo / Traction.
 | AA-11   | Collision Tank      | Heavyweight   | 8 / 4 / 10 / 3 / 5 / 6 | Assigned  | Accu       | Pink Precision       | Manny, 2026-08-20 |
 | AA-12   | All-Surface Heavy   | Heavyweight   | 8 / 5 / 8 / 4 / 4 / 7  | Available | -          | -                    | -                 |
 
+## Front-action rollout checkpoint
+
+Manny approved Lula and Accu's four-frame camera-facing action packages on 2026-09-03. Their AA-03 and AA-11 mappings, stats, karts, and approval dates remain unchanged. The eight approved PNGs are locally integrated under `lula-runtime-20260903-3` and `accu-runtime-20260903-3`; publication and live acceptance remain gated.
+
 ## Locked mapping rationale
 
 ### AA-03: Lula / The Verdant Hart
