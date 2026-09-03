@@ -8,6 +8,7 @@ import {
   KRAKEN_ASSET_REVISION,
   KEEG_ASSET_REVISION,
   KRIOS_ASSET_REVISION,
+  JENNIFER_ASSET_REVISION,
   MANACONDA_ASSET_REVISION,
   MCFLEURDEL_ASSET_REVISION,
   TOPH_ASSET_REVISION,
@@ -138,7 +139,7 @@ describe('character manifest', () => {
 
   it('keeps Cleo archived but removes her from the active roster', () => {
     const aa06 = characterById('aa-06');
-    expect(aa06.displayName).toBe('AA 06');
+    expect(aa06.displayName).toBe('Racer 06');
     expect(aa06.assetState).toBe('placeholder');
     expect(aa06.portrait).toBeUndefined();
     expect(aa06.kart).toBeUndefined();
@@ -383,6 +384,48 @@ describe('character manifest', () => {
       weight: 3,
       handling: 7,
       miniTurbo: 6,
+      traction: 7,
+    });
+  });
+
+  it('maps Jennifer to The Hearthwarden and the approved AA-12 profile', () => {
+    const jennifer = characterById('aa-12');
+    expect(jennifer.displayName).toBe('Jennifer');
+    expect(jennifer.descriptor).toBe('All-Surface Heavy');
+    expect(jennifer.assetState).toBe('production');
+    expect(jennifer.kartName).toBe('The Hearthwarden');
+    expect(jennifer.kart).toContain(
+      `/assets/characters/aa-12/kart.glb?v=${JENNIFER_ASSET_REVISION}`,
+    );
+    expect(jennifer.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(jennifer.driverSpritePosition).toEqual([0, 0.92, -0.12]);
+    expect(jennifer.frontDriverSpritePosition).toEqual([0, 0.84, -0.12]);
+    expect(jennifer.frontModeledSteeringControlPosition).toEqual([0, 1.86, -0.42]);
+    expect(jennifer.driverSpriteIncludesSteeringControl).toBeUndefined();
+    expect(jennifer.driver?.rear).toContain(`?v=${JENNIFER_ASSET_REVISION}`);
+    expect(jennifer.driver?.front).toContain(`?v=${JENNIFER_ASSET_REVISION}`);
+    expect(jennifer.driver?.steerLeft).toContain(`?v=${JENNIFER_ASSET_REVISION}`);
+    expect(jennifer.driver?.steerRight).toContain(`?v=${JENNIFER_ASSET_REVISION}`);
+    expect(jennifer.driver?.hit).toContain(`?v=${JENNIFER_ASSET_REVISION}`);
+    expect(jennifer.driver?.victory).toContain(`?v=${JENNIFER_ASSET_REVISION}`);
+    expect(jennifer.driver?.frontSteerLeft).toContain(
+      `/assets/characters/aa-12/driver/front-steer-left.png?v=${JENNIFER_ASSET_REVISION}`,
+    );
+    expect(jennifer.driver?.frontSteerRight).toContain(
+      `/assets/characters/aa-12/driver/front-steer-right.png?v=${JENNIFER_ASSET_REVISION}`,
+    );
+    expect(jennifer.driver?.frontHit).toContain(
+      `/assets/characters/aa-12/driver/front-hit.png?v=${JENNIFER_ASSET_REVISION}`,
+    );
+    expect(jennifer.driver?.frontVictory).toContain(
+      `/assets/characters/aa-12/driver/front-victory.png?v=${JENNIFER_ASSET_REVISION}`,
+    );
+    expect(jennifer.stats).toEqual({
+      speed: 8,
+      acceleration: 5,
+      weight: 8,
+      handling: 4,
+      miniTurbo: 4,
       traction: 7,
     });
   });

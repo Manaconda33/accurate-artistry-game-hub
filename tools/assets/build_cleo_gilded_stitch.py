@@ -323,7 +323,7 @@ def export_glb(parts):
     doc = {
         "asset": {
             "version": "2.0",
-            "generator": "Accurate Artistry procedural Gilded Stitch builder",
+            "generator": "Minigame Mayhem procedural Gilded Stitch builder",
         },
         "scene": 0,
         "scenes": [{"nodes": [0]}],

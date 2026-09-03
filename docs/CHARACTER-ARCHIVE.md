@@ -1,6 +1,6 @@
 # Character Archive
 
-This archive preserves retired Accurate Artistry character packages that are intentionally excluded from the active production roster but may be restored later with product-owner approval.
+This archive preserves retired Manaconda's Minigame Mayhem character packages that are intentionally excluded from the active production roster but may be restored later with product-owner approval.
 
 Archived character assets are not deleted, repurposed, or silently reassigned. Their historical approvals, deterministic builders, runtime derivatives, LFS objects, integration notes, and acceptance evidence remain durable in the repository. An archived character must not appear in Character Select or the AI roster unless a future approved change explicitly restores that character to the active manifest.
 

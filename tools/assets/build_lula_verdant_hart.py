@@ -203,7 +203,7 @@ def main():
     shared.LOD, shared.OUT, shared.PREVIEW = LOD, OUT, PREVIEW
     shared.TRANSLATIONS, shared.MATERIALS = TRANSLATIONS, MATERIALS
     shared.APPROVED_NAME = "The Verdant Hart"
-    shared.GENERATOR = "Accurate Artistry procedural Verdant Hart builder"
+    shared.GENERATOR = "Minigame Mayhem procedural Verdant Hart builder"
     shared.PREVIEW_TITLE, shared.CANDIDATE = "THE VERDANT HART", "4"
     shared.USE_VERTEX_COLORS = True
     shared.MATERIAL_TEXTURE_RGBA = shared.PREVIEW_MATERIAL_RGBA = None

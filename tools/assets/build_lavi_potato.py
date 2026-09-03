@@ -317,7 +317,7 @@ MATERIALS=[
 
 
 def export_glb(parts):
-    doc={"asset":{"version":"2.0","generator":"Accurate Artistry procedural Potato builder"},"scene":0,"scenes":[{"nodes":[0]}],"nodes":[],"meshes":[],"materials":MATERIALS,"buffers":[{}],"bufferViews":[],"accessors":[],"extras":{"lod":LOD,"forward":"-Z","units":"meters","approvedName":"Potato"}}
+    doc={"asset":{"version":"2.0","generator":"Minigame Mayhem procedural Potato builder"},"scene":0,"scenes":[{"nodes":[0]}],"nodes":[],"meshes":[],"materials":MATERIALS,"buffers":[{}],"bufferViews":[],"accessors":[],"extras":{"lod":LOD,"forward":"-Z","units":"meters","approvedName":"Potato"}}
     blob=bytearray()
     def add_array(arr,target=None):
         while len(blob)%4: blob.append(0)

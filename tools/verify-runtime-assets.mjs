@@ -29,6 +29,9 @@ const runtimeGlbs = [
   'public/assets/characters/aa-03/kart.glb',
   'public/assets/characters/aa-03/kart-lod1.glb',
   'public/assets/characters/aa-03/kart-lod2.glb',
+  'public/assets/characters/aa-12/kart.glb',
+  'public/assets/characters/aa-12/kart-lod1.glb',
+  'public/assets/characters/aa-12/kart-lod2.glb',
 ];
 
 for (const path of runtimeGlbs) {
@@ -167,6 +170,47 @@ const largestPaleNeutralComponentInRects = (decoded, width, height, rects) => {
   return largest;
 };
 
+const largestVeryPaleNeutralComponent = (decoded, width, height) => {
+  const candidate = new Uint8Array(width * height);
+  for (let pixel = 0; pixel < width * height; pixel += 1) {
+    const offset = pixel * 4;
+    const red = decoded[offset];
+    const green = decoded[offset + 1];
+    const blue = decoded[offset + 2];
+    const alpha = decoded[offset + 3];
+    if (
+      alpha > 16 &&
+      Math.min(red, green, blue) >= 220 &&
+      Math.max(red, green, blue) - Math.min(red, green, blue) <= 25
+    ) {
+      candidate[pixel] = 1;
+    }
+  }
+
+  const visited = new Uint8Array(width * height);
+  let largest = 0;
+  for (let start = 0; start < width * height; start += 1) {
+    if (candidate[start] === 0 || visited[start] !== 0) continue;
+    const stack = [start];
+    visited[start] = 1;
+    let pixels = 0;
+    while (stack.length > 0) {
+      const pixel = stack.pop();
+      const x = pixel % width;
+      pixels += 1;
+      for (const neighbor of [pixel - width, pixel + width, pixel - 1, pixel + 1]) {
+        if (neighbor < 0 || neighbor >= width * height || visited[neighbor] !== 0) continue;
+        const neighborX = neighbor % width;
+        if (Math.abs(neighborX - x) > 1 || candidate[neighbor] === 0) continue;
+        visited[neighbor] = 1;
+        stack.push(neighbor);
+      }
+    }
+    largest = Math.max(largest, pixels);
+  }
+  return largest;
+};
+
 const lulaProtectedRects = {
   'portrait.png': [82, 66, 180, 170],
   'front.png': [205, 55, 310, 185],
@@ -250,6 +294,17 @@ const runtimePngs = [
   ['public/assets/characters/aa-03/driver/front-steer-right.png', 512, 512],
   ['public/assets/characters/aa-03/driver/front-hit.png', 512, 512],
   ['public/assets/characters/aa-03/driver/front-victory.png', 512, 512],
+  ['public/assets/characters/aa-12/portrait.png', 256, 256],
+  ['public/assets/characters/aa-12/driver/front.png', 512, 512],
+  ['public/assets/characters/aa-12/driver/rear.png', 512, 512],
+  ['public/assets/characters/aa-12/driver/steer-left.png', 512, 512],
+  ['public/assets/characters/aa-12/driver/steer-right.png', 512, 512],
+  ['public/assets/characters/aa-12/driver/hit.png', 512, 512],
+  ['public/assets/characters/aa-12/driver/victory.png', 512, 512],
+  ['public/assets/characters/aa-12/driver/front-steer-left.png', 512, 512],
+  ['public/assets/characters/aa-12/driver/front-steer-right.png', 512, 512],
+  ['public/assets/characters/aa-12/driver/front-hit.png', 512, 512],
+  ['public/assets/characters/aa-12/driver/front-victory.png', 512, 512],
 ];
 
 const newTransparentFronts = new Set([
@@ -292,6 +347,17 @@ const newTransparentFronts = new Set([
   'public/assets/characters/aa-03/driver/front-steer-right.png',
   'public/assets/characters/aa-03/driver/front-hit.png',
   'public/assets/characters/aa-03/driver/front-victory.png',
+  'public/assets/characters/aa-12/portrait.png',
+  'public/assets/characters/aa-12/driver/front.png',
+  'public/assets/characters/aa-12/driver/rear.png',
+  'public/assets/characters/aa-12/driver/steer-left.png',
+  'public/assets/characters/aa-12/driver/steer-right.png',
+  'public/assets/characters/aa-12/driver/hit.png',
+  'public/assets/characters/aa-12/driver/victory.png',
+  'public/assets/characters/aa-12/driver/front-steer-left.png',
+  'public/assets/characters/aa-12/driver/front-steer-right.png',
+  'public/assets/characters/aa-12/driver/front-hit.png',
+  'public/assets/characters/aa-12/driver/front-victory.png',
 ]);
 
 const kriosHornApertureFronts = new Set([
@@ -364,6 +430,16 @@ for (const [path, expectedWidth, expectedHeight] of runtimePngs) {
     const corners = [0, width - 1, (height - 1) * width, width * height - 1];
     if (corners.some((pixel) => decoded[pixel * 4 + 3] !== 0)) {
       throw new Error(`${path} must have transparent corners after checkerboard removal.`);
+    }
+  }
+
+  if (path.includes('/aa-12/')) {
+    const decoded = decodeRgbaRows(pixels, width, height);
+    const largestCheckerRemnant = largestVeryPaleNeutralComponent(decoded, width, height);
+    if (largestCheckerRemnant >= 8) {
+      throw new Error(
+        `${path} retains a ${String(largestCheckerRemnant)}-pixel pale checker component.`,
+      );
     }
   }
 

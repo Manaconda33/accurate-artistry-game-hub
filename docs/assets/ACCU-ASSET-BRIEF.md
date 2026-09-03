@@ -9,7 +9,7 @@
 
 ## Production style
 
-- Polished, colorful, high-contrast Accurate Artistry arcade presentation.
+- Polished, colorful, high-contrast Manaconda's Minigame Mayhem arcade presentation.
 - Anime-inspired 2D driver art paired with a stylized 3D kart.
 - Original visual language with no Hello Kitty imagery, copied marks, or licensed-character branding.
 
@@ -74,6 +74,6 @@
 - The production signature gate includes all three Pink Precision GLBs. A pointer or invalid GLB at any required path fails the build.
 - The grass relaunch and chase-view steering-wheel suppression passed Manny's 2026-08-31 playtest. PR #54's camera-specific vertical placement deployed at merge `87ddf85b1302cc61f62e486c893136be04b84835` but failed visual review: the chase seam remained horizontal and the rear-camera wheel was not readable. PR #56's depth/wheel correction deployed at merge `404c32b05a78a05080c4150dbe4acd3ca7125cbb`; Manny approved the corrected chase hair edge, rear-camera seated composition, and visible wheel between Accu's hands on 2026-08-31. Accu's runtime asset checkpoint is complete.
 
-## Front-action deployment gate
+## Front-action live acceptance
 
-Manny approved the front-steer-left, front-steer-right, front-hit, and front-victory review set on 2026-09-03. It preserves Accu's broad pink hat and bow, two-tone pink hair, heart-pattern top, seated orientation, transparent internal gaps, and `[0, 0.9, 0.22]` front placement contract. Pink Precision owns the modeled front wheel, and the sprites contain no duplicate. The four files are deployed under `accu-runtime-20260903-3` through PR #73 and main run `33708310011`. Their SHA-256 values are `374dc4d70effbfb31b149d8479c206ca147ea3247d2479a519ccca4a04aba91a`, `c14a5e45c2d89858c2b1b0ef925f738a46bf7198fb21dad7023baaf6640b682c`, `21d05413adcbd711f1f47b43a685b1cf7b528cbf8603680805f3936fa2920c37`, and `f35804907230bb1db0623c84622a34ac5be8a30fb8183186c14f3ab38e8524eb` in that order, and all four deployed responses match. Desktop/mobile camera-action acceptance remains pending.
+Manny approved the front-steer-left, front-steer-right, front-hit, and front-victory review set on 2026-09-03. It preserves Accu's broad pink hat and bow, two-tone pink hair, heart-pattern top, seated orientation, transparent internal gaps, and `[0, 0.9, 0.22]` front placement contract. Pink Precision owns the modeled front wheel, and the sprites contain no duplicate. The four files were deployed under `accu-runtime-20260903-3` through PR #73 and main run `33708310011`. Their SHA-256 values are `374dc4d70effbfb31b149d8479c206ca147ea3247d2479a519ccca4a04aba91a`, `c14a5e45c2d89858c2b1b0ef925f738a46bf7198fb21dad7023baaf6640b682c`, `21d05413adcbd711f1f47b43a685b1cf7b528cbf8603680805f3936fa2920c37`, and `f35804907230bb1db0623c84622a34ac5be8a30fb8183186c14f3ab38e8524eb` in that order, and all four deployed responses match. Manny accepted Accu's live steering, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation on 2026-09-03.
