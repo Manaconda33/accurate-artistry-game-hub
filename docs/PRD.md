@@ -58,6 +58,8 @@ Live acceptance checkpoint, September 3, 2026: Manny approved Lavi's corrected d
 
 Final candidate checkpoint, September 3, 2026: Manny approved Lula's four camera-facing action candidates, then approved Accu's four-frame set. The eight files may enter local runtime integration under controlled revisions `lula-runtime-20260903-3` and `accu-runtime-20260903-3`. Publishing, deployment, and live acceptance remain separate gates.
 
+Deployment checkpoint, September 3, 2026: Manny authorized publication after local validation. PR #73 merged the eight approved frames at `735da4015bca6f9610f6a358672804f4c73b35f9`; main run `33708310011` passed validation and GitHub Pages deployment. The live bundle references both controlled revisions and all eight action paths, and every deployed PNG hash matches the approved source. Product-owner desktop/mobile live acceptance is the remaining gate.
+
 # Contents
 
 - 1\. Document Control

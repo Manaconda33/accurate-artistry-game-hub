@@ -287,7 +287,7 @@ Lavi and Toph live acceptance passed. Their eight deployed source hashes, contro
 
 Lula and Accu are the final front-action batch. Manny approved all eight candidates on 2026-09-03. The locally integrated files preserve commanded-direction separation, forward-seated body orientation, identity locks, transparent corners and internal gaps, and modeled-wheel ownership without adding kart pixels. Lula retains `[0, 0.45, -0.12]`; Accu retains `[0, 0.9, 0.22]` and Pink Precision's front-only modeled-wheel position `[0, 1.46, -0.46]`.
 
-Before publication, confirm that the manifest exposes ten revisioned driver states for both characters, all eight new source and built PNG hashes match, and the runtime gate decodes 72 production PNGs. Review exports, discarded candidates, and Python caches must remain outside the repository.
+PR #73 head run `33708240532` and main run `33708310011` passed. The merged checkpoint is `735da4015bca6f9610f6a358672804f4c73b35f9`. The live `assets/index-D84iBLTd.js` bundle exposes both controlled revisions and all eight action paths; all eight deployed PNG responses match the approved SHA-256 values. The runtime gate decodes 72 production PNGs. Review exports, discarded candidates, and Python caches remain outside the repository.
 
 The 2026-09-03 local checkpoint passed `npm run validate`: strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized GLBs, 72 decoded PNGs, and a production Vite build. The source and built hashes match for all eight new frames, and the bundle contains both new revisions and all eight paths.
 
