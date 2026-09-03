@@ -1,6 +1,12 @@
 import * as THREE from 'three';
 import { describe, expect, it } from 'vitest';
-import { AiDriver, aiLookaheadMeters, aiTargetSpeed, rubberBandFactor } from '../src/game/ai/AiDriver';
+import {
+  AiDriver,
+  aiCornerDemand,
+  aiLookaheadMeters,
+  aiTargetSpeed,
+  rubberBandFactor,
+} from '../src/game/ai/AiDriver';
 import { CircuitAlpha } from '../src/game/track/CircuitAlpha';
 
 describe('spline AI driver', () => {
@@ -22,6 +28,14 @@ describe('spline AI driver', () => {
     expect(input.aiCornerDemand).toBeGreaterThanOrEqual(0);
     expect(aiLookaheadMeters(0)).toBe(5);
     expect(aiLookaheadMeters(30)).toBe(14);
+  });
+
+  it('normalizes actual lookahead angle into a useful corner-demand range', () => {
+    const straight = new THREE.Vector3(0, 0, 1);
+    const tenDegrees = new THREE.Vector3(Math.sin(Math.PI / 18), 0, Math.cos(Math.PI / 18));
+    expect(aiCornerDemand(straight, straight)).toBe(0);
+    expect(aiCornerDemand(straight, tenDegrees)).toBeGreaterThan(0.9);
+    expect(aiCornerDemand(straight, tenDegrees)).toBeLessThanOrEqual(1);
   });
 
   it('steers back toward the spline from an offset', () => {
