@@ -44,9 +44,9 @@ jobs:
       - name: Verify approved object IDs and unchanged pointers
         run: |
           sha256sum -c <<'HASHES'
-          2e787f1acef4fae95d12833424bb93939b3803233c40c51ed03d7c6e4ec18277  public/assets/characters/aa-12/kart.glb
-          420461571b7bfb9202c91c94b0513d40dc933ba63796051bb14c7904468891d9  public/assets/characters/aa-12/kart-lod1.glb
-          d139dbc9e263ad1090b208d217bc61df15d194a7f7d7b9025b131df1bd48d207  public/assets/characters/aa-12/kart-lod2.glb
+          0415224b88770726152a3313b6e0fc517a626a6167558af7a6ccbd836b13f3f0  public/assets/characters/aa-12/kart.glb
+          545d22ab7f17a17fa14bdb6281db80ac070af159f0a700a57a3694f828e880a8  public/assets/characters/aa-12/kart-lod1.glb
+          ff7cf64b9eb06defd47d708cf88dfd7780814d9a20d89ac967bc79c8d0baeeb9  public/assets/characters/aa-12/kart-lod2.glb
           HASHES
           git add -- public/assets/characters/aa-12/kart.glb public/assets/characters/aa-12/kart-lod1.glb public/assets/characters/aa-12/kart-lod2.glb
           git diff --cached --exit-code
@@ -54,9 +54,9 @@ jobs:
       - name: Upload only approved LFS objects
         run: |
           git lfs push --object-id origin \
-            2e787f1acef4fae95d12833424bb93939b3803233c40c51ed03d7c6e4ec18277 \
-            420461571b7bfb9202c91c94b0513d40dc933ba63796051bb14c7904468891d9 \
-            d139dbc9e263ad1090b208d217bc61df15d194a7f7d7b9025b131df1bd48d207
+            0415224b88770726152a3313b6e0fc517a626a6167558af7a6ccbd836b13f3f0 \
+            545d22ab7f17a17fa14bdb6281db80ac070af159f0a700a57a3694f828e880a8 \
+            ff7cf64b9eb06defd47d708cf88dfd7780814d9a20d89ac967bc79c8d0baeeb9
 
       - name: Fetch back and verify
         run: |
@@ -65,7 +65,7 @@ jobs:
           git lfs checkout -- public/assets/characters/aa-12/kart.glb public/assets/characters/aa-12/kart-lod1.glb public/assets/characters/aa-12/kart-lod2.glb
           git lfs fsck
           sha256sum -c <<'HASHES'
-          2e787f1acef4fae95d12833424bb93939b3803233c40c51ed03d7c6e4ec18277  public/assets/characters/aa-12/kart.glb
-          420461571b7bfb9202c91c94b0513d40dc933ba63796051bb14c7904468891d9  public/assets/characters/aa-12/kart-lod1.glb
-          d139dbc9e263ad1090b208d217bc61df15d194a7f7d7b9025b131df1bd48d207  public/assets/characters/aa-12/kart-lod2.glb
+          0415224b88770726152a3313b6e0fc517a626a6167558af7a6ccbd836b13f3f0  public/assets/characters/aa-12/kart.glb
+          545d22ab7f17a17fa14bdb6281db80ac070af159f0a700a57a3694f828e880a8  public/assets/characters/aa-12/kart-lod1.glb
+          ff7cf64b9eb06defd47d708cf88dfd7780814d9a20d89ac967bc79c8d0baeeb9  public/assets/characters/aa-12/kart-lod2.glb
           HASHES
