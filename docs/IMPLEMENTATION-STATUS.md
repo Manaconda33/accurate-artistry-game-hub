@@ -31,7 +31,7 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 ## Front-facing action-state parity — in progress
 
 - Manny approved closing the rear-camera action-state gap on 2026-09-01. The target package adds front-steer-left, front-steer-right, front-hit, and front-victory without replacing any approved chase or neutral-front art.
-- Nine active production drivers require four camera-facing action states each. Kraken, Manaconda, Krios, Keeg, McFleurdel, Lavi, and Toph have live-accepted packages. Eight candidate approvals remain across Lula and Accu.
+- Nine active production drivers require four camera-facing action states each. Kraken, Manaconda, Krios, Keeg, McFleurdel, Lavi, and Toph have live-accepted packages. Lula and Accu's final eight candidates are visually approved and locally integrated; publication remains gated.
 - Rollout normally remains one character at a time. Kraken was the pilot; after its live acceptance, Manny authorized two drivers per batch for the remaining rollout.
 - Runtime infrastructure may use the approved neutral front frame as a rollout fallback. No new raster enters a runtime path and no character revision changes until Manny approves that character's candidate package.
 - Manny approved Kraken's front-steer-left, front-steer-right, and front-hit candidates on 2026-09-01. They are integrated with the unchanged approved front-victory frame under controlled revision `kraken-runtime-20260901-2`.
@@ -89,16 +89,22 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - Manny approved Lavi's corrected live cockpit presentation on 2026-09-03. Lavi and Toph now both pass steering-left, steering-right, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation.
 - Status: **LIVE ACCEPTED — LAVI AND TOPH FRONT-ACTION BATCH COMPLETE; LULA AND ACCU BATCH STARTED.**
 
-### Lula and Accu batch — candidate preparation authorized
+### Lula and Accu batch — locally integrated; publication pending
 
 - Manny authorized Lula and Accu as the final two-driver front-action batch on 2026-09-03.
 - Prepare Lula first, then Accu, using each driver's approved neutral front frame and existing character record as the visual authority.
+- Manny approved Lula's front-steer-left, front-steer-right, front-hit, and front-victory review set on 2026-09-03, then approved Accu's four-frame set and authorized local integration.
+- Accu's steering pair uses opposite camera-side arm emphasis, hit reads as a forward collision recoil, and victory retains the forward seated lower body. Checkerboard removal produced transparent cutouts, and a detached 13-pixel artifact in the hit candidate was cleared before approval.
 - Each driver requires front-steer-left, front-steer-right, front-hit, and front-victory. Direction names follow commanded kart direction: left leans toward the viewer's right, and right leans toward the viewer's left.
 - Lula's candidates must preserve her approved front complexion, leaf forehead mark, green hair, seated footprint, wheel-free art, and `[0, 0.45, -0.12]` front placement contract. The Verdant Hart owns the modeled wheel.
 - Accu's candidates must preserve the pink-hat silhouette, two-tone pink hair, heart-pattern top, seated orientation, and front placement `[0, 0.9, 0.22]`. Pink Precision owns the modeled front wheel; candidate art must not add a duplicate.
-- Candidate review exports, discarded generations, temporary files, and Python caches remain outside the repository.
-- Approval gate: no candidate enters `public/assets`, no controlled revision changes, and no runtime or validator change is published until Manny approves that driver's four-frame candidate package. Publication, deployment, and live acceptance require later approvals.
-- Status: **IN PROGRESS — LULA CANDIDATE PREPARATION.**
+- The eight approved 512 x 512 sRGBA frames are locally integrated under `lula-runtime-20260903-3` and `accu-runtime-20260903-3`. The manifest supplies all ten driver states for both characters while preserving Lula's `[0, 0.45, -0.12]` and Accu's `[0, 0.9, 0.22]` camera-facing placements.
+- Runtime SHA-256 values: Lula left `4d4efdacb0d38c924b356d2a32ace046ac744a2ec6da0329a8c60a49e545a0ff`, right `6a400c0d2745b2e3fbe13e100fb3b99d09d404ea98e95c6dc995788aee0376ea`, hit `3e99891c712310ff8018b9db9258e8f9a77be949b7403bd28d7a6b8fd679f444`, victory `5c6b662f0449a811319b89396a8053c6e58dc9b0f4916162e37ad5a06434f453`; Accu left `374dc4d70effbfb31b149d8479c206ca147ea3247d2479a519ccca4a04aba91a`, right `c14a5e45c2d89858c2b1b0ef925f738a46bf7198fb21dad7023baaf6640b682c`, hit `21d05413adcbd711f1f47b43a685b1cf7b528cbf8603680805f3936fa2920c37`, victory `f35804907230bb1db0623c84622a34ac5be8a30fb8183186c14f3ab38e8524eb`.
+- The runtime gate now decodes all 72 production PNGs, checks the eight new files for 512 x 512 non-interlaced RGBA data and transparent corners, and retains Lula's neutral-white background rejection. Eight near-transparent white fringe pixels in Lula's hit frame and fourteen in victory were cleared before the gate passed.
+- Local `npm run validate` passed on 2026-09-03: strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized runtime GLBs, 72 decoded runtime PNGs, and a production Vite build. The built bundle references both new revisions and all eight action paths. Every built PNG hash matches its approved source file.
+- Review sheets, discarded generations, temporary files, and Python caches remain outside the repository. No kart GLB, gameplay logic, physics, stats, camera geometry, or previously accepted asset changed.
+- Approval gate: local integration is complete. Publishing the branch, opening and merging the PR, deploying Pages, and recording live acceptance require Manny's next approval.
+- Status: **VALIDATED LOCALLY — PUBLICATION APPROVAL REQUIRED.**
 
 ## Cleo archive status — complete
 

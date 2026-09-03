@@ -79,6 +79,18 @@ describe('character manifest', () => {
     expect(accu.driver?.steerRight).toContain(`?v=${ACCU_ASSET_REVISION}`);
     expect(accu.driver?.hit).toContain(`?v=${ACCU_ASSET_REVISION}`);
     expect(accu.driver?.victory).toContain(`?v=${ACCU_ASSET_REVISION}`);
+    expect(accu.driver?.frontSteerLeft).toContain(
+      `/assets/characters/aa-11/driver/front-steer-left.png?v=${ACCU_ASSET_REVISION}`,
+    );
+    expect(accu.driver?.frontSteerRight).toContain(
+      `/assets/characters/aa-11/driver/front-steer-right.png?v=${ACCU_ASSET_REVISION}`,
+    );
+    expect(accu.driver?.frontHit).toContain(
+      `/assets/characters/aa-11/driver/front-hit.png?v=${ACCU_ASSET_REVISION}`,
+    );
+    expect(accu.driver?.frontVictory).toContain(
+      `/assets/characters/aa-11/driver/front-victory.png?v=${ACCU_ASSET_REVISION}`,
+    );
     expect(accu.stats).toEqual({
       speed: 8,
       acceleration: 4,
@@ -353,6 +365,18 @@ describe('character manifest', () => {
     expect(lula.driver?.steerRight).toContain(`?v=${LULA_ASSET_REVISION}`);
     expect(lula.driver?.hit).toContain(`?v=${LULA_ASSET_REVISION}`);
     expect(lula.driver?.victory).toContain(`?v=${LULA_ASSET_REVISION}`);
+    expect(lula.driver?.frontSteerLeft).toContain(
+      `/assets/characters/aa-03/driver/front-steer-left.png?v=${LULA_ASSET_REVISION}`,
+    );
+    expect(lula.driver?.frontSteerRight).toContain(
+      `/assets/characters/aa-03/driver/front-steer-right.png?v=${LULA_ASSET_REVISION}`,
+    );
+    expect(lula.driver?.frontHit).toContain(
+      `/assets/characters/aa-03/driver/front-hit.png?v=${LULA_ASSET_REVISION}`,
+    );
+    expect(lula.driver?.frontVictory).toContain(
+      `/assets/characters/aa-03/driver/front-victory.png?v=${LULA_ASSET_REVISION}`,
+    );
     expect(lula.stats).toEqual({
       speed: 5,
       acceleration: 8,

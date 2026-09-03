@@ -9,7 +9,7 @@
 - **Asset approval:** Portrait and five original driver states approved by Manny on 2026-08-20; front approved on 2026-08-31
 - **Kart-model approval:** Pink Precision Candidate 1 approved by Manny on 2026-08-20
 - **Implementation verification:** Live accepted on desktop/mobile by Manny on 2026-08-31
-- **Front-action rollout:** Candidate preparation authorized by Manny on 2026-09-03
+- **Front-action rollout:** Four-frame package approved by Manny and locally integrated on 2026-09-03
 
 Manny created the supplied Accu reference art and approved transforming it into production game assets. The attached pink-hat design is Accu's canonical appearance for this game and supersedes earlier descriptions that conflict with it.
 
@@ -39,21 +39,21 @@ Manny created the supplied Accu reference art and approved transforming it into 
 
 ## Required assets
 
-| Asset                                                   | Required format                                 | Status                |
-| ------------------------------------------------------- | ----------------------------------------------- | --------------------- |
-| Portrait                                                | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared |
-| Rear / front / steer-left / steer-right / hit / victory | 512 x 512 transparent PNG, sRGB                 | Approved and prepared |
-| Pink Precision                                          | GLB with PRD hierarchy and LOD budgets          | Approved and prepared |
+| Asset                                           | Required format                                 | Status                |
+| ----------------------------------------------- | ----------------------------------------------- | --------------------- |
+| Portrait                                        | 256 x 256 transparent PNG, sRGB, straight alpha | Approved and prepared |
+| Ten driver states, including four front actions | 512 x 512 transparent PNG, sRGB                 | Approved and prepared |
+| Pink Precision                                  | GLB with PRD hierarchy and LOD budgets          | Approved and prepared |
 
 ## Approval record
 
 - Character lock, kart lock, balance mapping, emblem direction, and source transformation: approved.
 - Portrait, rear, steer-left, steer-right, hit, and victory were approved by Manny on 2026-08-20; the front frame and alpha repairs were approved on 2026-08-31. All are prepared at the PRD runtime paths.
 - Pink Precision Candidate 1 is the approved production LOD0. Its deterministic LOD package is prepared at `public/assets/characters/aa-11/{kart,kart-lod1,kart-lod2}.glb`.
-- The manifest maps Accu to AA-11, Pink Precision, all six approved driver frames, and controlled revision `accu-runtime-20260831-2`.
+- The manifest maps Accu to AA-11, Pink Precision, all ten approved driver frames, and controlled revision `accu-runtime-20260903-3`.
 - Pink Precision declares negative-Z authored forward. Manny's live chase-camera test proved that this runtime requires the shared `NEGATIVE_Z_KART_VISUAL_YAW` (`Math.PI`) visual-root correction. Physics, checkpoints, controls, driver sprites, and camera coordinates remain unchanged.
 - Manny's 2026-08-31 live test accepted grass relaunch and confirmed the modeled steering wheel is absent in chase view, but rejected the rear-camera floating-head composition and chase-camera straight hair cutoff. PR #54 improved front-frame placement but failed its follow-up visual review. PR #56 corrected the chase sprite's depth and applied a front-frame-only modeled-wheel position. Manny approved the deployed chase and rear-camera results on 2026-08-31.
 
 ## Front-action rollout
 
-Prepare front-steer-left, front-steer-right, front-hit, and front-victory from Accu's approved neutral front and locked character record. Preserve the broad pink hat and bow, two-tone hair, heart-pattern top, seated orientation, `[0, 0.9, 0.22]` front placement, and Pink Precision's modeled front wheel. Candidate art must not add a duplicate wheel. Files remain outside runtime paths until Manny approves the four-frame package.
+Manny approved Accu's front-steer-left, front-steer-right, front-hit, and front-victory review set on 2026-09-03. It preserves the broad pink hat and bow, two-tone hair, heart-pattern top, seated orientation, `[0, 0.9, 0.22]` front placement contract, and Pink Precision's modeled-wheel ownership. The art contains no duplicate wheel. The four files are locally integrated under `accu-runtime-20260903-3`; publication and live acceptance remain gated.
