@@ -61,6 +61,7 @@ describe('candidate balance physics diagnostic', () => {
     let simulatedFrames = 0;
     let maximumLateralDistance = 0;
     let observedMaximumSpeed = 0;
+    let finishSeconds: number | null = null;
 
     for (let step = 0; step < 14_400 && !laps.snapshot().finished; step += 1) {
       const position = kart.position();
@@ -92,6 +93,7 @@ describe('candidate balance physics diagnostic', () => {
           kart.forward().dot(nextProjection.tangent),
           (step + 1) / 60,
         );
+        if (laps.snapshot().finished) finishSeconds = (step + 1) / 60;
       }
       overlap = checkpoint;
     }
@@ -103,7 +105,7 @@ describe('candidate balance physics diagnostic', () => {
     expect(maximumLateralDistance, racer.displayName).toBeLessThan(track.roadHalfWidth + 0.5);
 
     return {
-      finishSeconds: snapshot.finishTime ?? simulatedFrames / 60,
+      finishSeconds: finishSeconds ?? simulatedFrames / 60,
       grassRatio: grassFrames / simulatedFrames,
       maxLateralDistance: maximumLateralDistance,
       maxSpeed: observedMaximumSpeed,
