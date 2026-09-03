@@ -21,20 +21,21 @@ describe('candidate balance physics diagnostic', () => {
     await RAPIER.init();
   });
 
-  const profiles: readonly { name: string; value: AiDriverProfile }[] = [
-    {
-      name: 'conservative-left',
-      value: { laneOffset: -1.05, pace: 0.28, aggression: 0.2 },
+  const profiles: readonly { name: string; value: AiDriverProfile }[] = Array.from(
+    { length: 7 },
+    (_, index) => {
+      const row = Math.floor(index / 2) + 1;
+      const side = index % 2 === 0 ? -1 : 1;
+      return {
+        name: `runtime-${String(index + 1)}`,
+        value: {
+          laneOffset: side * (0.7 + row * 0.35),
+          pace: 0.28 + index * 0.09,
+          aggression: 0.2 + (index % 4) * 0.2,
+        },
+      };
     },
-    {
-      name: 'aggressive-dirt',
-      value: { laneOffset: 1.4, pace: 0.55, aggression: 0.8 },
-    },
-    {
-      name: 'fast-left',
-      value: { laneOffset: -2.1, pace: 0.82, aggression: 0.6 },
-    },
-  ];
+  );
 
   function runRace(
     racer: (typeof characterManifest)[number],
@@ -113,7 +114,7 @@ describe('candidate balance physics diagnostic', () => {
   }
 
   it(
-    'records representative three-lap physics baselines for every manifest racer',
+    'records all seven runtime AI profiles for every manifest racer',
     () => {
       const results: DiagnosticResult[] = [];
       for (const racer of characterManifest) {
@@ -129,6 +130,6 @@ describe('candidate balance physics diagnostic', () => {
       console.log(`BALANCE_DIAGNOSTIC ${JSON.stringify(results)}`);
       expect(results).toHaveLength(characterManifest.length * profiles.length);
     },
-    90_000,
+    120_000,
   );
 });
