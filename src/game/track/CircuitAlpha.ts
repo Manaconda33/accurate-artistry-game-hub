@@ -14,6 +14,7 @@ export interface TrackProjection {
 export class CircuitAlpha {
   public readonly roadHalfWidth = 6;
   public readonly sampleCount = 384;
+  public readonly startFinishDistance = 22;
   public readonly curve: THREE.CatmullRomCurve3;
   public readonly samples: THREE.Vector3[];
   public readonly tangents: THREE.Vector3[];
@@ -102,6 +103,13 @@ export class CircuitAlpha {
   public checkpointPosition(index: number): THREE.Vector3 {
     const sampleIndex = this.checkpointIndices[index] ?? 0;
     return this.samples[sampleIndex]?.clone() ?? new THREE.Vector3();
+  }
+
+  public lapCheckpointPosition(index: number): THREE.Vector3 {
+    if (index === 0) {
+      return this.curve.getPointAt(this.startFinishDistance / this.curve.getLength());
+    }
+    return this.checkpointPosition(index);
   }
 
   public checkpointTangent(index: number): THREE.Vector3 {
