@@ -55,10 +55,10 @@ function lerp(from: number, to: number, amount: number): number {
 
 export function createKartTuning(stats: DriverStats): KartTuning {
   return {
-    // Candidate D keeps the accepted Speed-7 ceiling at 29.5 m/s while
-    // restoring a 4.5 m/s Speed 1-10 spread. This preserves a visible
-    // straight-line identity without returning to the original dominant spread.
-    maxSpeed: 26.5 + normalizedStat(stats.speed) * 4.5,
+    // Candidate E keeps the accepted Speed-7 ceiling at 29.5 m/s and narrows
+    // Candidate D's remaining Krios advantage with a 3.75 m/s Speed 1-10
+    // spread. Only this global Speed curve changes from Candidate D.
+    maxSpeed: 27 + normalizedStat(stats.speed) * 3.75,
     acceleration: 4 + 0.55 * stats.acceleration,
     mass: 105 + normalizedStat(stats.weight) * 75,
     steeringRate: 1.3 + normalizedStat(stats.handling) * 1.1,
@@ -73,9 +73,9 @@ export function handlingCornerSpeedMultiplier(
 ): number {
   const handlingN = normalizedStat(handling);
   const severity = Math.min(1, Math.max(0, (Math.abs(steeringMagnitude) - 0.18) / 0.82));
-  // Candidate D retains Handling as a physical pace stat but narrows the
+  // Candidate D/E retains Handling as a physical pace stat but narrows the
   // full-steer spread after normalized AI corner demand exposed double-counting.
-  // Full steering now loses 20% at Handling 1 and 7% at Handling 10.
+  // Full steering loses 20% at Handling 1 and 7% at Handling 10.
   const fullSteerLoss = 0.2 - 0.13 * handlingN;
   return 1 - fullSteerLoss * severity * severity;
 }
@@ -109,8 +109,8 @@ export function aiRequestedDriftTier(
 ): DriftBoostTier | undefined {
   const turboN = clamp01(normalizedStat(miniTurbo));
   const demand = Math.max(Math.abs(steering), clamp01(cornerDemand));
-  // High Mini-Turbo still sees more opportunities, but Candidate D reduces the
-  // frequency boost exposed by angle-normalized corner demand.
+  // High Mini-Turbo still sees more opportunities, but Candidate D/E reduces
+  // the frequency boost exposed by angle-normalized corner demand.
   const minimumSpeed = lerp(13, 10.5, turboN);
   const demandGate = lerp(0.68, 0.58, turboN);
   const aggressionGate = lerp(0.38, 0.24, turboN);
