@@ -1,0 +1,71 @@
+name: Jennifer LFS bridge
+
+on:
+  push:
+    branches:
+      - intake/jennifer-character-lock
+    paths:
+      - .github/workflows/jennifer-lfs-bridge.yml
+
+permissions:
+  contents: write
+
+jobs:
+  upload-approved-hearthwarden:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out pointer commit
+        uses: actions/checkout@v4
+        with:
+          ref: intake/jennifer-character-lock
+          lfs: false
+
+      - name: Install Git LFS
+        run: |
+          git lfs install --local
+          git lfs version
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pinned builder dependency
+        run: python -m pip install numpy==2.3.5
+
+      - name: Regenerate approved Hearthwarden files
+        env:
+          HEARTHWARDEN_SKIP_PREVIEW: "1"
+        run: |
+          HEARTHWARDEN_LOD=LOD0 HEARTHWARDEN_OUT=public/assets/characters/aa-12/kart.glb python tools/assets/build_jennifer_hearthwarden.py
+          HEARTHWARDEN_LOD=LOD1 HEARTHWARDEN_OUT=public/assets/characters/aa-12/kart-lod1.glb python tools/assets/build_jennifer_hearthwarden.py
+          HEARTHWARDEN_LOD=LOD2 HEARTHWARDEN_OUT=public/assets/characters/aa-12/kart-lod2.glb python tools/assets/build_jennifer_hearthwarden.py
+
+      - name: Verify approved object IDs and unchanged pointers
+        run: |
+          sha256sum -c <<'HASHES'
+          2e787f1acef4fae95d12833424bb93939b3803233c40c51ed03d7c6e4ec18277  public/assets/characters/aa-12/kart.glb
+          420461571b7bfb9202c91c94b0513d40dc933ba63796051bb14c7904468891d9  public/assets/characters/aa-12/kart-lod1.glb
+          d139dbc9e263ad1090b208d217bc61df15d194a7f7d7b9025b131df1bd48d207  public/assets/characters/aa-12/kart-lod2.glb
+          HASHES
+          git add -- public/assets/characters/aa-12/kart.glb public/assets/characters/aa-12/kart-lod1.glb public/assets/characters/aa-12/kart-lod2.glb
+          git diff --cached --exit-code
+
+      - name: Upload only approved LFS objects
+        run: |
+          git lfs push --object-id origin \
+            2e787f1acef4fae95d12833424bb93939b3803233c40c51ed03d7c6e4ec18277 \
+            420461571b7bfb9202c91c94b0513d40dc933ba63796051bb14c7904468891d9 \
+            d139dbc9e263ad1090b208d217bc61df15d194a7f7d7b9025b131df1bd48d207
+
+      - name: Fetch back and verify
+        run: |
+          rm -rf .git/lfs/objects
+          git lfs fetch origin intake/jennifer-character-lock
+          git lfs checkout -- public/assets/characters/aa-12/kart.glb public/assets/characters/aa-12/kart-lod1.glb public/assets/characters/aa-12/kart-lod2.glb
+          git lfs fsck
+          sha256sum -c <<'HASHES'
+          2e787f1acef4fae95d12833424bb93939b3803233c40c51ed03d7c6e4ec18277  public/assets/characters/aa-12/kart.glb
+          420461571b7bfb9202c91c94b0513d40dc933ba63796051bb14c7904468891d9  public/assets/characters/aa-12/kart-lod1.glb
+          d139dbc9e263ad1090b208d217bc61df15d194a7f7d7b9025b131df1bd48d207  public/assets/characters/aa-12/kart-lod2.glb
+          HASHES
