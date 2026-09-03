@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import type { DriftBoostTier } from '../../config/kartTuning';
 import type { DriveInput } from '../physics/KartController';
 import type { CircuitAlpha } from '../track/CircuitAlpha';
 
@@ -42,6 +43,18 @@ export function aiTargetSpeed(
     (1 - THREE.MathUtils.clamp(corner, 0, 1) * cornerPenalty) *
     rubberBandFactor(playerProgressDelta)
   );
+}
+
+export function aiRequestedDriftTier(
+  steering: number,
+  speed: number,
+  aggression: number,
+): DriftBoostTier | undefined {
+  const steeringMagnitude = Math.abs(steering);
+  if (speed <= 11 || steeringMagnitude <= 0.62 || aggression <= 0.35) return undefined;
+  if (steeringMagnitude >= 0.82 && aggression >= 0.55) return 'purple';
+  if (steeringMagnitude >= 0.7 && aggression >= 0.4) return 'orange';
+  return 'blue';
 }
 
 export class AiDriver {
@@ -92,13 +105,16 @@ export class AiDriver {
     );
     if (blocker !== undefined) targetSpeed = Math.min(targetSpeed, blocker.speed + 0.4);
 
-    return {
+    const driftTarget = aiRequestedDriftTier(steering, speed, this.profile.aggression);
+    const input: DriveInput = {
       throttle: speed < targetSpeed ? 1 : 0.2,
       steering,
       brake: speed > targetSpeed + 2,
-      drift: Math.abs(steering) > 0.62 && speed > 11 && this.profile.aggression > 0.35,
+      drift: driftTarget !== undefined,
       speedLimitMultiplier: rubberBandFactor(playerProgressDelta),
     };
+    if (driftTarget !== undefined) input.aiDriftTarget = driftTarget;
+    return input;
   }
 
   public desiredLaneOffset(): number {
