@@ -254,11 +254,12 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 ## ADR-043: Integrate the approved Lula and Accu front-action packages
 
 - **Date:** 2026-09-03
-- **Status:** Approved for local integration; publication pending
+- **Status:** Deployed; live acceptance pending
 - **Context:** Manny approved all eight camera-facing action frames in the final rollout batch. Lula and Accu are the last active production drivers on the neutral-front action fallback.
 - **Decision:** Add each driver's front-steer-left, front-steer-right, front-hit, and front-victory files to the ten-state runtime contract. Use controlled revisions `lula-runtime-20260903-3` and `accu-runtime-20260903-3`.
 - **Character constraints:** Lula keeps `[0, 0.45, -0.12]` and The Verdant Hart's modeled wheel. Accu keeps `[0, 0.9, 0.22]`, the front-only modeled-wheel position `[0, 1.46, -0.46]`, and Pink Precision's modeled wheel. None of the eight sprites contains a wheel or kart geometry.
 - **Scope:** Eight PNGs, their manifest URLs, runtime-asset validation, manifest tests, and governed records. Kart GLBs, chase art, neutral fronts, gameplay logic, physics, stats, camera geometry, and previously accepted packages remain unchanged.
 - **Verification:** Local validation passed with 16 test files / 83 tests, 72 decoded runtime PNGs, 27 materialized GLBs, matching source/build hashes, and both revision strings plus all eight new paths in the production bundle.
-- **Approval gate:** Manny's candidate approval authorizes local integration. Publication, PR merge, deployment, and live acceptance require later approval.
-- **Approval:** Manny approved Accu's four-frame review set on 2026-09-03 after approving Lula's set.
+- **Deployment evidence:** Manny authorized publication on 2026-09-03. PR #73 head run `33708240532` passed, the PR merged at `735da4015bca6f9610f6a358672804f4c73b35f9`, and main run `33708310011` passed validation and Pages deployment. The live `assets/index-D84iBLTd.js` bundle references both revisions and all eight paths; every deployed PNG response matches the approved SHA-256 value.
+- **Approval gate:** Publication and deployment are complete. Product-owner desktop/mobile camera-action playtesting remains required before recording live acceptance and closing the rollout.
+- **Approval:** Manny approved Accu's four-frame review set after approving Lula's set, then authorized publication on 2026-09-03.

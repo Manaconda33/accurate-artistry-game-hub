@@ -6,9 +6,9 @@
 
 PRD baseline: **v1.1, working implementation amendment 2.0**.
 
-Latest verified live deployment checkpoint: `ac39b1ad490999007429713a3f5b82aca274f1dc`. The Lavi and Toph front-action batch is live accepted under `lavi-runtime-20260902-5` and `toph-runtime-20260902-2`.
+Latest verified live deployment checkpoint: `735da4015bca6f9610f6a358672804f4c73b35f9`. The Lula and Accu front-action batch is deployed under `lula-runtime-20260903-3` and `accu-runtime-20260903-3`; product-owner live playtesting remains open.
 
-Current deployment checkpoint: PR #70 deployed Lavi's placement-only correction at `ac39b1ad490999007429713a3f5b82aca274f1dc`. The live bundle maps Lavi's five camera-facing states to `[0, 0.9, -0.12]` and preserves Toph at `[0, 0.45, -0.12]`. Manny accepted Lavi's corrected live placement on 2026-09-03. Lula and Accu are the authorized final candidate batch.
+Current deployment checkpoint: PR #73 deployed Lula and Accu's eight approved camera-facing action frames at `735da4015bca6f9610f6a358672804f4c73b35f9`. Main run `33708310011` passed validation and GitHub Pages deployment. The live bundle and all eight deployed PNG hashes match the approved source package. Live acceptance is pending.
 
 The prior detailed implementation-status snapshot is preserved verbatim at `docs/history/IMPLEMENTATION-STATUS-through-2026-08-22.md`.
 
@@ -89,7 +89,7 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - Manny approved Lavi's corrected live cockpit presentation on 2026-09-03. Lavi and Toph now both pass steering-left, steering-right, hit, victory, chase restoration, transparency, cockpit placement, and single-wheel presentation.
 - Status: **LIVE ACCEPTED — LAVI AND TOPH FRONT-ACTION BATCH COMPLETE; LULA AND ACCU BATCH STARTED.**
 
-### Lula and Accu batch — locally integrated; publication pending
+### Lula and Accu batch — live deployed; playtest pending
 
 - Manny authorized Lula and Accu as the final two-driver front-action batch on 2026-09-03.
 - Prepare Lula first, then Accu, using each driver's approved neutral front frame and existing character record as the visual authority.
@@ -103,8 +103,10 @@ Cleo / The Gilded Stitch is archived and inactive. AA-06 is a governed placehold
 - The runtime gate now decodes all 72 production PNGs, checks the eight new files for 512 x 512 non-interlaced RGBA data and transparent corners, and retains Lula's neutral-white background rejection. Eight near-transparent white fringe pixels in Lula's hit frame and fourteen in victory were cleared before the gate passed.
 - Local `npm run validate` passed on 2026-09-03: strict typecheck, zero-warning lint, 16 Vitest files / 83 tests, 83.14% statement coverage, 27 materialized runtime GLBs, 72 decoded runtime PNGs, and a production Vite build. The built bundle references both new revisions and all eight action paths. Every built PNG hash matches its approved source file.
 - Review sheets, discarded generations, temporary files, and Python caches remain outside the repository. No kart GLB, gameplay logic, physics, stats, camera geometry, or previously accepted asset changed.
-- Approval gate: local integration is complete. Publishing the branch, opening and merging the PR, deploying Pages, and recording live acceptance require Manny's next approval.
-- Status: **VALIDATED LOCALLY — PUBLICATION APPROVAL REQUIRED.**
+- PR #73 head CI run `33708240532` passed. The PR merged to `main` at `735da4015bca6f9610f6a358672804f4c73b35f9`; main run `33708310011` passed validation and GitHub Pages deployment.
+- The live page serves `assets/index-D84iBLTd.js`, which references both controlled revisions and all eight front-action paths. SHA-256 checks against every deployed PNG response match the approved hashes recorded above.
+- Approval gate: publication and deployment are complete. Product-owner desktop/mobile camera-action playtesting is the only remaining gate.
+- Status: **LIVE DEPLOYED — LULA AND ACCU REQUIRE PRODUCT-OWNER CAMERA/ACTION PLAYTEST.**
 
 ## Cleo archive status — complete
 
@@ -298,8 +300,8 @@ Continuity closure completed by PR #32:
 
 ## Next recommended action
 
-Retest Lavi's deployed neutral front, steering, hit, victory, chase restoration, cockpit placement, and single modeled wheel. Do not begin the Lula and Accu batch until Lavi passes.
+Playtest the deployed Lula and Accu steering-left, steering-right, hit, victory, chase restoration, transparency, cockpit placement, and single modeled wheel on desktop and mobile.
 
 ## Approval gate
 
-Toph's front-action expansion is live accepted. Lavi's placement correction is deployed; live acceptance remains gated. Lula and Accu remain gated before candidate creation.
+Lula and Accu have cleared visual approval, integration, validation, publication, and deployment. Live desktop/mobile camera-action acceptance remains gated.
