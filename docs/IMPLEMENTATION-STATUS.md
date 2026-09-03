@@ -14,23 +14,46 @@ The Jennifer / The Hearthwarden publication and the product/repository rebrand t
 
 - Repository: `Manaconda33/manacondas-minigame-mayhem`
 - Live URL: `https://manaconda33.github.io/manacondas-minigame-mayhem/`
-- Current `main`: `90d27523413ca296333bfe13442e7a3e1bcf157a`
-- Jennifer/rebrand release PR: **#76 — Publish Jennifer and rebrand as Manaconda's Minigame Mayhem**
-- Jennifer/rebrand release merge: `cec008cfb8e1ae12e8985e5d5104c094d2e36148`
-- Acceptance closeout PR: **#77 — Record Jennifer and rebrand live acceptance**
-- Acceptance closeout merge: `90d27523413ca296333bfe13442e7a3e1bcf157a`
-- Latest verified main CI / Pages run: `33795517803`
-- Result: validation **passed**; GitHub Pages deploy **passed**
+- Current deployed Candidate 1 merge: `4453cd8867078a31c837b6a7c8c9c5a768d46d9c`
+- Release PR: **#78 — Build Circuit Alpha environment-art pass**
+- Post-merge CI / Pages run: **33798145690**
+- Validation result: **passed**
+- GitHub Pages deploy: **passed**
+- Pages artifact: `github-pages` artifact **9910007986**
+- Artifact digest: `sha256:5df814cde851baf4cfc44f18887bceeffc4a11d0cba3ae397bb605064d8ce015`
+- Product-owner live visual acceptance: **pending**
 
-## Active work: Circuit Alpha environment-art pass
+## Circuit Alpha environment-art Candidate 1 — deployed
 
-### Approved scope
+Manny's approved direction is: **give Circuit Alpha a major 3D environment-art pass without changing the track layout or gameplay.**
 
-Manny's direction is: **give Circuit Alpha a major 3D environment-art pass without changing the track layout or gameplay.**
+Candidate 1 is now deployed from `main`. The pass replaces the primitive scene dressing in `src/game/track/createTrackScene.ts` with a deterministic procedural environment treatment:
 
-The pass is constrained to rendering and environment presentation. The following remain protected and unchanged:
+- richer layered dusk sky shader with controlled sun glow
+- distinct PBR road, shoulder, and darker racing-wear layers
+- preserved partial-width Split S-Bend dirt lane
+- instanced alternating roadside curb blocks
+- instanced emissive roadside reflectors
+- deterministic instanced trackside forest with 64 trunks and 64 canopy instances
+- 36 instanced trackside rocks
+- 18 instanced distant mountain silhouettes
+- layered rocky/forested center mesa replacing the former single center cylinder
+- center-mesa beacon for route orientation
+- constructed start/finish gantry
+- visual underpass architecture aligned to the PRD underpass section
+- upgraded visuals for both existing boost-pad locations
+- upgraded Crest Ramp visual at the existing ramp trigger
+- 24 instanced checkpoint pylons
+- sparse landmark beacons for route readability
 
-- `src/game/track/CircuitAlpha.ts`
+Repeated scenery uses `THREE.InstancedMesh` to increase environmental density without hundreds of independent submissions. No external texture, GLB, audio, or other binary asset was introduced.
+
+## Protected gameplay contract
+
+`src/game/track/CircuitAlpha.ts` is unchanged by Candidate 1.
+
+The following remain protected and unchanged:
+
 - the 384 canonical track samples and Catmull-Rom course topology
 - approximately 0.90 km loop length
 - road width and signed surface projection
@@ -43,68 +66,23 @@ The pass is constrained to rendering and environment presentation. The following
 - roster statistics and character assets
 - item scope
 
-### Candidate 1
+## Validation evidence
 
-Branch: `polish/circuit-alpha-environment`
+PR #78 candidate validation passed before publication. The exact merged `main` checkpoint then passed run **33798145690** with:
 
-Pull request: **#78 — Build Circuit Alpha environment-art pass**
-
-Validated candidate checkpoint before this status record: `9bea7e91aecb9c61ca68ee87a2562cef34fd309b`.
-
-Candidate 1 replaces the primitive scene dressing in `src/game/track/createTrackScene.ts` with a deterministic procedural environment pass:
-
-- richer layered dusk sky shader with controlled sun glow
-- distinct PBR road, shoulder, and darker racing-wear layers
-- preserved partial-width Split S-Bend dirt lane
-- instanced alternating roadside curb blocks
-- instanced emissive roadside reflectors
-- deterministic instanced trackside forest with 64 trunks and 64 canopy instances
-- 36 instanced trackside rocks
-- 18 instanced distant mountain silhouettes
-- layered rocky/forested center mesa replacing the former single center cylinder
-- center-mesa beacon for mid-course visual orientation
-- constructed start/finish gantry
-- visual underpass architecture aligned to the PRD underpass section
-- upgraded visuals for both existing boost-pad locations
-- upgraded Crest Ramp visual at the existing ramp trigger
-- 24 instanced checkpoint pylons
-- sparse landmark beacons for route readability
-
-Repeated dressing uses `THREE.InstancedMesh` so the visual-density increase does not translate into hundreds of independent draw submissions.
-
-No new external texture, GLB, audio, or other binary asset was introduced in Candidate 1.
-
-### Automated regression guard
-
-`tests/track-scene.test.ts` was added to verify the environment pass independently of gameplay topology.
-
-It confirms that:
-
-- environment construction leaves all 384 canonical `CircuitAlpha.samples` unchanged
-- required visual landmarks are present
-- both boost-pad visuals and the crest-ramp visual are present at the existing scene contract
-- repeated curb, reflector, forest, rock, mountain, and checkpoint dressing remains instanced
-- expected deterministic instance counts remain stable
-
-Existing `tests/circuit-alpha.test.ts` continues to guard loop length, twelve checkpoints, and asphalt/dirt/grass/boost/ramp surface projection.
-
-### Validation evidence
-
-PR #78 head run **33797708233** completed successfully on 2026-09-03.
-
-Passed:
-
-- repository checkout
-- Git LFS runtime-asset materialization / verification
+- Git LFS runtime-asset materialization and verification
 - Node setup and lockfile install
 - strict TypeScript typecheck
 - ESLint with zero warnings
-- full Vitest CI suite, including the new environment regression
+- full Vitest CI suite
+- `tests/track-scene.test.ts` topology-preservation and environment-composition regression
+- existing `tests/circuit-alpha.test.ts` loop/checkpoint/surface regression
 - production Vite build
+- GitHub Pages configuration
+- Pages artifact upload
+- successful GitHub Pages deployment
 
-GitHub Pages configuration, artifact upload, and deployment were correctly skipped because this is still an unmerged pull-request candidate.
-
-The candidate has therefore passed the automated code/build gate but has **not** passed visual or performance acceptance. A production deployment and product-owner desktop/mobile playtest remain required before the environment pass can be called complete.
+The new environment regression verifies that scene construction does not mutate the 384 canonical samples, required landmarks remain present, the two boost-pad visuals and crest-ramp visual remain represented, and repeated scenery remains instanced with deterministic counts.
 
 ## Active production roster state
 
@@ -121,41 +99,31 @@ The candidate has therefore passed the automated code/build gate but has **not**
 
 Cleo / The Gilded Stitch remains archived and inactive. AA-01 and AA-06 remain governed placeholders. The twelve-slot Character Select architecture remains intact.
 
-## Completed requirements and acceptance criteria
-
-- Jennifer / The Hearthwarden remains fully live accepted.
-- All ten active production drivers retain their complete shared chase-facing and camera-facing action-state contract.
-- The Manaconda's Minigame Mayhem product/repository/Pages rebrand remains live accepted.
-- Existing live-accepted gameplay, physics, AI, minimap, driver, kart, and surface checkpoints are unchanged by the Circuit Alpha candidate.
-- Candidate 1 satisfies its automated visual-scene composition and topology-preservation checks.
-
 ## Known defects / unresolved issues
 
 No automated defect is recorded against Candidate 1.
 
 The existing production-build large-chunk warning remains known and non-blocking.
 
-The environment-art pass has not yet been viewed in a deployed race. Potential visual issues such as scale, occlusion, roadside clutter, landmark placement, lighting balance, mobile readability, or runtime frame cost remain unresolved until live testing.
+The deployed environment has not yet passed product-owner visual/performance acceptance. Potential issues such as scale, occlusion, roadside clutter, landmark placement, lighting balance, mobile readability, or runtime frame cost remain open until live testing.
 
 ## Deferred work
 
-- Publication and live acceptance of Circuit Alpha Candidate 1 are pending Manny approval.
-- No new external PBR texture set, HDR environment, baked AO asset, post-processing stack, or authored track GLB is part of Candidate 1.
+- Final live acceptance of Circuit Alpha Candidate 1 is pending Manny's desktop/mobile playtest.
+- No external PBR texture set, HDR environment, baked AO asset, post-processing stack, or authored track GLB is part of Candidate 1.
 - AA-01 and AA-06 character assignments remain unfilled.
 - Items remain Slice 5 work and are not authorized by this pass.
 - Other Slice 6 presentation/audio/optimization work remains outside this bounded increment.
 
 ## Next recommended action
 
-**Stop at the publication gate.**
+**Stop at the live visual-acceptance gate.**
 
-If Manny approves Candidate 1 for publication, merge PR #78, verify the resulting `main` validation and GitHub Pages deployment, then conduct desktop/mobile visual and performance playtesting of the live build.
-
-The live review should specifically evaluate:
+Manny should play the deployed Candidate 1 on desktop and mobile and evaluate:
 
 - dusk sky and horizon depth
 - road, shoulder, racing-wear, curb, and reflector readability at speed
-- trackside vegetation/rock density without visual obstruction
+- vegetation/rock density without obstruction
 - center mesa silhouette and route-orientation value
 - start/finish gantry scale
 - underpass clearance and lighting transition
@@ -163,10 +131,10 @@ The live review should specifically evaluate:
 - checkpoint/landmark visual language
 - eight-racer frame pacing and any mobile performance regression
 
-Do not declare the environment pass complete from CI alone.
+If the live result passes, record final acceptance. If it does not, make only bounded visual corrections and repeat the deployment gate.
 
 ## Approval state
 
-**Circuit Alpha environment Candidate 1: AUTOMATED VALIDATION PASSED / PUBLICATION PENDING.**
+**Circuit Alpha environment Candidate 1: DEPLOYED / LIVE ACCEPTANCE PENDING.**
 
-The project roadmap remains at Slice 3. PR #78 must not merge until Manny explicitly authorizes publication for live visual playtesting.
+The project roadmap remains at Slice 3.
