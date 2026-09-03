@@ -65,7 +65,8 @@ describe('Circuit Alpha environment scene', () => {
 
     const approachEdge = scene.getObjectByName('crest-ramp-approach-edge');
     expect(approachEdge).toBeInstanceOf(THREE.Mesh);
-    expect((approachEdge as THREE.Mesh).position.z).toBeLessThan(0);
+    if (!(approachEdge instanceof THREE.Mesh)) throw new Error('Missing Crest Ramp approach edge');
+    expect(approachEdge.position.z).toBeLessThan(0);
   });
 
   it('uses instancing for repeated trackside dressing', () => {
