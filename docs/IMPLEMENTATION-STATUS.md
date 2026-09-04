@@ -6,56 +6,64 @@
 
 PRD baseline: **v1.1, working implementation amendment 2.1**.
 
-Manny explicitly authorized a bounded Circuit Alpha environment-art/camera polish pass under the existing track/rendering requirements. That pass is now **LIVE ACCEPTED / CLOSED** and does **not** advance the roadmap to Slice 5 or Slice 6.
+The roadmap remains at Slice 3. Competitive Slice 4 systems exist because they were implemented early under the documented sequencing correction. Items remain Slice 5 and are not authorized by the current work.
 
-Jennifer / The Hearthwarden and the Manaconda's Minigame Mayhem rebrand remain **LIVE ACCEPTED / CLOSED**.
+## Current balance work
 
-A bounded Circuit Alpha balance pass is now active under PR **#86**. Candidate F passed the 250,000-race simulation gate, was approved for live playtest, merged, validated on `main`, and deployed. **Product-owner live playtest acceptance is the remaining gate.**
+A bounded Circuit Alpha balance pass is active.
 
-## Latest verified live checkpoint
+Candidate F passed automated validation and a 250,000-race simulation, then was deployed for product-owner live playtest. Manny's live test on **2026-09-03** found:
+
+- the new Handling behavior is directionally correct — lower-Handling racers visibly lose more speed while turning;
+- however, with every tested player-controlled racer, Manny could establish an early lead that the AI had no realistic chance to close.
+
+Therefore:
+
+**Candidate F live balance gate: FAILED / NOT ACCEPTED.**
+
+Do not treat Candidate F as final production balance merely because it remains the currently deployed build.
+
+## Latest verified deployed checkpoint
 
 - Repository: `Manaconda33/manacondas-minigame-mayhem`
 - Live URL: `https://manaconda33.github.io/manacondas-minigame-mayhem/`
-- Candidate F balance PR: **#86 — Candidate F balance playtest checkpoint**
-- Candidate F merge: `faedd84e6e86ab7adca1d5f8ed06742d6ab70920`
-- Main CI / Pages run: **33819651122** — validation passed and deployment passed
-- Product-owner state: **LIVE PLAYTEST REQUIRED**
-- Candidate F is not yet final accepted production balance.
+- Candidate F balance PR: **#86**
+- Candidate F runtime merge: `faedd84e6e86ab7adca1d5f8ed06742d6ab70920`
+- Deployment-record commit: `c56781d9d3ee4878c5ef47a09fcfc2d7535099dc`
+- Main CI / Pages run: **33820024902** — validation passed and deployment passed
+- Product-owner state: **LIVE BALANCE REJECTED — AI PACE TOO LOW**
 
-The prior fully accepted Circuit Alpha environment/camera release remains PR **#83**, merge `da9275771941e7e112a6153af3d5d1cd97ea2bf2`, with product-owner final live acceptance on 2026-09-03.
+The prior Circuit Alpha environment/camera pass remains separately **LIVE ACCEPTED / CLOSED**.
 
-## Active Candidate F balance checkpoint
+## Candidate F behavior retained as useful
 
-Candidate F keeps all existing racer stat allocations unchanged and changes only shared balance behavior:
+Candidate F introduced the following shared balance behavior:
 
 - Speed 7 remains anchored at **29.5 m/s**;
-- the Speed 1–10 sustained-asphalt spread is compressed to **3.0 m/s**;
-- Handling now contributes to shared physical corner-speed retention;
-- AI receives only a modest additional Handling-aware braking adjustment so Handling is not heavily double-counted;
+- Speed 1–10 sustained-asphalt spread is **3.0 m/s**;
+- Handling contributes to shared physical corner-speed retention for both player and AI;
 - Circuit Alpha AI corner demand uses normalized lookahead-angle geometry;
-- Mini-Turbo-aware AI seeks valid drift opportunities and respects governed blue/orange/purple tier limits;
-- Weight collision retention, Traction, surfaces, boost pads, ramp behavior, Circuit Alpha geometry, roster sampling, individual stat allocations, assets, and item scope remain unchanged.
+- Mini-Turbo-aware AI seeks valid drift opportunities and observes governed drift tiers;
+- Weight collision retention, Traction, surfaces, boost pads, ramp behavior, Circuit Alpha geometry, roster sampling, individual racer stat allocations, assets, and item scope remain unchanged.
+
+Manny's live feedback explicitly supports retaining the shared Handling slowdown. The failed gate concerns AI competitiveness, not the concept that low Handling should cost more speed while turning.
+
+## Candidate F automated evidence
 
 Candidate F source checkpoint: `0fce4d2be4c41ff2f7fddf69d13d74306a78f106`.
 
-Final PR documentation checkpoint before merge: `2146d815c69ff26f8d9bb4ed39beac415ae8eafb`.
-
-PR CI run **33819366960** passed on that exact documented head after the simulation approval record was added.
-
-Earlier Candidate F physics CI run **33818180063** passed:
+PR CI and final documented-head validation passed with:
 
 - Git LFS verification;
 - strict TypeScript typecheck;
 - ESLint with zero warnings;
 - **20/20 test files and 102/102 tests**;
-- seven runtime AI profiles completing valid three-lap Rapier simulations for every manifest racer;
-- all 84 diagnostic racer/profile runs at **0% grass time**;
+- all 12 manifest profiles completing all seven runtime AI profiles over valid three-lap Rapier simulations;
+- all 84 diagnostic racer/profile runs recording **0% grass time**;
 - runtime asset verification;
 - production Vite build.
 
-Merged `main` commit `faedd84e6e86ab7adca1d5f8ed06742d6ab70920` passed run **33819651122** with the same validation plus successful GitHub Pages artifact upload and deployment.
-
-The final **250,000-race** moderate-variance Monte Carlo produced these conditional win rates when each racer was present in an eight-racer field:
+The final Candidate F 250,000-race moderate-variance Monte Carlo produced these conditional win rates:
 
 - Keeg — **19.54%**
 - Krios — **18.56%**
@@ -70,77 +78,54 @@ The final **250,000-race** moderate-variance Monte Carlo produced these conditio
 - Accu — **7.88%**
 - Toph — **7.74%**
 
-Compared with Candidate E, Krios fell from **23.81% to 18.56%**, Lula rose from **6.16% to 8.18%**, the best-to-worst win-rate spread fell from **17.65 to 11.80 percentage points**, and field win-rate standard deviation fell by about **24.1%**.
+Those results remain useful for character-vs-character balance, but the live gate proved that AI-vs-player execution was not represented strongly enough by the simulation model.
 
-Manny approved Candidate F's simulation gate on **2026-09-03**. Deployment is complete; the remaining evidence is Manny's product-owner live playtest. This approval does not yet make Candidate F final accepted production balance.
+## Candidate G — active experiment
 
-## Circuit Alpha environment-art / camera pass — final accepted state
+Draft PR **#87 — Candidate G: restore competitive AI corner pace** is the bounded follow-up.
 
-The bounded pass materially improved Circuit Alpha presentation while preserving the governed race topology and physics contract.
+Diagnosis: the shared kart controller already applies Handling-based corner-speed loss to both player and AI, but Candidate F also gave AI an anticipatory target that could impose roughly **34–48%** full-demand corner slowdown. A player did not receive that second AI-only penalty. The PRD-governed trailing top-speed allowance is capped at **4%**, so it could not make up the resulting corner-time loss.
 
-Accepted visual/environment changes include:
+Candidate G changes only that AI anticipatory target:
 
-- deeper dusk sky and atmospheric presentation;
-- layered asphalt wear and shoulders;
-- alternating curbs and reflectors;
-- instanced forest, rocks, and distant mountains;
-- rebuilt center mesa and additional trackside landmarks;
-- start/finish gantry and underpass architecture;
-- upgraded boost-pad and checkpoint presentation;
-- Crest Ramp rebuilt as a forward-rising wedge aligned to the course;
-- pre-race crane-down camera during the 3 / 2 / 1 countdown;
-- lower chase and rear-view camera heights;
-- tighter final chase/rear framing to emphasize the driver and kart;
-- visual start/finish staging in front of the starting grid;
-- lap-completion crossing aligned to the visible gantry.
+- full-demand anticipation becomes a modest **4–10%** range based on AI pace;
+- shared Handling physics remains the primary corner-speed limiter;
+- higher-pace AI remains slightly faster through equivalent corners;
+- the existing 4% trailing allowance remains unchanged.
 
-## Final product-owner acceptance matrix
+Protected behavior remains unchanged:
 
-Manny's deployed live review recorded all required presentation gates as passing:
+- Candidate F 3.0 m/s Speed spread;
+- every racer stat allocation;
+- shared Handling slowdown;
+- Mini-Turbo thresholds/tiers/boosts;
+- Weight collision behavior;
+- Traction/surfaces;
+- boost pads and ramp/stunt boost;
+- Circuit Alpha geometry/checkpoints;
+- starting grid and roster sampling;
+- assets and item scope.
 
-- start/finish gantry is ahead of the grid during countdown/start — **PASS**
-- racers launch toward and pass under the gantry — **PASS**
-- Crest Ramp presents the short low edge first and rises toward the far/down-track edge — **PASS**
-- pre-race crane-down during 3 / 2 / 1 — **PASS**
-- lower chase-camera height/angle — **PASS**
-- lower rear-view height/angle — **PASS**
-- chase framing at the tighter distance — **PASS**
-- rear-view framing at the tighter distance — **PASS**
-- lap 3 / race finish occurs at the gantry rather than before it — **PASS**
-- mobile frame pacing remains acceptable — **PASS**
+Candidate G branch: `experiment/candidate-g-ai-pace`.
 
-The Circuit Alpha environment-art/camera polish pass is therefore **LIVE ACCEPTED / CLOSED**.
+Candidate G draft PR: **#87**.
 
-## Final camera / finish values
+Current Candidate G head at the time this status was written: `64023b76e8fe1be6469aec7bb73ea184519fcbe6`.
 
-- chase distance: **5.6 m**
-- chase height: **3.15 m**
-- rear-view distance: **5.3 m**
-- rear-view height: **3.05 m**
-- look target height: **1.15 m**
-- PerspectiveCamera FOV: **62°**
-- crane duration: **2.85 s**
-- start/finish distance from the original checkpoint-0/grid origin: **22 m**
-- player spawn remains **8 m** beyond the original checkpoint-0 origin
+Candidate G is **not deployed and not approved**. Automated validation is required before another live playtest can be proposed.
 
-`checkpointPosition(0)` remains the starting-grid origin. `lapCheckpointPosition(0)` is the 22 m visible gantry crossing used for lap completion. Checkpoints 1–11 retain their prior positions.
+## Candidate G validation gate
 
-## Protected gameplay contract
+Before deployment:
 
-The accepted Circuit Alpha environment pass did not change:
+1. typecheck, lint, full Vitest/coverage, runtime-asset verification, and production build must pass;
+2. all 12 manifest profiles must complete all seven runtime AI profiles over valid three-lap Rapier simulations;
+3. grass exposure and road-boundary regressions must stay within existing limits;
+4. AI three-lap times must improve materially versus Candidate F;
+5. character ordering must not collapse into a new single-stat runaway;
+6. Manny must authorize another live playtest checkpoint before Candidate G is merged/deployed.
 
-- the 384 canonical Catmull-Rom track samples or course topology;
-- loop length or road width;
-- checkpoints 1–11 or checkpoint order;
-- player/AI starting grid positions;
-- asphalt, dirt, grass, boost, and ramp gameplay classification;
-- ramp trigger or ramp boost behavior;
-- three-lap requirement;
-- countdown timing;
-- roster statistics or character assets;
-- item scope.
-
-The later Candidate F balance checkpoint intentionally changes shared Speed/Handling/AI Mini-Turbo behavior only as described above and remains pending live acceptance.
+At the time this status was written, GitHub Actions run **33821294439** was stalled in `npm ci` before typecheck/test execution, and superseding run **33821749308** was pending. This is not passing evidence and is not recorded as a Candidate G code failure.
 
 ## Active production roster state
 
@@ -159,36 +144,28 @@ Cleo / The Gilded Stitch remains archived and inactive. AA-01 and AA-06 remain g
 
 ## Known defects / unresolved issues
 
-- Candidate F is deployed but still requires live product-owner playtest acceptance.
+- **Balance blocker:** deployed Candidate F AI cannot currently challenge a competent player after the player establishes an early lead.
+- Candidate G automated evidence is not yet complete.
 - The existing production-build large-chunk warning remains known and non-blocking.
 
 ## Deferred work
 
-- No external PBR texture set, HDR environment, baked AO asset, post-processing stack, or authored track GLB was introduced in the bounded environment pass.
 - AA-01 and AA-06 remain unfilled.
-- Items remain Slice 5 work and are not authorized by this balance checkpoint.
+- Items remain Slice 5 work.
+- No new track, asset, Weight, Traction, or individual-stat rebalance is authorized by Candidate G.
 
 ## Next recommended action
 
-**Stop at the product-owner live playtest gate.**
+**Validate Candidate G, compare its seven-profile Rapier times against Candidate F, then stop at Manny's approval gate before any new deployment.**
 
-Play the deployed Candidate F build and focus on whether:
-
-- Krios remains recognizably fastest without overwhelming the field;
-- high-Handling racers gain corner value without feeling artificially speed-limited;
-- Kraken/Toph Mini-Turbo identity is visible in AI behavior;
-- Accu still benefits from Weight without becoming either dominant or inert;
-- the pack feels competitive over multiple three-lap races;
-- existing surface, collision, ramp, boost, checkpoint, camera, mobile, and asset behavior remains intact.
-
-Do not record Candidate F as final accepted balance until Manny explicitly approves the deployed playtest. Do not silently advance to Slice 5 or Slice 6.
+The next live test, if approved, should specifically ask whether AI racers can remain within striking distance of a competent player and exploit the 4% trailing allowance without feeling like obvious rubber-band cheating.
 
 ## Approval state
 
-**Candidate F balance: DEPLOYED / LIVE PLAYTEST REQUIRED.**
-
 **Candidate F simulation gate: APPROVED.**
 
-**Circuit Alpha environment-art / camera polish: LIVE ACCEPTED / CLOSED.**
+**Candidate F live balance gate: FAILED / NOT ACCEPTED.**
 
-The project roadmap remains at Slice 3.
+**Candidate G: DRAFT EXPERIMENT / AUTOMATED VALIDATION REQUIRED.**
+
+**Circuit Alpha environment-art / camera polish: LIVE ACCEPTED / CLOSED.**
