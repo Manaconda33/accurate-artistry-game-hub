@@ -10,20 +10,19 @@ Manny explicitly authorized a bounded Circuit Alpha environment-art/camera polis
 
 Jennifer / The Hearthwarden and the Manaconda's Minigame Mayhem rebrand remain **LIVE ACCEPTED / CLOSED**.
 
-A bounded Circuit Alpha balance pass is now active under PR **#86**. Candidate F has passed the simulation gate and is **APPROVED FOR LIVE PLAYTEST**, but is not yet final accepted balance.
+A bounded Circuit Alpha balance pass is now active under PR **#86**. Candidate F passed the 250,000-race simulation gate, was approved for live playtest, merged, validated on `main`, and deployed. **Product-owner live playtest acceptance is the remaining gate.**
 
 ## Latest verified live checkpoint
 
 - Repository: `Manaconda33/manacondas-minigame-mayhem`
 - Live URL: `https://manaconda33.github.io/manacondas-minigame-mayhem/`
-- Final runtime release: PR **#83 — Finish at gantry and tighten race camera framing**
-- PR #83 merge: `da9275771941e7e112a6153af3d5d1cd97ea2bf2`
-- Main CI / Pages run: **33809002419** — validation passed and deployment passed
-- GitHub Pages artifact: **9914060220**
-- Pages artifact digest: `sha256:4005c0b896469a02883bd3a83c22cf6c187bfadf5d1310c185d11df440d1f0e3`
-- Deployment-record checkpoint before final acceptance: `4d96262919f71ce01bc3b586e037c2046ea45b3e`
-- Deployment-record run: **33809192455** — validation passed and deployment passed
-- Product-owner final live acceptance: **2026-09-03 — APPROVED**
+- Candidate F balance PR: **#86 — Candidate F balance playtest checkpoint**
+- Candidate F merge: `faedd84e6e86ab7adca1d5f8ed06742d6ab70920`
+- Main CI / Pages run: **33819651122** — validation passed and deployment passed
+- Product-owner state: **LIVE PLAYTEST REQUIRED**
+- Candidate F is not yet final accepted production balance.
+
+The prior fully accepted Circuit Alpha environment/camera release remains PR **#83**, merge `da9275771941e7e112a6153af3d5d1cd97ea2bf2`, with product-owner final live acceptance on 2026-09-03.
 
 ## Active Candidate F balance checkpoint
 
@@ -39,7 +38,11 @@ Candidate F keeps all existing racer stat allocations unchanged and changes only
 
 Candidate F source checkpoint: `0fce4d2be4c41ff2f7fddf69d13d74306a78f106`.
 
-PR CI run **33818180063** passed:
+Final PR documentation checkpoint before merge: `2146d815c69ff26f8d9bb4ed39beac415ae8eafb`.
+
+PR CI run **33819366960** passed on that exact documented head after the simulation approval record was added.
+
+Earlier Candidate F physics CI run **33818180063** passed:
 
 - Git LFS verification;
 - strict TypeScript typecheck;
@@ -49,6 +52,8 @@ PR CI run **33818180063** passed:
 - all 84 diagnostic racer/profile runs at **0% grass time**;
 - runtime asset verification;
 - production Vite build.
+
+Merged `main` commit `faedd84e6e86ab7adca1d5f8ed06742d6ab70920` passed run **33819651122** with the same validation plus successful GitHub Pages artifact upload and deployment.
 
 The final **250,000-race** moderate-variance Monte Carlo produced these conditional win rates when each racer was present in an eight-racer field:
 
@@ -67,7 +72,7 @@ The final **250,000-race** moderate-variance Monte Carlo produced these conditio
 
 Compared with Candidate E, Krios fell from **23.81% to 18.56%**, Lula rose from **6.16% to 8.18%**, the best-to-worst win-rate spread fell from **17.65 to 11.80 percentage points**, and field win-rate standard deviation fell by about **24.1%**.
 
-Manny approved Candidate F's simulation gate on **2026-09-03**. The next required evidence is a deployed product-owner playtest. This approval does not yet make Candidate F final accepted production balance.
+Manny approved Candidate F's simulation gate on **2026-09-03**. Deployment is complete; the remaining evidence is Manny's product-owner live playtest. This approval does not yet make Candidate F final accepted production balance.
 
 ## Circuit Alpha environment-art / camera pass — final accepted state
 
@@ -154,7 +159,7 @@ Cleo / The Gilded Stitch remains archived and inactive. AA-01 and AA-06 remain g
 
 ## Known defects / unresolved issues
 
-- Candidate F has passed simulation and automated validation but still requires live product-owner playtest acceptance.
+- Candidate F is deployed but still requires live product-owner playtest acceptance.
 - The existing production-build large-chunk warning remains known and non-blocking.
 
 ## Deferred work
@@ -165,9 +170,9 @@ Cleo / The Gilded Stitch remains archived and inactive. AA-01 and AA-06 remain g
 
 ## Next recommended action
 
-**Deploy Candidate F and stop at the product-owner live playtest gate.**
+**Stop at the product-owner live playtest gate.**
 
-The live playtest should focus on whether:
+Play the deployed Candidate F build and focus on whether:
 
 - Krios remains recognizably fastest without overwhelming the field;
 - high-Handling racers gain corner value without feeling artificially speed-limited;
@@ -180,7 +185,9 @@ Do not record Candidate F as final accepted balance until Manny explicitly appro
 
 ## Approval state
 
-**Candidate F balance simulation gate: APPROVED / LIVE PLAYTEST REQUIRED.**
+**Candidate F balance: DEPLOYED / LIVE PLAYTEST REQUIRED.**
+
+**Candidate F simulation gate: APPROVED.**
 
 **Circuit Alpha environment-art / camera polish: LIVE ACCEPTED / CLOSED.**
 
