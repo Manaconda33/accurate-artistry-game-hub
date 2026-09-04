@@ -19,15 +19,15 @@ Driver art and kart art remain separate runtime layers. Driver PNGs must not con
 
 ## Runtime PNG contract
 
-| Path                                                    | Size      | Use                                 |
-| ------------------------------------------------------- | --------- | ----------------------------------- |
-| `public/assets/characters/aa-06/portrait.png`           | 256 x 256 | Archived Character Select portrait  |
-| `public/assets/characters/aa-06/driver/front.png`       | 512 x 512 | Camera facing the front of the kart |
-| `public/assets/characters/aa-06/driver/rear.png`        | 512 x 512 | Neutral chase-camera state          |
-| `public/assets/characters/aa-06/driver/steer-left.png`  | 512 x 512 | Chase-camera left steering          |
-| `public/assets/characters/aa-06/driver/steer-right.png` | 512 x 512 | Chase-camera right steering         |
-| `public/assets/characters/aa-06/driver/hit.png`         | 512 x 512 | Chase-camera impact reaction        |
-| `public/assets/characters/aa-06/driver/victory.png`     | 512 x 512 | Chase-camera victory turn           |
+| Path                                                                 | Size      | Use                                 |
+| -------------------------------------------------------------------- | --------- | ----------------------------------- |
+| `public/assets/archive/characters/cleo-aa-06/portrait.png`           | 256 x 256 | Archived Character Select portrait  |
+| `public/assets/archive/characters/cleo-aa-06/driver/front.png`       | 512 x 512 | Camera facing the front of the kart |
+| `public/assets/archive/characters/cleo-aa-06/driver/rear.png`        | 512 x 512 | Neutral chase-camera state          |
+| `public/assets/archive/characters/cleo-aa-06/driver/steer-left.png`  | 512 x 512 | Chase-camera left steering          |
+| `public/assets/archive/characters/cleo-aa-06/driver/steer-right.png` | 512 x 512 | Chase-camera right steering         |
+| `public/assets/archive/characters/cleo-aa-06/driver/hit.png`         | 512 x 512 | Chase-camera impact reaction        |
+| `public/assets/archive/characters/cleo-aa-06/driver/victory.png`     | 512 x 512 | Chase-camera victory turn           |
 
 Every file remains sRGB RGBA with non-opaque alpha and transparent corner pixels. Runtime art remains in normal Git under ADR-012. High-resolution masters do not belong at these paths.
 
@@ -64,7 +64,7 @@ The approved production model declares `extras.forward: "-Z"` and historically u
 - Approved art contains no steering wheel or kart geometry
 - Runtime PNGs resolve to normal Git rather than Git LFS
 - Manny approved LOD0 Candidate 3 on 2026-08-21 after direct interactive GLB review. Candidate 3 uses a rear-biased cockpit, one connected steering wheel, a front sewing-machine pillar and overhanging arm, an exposed needle/presser-foot assembly, non-clipping wooden spool wheels, and continuous attached gold side inlays.
-- Retained paths: `public/assets/characters/aa-06/{kart,kart-lod1,kart-lod2}.glb`.
+- Retained paths: `public/assets/archive/characters/cleo-aa-06/{kart,kart-lod1,kart-lod2}.glb`.
 - Triangle counts: LOD0 12,812; LOD1 10,396; LOD2 4,780.
 - All three files use four opaque materials, the exact thirteen-node hierarchy, meters, and `extras.forward: "-Z"`.
 - SHA-256/LFS object IDs: LOD0 `453ebc42da5745f7f5251323cd7a38a79add6538ee39dc9e512570c1c9905150`; LOD1 `a9013591726b3bbb43b102d3707fe9da24f2e1e8de24c929bbc6405e28357002`; LOD2 `3578b62d3c9fa332adb2b1ae7addb1d2b56201c7c8491a1075e847ff18caa79e`.
@@ -77,9 +77,9 @@ The approved production model declares `extras.forward: "-Z"` and historically u
 As of 2026-08-26:
 
 - Cleo is excluded from `characterManifest`.
-- AA-06 renders as a governed placeholder rather than Cleo.
+- Dragon Queen owns the active AA-06 slot locally; Cleo remains inactive.
 - Cleo cannot be sampled into the AI grid.
-- The active build's runtime-GLB signature gate no longer requires the three AA-06 GLBs.
+- Cleo's archived GLBs are outside the active runtime gate.
 - The PNGs, three LFS-backed GLBs, builder, hashes, mount, and prior evidence remain untouched for restoration.
 
 Restoration requires Manny's explicit approval, a current balance-profile decision, reactivation in the manifest, fresh LFS/materialization checks, full repository validation, deployment, and live manual verification. See `docs/CHARACTER-ARCHIVE.md`.

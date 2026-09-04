@@ -376,3 +376,65 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Scope:** Publish Jennifer's approved AA-12 runtime package in the same release. Gameplay, physics, balance, existing character visuals, and previously accepted asset bytes remain unchanged.
 - **Local evidence:** The rebrand guard passed across current source, metadata, documentation, filenames, and the Word artifact. Full validation passed with strict typecheck, zero-warning lint, 16 Vitest files / 84 tests, 83.19% statement coverage, 30 materialized runtime GLBs, 83 decoded runtime PNGs, a production build at the new Pages base, and `git lfs fsck`. The renamed 43-page Word PRD passed ZIP integrity and page-by-page rendered review; 30 unchanged pages remained pixel-identical to the approved source, and all 13 changed pages were inspected without clipping or collisions.
 - **Approval:** Manny approved publication, repository and Pages renaming, the complete public rebrand, and the new icon direction on 2026-09-03. Desktop and mobile live acceptance remain required after deployment.
+
+## ADR-053: Lock Dragon Queen, The Sovereign Wyrm, and AA-06
+
+- **Date:** 2026-09-03
+- **Status:** Approved for asset preparation
+- **Context:** Manny began a one-character Slice 3 intake for Dragon Queen with a detailed written description and a supplied racer collage. AA-01 and AA-06 were the only available balance profiles. Manny confirmed that he controls the image, authorized its transformation into public game assets, and designated it as the definitive visual reference.
+- **Character decision:** Dragon Queen is a literal sovereign dragon with deep navy scales, subtle gold flecking, molten-gold eyes, broad wings, a long scaled tail, dark-blue and gold ceremonial cloths, minimal royal jewelry, and calm benevolent authority. She must never become humanoid, dragonborn-like, feral, casually comic, or sexualized. Wings and tail remain visible in every portrait and driver-state silhouette.
+- **Kart decision:** Name her kart The Sovereign Wyrm. Preserve the reference's low royal grand-tourer body, midnight-blue finish, sculpted gold structural trim, jewel-like blue lighting, substantial tires, and gold dragon nose shield. Build the cockpit around literal dragon anatomy with wing clearance and a visible tail channel. The kart supplies one modeled steering control.
+- **Balance decision:** Assign Dragon Queen and The Sovereign Wyrm to AA-06 Grip Specialist: Speed 6 / Acceleration 6 / Weight 5 / Handling 7 / Mini-Turbo 5 / Traction 7. The profile expresses her control-first identity through stable handling and traction without turning appearance into heavyweight performance.
+- **Archive treatment:** Cleo remains inactive and restorable. Before Dragon Queen assets enter the standard AA-06 paths, move Cleo's complete approved package byte-for-byte to a dedicated archive location and update `archivedCleo` to those preserved paths. Do not delete, regenerate, or overwrite Cleo's files.
+- **Scope:** This approval locks identity, rights, reference authority, kart direction, name, and balance mapping. It does not approve raster derivatives, GLB geometry, runtime activation, publication, deployment, or live acceptance.
+- **Next gate:** Prepare one solo portrait candidate and stop for Manny's visual approval before creating the ten driver states.
+- **Approval:** Manny approved the definitive reference and transformation rights, The Sovereign Wyrm design/name, and AA-06 Grip Specialist mapping on 2026-09-03.
+
+## ADR-054: Lock Dragon Queen portrait Candidate 2
+
+- **Date:** 2026-09-03
+- **Status:** Approved for driver-state preparation
+- **Context:** Candidate 1 preserved Dragon Queen's identity but showed too much of her seated body, which would shrink her face below the established HUD and minimap presentation. Candidate 2 tightened the crop while retaining both wings and the long tail.
+- **Decision:** Lock Candidate 2 as Dragon Queen's portrait design authority. Preserve its deep navy scales, gold flecking, molten-gold eyes, long muzzle, crown, horns, broad wings, curling tail, layered ceremonial cloths, restrained jewelry, and calm sovereign expression.
+- **Normalization:** The approved 1254 x 1254 review export is RGB with a baked checkerboard. Keep it outside runtime paths. After all eleven raster designs are approved, remove the checkerboard deterministically and create the 256 x 256 transparent sRGBA derivative with premultiplied-alpha resizing.
+- **Scope:** This approval locks the portrait appearance only. It does not approve the runtime derivative, ten driver states, kart geometry, runtime activation, publication, deployment, or live acceptance.
+- **Next gate:** Prepare ten driver-state candidates from the approved portrait identity, then stop for Manny's visual review before normalization.
+- **Approval:** Manny approved Candidate 2 on 2026-09-03.
+
+## ADR-055: Approve Dragon Queen's ten driver states and staged 2D package
+
+- **Date:** 2026-09-04
+- **Status:** Approved and prepared outside runtime paths
+- **Context:** Dragon Queen required five chase-facing and five camera-facing driver designs derived from the approved portrait identity. Both wings and one long tail had to remain visible without adding kart or control geometry.
+- **Decision:** Approve rear, steer-left, steer-right, hit, victory, front, front-steer-left, front-steer-right, front-hit, and front-victory. The steering pairs show opposite commanded turns. Hit uses controlled recoil. Victory remains closed-mouth and uses a restrained draconic foreclaw salute.
+- **Rejected defects:** Candidate preparation exposed a duplicate tail in chase steer-right, a roaring chase victory, and a human-like circular finger gesture in front victory. Corrected replacements were reviewed as part of the approved set. Future derivatives must keep exactly one tail, avoid feral victory expressions, and avoid recognizable human hand signs.
+- **Normalization:** `tools/assets/prepare_dragon_queen_2d.py` preserves native alpha and removes edge-connected pale neutral checkerboards only from opaque review exports. It clears hidden RGB and uses premultiplied-alpha resizing. The outputs remain staged outside the AA-06 runtime path.
+- **Evidence:** Two deterministic runs produced the same eleven hashes. The relative-path SHA-256 manifest is `6be70b53cb3f63a33e349c7ba2e66d4d413034d32f47ab549d96f23bcc74d7fd`. The staged set contains one 256 x 256 portrait and ten 512 x 512 driver frames as 8-bit, non-interlaced sRGBA PNGs with transparent corners. A dark-matte sheet shows no checkerboard blocks or pale outer halos.
+- **Archive boundary:** Cleo's approved package still occupies `public/assets/characters/aa-06/`. No Cleo file was changed. The local integration gate must copy that package byte-for-byte to a dedicated archive and update `archivedCleo` before Dragon Queen enters the standard AA-06 paths.
+- **Scope:** This approval covers Dragon Queen's complete 2D design package and staged runtime derivatives. It does not approve The Sovereign Wyrm geometry, AA-06 activation, publication, deployment, or live acceptance.
+- **Next gate:** Prepare The Sovereign Wyrm's deterministic LOD0, LOD1, and LOD2 geometry candidate for Manny's review.
+- **Approval:** Manny approved the complete ten-frame driver-state sheet on 2026-09-04.
+
+## ADR-056: Approve The Sovereign Wyrm geometry Candidate 2
+
+- **Date:** 2026-09-04
+- **Status:** Approved for local runtime integration
+- **Context:** Dragon Queen's identity, 2D package, kart direction, and AA-06 mapping were already approved. The kart still required deterministic runtime geometry with a literal-dragon cockpit, readable royal construction, three LODs, one modeled control, and the shared negative-Z orientation contract.
+- **Rejected candidate:** Candidate 1 was withheld because its round nose read as a grille, its separate side scales read as dots, and the steering wheel dominated the cockpit.
+- **Decision:** Approve Candidate 2. It uses a shield-shaped prow, joined gold chevrons, a smaller lower steering control, midnight-blue bodywork, structural gold rails, blue jewel lights, substantial tires, broad wing clearance, and an open tail channel.
+- **Evidence:** LOD0 contains 12,164 triangles with SHA-256 `57b3f4b248ed96cd19b0c2b233aec4462fde73b102ad9acde8941550bf69e305`; LOD1 contains 7,268 with `31bdd684fb764fdb4d6e04726971e0bf3f34ee4f36aefbf652fcdf3b133053c3`; LOD2 contains 3,620 with `124ec43e1ada192d67a3d4fe6bb6c3ec1cdd3f9df6b6c22b1af05b25762197de`. Each GLB has four materials, thirteen required nodes, one `SteeringWheel`, and `extras.forward: "-Z"`. Repeated builds matched byte-for-byte.
+- **Scope:** Geometry approval allows local AA-06 integration after Cleo's approved package is copied unchanged to a dedicated archive. It does not authorize publication, deployment, or live acceptance.
+- **Next gate:** Preserve Cleo, integrate Dragon Queen locally, verify cockpit placement and runtime contracts, then request publication approval.
+- **Approval:** Manny approved Candidate 2 on 2026-09-04.
+
+## ADR-057: Integrate Dragon Queen and preserve Cleo locally
+
+- **Date:** 2026-09-04
+- **Status:** Locally integrated; publication pending
+- **Context:** Dragon Queen's identity, rights, AA-06 mapping, portrait, ten driver states, and Sovereign Wyrm Candidate 2 were approved. Cleo's inactive AA-06 package had to be preserved before Dragon Queen could occupy the standard runtime paths.
+- **Archive decision:** Copy Cleo's portrait, six driver frames, and three Gilded Stitch GLBs unchanged to `public/assets/archive/characters/cleo-aa-06/`. Point `archivedCleo` only to that package and pin all ten files to their approved SHA-256 values in the runtime verifier.
+- **Runtime decision:** Activate Dragon Queen at AA-06 under `dragon-queen-runtime-20260904-1`. Use The Sovereign Wyrm, `NEGATIVE_Z_KART_VISUAL_YAW`, all ten approved driver frames, the Grip Specialist 6 / 6 / 5 / 7 / 5 / 7 profile, and `[0, 0.95, -0.12]` for chase-facing and camera-facing placement.
+- **Cockpit evidence:** `tools/assets/render_dragon_queen_cockpit_review.py` uses the runtime model scale, ground offset, sprite size, and approved assets. The render keeps both wings above the bodywork, seats the lower body behind the cockpit edge, and places the kart's single modeled control between the foreclaws in front view. Two runs matched SHA-256 `7ee269aec57cd1cc95aaa17d66aedeaf2ffe20ccee460f56e7e91c82d6a8f917`.
+- **Validation:** The full local gate passes strict typecheck, zero-warning lint, 18 Vitest files / 91 tests, 89.7% statement coverage, 33 materialized runtime GLBs, 94 decoded runtime PNGs, the branding guard, production build, and `git lfs fsck`. The existing large-chunk warning is unchanged.
+- **Scope:** Local source, assets, tests, records, and commit only. This decision does not authorize pushing the branch, opening or merging a pull request, publishing, deploying, or recording live acceptance.
+- **Next gate:** Request explicit publication approval, then complete deployed desktop and mobile checks for selection, orientation, all driver states, cockpit occlusion, wing and tail visibility, and the single modeled control.

@@ -1,5 +1,59 @@
 import { open, readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { inflateSync } from 'node:zlib';
+
+const archivedCleoHashes = new Map([
+  [
+    'public/assets/archive/characters/cleo-aa-06/portrait.png',
+    '1f960402a447078e681f3f4b1b0ed5fcf8dcc1ca10f4a4deec077d758400b2cf',
+  ],
+  [
+    'public/assets/archive/characters/cleo-aa-06/driver/front.png',
+    '70b6884751897e9f7ccba2fbeb5c37ed0b6c0631fea0fe1dd6788823a18d524e',
+  ],
+  [
+    'public/assets/archive/characters/cleo-aa-06/driver/rear.png',
+    'af97bb7be383e6bd1f87eae944941e8c60d8fe987c36db53f75a16a635d582d9',
+  ],
+  [
+    'public/assets/archive/characters/cleo-aa-06/driver/steer-left.png',
+    '7cde1f8bb0e1eec2f217efbcb9ec2592fe8c39c92487964d63615b07f3fc0d95',
+  ],
+  [
+    'public/assets/archive/characters/cleo-aa-06/driver/steer-right.png',
+    'c6bae3e9e75f6ed28a71a309bcc44f45e7d470193293051850e82b1c1ffecd4a',
+  ],
+  [
+    'public/assets/archive/characters/cleo-aa-06/driver/hit.png',
+    'ddbdac8788f5095f406eb0199b7324f1e78a073b74e13db948f62140d7562032',
+  ],
+  [
+    'public/assets/archive/characters/cleo-aa-06/driver/victory.png',
+    '53d7648dc4e44d150a43b5db7cd3e5ce8dfd4030c2a802f355fffc5675393d21',
+  ],
+  [
+    'public/assets/archive/characters/cleo-aa-06/kart.glb',
+    '453ebc42da5745f7f5251323cd7a38a79add6538ee39dc9e512570c1c9905150',
+  ],
+  [
+    'public/assets/archive/characters/cleo-aa-06/kart-lod1.glb',
+    'a9013591726b3bbb43b102d3707fe9da24f2e1e8de24c929bbc6405e28357002',
+  ],
+  [
+    'public/assets/archive/characters/cleo-aa-06/kart-lod2.glb',
+    '3578b62d3c9fa332adb2b1ae7addb1d2b56201c7c8491a1075e847ff18caa79e',
+  ],
+]);
+
+for (const [path, expectedHash] of archivedCleoHashes) {
+  const bytes = await readFile(path);
+  const actualHash = createHash('sha256').update(bytes).digest('hex');
+  if (actualHash !== expectedHash) {
+    throw new Error(`${path} no longer matches Cleo's approved archived bytes.`);
+  }
+}
+
+console.log(`Verified ${String(archivedCleoHashes.size)} archived Cleo asset hashes.`);
 
 const runtimeGlbs = [
   'public/assets/characters/aa-02/kart.glb',
@@ -14,6 +68,9 @@ const runtimeGlbs = [
   'public/assets/characters/aa-05/kart.glb',
   'public/assets/characters/aa-05/kart-lod1.glb',
   'public/assets/characters/aa-05/kart-lod2.glb',
+  'public/assets/characters/aa-06/kart.glb',
+  'public/assets/characters/aa-06/kart-lod1.glb',
+  'public/assets/characters/aa-06/kart-lod2.glb',
   'public/assets/characters/aa-10/kart.glb',
   'public/assets/characters/aa-10/kart-lod1.glb',
   'public/assets/characters/aa-10/kart-lod2.glb',
@@ -222,6 +279,17 @@ const lulaProtectedRects = {
 };
 
 const runtimePngs = [
+  ['public/assets/characters/aa-06/portrait.png', 256, 256],
+  ['public/assets/characters/aa-06/driver/front.png', 512, 512],
+  ['public/assets/characters/aa-06/driver/rear.png', 512, 512],
+  ['public/assets/characters/aa-06/driver/steer-left.png', 512, 512],
+  ['public/assets/characters/aa-06/driver/steer-right.png', 512, 512],
+  ['public/assets/characters/aa-06/driver/hit.png', 512, 512],
+  ['public/assets/characters/aa-06/driver/victory.png', 512, 512],
+  ['public/assets/characters/aa-06/driver/front-steer-left.png', 512, 512],
+  ['public/assets/characters/aa-06/driver/front-steer-right.png', 512, 512],
+  ['public/assets/characters/aa-06/driver/front-hit.png', 512, 512],
+  ['public/assets/characters/aa-06/driver/front-victory.png', 512, 512],
   ['public/assets/characters/aa-02/driver/front.png', 512, 512],
   ['public/assets/characters/aa-02/driver/front-steer-left.png', 512, 512],
   ['public/assets/characters/aa-02/driver/front-steer-right.png', 512, 512],
@@ -308,6 +376,17 @@ const runtimePngs = [
 ];
 
 const newTransparentFronts = new Set([
+  'public/assets/characters/aa-06/portrait.png',
+  'public/assets/characters/aa-06/driver/front.png',
+  'public/assets/characters/aa-06/driver/rear.png',
+  'public/assets/characters/aa-06/driver/steer-left.png',
+  'public/assets/characters/aa-06/driver/steer-right.png',
+  'public/assets/characters/aa-06/driver/hit.png',
+  'public/assets/characters/aa-06/driver/victory.png',
+  'public/assets/characters/aa-06/driver/front-steer-left.png',
+  'public/assets/characters/aa-06/driver/front-steer-right.png',
+  'public/assets/characters/aa-06/driver/front-hit.png',
+  'public/assets/characters/aa-06/driver/front-victory.png',
   'public/assets/characters/aa-02/driver/front.png',
   'public/assets/characters/aa-02/driver/front-steer-left.png',
   'public/assets/characters/aa-02/driver/front-steer-right.png',

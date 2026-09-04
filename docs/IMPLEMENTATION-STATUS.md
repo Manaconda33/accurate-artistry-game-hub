@@ -10,6 +10,8 @@ Manny explicitly authorized a bounded Circuit Alpha environment-art/camera polis
 
 Jennifer / The Hearthwarden and the Manaconda's Minigame Mayhem rebrand remain **LIVE ACCEPTED / CLOSED**.
 
+Dragon Queen / The Sovereign Wyrm is **LOCALLY INTEGRATED / PUBLICATION PENDING**. Manny approved the character lock, definitive reference, transformation rights, kart name/design, AA-06 Grip Specialist mapping, and portrait Candidate 2 on 2026-09-03. He approved all ten driver states and Sovereign Wyrm geometry Candidate 2 on 2026-09-04. Her complete package now occupies the active AA-06 path under `dragon-queen-runtime-20260904-1`; Cleo's former package is preserved unchanged in its dedicated archive. No branch publication or deployment has occurred.
+
 ## Latest verified live checkpoint
 
 - Repository: `Manaconda33/manacondas-minigame-mayhem`
@@ -133,8 +135,21 @@ The existing production-build large-chunk warning remains known and non-blocking
 - Krios / The Hornbreaker — AA-10
 - Accu / Pink Precision — AA-11
 - Jennifer / The Hearthwarden — AA-12
+- Dragon Queen / The Sovereign Wyrm — AA-06
 
-Cleo / The Gilded Stitch remains archived and inactive. AA-01 and AA-06 remain governed placeholders.
+Cleo / The Gilded Stitch remains archived and inactive. AA-01 remains a governed placeholder.
+
+AA-06 is locally active as Dragon Queen. AA-01 is the only unassigned profile.
+
+## Dragon Queen local integration
+
+- Candidate 2 is the approved Sovereign Wyrm geometry. LOD0 uses 12,164 triangles, LOD1 uses 7,268, and LOD2 uses 3,620. Their SHA-256 values are `57b3f4b248ed96cd19b0c2b233aec4462fde73b102ad9acde8941550bf69e305`, `31bdd684fb764fdb4d6e04726971e0bf3f34ee4f36aefbf652fcdf3b133053c3`, and `124ec43e1ada192d67a3d4fe6bb6c3ec1cdd3f9df6b6c22b1af05b25762197de`.
+- The active manifest maps AA-06 to Dragon Queen, The Sovereign Wyrm, `NEGATIVE_Z_KART_VISUAL_YAW`, Grip Specialist statistics 6 / 6 / 5 / 7 / 5 / 7, and all ten driver states under `dragon-queen-runtime-20260904-1`.
+- Chase-facing and camera-facing frames use `[0, 0.95, -0.12]`. The kart keeps its authored steering-control position. The deterministic local cockpit render retains both wings, seats the lower body behind the bodywork, and shows one control between Dragon Queen's foreclaws in the front view. Two render runs matched SHA-256 `7ee269aec57cd1cc95aaa17d66aedeaf2ffe20ccee460f56e7e91c82d6a8f917`.
+- Cleo's former AA-06 package is preserved at `public/assets/archive/characters/cleo-aa-06/`. Ten runtime checks pin the original portrait, six driver frames, and three Gilded Stitch GLBs to their approved hashes.
+- The full local gate passes: strict typecheck, zero-warning lint, 18 Vitest files / 91 tests, 89.7% statement coverage, 33 materialized runtime GLBs, 94 decoded runtime PNGs, the brand guard, production build, and `git lfs fsck`.
+- The known large-chunk build warning is unchanged and non-blocking.
+- Publication, deployment, and desktop/mobile live acceptance remain pending.
 
 ## Known defects / unresolved issues
 
@@ -145,24 +160,19 @@ The existing production-build large-chunk warning remains known and non-blocking
 ## Deferred work
 
 - No external PBR texture set, HDR environment, baked AO asset, post-processing stack, or authored track GLB was introduced in this bounded pass.
-- AA-01 and AA-06 remain unfilled.
+- AA-01 remains unfilled.
+- Dragon Queen's local package still requires publication approval, deployment, and desktop/mobile live acceptance.
+- Cleo's package is preserved byte-for-byte at `public/assets/archive/characters/cleo-aa-06/` and must remain restorable.
 - Items remain Slice 5 work and are not authorized by this closeout.
 
 ## Next recommended action
 
-**Stop at the next product-owner approval boundary.**
-
-Circuit Alpha environment-art/camera work requires no further acceptance action.
-
-The next implementation action must be selected explicitly by Manny, for example:
-
-- begin another Slice 3 character intake using AA-01 or AA-06; or
-- approve a different PRD-defined bounded scope.
-
-Do not silently advance to Slice 5, Slice 6, or materially reorder the roadmap.
+Review the local Dragon Queen cockpit evidence and request explicit publication approval. Do not push, open or merge a pull request, publish, or deploy before that approval.
 
 ## Approval state
 
 **Circuit Alpha environment-art / camera polish: LIVE ACCEPTED / CLOSED.**
+
+**Dragon Queen complete package: LOCALLY INTEGRATED. PUBLICATION APPROVAL REQUIRED.**
 
 The project roadmap remains at Slice 3.

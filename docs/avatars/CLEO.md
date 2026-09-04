@@ -70,6 +70,6 @@ The historical runtime driver sprite position `[0, 0.9, -0.72]` placed Cleo in t
 
 ## Archive and restoration
 
-No approved Cleo asset is deleted. The runtime package remains under `public/assets/characters/aa-06/`, The Gilded Stitch builder remains at `tools/assets/build_cleo_gilded_stitch.py`, and the full package inventory and GLB object IDs are recorded in `docs/CHARACTER-ARCHIVE.md`.
+No approved Cleo asset is deleted. The package is preserved at `public/assets/archive/characters/cleo-aa-06/`, The Gilded Stitch builder remains at `tools/assets/build_cleo_gilded_stitch.py`, and the full package inventory and GLB object IDs are recorded in `docs/CHARACTER-ARCHIVE.md`.
 
 Do not reactivate Cleo, reuse her likeness, or treat historical live acceptance as current deployment evidence without Manny's explicit restoration approval and a fresh validation/deployment pass.

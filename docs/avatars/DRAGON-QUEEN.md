@@ -1,0 +1,102 @@
+# Dragon Queen - Racer Intake Record
+
+## Approval state
+
+- Character lock: Approved by Manny, 2026-09-03
+- Definitive visual authority: Supplied Dragon Queen racer collage
+- Transformation rights: Confirmed by Manny, 2026-09-03
+- Kart lock: The Sovereign Wyrm, approved by Manny, 2026-09-03
+- Balance mapping: AA-06 Grip Specialist, approved by Manny, 2026-09-03
+- Portrait design: Candidate 2 approved by Manny, 2026-09-03
+- Portrait runtime derivative: Integrated and validated, 2026-09-04
+- Ten-frame driver design package: Approved by Manny, 2026-09-04
+- Ten-frame runtime derivatives: Integrated and validated, 2026-09-04
+- 3D kart geometry: Candidate 2 approved by Manny, 2026-09-04
+- Runtime activation: Locally integrated under `dragon-queen-runtime-20260904-1`; publication pending
+
+## Character lock
+
+Dragon Queen is a literal sovereign dragon. Her anatomy must remain fully draconic in every view: long muzzle, scaled neck and torso, clawed limbs, broad wings, and a long elegant scaled tail. She is never human-bodied, dragonborn-like, or anthropomorphic. Any driving pose must adapt the cockpit and controls to her body rather than reshape her into a person.
+
+Her scales are deep navy blue with restrained gold flecking, like a night sky threaded with precious metal. Her eyes glow molten gold and communicate ancient intelligence, self-command, and benevolent power. The glow must remain readable without becoming feral or menacing.
+
+Richly layered ceremonial cloths in dark blue and gold drape around her natural dragon anatomy. Gold trim and embroidered draconic motifs provide the principal ornament. Jewelry is sparse and deliberate: a royal crown or diadem and a few sovereign accents rather than dense decoration.
+
+Her posture is poised and authoritative. She does not slouch, snarl, lunge, or use casual comic gestures. Regal femininity comes from bearing, proportion, regalia, and expression, never from a humanoid body or sexualized treatment.
+
+## Required silhouette
+
+- Wings remain visible in the portrait and all driver states. They may fold or compress inside the cockpit but may not disappear.
+- The long scaled tail remains visible as part of every portrait and driver-state silhouette.
+- Hands, feet, limbs, torso, and face remain dragon anatomy. No human hands, human legs, breasts, or upright human proportions.
+- Horns, crown, wing membranes, tail, and long muzzle must remain readable at small HUD and gameplay sizes.
+- The portrait is a solo character image without kart, wheel, or scenery.
+
+## Reference precedence
+
+The supplied racer collage is definitive visual authority for Dragon Queen and The Sovereign Wyrm. The written character lock controls any conflict. In particular, production derivatives must preserve literal dragon anatomy, visible wings, the long tail, molten-gold eyes, deep navy scales with gold flecking, restrained royal jewelry, and ceremonial textiles fitted to a dragon body.
+
+## Kart lock
+
+The Sovereign Wyrm is a low royal grand-tourer with midnight-blue bodywork, sculpted gold architectural trim, jewel-like blue lighting, substantial tires, and a prominent gold dragon shield on the nose. It should read as a sovereign's purpose-built racer rather than a generic sports kart with decorative dragon decals.
+
+The open cockpit is built around Dragon Queen's actual anatomy. It provides wing clearance, a visible tail channel, a long supported seating cavity, and controls that her foreclaws can operate without turning them into hands. The bodywork must frame her silhouette rather than hide her wings or tail.
+
+The kart owns one modeled steering control. Driver rasters remain free of wheel, seat, tire, and bodywork pixels. Gold ornament must stay structural and restrained enough to remain readable at gameplay distance. The dragon shield is the primary emblem; no letter monogram is used.
+
+## Balance mapping
+
+AA-06 Grip Specialist: Speed 6 / Acceleration 6 / Weight 5 / Handling 7 / Mini-Turbo 5 / Traction 7.
+
+Dragon Queen's driving identity is measured and planted. Handling 7 and Traction 7 support stable line discipline, deliberate corrections, and reliable grip. Speed 6 and Acceleration 6 keep her capable without making straight-line pace her defining advantage. Weight 5 and Mini-Turbo 5 preserve meaningful vulnerability to heavier racers and prevent drift boosts from overtaking her control-first identity.
+
+This mapping expresses calm authority through predictable control rather than assigning power from appearance alone. It also avoids turning an ancient sovereign dragon into the fragile AA-01 Feather Sprinter.
+
+## Required production contract
+
+- Portrait: 256 x 256 transparent sRGBA PNG
+- Driver frames: front, rear, steer-left, steer-right, hit, victory, front-steer-left, front-steer-right, front-hit, and front-victory
+- Every driver frame: 512 x 512 transparent sRGBA PNG with transparent corners
+- Wings and tail: visible in every portrait and driver state
+- Kart package: deterministic LOD0, LOD1, and LOD2 GLBs with `extras.forward: "-Z"`
+- Runtime orientation: `NEGATIVE_Z_KART_VISUAL_YAW`
+- Controlled runtime revision required before publication
+- Desktop and mobile live acceptance required before production closure
+
+## Approved portrait design
+
+Manny approved Candidate 2 on 2026-09-03. It locks Dragon Queen's deep navy scales and fine gold flecking, molten-gold eyes, long draconic muzzle, gold crown, broad wings, long curling tail, and layered blue-and-gold ceremonial regalia. The tighter head-and-upper-torso composition keeps her face readable at HUD and minimap size while retaining both wings and the tail in the silhouette.
+
+The approved 1254 x 1254 RGB review export contains a baked checkerboard. It remains design authority only and must not enter the runtime path. Deterministic background removal and premultiplied-alpha resizing will occur after the complete eleven-image design package is approved.
+
+## Approved driver-state package
+
+Manny approved the complete ten-frame set on 2026-09-04. The chase-facing states are rear, steer-left, steer-right, hit, and victory. The camera-facing states are front, front-steer-left, front-steer-right, front-hit, and front-victory.
+
+Every approved frame keeps both wings and one long tail visible. The steering pairs show opposite commanded turns, the hit poses use controlled recoil, and the victory poses remain closed-mouth and restrained. The final set contains no wheel, kart, cockpit, seat, tire, or scenery pixels.
+
+Three rejected generation defects are now regression constraints: no duplicate tail or second tail tip, no roaring or skyward-open victory muzzle, and no human sign language or circular finger gesture. A victory salute must use a naturally open draconic foreclaw.
+
+`tools/assets/prepare_dragon_queen_2d.py` preserves native alpha where present, removes edge-connected pale neutral checkerboards from opaque review exports, clears hidden RGB, and resizes with premultiplied alpha. The deterministic package contains one 256 x 256 portrait and ten 512 x 512 driver frames as 8-bit, non-interlaced sRGBA PNGs with transparent corners. The approved files now occupy `public/assets/characters/aa-06/` under the controlled revision.
+
+## Approved 3D package
+
+Manny approved Candidate 2 on 2026-09-04. It corrects Candidate 1's round grille-like nose, dotted side ornament, and oversized steering control. The approved model uses a shield-shaped nose, joined gold chevrons, a smaller lower steering control, structural gold rails, jewel-blue lights, substantial tires, broad wing clearance, and an open rear tail channel.
+
+| Runtime path                                   | LOD  | Triangles | SHA-256                                                            |
+| ---------------------------------------------- | ---- | --------: | ------------------------------------------------------------------ |
+| `public/assets/characters/aa-06/kart.glb`      | LOD0 |    12,164 | `57b3f4b248ed96cd19b0c2b233aec4462fde73b102ad9acde8941550bf69e305` |
+| `public/assets/characters/aa-06/kart-lod1.glb` | LOD1 |     7,268 | `31bdd684fb764fdb4d6e04726971e0bf3f34ee4f36aefbf652fcdf3b133053c3` |
+| `public/assets/characters/aa-06/kart-lod2.glb` | LOD2 |     3,620 | `124ec43e1ada192d67a3d4fe6bb6c3ec1cdd3f9df6b6c22b1af05b25762197de` |
+
+All three GLBs reproduce byte-for-byte, use four materials and thirteen required nodes, declare one `SteeringWheel`, and set `extras.forward: "-Z"`. `tools/assets/build_dragon_queen_sovereign_wyrm.py` is the deterministic source.
+
+## Runtime placement and Cleo archive
+
+Dragon Queen uses `[0, 0.95, -0.12]` in chase-facing and camera-facing states. The kart keeps its authored steering-control position. An offline render using the runtime model scale, ground offset, sprite size, and approved PNGs shows both wings above the bodywork, the lower body seated behind the cockpit edge, and the single modeled control between her foreclaws in front view. Desktop and mobile deployment checks remain required.
+
+Cleo's ten-file package is preserved byte-for-byte at `public/assets/archive/characters/cleo-aa-06/`, and `archivedCleo` points only to that location. Dragon Queen's active package does not load or alter the Cleo archive.
+
+## Next approval gate
+
+Request explicit publication approval. Do not push, open or merge a pull request, publish, or deploy before that approval.

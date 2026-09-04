@@ -30,30 +30,38 @@ Do not reserve or mark a profile `Assigned` before Manny approves the mapping. I
 
 Stat order is Speed / Acceleration / Weight / Handling / Mini-Turbo / Traction.
 
-| Profile | Archetype           | Class         | Stats                  | Status    | Character  | Kart                 | Approval          |
-| ------- | ------------------- | ------------- | ---------------------- | --------- | ---------- | -------------------- | ----------------- |
-| AA-01   | Feather Sprinter    | Featherweight | 6 / 9 / 2 / 8 / 7 / 4  | Available | -          | -                    | -                 |
-| AA-02   | Feather Technician  | Featherweight | 5 / 8 / 2 / 9 / 8 / 4  | Assigned  | Lavi       | Potato               | Manny, 2026-08-16 |
-| AA-03   | Feather Dirt Ace    | Featherweight | 5 / 8 / 3 / 7 / 6 / 7  | Assigned  | Lula       | The Verdant Hart     | Manny, 2026-08-29 |
-| AA-04   | Balanced Racer      | Medium        | 7 / 7 / 5 / 7 / 5 / 5  | Assigned  | Keeg       | The Mycelial Majesty | Manny, 2026-08-26 |
-| AA-05   | Drift Specialist    | Medium        | 6 / 7 / 5 / 6 / 9 / 3  | Assigned  | Kraken     | The Abyssal Drifter  | Manny, 2026-08-21 |
-| AA-06   | Grip Specialist     | Medium        | 6 / 6 / 5 / 7 / 5 / 7  | Available | -          | -                    | -                 |
-| AA-07   | High-Speed Cruiser  | Cruiser       | 8 / 6 / 7 / 5 / 4 / 6  | Assigned  | McFleurdel | The Fleur de Nuit    | Manny, 2026-08-27 |
-| AA-08   | Turbo Bruiser       | Cruiser       | 7 / 5 / 7 / 4 / 8 / 5  | Assigned  | Toph       | The Grave Shift      | Manny, 2026-08-28 |
-| AA-09   | Technical Cruiser   | Cruiser       | 7 / 6 / 6 / 6 / 6 / 5  | Assigned  | Manaconda  | The Wayfinder        | Manny, 2026-08-16 |
-| AA-10   | Straight-Line Heavy | Heavyweight   | 10 / 4 / 9 / 3 / 4 / 6 | Assigned  | Krios      | The Hornbreaker      | Manny, 2026-08-22 |
-| AA-11   | Collision Tank      | Heavyweight   | 8 / 4 / 10 / 3 / 5 / 6 | Assigned  | Accu       | Pink Precision       | Manny, 2026-08-20 |
-| AA-12   | All-Surface Heavy   | Heavyweight   | 8 / 5 / 8 / 4 / 4 / 7  | Assigned  | Jennifer   | The Hearthwarden     | Manny, 2026-09-03 |
+| Profile | Archetype           | Class         | Stats                  | Status    | Character    | Kart                 | Approval          |
+| ------- | ------------------- | ------------- | ---------------------- | --------- | ------------ | -------------------- | ----------------- |
+| AA-01   | Feather Sprinter    | Featherweight | 6 / 9 / 2 / 8 / 7 / 4  | Available | -            | -                    | -                 |
+| AA-02   | Feather Technician  | Featherweight | 5 / 8 / 2 / 9 / 8 / 4  | Assigned  | Lavi         | Potato               | Manny, 2026-08-16 |
+| AA-03   | Feather Dirt Ace    | Featherweight | 5 / 8 / 3 / 7 / 6 / 7  | Assigned  | Lula         | The Verdant Hart     | Manny, 2026-08-29 |
+| AA-04   | Balanced Racer      | Medium        | 7 / 7 / 5 / 7 / 5 / 5  | Assigned  | Keeg         | The Mycelial Majesty | Manny, 2026-08-26 |
+| AA-05   | Drift Specialist    | Medium        | 6 / 7 / 5 / 6 / 9 / 3  | Assigned  | Kraken       | The Abyssal Drifter  | Manny, 2026-08-21 |
+| AA-06   | Grip Specialist     | Medium        | 6 / 6 / 5 / 7 / 5 / 7  | Assigned  | Dragon Queen | The Sovereign Wyrm   | Manny, 2026-09-03 |
+| AA-07   | High-Speed Cruiser  | Cruiser       | 8 / 6 / 7 / 5 / 4 / 6  | Assigned  | McFleurdel   | The Fleur de Nuit    | Manny, 2026-08-27 |
+| AA-08   | Turbo Bruiser       | Cruiser       | 7 / 5 / 7 / 4 / 8 / 5  | Assigned  | Toph         | The Grave Shift      | Manny, 2026-08-28 |
+| AA-09   | Technical Cruiser   | Cruiser       | 7 / 6 / 6 / 6 / 6 / 5  | Assigned  | Manaconda    | The Wayfinder        | Manny, 2026-08-16 |
+| AA-10   | Straight-Line Heavy | Heavyweight   | 10 / 4 / 9 / 3 / 4 / 6 | Assigned  | Krios        | The Hornbreaker      | Manny, 2026-08-22 |
+| AA-11   | Collision Tank      | Heavyweight   | 8 / 4 / 10 / 3 / 5 / 6 | Assigned  | Accu         | Pink Precision       | Manny, 2026-08-20 |
+| AA-12   | All-Surface Heavy   | Heavyweight   | 8 / 5 / 8 / 4 / 4 / 7  | Assigned  | Jennifer     | The Hearthwarden     | Manny, 2026-09-03 |
 
 ## Front-action rollout checkpoint
 
 Manny approved Lula and Accu's four-frame camera-facing action packages, then accepted the deployed desktop/mobile result on 2026-09-03. Their AA-03 and AA-11 mappings, stats, karts, and approval dates remain unchanged. The eight PNGs are live accepted under `lula-runtime-20260903-3` and `accu-runtime-20260903-3`. All nine active production drivers now meet the front-action runtime contract.
 
-## Local integration checkpoint
+## Dragon Queen intake checkpoint
 
-Jennifer's character lock, definitive reference, transformation rights, The Hearthwarden kart lock, and AA-12 All-Surface Heavy mapping were approved on 2026-09-03. The complete approved asset package is locally active in `characterManifest` under `jennifer-runtime-20260903-2`; publication and live acceptance remain pending. AA-01 and AA-06 remain available.
+Dragon Queen's literal-dragon character lock, definitive visual authority, transformation rights, The Sovereign Wyrm kart lock, and AA-06 Grip Specialist mapping were approved on 2026-09-03. Manny approved portrait Candidate 2, all ten driver states, and Sovereign Wyrm geometry Candidate 2 by 2026-09-04. Her complete package is locally active under `dragon-queen-runtime-20260904-1`. Publication and live acceptance remain gated. AA-01 is the only available profile.
+
+## Jennifer release checkpoint
+
+Jennifer's character lock, definitive reference, transformation rights, The Hearthwarden kart lock, and AA-12 All-Surface Heavy mapping were approved on 2026-09-03. Her complete package is live accepted in `characterManifest` under `jennifer-runtime-20260903-2`. AA-01 remains available; AA-06 is assigned to Dragon Queen.
 
 ## Locked mapping rationale
+
+### AA-06: Dragon Queen / The Sovereign Wyrm
+
+Dragon Queen's intended driving identity is controlled, planted, and deliberate. Handling 7 and Traction 7 reward stable line discipline and reliable grip. Speed 6 and Acceleration 6 keep her capable without making straight-line pace the defining strength, while Weight 5 and Mini-Turbo 5 preserve contact and drift tradeoffs. The profile expresses calm authority through control and avoids assigning performance from her powerful appearance alone. Manny approved the mapping on 2026-09-03.
 
 ### AA-12: Jennifer / The Hearthwarden
 
@@ -99,4 +107,4 @@ Krios is the roster's straight-line heavyweight bully. Speed 10 and Weight 9 giv
 
 ### AA-06: Cleo / The Gilded Stitch
 
-Manny approved Cleo for AA-06 on 2026-08-21. Handling 7 and Traction 7 supported her precision-craft, stable-line identity while moderate remaining values kept her distinct from the drift and heavyweight specialists. Manny retired Cleo from production on 2026-08-26 while preserving her complete approved package for possible restoration. AA-06 is therefore available again. See `docs/CHARACTER-ARCHIVE.md` for the durable archive and restoration gate.
+Manny approved Cleo for AA-06 on 2026-08-21. Handling 7 and Traction 7 supported her precision-craft, stable-line identity while moderate remaining values kept her distinct from the drift and heavyweight specialists. Manny retired Cleo from production on 2026-08-26 while preserving her complete approved package for possible restoration. AA-06 was released for reassignment and is now assigned to Dragon Queen. See `docs/CHARACTER-ARCHIVE.md` for Cleo's durable archive and restoration gate.
