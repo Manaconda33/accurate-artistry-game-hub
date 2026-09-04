@@ -18,6 +18,7 @@ export interface DriverSpriteState {
 }
 
 export type LocalPosition3 = readonly [number, number, number];
+export type DriverFramePositionOverrides = Partial<Record<DriverFrame, LocalPosition3>>;
 
 interface HorizontalVector {
   x: number;
@@ -57,6 +58,20 @@ export function driverFrameFallbacks(frame: DriverFrame): readonly DriverFrame[]
   if (isFrontFacingDriverFrame(frame)) return [frame, 'front', 'rear'];
   if (frame === 'rear') return ['rear'];
   return [frame, 'rear'];
+}
+
+export function driverSpritePosition(
+  frame: DriverFrame,
+  defaultPosition: LocalPosition3,
+  frontPosition?: LocalPosition3,
+  framePositions?: DriverFramePositionOverrides,
+): LocalPosition3 {
+  return (
+    framePositions?.[frame] ??
+    (isFrontFacingDriverFrame(frame) && frontPosition !== undefined
+      ? frontPosition
+      : defaultPosition)
+  );
 }
 
 export function shouldShowModeledSteeringControl(

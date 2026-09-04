@@ -8,7 +8,7 @@ PRD baseline: **v1.1, working implementation amendment 2.1**.
 
 The project roadmap remains at Slice 3. Items remain Slice 5 work and are not authorized. The previously approved Circuit Alpha environment/camera pass remains **LIVE ACCEPTED / CLOSED**. Jennifer / The Hearthwarden and the Manaconda's Minigame Mayhem rebrand remain **LIVE ACCEPTED / CLOSED**.
 
-Dragon Queen / The Sovereign Wyrm is now **PUBLISHED / DEPLOYED / LIVE ACCEPTANCE OPEN**. Product-owner desktop and mobile confirmation is the remaining gate before this character checkpoint can be called live accepted.
+Dragon Queen / The Sovereign Wyrm is now **PUBLISHED / DEPLOYED / LIVE ACCEPTANCE FAILED ON ONE PLACEMENT ITEM / CORRECTION APPROVED FOR PUBLICATION**. Manny reported that every live playtest item passes except the rear-view presentation. The first correction lowered all five camera-facing states, but steer-right remained slightly high. Manny approved the complete front-camera review and its smaller steer-right-only adjustment for publication.
 
 ## Dragon Queen publication and deployment
 
@@ -43,7 +43,9 @@ Dragon Queen is the active production identity for **AA-06 Grip Specialist**:
 - Kart: **The Sovereign Wyrm**
 - Kart orientation: `NEGATIVE_Z_KART_VISUAL_YAW`
 - Chase-facing driver position: `[0, 0.95, -0.12]`
-- Camera-facing driver position: `[0, 0.95, -0.12]`
+- Deployed camera-facing driver position: `[0, 0.95, -0.12]`
+- Local base camera-facing position: `[0, 0.84, -0.12]`
+- Local front-steer-right position: `[0, 0.80, -0.12]`
 
 The Sovereign Wyrm production geometry is locked at:
 
@@ -69,7 +71,9 @@ Local pre-publication validation passed with:
 - brand guard;
 - `git lfs fsck`.
 
-The deterministic Dragon Queen cockpit review matched across two runs at SHA-256 `7ee269aec57cd1cc95aaa17d66aedeaf2ffe20ccee460f56e7e91c82d6a8f917`.
+The original deterministic Dragon Queen cockpit review matched across two runs at SHA-256 `7ee269aec57cd1cc95aaa17d66aedeaf2ffe20ccee460f56e7e91c82d6a8f917`. Live playtest superseded its front-placement conclusion.
+
+The revised renderer reviews all five front-camera states in one sheet. Neutral, steer-left, hit, and victory use `[0, 0.84, -0.12]`; steer-right uses `[0, 0.80, -0.12]` because its foreclaws sit higher within that approved PNG. Two renders matched SHA-256 `1375abc4e30eaecadb1409030e0fea3e6ca3dd793ad8916227e24925a94006b2`. The two focused placement suites pass 36 tests, pin the base and steer-right mounts, and verify that a state-specific position takes precedence over the shared camera-facing position. Full local validation passes strict typecheck, zero-warning lint, 18 test files / 92 tests, 89.71% statement coverage, 33 materialized runtime GLBs, 94 decoded runtime PNGs, the brand guard, production build, and `git lfs fsck`.
 
 PR run **33867452643** repeated the repository CI gate on reconciled head `4de46328...` and passed Git LFS runtime verification, dependency installation, typecheck, lint, tests, and production build.
 
@@ -77,7 +81,7 @@ Main run **33868111838** repeated those validation stages on merge `aef3d92...`,
 
 The existing production-build large-chunk warning remains known and non-blocking.
 
-## Dragon Queen live acceptance matrix — OPEN
+## Dragon Queen live acceptance matrix - ONE FAILED ITEM
 
 Desktop and mobile product-owner acceptance must confirm the deployed release rather than source-only behavior.
 
@@ -95,7 +99,7 @@ Required checks:
 - Desktop/fine-pointer play keeps touch controls hidden and keyboard controls functional.
 - Mobile/coarse-pointer play shows the governed touch controls, maintains usable layout without horizontal clipping, and preserves acceptable frame pacing.
 
-A successful deployment is not product-owner acceptance. Record Manny's desktop/mobile result before closing Dragon Queen.
+Manny reported that every live playtest item passes except camera-facing hand-to-control alignment. The first local correction fixed the shared height, but review found front-steer-right still slightly high. Live acceptance remains open until the state-specific correction is approved, published, and retested in rear-view neutral, steering, hit, and victory states.
 
 ## Balance rollback — final closeout
 
@@ -146,9 +150,10 @@ Cleo / The Gilded Stitch remains archived and inactive. **AA-01 is the only rema
 
 ## Known defects / unresolved issues
 
-- Dragon Queen desktop/mobile live product-owner acceptance is pending.
+- Dragon Queen's deployed rear view places the camera-facing foreclaws above the modeled steering control.
+- The approved front-camera correction uses a base position of `[0, 0.84, -0.12]` and a front-steer-right override of `[0, 0.80, -0.12]`; it is not yet deployed or live-tested.
 - The existing production-build large-chunk warning remains known and non-blocking.
-- No Dragon Queen code or asset defect has been established by CI/deployment evidence.
+- No other Dragon Queen code, asset, orientation, or gameplay defect is open.
 - No balance candidate is active.
 
 ## Deferred work
@@ -160,13 +165,13 @@ Cleo / The Gilded Stitch remains archived and inactive. **AA-01 is the only rema
 
 ## Next recommended action
 
-**Complete Dragon Queen live desktop/mobile product-owner acceptance against the deployed Pages release.**
+Publish the approved correction branch, complete the governed pull-request and deployment workflow, then retest rear-view neutral, steering, hit, and victory states on the deployed Pages release.
 
 Do not advance to Slice 5, Slice 6, reopen Candidate F/G tuning, or begin another material roadmap scope until the current Dragon Queen acceptance result is recorded or Manny explicitly changes direction.
 
 ## Approval state
 
-**Dragon Queen / The Sovereign Wyrm: PUBLISHED / DEPLOYED / LIVE ACCEPTANCE OPEN.**
+**Dragon Queen / The Sovereign Wyrm: PUBLISHED / DEPLOYED / ONE LIVE ACCEPTANCE DEFECT / CORRECTION APPROVED FOR PUBLICATION.**
 
 **Balance experiment: ABANDONED / ROLLED BACK / CLOSED.**
 

@@ -149,7 +149,10 @@ describe('character manifest', () => {
     );
     expect(aa06.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
     expect(aa06.driverSpritePosition).toEqual([0, 0.95, -0.12]);
-    expect(aa06.frontDriverSpritePosition).toEqual([0, 0.95, -0.12]);
+    expect(aa06.frontDriverSpritePosition).toEqual([0, 0.84, -0.12]);
+    expect(aa06.driverFramePositions).toEqual({
+      frontSteerRight: [0, 0.8, -0.12],
+    });
     expect(aa06.driver?.rear).toContain(`?v=${DRAGON_QUEEN_ASSET_REVISION}`);
     expect(aa06.driver?.front).toContain(`?v=${DRAGON_QUEEN_ASSET_REVISION}`);
     expect(aa06.driver?.steerLeft).toContain(`?v=${DRAGON_QUEEN_ASSET_REVISION}`);

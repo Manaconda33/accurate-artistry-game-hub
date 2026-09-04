@@ -12,7 +12,7 @@
 - Ten-frame driver design package: Approved by Manny, 2026-09-04
 - Ten-frame runtime derivatives: Integrated and validated, 2026-09-04
 - 3D kart geometry: Candidate 2 approved by Manny, 2026-09-04
-- Runtime activation: Locally integrated under `dragon-queen-runtime-20260904-1`; publication pending
+- Runtime activation: Published under `dragon-queen-runtime-20260904-1`; one rear-view placement defect remains open
 
 ## Character lock
 
@@ -93,10 +93,14 @@ All three GLBs reproduce byte-for-byte, use four materials and thirteen required
 
 ## Runtime placement and Cleo archive
 
-Dragon Queen uses `[0, 0.95, -0.12]` in chase-facing and camera-facing states. The kart keeps its authored steering-control position. An offline render using the runtime model scale, ground offset, sprite size, and approved PNGs shows both wings above the bodywork, the lower body seated behind the cockpit edge, and the single modeled control between her foreclaws in front view. Desktop and mobile deployment checks remain required.
+Dragon Queen's chase-facing states remain at `[0, 0.95, -0.12]`. Live playtest rejected the deployed camera-facing position at the same height because her foreclaws appeared above The Sovereign Wyrm's modeled steering control. The first correction lowered all five camera-facing states to `[0, 0.84, -0.12]`, but Manny found steer-right slightly high.
+
+The revised review keeps neutral, steer-left, hit, and victory at `[0, 0.84, -0.12]` and lowers only front-steer-right to `[0, 0.80, -0.12]`. It does not change the approved PNGs, chase states, kart geometry, control position, sprite scale, or depth. Two renders of the complete front-camera sheet matched SHA-256 `1375abc4e30eaecadb1409030e0fea3e6ca3dd793ad8916227e24925a94006b2`.
+
+Manny approved the complete front-camera placement sheet and authorized branch publication on 2026-09-04.
 
 Cleo's ten-file package is preserved byte-for-byte at `public/assets/archive/characters/cleo-aa-06/`, and `archivedCleo` points only to that location. Dragon Queen's active package does not load or alter the Cleo archive.
 
-## Next approval gate
+## Next gate
 
-Request explicit publication approval. Do not push, open or merge a pull request, publish, or deploy before that approval.
+Publish the approved correction through the governed branch and pull-request workflow. After deployment, retest rear-view neutral, steering, hit, and victory states before closing Dragon Queen's live acceptance.

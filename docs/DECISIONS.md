@@ -438,3 +438,14 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Validation:** The full local gate passes strict typecheck, zero-warning lint, 18 Vitest files / 91 tests, 89.7% statement coverage, 33 materialized runtime GLBs, 94 decoded runtime PNGs, the branding guard, production build, and `git lfs fsck`. The existing large-chunk warning is unchanged.
 - **Scope:** Local source, assets, tests, records, and commit only. This decision does not authorize pushing the branch, opening or merging a pull request, publishing, deploying, or recording live acceptance.
 - **Next gate:** Request explicit publication approval, then complete deployed desktop and mobile checks for selection, orientation, all driver states, cockpit occlusion, wing and tail visibility, and the single modeled control.
+
+## ADR-058: Correct Dragon Queen's camera-facing driver mounts
+
+- **Date:** 2026-09-04
+- **Status:** Front-camera correction approved for publication
+- **Context:** Dragon Queen passed every reported live playtest item except rear-view hand-to-control alignment. The five camera-facing frames shared the chase-facing `[0, 0.95, -0.12]` mount. The first correction lowered all five to `[0, 0.84, -0.12]`, but Manny found steer-right slightly high and requested review of the complete front-camera set.
+- **Decision:** Keep chase-facing states at `[0, 0.95, -0.12]`. Use `[0, 0.84, -0.12]` for front neutral, steer-left, hit, and victory. Use a state-specific `[0, 0.80, -0.12]` override for front-steer-right because its foreclaws sit higher within the approved raster. Keep the approved raster files, kart geometry, modeled-control position, sprite scale, depth, character mapping, statistics, and asset revision unchanged.
+- **Evidence:** The complete five-state front-camera renderer produced identical review sheets across two runs at SHA-256 `1375abc4e30eaecadb1409030e0fea3e6ca3dd793ad8916227e24925a94006b2`. Two focused placement suites pass 36 tests, pin the base and state-specific mount values, and verify override precedence. Full local validation passes strict typecheck, zero-warning lint, 18 test files / 92 tests, 89.71% statement coverage, 33 materialized runtime GLBs, 94 decoded runtime PNGs, the brand guard, production build, and `git lfs fsck`.
+- **Scope:** This approval authorizes publishing the correction branch. Pull-request merge, deployment, and acceptance closure remain separately governed.
+- **Next gate:** Publish the correction branch, complete the pull-request and deployment workflow, and retest rear-view neutral, steering, hit, and victory states on the deployed release.
+- **Approval:** Manny approved the complete front-camera placement sheet and authorized branch publication on 2026-09-04.

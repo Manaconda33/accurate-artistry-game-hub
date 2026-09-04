@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   driverFrameFallbacks,
+  driverSpritePosition,
   isDriverFrontFacingCamera,
   isFrontFacingDriverFrame,
   modeledSteeringControlPosition,
@@ -100,6 +101,18 @@ describe('shared driver sprite state', () => {
       expect(isFrontFacingDriverFrame(frame)).toBe(true);
     }
     expect(isFrontFacingDriverFrame('rear')).toBe(false);
+  });
+
+  it('uses a state-specific driver position before the shared camera-facing position', () => {
+    const chase = [0, 0.95, -0.12] as const;
+    const front = [0, 0.84, -0.12] as const;
+    const frontSteerRight = [0, 0.8, -0.12] as const;
+
+    expect(driverSpritePosition('rear', chase, front, { frontSteerRight })).toBe(chase);
+    expect(driverSpritePosition('front', chase, front, { frontSteerRight })).toBe(front);
+    expect(driverSpritePosition('frontSteerRight', chase, front, { frontSteerRight })).toBe(
+      frontSteerRight,
+    );
   });
 
   it('returns to the neutral rear frame inside the steering dead zone', () => {
