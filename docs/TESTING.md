@@ -134,7 +134,7 @@ For live acceptance, collide Accu and a light racer with comparable approach spe
 ## Slice 3 Character Select and Lavi manual matrix
 
 - Hub `Start Grand Prix` opens Character Select rather than starting the race immediately.
-- Exactly twelve slots render; Lavi displays the approved portrait and all other unfinished identities display intentional monogram placeholders.
+- Exactly twelve slots render; every production identity displays its approved portrait, and the unfinished AA-01 identity displays an intentional monogram placeholder.
 - Selecting any slot updates its name, descriptor, six statistics, kart label, selected state, and race button without layout clipping.
 - Lavi remains the default selection and `Race as Lavi` loads Potato rather than the procedural fallback kart.
 - Potato reads as one opaque natural russet body with a continuous sculpted cockpit, rooted rear sprouts, connected wheels/axles, and no body clipping or translucency.
@@ -205,6 +205,19 @@ Run this matrix for every future production character, in addition to its slice-
 - Chase-facing position `[0, 0.92, -0.12]` seats Jennifer behind the rear structure without hiding her head, shoulders, or dog.
 - Camera-facing position `[0, 0.84, -0.12]` and modeled-wheel position `[0, 1.86, -0.42]` place The Hearthwarden's single wheel between Jennifer's hands without covering her face.
 - Product-owner acceptance is recorded only after the deployed desktop and mobile game confirms orientation, every driver state, cockpit occlusion, dog-side continuity, and single-wheel presentation.
+
+## Dragon Queen / Sovereign Wyrm local integration matrix
+
+- AA-06 renders Dragon Queen's approved portrait, Grip Specialist descriptor, and 6 / 6 / 5 / 7 / 5 / 7 statistics.
+- `Race as Dragon Queen` loads The Sovereign Wyrm rather than a placeholder, Cleo, The Gilded Stitch, or a fallback kart.
+- CI materializes and validates `public/assets/characters/aa-06/kart.glb`, `kart-lod1.glb`, and `kart-lod2.glb`. Each begins with the binary glTF signature and declares `extras.forward: "-Z"`.
+- LOD0, LOD1, and LOD2 remain within 25,000, 12,000, and 5,000 triangles. Each retains the thirteen-node hierarchy and one `SteeringWheel` node.
+- All ten driver states load from `dragon-queen-runtime-20260904-1`. Every frame remains free of kart and control geometry, keeps both wings visible, and shows exactly one long tail.
+- `NEGATIVE_Z_KART_VISUAL_YAW` keeps the dragon shield at the race-forward nose and the open tail channel behind Dragon Queen.
+- Chase-facing and camera-facing position `[0, 0.95, -0.12]` keeps the wings above the bodywork and seats the lower body behind the cockpit edge.
+- The kart's single modeled steering control remains between Dragon Queen's foreclaws in front view without covering her face.
+- Cleo's ten archived files at `public/assets/archive/characters/cleo-aa-06/` retain their recorded SHA-256 values and remain excluded from the active roster.
+- Product-owner acceptance is recorded only after the deployed desktop and mobile game confirms orientation, every driver state, cockpit occlusion, visible wings and tail, and single-control presentation.
 
 ## McFleurdel / Fleur de Nuit manual matrix
 

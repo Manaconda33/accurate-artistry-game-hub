@@ -56,6 +56,7 @@ export const MCFLEURDEL_ASSET_REVISION = 'mcfleurdel-runtime-20260901-2';
 export const TOPH_ASSET_REVISION = 'toph-runtime-20260902-2';
 export const LULA_ASSET_REVISION = 'lula-runtime-20260903-3';
 export const JENNIFER_ASSET_REVISION = 'jennifer-runtime-20260903-2';
+export const DRAGON_QUEEN_ASSET_REVISION = 'dragon-queen-runtime-20260904-1';
 
 const assetUrl = (path: string, revision: string): string =>
   `${import.meta.env.BASE_URL}${path}?v=${revision}`;
@@ -214,18 +215,70 @@ export const archivedCleo: CharacterDefinition = {
   initials: 'CL',
   accent: '#d79a35',
   assetState: 'production',
-  portrait: assetUrl('assets/characters/aa-06/portrait.png', CLEO_ASSET_REVISION),
+  portrait: assetUrl('assets/archive/characters/cleo-aa-06/portrait.png', CLEO_ASSET_REVISION),
   kartName: 'The Gilded Stitch',
-  kart: assetUrl('assets/characters/aa-06/kart.glb', CLEO_ASSET_REVISION),
+  kart: assetUrl('assets/archive/characters/cleo-aa-06/kart.glb', CLEO_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
   driverSpritePosition: [0, 0.9, -0.72],
   driver: {
-    rear: assetUrl('assets/characters/aa-06/driver/rear.png', CLEO_ASSET_REVISION),
-    front: assetUrl('assets/characters/aa-06/driver/front.png', CLEO_ASSET_REVISION),
-    steerLeft: assetUrl('assets/characters/aa-06/driver/steer-left.png', CLEO_ASSET_REVISION),
-    steerRight: assetUrl('assets/characters/aa-06/driver/steer-right.png', CLEO_ASSET_REVISION),
-    hit: assetUrl('assets/characters/aa-06/driver/hit.png', CLEO_ASSET_REVISION),
-    victory: assetUrl('assets/characters/aa-06/driver/victory.png', CLEO_ASSET_REVISION),
+    rear: assetUrl('assets/archive/characters/cleo-aa-06/driver/rear.png', CLEO_ASSET_REVISION),
+    front: assetUrl('assets/archive/characters/cleo-aa-06/driver/front.png', CLEO_ASSET_REVISION),
+    steerLeft: assetUrl(
+      'assets/archive/characters/cleo-aa-06/driver/steer-left.png',
+      CLEO_ASSET_REVISION,
+    ),
+    steerRight: assetUrl(
+      'assets/archive/characters/cleo-aa-06/driver/steer-right.png',
+      CLEO_ASSET_REVISION,
+    ),
+    hit: assetUrl('assets/archive/characters/cleo-aa-06/driver/hit.png', CLEO_ASSET_REVISION),
+    victory: assetUrl(
+      'assets/archive/characters/cleo-aa-06/driver/victory.png',
+      CLEO_ASSET_REVISION,
+    ),
+  },
+  stats: { speed: 6, acceleration: 6, weight: 5, handling: 7, miniTurbo: 5, traction: 7 },
+};
+
+const dragonQueen: CharacterDefinition = {
+  id: 'aa-06',
+  displayName: 'Dragon Queen',
+  descriptor: 'Grip Specialist',
+  initials: 'DQ',
+  accent: '#d6a437',
+  assetState: 'production',
+  portrait: assetUrl('assets/characters/aa-06/portrait.png', DRAGON_QUEEN_ASSET_REVISION),
+  kartName: 'The Sovereign Wyrm',
+  kart: assetUrl('assets/characters/aa-06/kart.glb', DRAGON_QUEEN_ASSET_REVISION),
+  kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  driverSpritePosition: [0, 0.95, -0.12],
+  frontDriverSpritePosition: [0, 0.95, -0.12],
+  driver: {
+    rear: assetUrl('assets/characters/aa-06/driver/rear.png', DRAGON_QUEEN_ASSET_REVISION),
+    front: assetUrl('assets/characters/aa-06/driver/front.png', DRAGON_QUEEN_ASSET_REVISION),
+    steerLeft: assetUrl(
+      'assets/characters/aa-06/driver/steer-left.png',
+      DRAGON_QUEEN_ASSET_REVISION,
+    ),
+    steerRight: assetUrl(
+      'assets/characters/aa-06/driver/steer-right.png',
+      DRAGON_QUEEN_ASSET_REVISION,
+    ),
+    hit: assetUrl('assets/characters/aa-06/driver/hit.png', DRAGON_QUEEN_ASSET_REVISION),
+    victory: assetUrl('assets/characters/aa-06/driver/victory.png', DRAGON_QUEEN_ASSET_REVISION),
+    frontSteerLeft: assetUrl(
+      'assets/characters/aa-06/driver/front-steer-left.png',
+      DRAGON_QUEEN_ASSET_REVISION,
+    ),
+    frontSteerRight: assetUrl(
+      'assets/characters/aa-06/driver/front-steer-right.png',
+      DRAGON_QUEEN_ASSET_REVISION,
+    ),
+    frontHit: assetUrl('assets/characters/aa-06/driver/front-hit.png', DRAGON_QUEEN_ASSET_REVISION),
+    frontVictory: assetUrl(
+      'assets/characters/aa-06/driver/front-victory.png',
+      DRAGON_QUEEN_ASSET_REVISION,
+    ),
   },
   stats: { speed: 6, acceleration: 6, weight: 5, handling: 7, miniTurbo: 5, traction: 7 },
 };
@@ -451,28 +504,28 @@ export const characterManifest: readonly CharacterDefinition[] = [
   toph,
   lula,
   jennifer,
-  ...[
-    ['aa-01', 'Racer 01', 'Balanced Pilot', 'R1', '#9b7cff', [6, 6, 6, 6, 6, 6]],
-    ['aa-06', 'Racer 06', 'Grip Specialist', 'R6', '#d79a35', [6, 6, 5, 7, 5, 7]],
-  ].map(([id, displayName, descriptor, initials, accent, values]) => {
-    const [speed, acceleration, weight, handling, miniTurbo, traction] = values as [
-      number,
-      number,
-      number,
-      number,
-      number,
-      number,
-    ];
-    return {
-      id: id as string,
-      displayName: displayName as string,
-      descriptor: descriptor as string,
-      initials: initials as string,
-      accent: accent as string,
-      assetState: 'placeholder' as const,
-      stats: { speed, acceleration, weight, handling, miniTurbo, traction },
-    };
-  }),
+  dragonQueen,
+  ...[['aa-01', 'Racer 01', 'Balanced Pilot', 'R1', '#9b7cff', [6, 6, 6, 6, 6, 6]]].map(
+    ([id, displayName, descriptor, initials, accent, values]) => {
+      const [speed, acceleration, weight, handling, miniTurbo, traction] = values as [
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+      ];
+      return {
+        id: id as string,
+        displayName: displayName as string,
+        descriptor: descriptor as string,
+        initials: initials as string,
+        accent: accent as string,
+        assetState: 'placeholder' as const,
+        stats: { speed, acceleration, weight, handling, miniTurbo, traction },
+      };
+    },
+  ),
 ];
 
 export function validateCharacterManifest(

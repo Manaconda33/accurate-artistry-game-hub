@@ -4,6 +4,7 @@ import {
   archivedCleo,
   characterById,
   characterManifest,
+  DRAGON_QUEEN_ASSET_REVISION,
   LAVI_ASSET_REVISION,
   KRAKEN_ASSET_REVISION,
   KEEG_ASSET_REVISION,
@@ -137,21 +138,56 @@ describe('character manifest', () => {
     });
   });
 
-  it('keeps Cleo archived but removes her from the active roster', () => {
+  it('maps Dragon Queen to The Sovereign Wyrm and preserves Cleo in the archive', () => {
     const aa06 = characterById('aa-06');
-    expect(aa06.displayName).toBe('Racer 06');
-    expect(aa06.assetState).toBe('placeholder');
-    expect(aa06.portrait).toBeUndefined();
-    expect(aa06.kart).toBeUndefined();
-    expect(aa06.driver).toBeUndefined();
+    expect(aa06.displayName).toBe('Dragon Queen');
+    expect(aa06.descriptor).toBe('Grip Specialist');
+    expect(aa06.assetState).toBe('production');
+    expect(aa06.kartName).toBe('The Sovereign Wyrm');
+    expect(aa06.kart).toContain(
+      `/assets/characters/aa-06/kart.glb?v=${DRAGON_QUEEN_ASSET_REVISION}`,
+    );
+    expect(aa06.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(aa06.driverSpritePosition).toEqual([0, 0.95, -0.12]);
+    expect(aa06.frontDriverSpritePosition).toEqual([0, 0.95, -0.12]);
+    expect(aa06.driver?.rear).toContain(`?v=${DRAGON_QUEEN_ASSET_REVISION}`);
+    expect(aa06.driver?.front).toContain(`?v=${DRAGON_QUEEN_ASSET_REVISION}`);
+    expect(aa06.driver?.steerLeft).toContain(`?v=${DRAGON_QUEEN_ASSET_REVISION}`);
+    expect(aa06.driver?.steerRight).toContain(`?v=${DRAGON_QUEEN_ASSET_REVISION}`);
+    expect(aa06.driver?.hit).toContain(`?v=${DRAGON_QUEEN_ASSET_REVISION}`);
+    expect(aa06.driver?.victory).toContain(`?v=${DRAGON_QUEEN_ASSET_REVISION}`);
+    expect(aa06.driver?.frontSteerLeft).toContain(
+      `/assets/characters/aa-06/driver/front-steer-left.png?v=${DRAGON_QUEEN_ASSET_REVISION}`,
+    );
+    expect(aa06.driver?.frontSteerRight).toContain(
+      `/assets/characters/aa-06/driver/front-steer-right.png?v=${DRAGON_QUEEN_ASSET_REVISION}`,
+    );
+    expect(aa06.driver?.frontHit).toContain(
+      `/assets/characters/aa-06/driver/front-hit.png?v=${DRAGON_QUEEN_ASSET_REVISION}`,
+    );
+    expect(aa06.driver?.frontVictory).toContain(
+      `/assets/characters/aa-06/driver/front-victory.png?v=${DRAGON_QUEEN_ASSET_REVISION}`,
+    );
+    expect(aa06.stats).toEqual({
+      speed: 6,
+      acceleration: 6,
+      weight: 5,
+      handling: 7,
+      miniTurbo: 5,
+      traction: 7,
+    });
     expect(characterManifest.some(({ displayName }) => displayName === 'Cleo')).toBe(false);
 
     expect(archivedCleo.displayName).toBe('Cleo');
     expect(archivedCleo.assetState).toBe('production');
-    expect(archivedCleo.kart).toContain('/assets/characters/aa-06/kart.glb');
+    expect(archivedCleo.kart).toContain('/assets/archive/characters/cleo-aa-06/kart.glb');
     expect(archivedCleo.driverSpritePosition).toEqual([0, 0.9, -0.72]);
-    expect(archivedCleo.driver?.front).toContain('/assets/characters/aa-06/driver/front.png');
-    expect(archivedCleo.driver?.victory).toContain('/assets/characters/aa-06/driver/victory.png');
+    expect(archivedCleo.driver?.front).toContain(
+      '/assets/archive/characters/cleo-aa-06/driver/front.png',
+    );
+    expect(archivedCleo.driver?.victory).toContain(
+      '/assets/archive/characters/cleo-aa-06/driver/victory.png',
+    );
   });
 
   it('maps Krios to The Hornbreaker and the approved AA-10 profile', () => {
