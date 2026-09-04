@@ -21,15 +21,9 @@ interface NearbyRacer {
 }
 
 const candidateLaneOffsets = [-3.3, -1.65, 0, 1.65, 3.3] as const;
-const fullCornerReferenceRadians = 0.18;
 
 export function aiLookaheadMeters(speed: number): number {
   return THREE.MathUtils.lerp(5, 14, THREE.MathUtils.clamp(speed / 30, 0, 1));
-}
-
-export function aiCornerDemand(currentTangent: THREE.Vector3, lookaheadTangent: THREE.Vector3): number {
-  const dot = THREE.MathUtils.clamp(currentTangent.dot(lookaheadTangent), -1, 1);
-  return THREE.MathUtils.clamp(Math.acos(dot) / fullCornerReferenceRadians, 0, 1);
 }
 
 export function rubberBandFactor(progressDelta: number): number {
@@ -86,10 +80,7 @@ export class AiDriver {
     const desired = target.sub(position).setY(0).normalize();
     const cross = forward.z * desired.x - forward.x * desired.z;
     const steering = THREE.MathUtils.clamp(cross * 2.6, -1, 1);
-    // `1 - dot()` made Circuit Alpha's several-degree lookahead bends collapse
-    // to values near zero. Normalizing the actual tangent angle gives the AI a
-    // useful 0-1 technical-demand signal without changing track geometry.
-    const corner = aiCornerDemand(projection.tangent, tangent);
+    const corner = 1 - Math.max(0, forward.dot(tangent));
     let targetSpeed = aiTargetSpeed(
       this.characterMaxSpeed,
       this.profile.pace,
@@ -101,18 +92,13 @@ export class AiDriver {
     );
     if (blocker !== undefined) targetSpeed = Math.min(targetSpeed, blocker.speed + 0.4);
 
-    const input: DriveInput = {
+    return {
       throttle: speed < targetSpeed ? 1 : 0.2,
       steering,
       brake: speed > targetSpeed + 2,
-      drift: false,
+      drift: Math.abs(steering) > 0.62 && speed > 11 && this.profile.aggression > 0.35,
       speedLimitMultiplier: rubberBandFactor(playerProgressDelta),
-      aiCornerDemand: corner,
-      aiPace: this.profile.pace,
-      aiAggression: this.profile.aggression,
     };
-    if (blocker !== undefined) input.aiBlockerSpeed = blocker.speed;
-    return input;
   }
 
   public desiredLaneOffset(): number {
