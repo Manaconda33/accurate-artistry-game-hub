@@ -19,8 +19,8 @@ import { selectAiRoster } from '../characters/raceRoster';
 import { normalizeMinimapTrack, type MinimapState } from './ui/Minimap';
 import {
   driverFrameFallbacks,
+  driverSpritePosition,
   isDriverFrontFacingCamera,
-  isFrontFacingDriverFrame,
   modeledSteeringControlPosition,
   selectDriverFrame,
   shouldShowModeledSteeringControl,
@@ -653,9 +653,12 @@ export class KartTimeTrial {
       material.needsUpdate = true;
     }
     const defaultPosition = visual.character.driverSpritePosition ?? [0, 0.95, -0.12];
-    const position = isFrontFacingDriverFrame(frame)
-      ? (visual.character.frontDriverSpritePosition ?? defaultPosition)
-      : defaultPosition;
+    const position = driverSpritePosition(
+      frame,
+      defaultPosition,
+      visual.character.frontDriverSpritePosition,
+      visual.character.driverFramePositions,
+    );
     visual.sprite.position.set(...position);
     if (visual.modeledSteeringControl !== null) {
       const defaultControlPosition = visual.modeledSteeringControlDefaultPosition;

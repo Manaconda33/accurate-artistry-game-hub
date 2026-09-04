@@ -9,6 +9,21 @@ export interface CharacterStats {
   traction: number;
 }
 
+export type DriverSpritePosition = readonly [number, number, number];
+
+export interface CharacterDriverAssets {
+  rear: string;
+  front: string;
+  steerLeft: string;
+  steerRight: string;
+  hit: string;
+  victory: string;
+  frontSteerLeft?: string;
+  frontSteerRight?: string;
+  frontHit?: string;
+  frontVictory?: string;
+}
+
 export interface CharacterDefinition {
   id: string;
   displayName: string;
@@ -20,22 +35,12 @@ export interface CharacterDefinition {
   kartName?: string;
   kart?: string;
   kartVisualYaw?: number;
-  driverSpritePosition?: readonly [number, number, number];
-  frontDriverSpritePosition?: readonly [number, number, number];
-  frontModeledSteeringControlPosition?: readonly [number, number, number];
+  driverSpritePosition?: DriverSpritePosition;
+  frontDriverSpritePosition?: DriverSpritePosition;
+  driverFramePositions?: Partial<Record<keyof CharacterDriverAssets, DriverSpritePosition>>;
+  frontModeledSteeringControlPosition?: DriverSpritePosition;
   driverSpriteIncludesSteeringControl?: boolean;
-  driver?: {
-    rear: string;
-    front: string;
-    steerLeft: string;
-    steerRight: string;
-    hit: string;
-    victory: string;
-    frontSteerLeft?: string;
-    frontSteerRight?: string;
-    frontHit?: string;
-    frontVictory?: string;
-  };
+  driver?: CharacterDriverAssets;
   stats: CharacterStats;
 }
 
@@ -252,7 +257,10 @@ const dragonQueen: CharacterDefinition = {
   kart: assetUrl('assets/characters/aa-06/kart.glb', DRAGON_QUEEN_ASSET_REVISION),
   kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
   driverSpritePosition: [0, 0.95, -0.12],
-  frontDriverSpritePosition: [0, 0.95, -0.12],
+  frontDriverSpritePosition: [0, 0.84, -0.12],
+  driverFramePositions: {
+    frontSteerRight: [0, 0.8, -0.12],
+  },
   driver: {
     rear: assetUrl('assets/characters/aa-06/driver/rear.png', DRAGON_QUEEN_ASSET_REVISION),
     front: assetUrl('assets/characters/aa-06/driver/front.png', DRAGON_QUEEN_ASSET_REVISION),

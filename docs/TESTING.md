@@ -214,7 +214,8 @@ Run this matrix for every future production character, in addition to its slice-
 - LOD0, LOD1, and LOD2 remain within 25,000, 12,000, and 5,000 triangles. Each retains the thirteen-node hierarchy and one `SteeringWheel` node.
 - All ten driver states load from `dragon-queen-runtime-20260904-1`. Every frame remains free of kart and control geometry, keeps both wings visible, and shows exactly one long tail.
 - `NEGATIVE_Z_KART_VISUAL_YAW` keeps the dragon shield at the race-forward nose and the open tail channel behind Dragon Queen.
-- Chase-facing and camera-facing position `[0, 0.95, -0.12]` keeps the wings above the bodywork and seats the lower body behind the cockpit edge.
+- Chase-facing position `[0, 0.95, -0.12]` keeps the wings above the bodywork and seats the lower body behind the cockpit edge.
+- Neutral, steer-left, hit, and victory camera-facing states use `[0, 0.84, -0.12]`; front-steer-right uses `[0, 0.80, -0.12]` to account for its higher foreclaw pose.
 - The kart's single modeled steering control remains between Dragon Queen's foreclaws in front view without covering her face.
 - Cleo's ten archived files at `public/assets/archive/characters/cleo-aa-06/` retain their recorded SHA-256 values and remain excluded from the active roster.
 - Product-owner acceptance is recorded only after the deployed desktop and mobile game confirms orientation, every driver state, cockpit occlusion, visible wings and tail, and single-control presentation.

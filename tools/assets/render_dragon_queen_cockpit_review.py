@@ -25,7 +25,13 @@ OUTPUT = Path(
     )
 )
 DRIVER_ROOT = ROOT / "public/assets/characters/aa-06/driver"
-SPRITE_POSITION = np.array([0.0, 0.95, -0.12])
+FRONT_STATE_POSITIONS = {
+    "front.png": np.array([0.0, 0.84, -0.12]),
+    "front-steer-left.png": np.array([0.0, 0.84, -0.12]),
+    "front-steer-right.png": np.array([0.0, 0.80, -0.12]),
+    "front-hit.png": np.array([0.0, 0.84, -0.12]),
+    "front-victory.png": np.array([0.0, 0.84, -0.12]),
+}
 SPRITE_SIZE = 1.45
 
 
@@ -69,16 +75,16 @@ def runtime_geometry(parts):
     return triangles, colors, scale, ground_offset
 
 
-def sprite_faces(path):
+def sprite_faces(path, sprite_position):
     image = Image.open(path).convert("RGBA")
     image.thumbnail((96, 96), Image.Resampling.LANCZOS)
     pixels = np.asarray(image, dtype=np.float32) / 255.0
     height, width = pixels.shape[:2]
     pixel_width = SPRITE_SIZE / width
     pixel_height = SPRITE_SIZE / height
-    left = SPRITE_POSITION[0] - SPRITE_SIZE / 2
-    top = SPRITE_POSITION[1] + SPRITE_SIZE / 2
-    z = SPRITE_POSITION[2]
+    left = sprite_position[0] - SPRITE_SIZE / 2
+    top = sprite_position[1] + SPRITE_SIZE / 2
+    z = sprite_position[2]
     faces = []
     colors = []
     for row in range(height):
@@ -108,16 +114,18 @@ def main():
     parts = sovereign.build_geometry()
     kart_triangles, kart_colors, scale, ground_offset = runtime_geometry(parts)
     views = [
-        ("rear.png", 12, -90, "Chase camera: rear"),
-        ("steer-left.png", 12, -90, "Chase camera: steer left"),
-        ("front.png", 12, 90, "Front camera: neutral"),
-        ("front-steer-right.png", 12, 90, "Front camera: steer right"),
+        ("front.png", "Neutral"),
+        ("front-steer-left.png", "Steer left"),
+        ("front-steer-right.png", "Steer right"),
+        ("front-hit.png", "Hit"),
+        ("front-victory.png", "Victory"),
     ]
 
-    fig = plt.figure(figsize=(14, 10), dpi=150, facecolor="#080b19")
-    for index, (filename, elevation, azimuth, title) in enumerate(views, 1):
-        sprite_triangles, sprite_colors = sprite_faces(DRIVER_ROOT / filename)
-        ax = fig.add_subplot(2, 2, index, projection="3d", computed_zorder=False)
+    fig = plt.figure(figsize=(16, 10), dpi=150, facecolor="#080b19")
+    for index, (filename, title) in enumerate(views, 1):
+        sprite_position = FRONT_STATE_POSITIONS[filename]
+        sprite_triangles, sprite_colors = sprite_faces(DRIVER_ROOT / filename, sprite_position)
+        ax = fig.add_subplot(2, 3, index, projection="3d", computed_zorder=False)
         ax.set_facecolor("#080b19")
         ax.add_collection3d(
             Poly3DCollection(
@@ -131,12 +139,12 @@ def main():
         ax.set_ylim(-1.65, 1.65)
         ax.set_zlim(-0.15, 1.80)
         ax.set_box_aspect((3.3, 3.3, 1.95))
-        ax.view_init(elevation, azimuth)
+        ax.view_init(12, 90)
         ax.set_axis_off()
-        ax.set_title(title, color="#f1d38a", fontsize=14, pad=2)
+        ax.set_title(f"Front camera: {title}", color="#f1d38a", fontsize=14, pad=2)
 
     fig.suptitle(
-        "DRAGON QUEEN + THE SOVEREIGN WYRM | LOCAL COCKPIT PLACEMENT",
+        "DRAGON QUEEN + THE SOVEREIGN WYRM | FRONT-CAMERA PLACEMENT",
         color="#e6b64c",
         fontsize=18,
         fontweight="bold",
@@ -147,7 +155,8 @@ def main():
         0.018,
         (
             f"Runtime model scale {scale:.4f} | ground offset {ground_offset:.4f} | "
-            "driver position [0, 0.95, -0.12] | sprite size 1.45"
+            "base front position [0, 0.84, -0.12] | "
+            "steer-right position [0, 0.80, -0.12] | sprite size 1.45"
         ),
         ha="center",
         color="#b9c7e9",

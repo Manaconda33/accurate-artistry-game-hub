@@ -12,7 +12,7 @@
 - Ten driver-state designs: Approved by Manny, 2026-09-04
 - Ten driver-state runtime derivatives: Integrated and validated, 2026-09-04
 - Kart GLB geometry: Candidate 2 approved by Manny, 2026-09-04
-- Runtime activation: Locally integrated under `dragon-queen-runtime-20260904-1`; publication pending
+- Runtime activation: Published under `dragon-queen-runtime-20260904-1`; one rear-view placement defect remains open
 
 ## Character authority
 
@@ -90,7 +90,9 @@ All three GLBs use four materials, thirteen required nodes, one `SteeringWheel`,
 
 ## Runtime placement
 
-Chase-facing and camera-facing driver states use `[0, 0.95, -0.12]`. The authored steering control remains at its model position. `tools/assets/render_dragon_queen_cockpit_review.py` applies the runtime scale, ground offset, sprite size, and kart yaw to an offline review. The result keeps both wings readable, seats the lower body behind the kart structure, and places the single modeled control between Dragon Queen's foreclaws in the front view.
+Chase-facing driver states remain at `[0, 0.95, -0.12]`. Live playtest rejected the deployed camera-facing position at the same height because Dragon Queen's foreclaws appeared above the modeled steering control. The first local correction moved all five camera-facing states to `[0, 0.84, -0.12]`; Manny found steer-right still slightly high.
+
+The revised front-camera review keeps neutral, steer-left, hit, and victory at `[0, 0.84, -0.12]` and lowers only steer-right to `[0, 0.80, -0.12]`. The kart, control, raster assets, chase states, sprite scale, and depth remain unchanged. Two review renders matched SHA-256 `1375abc4e30eaecadb1409030e0fea3e6ca3dd793ad8916227e24925a94006b2`. Manny approved the complete sheet and authorized branch publication on 2026-09-04. Deployment and a focused live rear-view retest remain required.
 
 ## Required runtime outputs
 
@@ -100,4 +102,4 @@ Chase-facing and camera-facing driver states use `[0, 0.95, -0.12]`. The authore
 - Current controlled asset revision in the character manifest
 - Runtime-asset gate coverage for every PNG and GLB
 
-All required files are locally active under `dragon-queen-runtime-20260904-1`. Cleo's former AA-06 package is preserved unchanged at `public/assets/archive/characters/cleo-aa-06/`. Publication and deployed desktop/mobile acceptance remain gated.
+All required files are active under `dragon-queen-runtime-20260904-1`. Cleo's former AA-06 package is preserved unchanged at `public/assets/archive/characters/cleo-aa-06/`. The placement correction changes no asset bytes, so the controlled asset revision remains valid. Publication and deployed rear-view acceptance remain gated.
