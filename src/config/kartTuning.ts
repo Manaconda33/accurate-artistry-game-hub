@@ -56,8 +56,8 @@ function lerp(from: number, to: number, amount: number): number {
 export function createKartTuning(stats: DriverStats): KartTuning {
   return {
     // Candidate F keeps the accepted Speed-7 ceiling at 29.5 m/s and uses a
-    // 3.0 m/s Speed 1-10 spread. Candidate D/E Handling and Mini-Turbo behavior
-    // remains unchanged so this is a single-variable balance refinement.
+    // 3.0 m/s Speed 1-10 spread. Candidate G preserves that character-balance
+    // mapping while correcting player-vs-AI race execution.
     maxSpeed: 27.5 + normalizedStat(stats.speed) * 3,
     acceleration: 4 + 0.55 * stats.acceleration,
     mass: 105 + normalizedStat(stats.weight) * 75,
@@ -84,8 +84,12 @@ export function aiCornerTargetSpeed(
   speedLimitMultiplier: number,
   handling: number,
 ): number {
-  const baseCornerPenalty = lerp(0.48, 0.34, clamp01(pace));
-  const handlingPenaltyFactor = lerp(1.08, 0.9, clamp01(normalizedStat(handling)));
+  // Candidate G keeps AI anticipation modest because the shared controller
+  // already applies Handling-based physical corner-speed loss to both player
+  // and AI karts. The former 34-48% AI-only corner penalty compounded that
+  // shared limit and made a competent player effectively unreachable.
+  const baseCornerPenalty = lerp(0.1, 0.04, clamp01(pace));
+  const handlingPenaltyFactor = lerp(1.04, 0.96, clamp01(normalizedStat(handling)));
   const cornerPenalty = baseCornerPenalty * handlingPenaltyFactor;
   return (
     characterMaxSpeed *
