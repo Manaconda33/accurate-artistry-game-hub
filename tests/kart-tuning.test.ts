@@ -53,13 +53,20 @@ describe('kart tuning and surface behavior', () => {
     expect(handlingCornerSpeedMultiplier(9, 1)).toBeLessThan(1);
   });
 
-  it('makes AI corner target speed respect the racer Handling stat without double-counting it strongly', () => {
+  it('keeps AI anticipation modest so shared Handling physics remains the primary corner limit', () => {
     const lowHandling = aiCornerTargetSpeed(30, 0.6, 0.5, 1, 2);
     const highHandling = aiCornerTargetSpeed(30, 0.6, 0.5, 1, 9);
     expect(highHandling).toBeGreaterThan(lowHandling);
-    expect(highHandling - lowHandling).toBeLessThan(2);
+    expect(highHandling - lowHandling).toBeLessThan(0.2);
+    expect(lowHandling).toBeGreaterThan(29);
     expect(aiCornerTargetSpeed(30, 0.6, 0, 1, 2)).toBe(30);
     expect(aiCornerTargetSpeed(30, 0.6, 0, 1.04, 9)).toBeCloseTo(31.2);
+
+    const conservativeFullCorner = aiCornerTargetSpeed(30, 0.28, 1, 1, 5);
+    const fastFullCorner = aiCornerTargetSpeed(30, 0.82, 1, 1, 5);
+    expect(conservativeFullCorner).toBeGreaterThan(27.3);
+    expect(fastFullCorner).toBeGreaterThan(conservativeFullCorner);
+    expect(fastFullCorner).toBeGreaterThan(28.4);
   });
 
   it('makes high Mini-Turbo seek drift opportunities at lower turn demand', () => {
