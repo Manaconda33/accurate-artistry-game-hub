@@ -6,15 +6,15 @@ The canonical repository `Manaconda33/manacondas-minigame-mayhem` is intentional
 
 ## Current state
 
-**Current slice:** Slice 3 - Character Selection & Avatar Ingestion.
+**Current slice:** Slice 5 - Item Boxes, Weapons & Position-Based Distribution — DESIGN APPROVED / IMPLEMENTATION AUTHORIZED AFTER THIS DOCUMENTATION CHECKPOINT MERGES.
 
-The current implementation includes the competitive Grand Prix systems defined for Slice 4, which were completed early because of a documented sequencing error. Slice 3 has resumed in the PRD-defined order and begins with deliberate, one-at-a-time avatar intake and approval. No production identity, likeness, kart, or balance-slot mapping will be inferred. Items remain Slice 5.
+Slice 3 Character Selection & Avatar Ingestion is complete and live accepted. The competitive Grand Prix systems defined for Slice 4 were completed earlier because of a documented sequencing error and remain retained. Manny approved the reconciled Slice 5 item-system design and exit checklist on 2026-09-05. No Slice 5 gameplay code is complete at this documentation checkpoint; implementation must follow the approved design and evidence gates in `docs/SLICE-5-ITEM-SYSTEM-DESIGN.md`.
 
 ## Live test build
 
 [Open the latest GitHub Pages checkpoint](https://manaconda33.github.io/manacondas-minigame-mayhem/)
 
-Every Slice 1+ checkpoint is deployed through the repository’s `github-pages` environment for product-owner manual confirmation.
+Every Slice 1+ checkpoint is deployed through the repository's `github-pages` environment for product-owner manual confirmation.
 
 ## Local setup
 
@@ -57,19 +57,19 @@ Vite prints the local development URL when the server starts.
 - **Asset governance:** Fixed-size runtime avatar PNGs live in normal Git. Git LFS remains required for production 3D models, audio, and high-resolution source art.
 - **Continuity:** repository documents are authoritative; Cowork/chat history is supplemental.
 
-The `src/game/` directories reserve PRD-defined system boundaries. Their presence is architectural scaffolding, not evidence that those systems are implemented.
+The `src/game/` directories define PRD system boundaries. A directory's presence is not evidence that the corresponding slice is complete; completion requires the repository's recorded validation and product-owner acceptance evidence.
 
 ## Repository map
 
-- `docs/` - approved PRD, working Markdown PRD, decisions, testing rules, and implementation status.
+- `docs/` - approved PRD, working Markdown PRD, decisions, testing rules, slice designs/checklists, and implementation status.
 - `public/assets/` - governed asset roots for characters, karts, track, items, and audio.
 - `src/app/` - game-hub application shell.
-- `src/audio/` - future audio integration boundary.
-- `src/config/` and `src/schemas/` - future configuration and validation boundaries.
-- `src/game/` - future gameplay system boundaries organized by domain.
-- `src/ui/` - future interface and HUD boundary.
+- `src/audio/` - shared audio integration boundary.
+- `src/config/` and `src/schemas/` - configuration and validation boundaries.
+- `src/game/` - gameplay systems organized by domain.
+- `src/ui/` - interface and HUD boundary.
 - `tests/` - automated test suite.
-- `.github/workflows/` - repository CI.
+- `.github/workflows/` - repository CI and deployment workflows.
 
 ## Project source of truth
 
@@ -78,11 +78,12 @@ The `src/game/` directories reserve PRD-defined system boundaries. Their presenc
 - [Architecture decisions](docs/DECISIONS.md)
 - [Current implementation status](docs/IMPLEMENTATION-STATUS.md)
 - [Testing and evidence requirements](docs/TESTING.md)
+- [Approved Slice 5 item-system design and exit checklist](docs/SLICE-5-ITEM-SYSTEM-DESIGN.md)
 - [Restricted Work Git LFS publication](docs/LFS-PUBLISHING.md)
 - [Avatar intake and approval contract](docs/AVATAR-INTAKE.md)
 - [Roster profile allocation](docs/ROSTER-MAPPING.md)
 
-Future Cowork sessions must read these files before implementation, update them as decisions and evidence change, and execute only the currently approved slice.
+Future work sessions must read these files before implementation, update them as decisions and evidence change, and execute only the currently approved slice.
 
 ## Binary asset policy
 

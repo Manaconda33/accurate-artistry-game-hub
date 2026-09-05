@@ -473,3 +473,16 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Scope:** This closes Slice 3 only. Slice 4's already-completed out-of-order AI/grid work remains retained. Slice 5 Items, further balance changes, and unrelated presentation scope remain unauthorized.
 - **Next gate:** Await Manny's explicit approval before beginning Slice 5 or another bounded project task.
 - **Approval:** Manny approved the complete live result and Slice 3 closeout on 2026-09-05.
+
+
+## ADR-061: Approve the Slice 5 item-system implementation contract
+
+- **Date:** 2026-09-05
+- **Status:** Approved; implementation authorized after the design checkpoint merges
+- **Context:** Slice 3 is live accepted, the previously completed out-of-order Slice 4 checkpoint remains retained, and Slice 5 is the next incomplete PRD slice. The PRD already fixes fifteen items, one-slot inventory, distribution weights, core state machines, major item values, AI item use, and evidence requirements, but several operational details needed explicit product-owner resolution before implementation.
+- **Decision:** Preserve the existing fifteen-item roster and rank probability matrix. Implement the approved architecture and exit checklist in `docs/SLICE-5-ITEM-SYSTEM-DESIGN.md`. Use four rows of eight shared item boxes at approximately 9%, 34%, 62%, and 89% of lap progress; lock item selection at valid collection time; do not consume a box when inventory is occupied; add a dedicated mobile ITEM control with Brake/Reverse as the backward-use modifier; require Hyper-Drive Rocket to be position 6-8 and at least 45 m behind the leader; use the approved shared impact taxonomy; apply short owner immunity while spawned objects arm, then allow ordinary later self-interaction; and begin with configuration speed-cap targets of 1.18x Nitro Surge, 1.15x Nitro Overdrive pulse, 1.25x Hyper-Drive Rocket, and the existing 1.12x Prismatic Invincibility.
+- **Architecture:** Keep item definitions/weights in configuration; separate selection, inventory/lifecycle, boxes, projectiles, hazards, generic racer effects, targeting, Rocket legal-path autopilot, AI item policy, and HUD integration. Do not turn `KartTimeTrial` or `KartController` into item-name switchboards.
+- **Presentation:** Slice 5 uses original Manaconda's Minigame Mayhem item names and original procedural/simple gameplay-readable presentation. Final production audio/VFX/post-processing remains Slice 6.
+- **Evidence:** Slice 5 cannot close on code presence. The approved gate requires at least 100,000 seeded selections per rank, probability-fit evidence, item/counter interaction tests, lifecycle/object-count soak, regression coverage, GitHub Pages deployment, desktop/mobile product-owner playtest, and explicit acceptance.
+- **Product impact:** This amendment resolves implementation ambiguity without changing the approved item roster or probability matrix and without reopening the abandoned competitive-balance experiment.
+- **Approval:** Manny approved the reconciled Slice 5 item-system design and exit checklist on 2026-09-05.

@@ -361,3 +361,58 @@ Live acceptance passed on 2026-09-03 against checkpoint `95fcf26fb699065cd908295
 ## Slice 0 evidence boundary
 
 Slice 0 validates only installation, typechecking, linting, unit testing, production build, the minimal app shell, repository organization, and CI. It does not validate rendering, physics, controls, AI, racing, items, audio playback, or performance requirements assigned to later slices.
+
+
+## Slice 5 item-system validation matrix
+
+This matrix is required in addition to the repository-wide validation commands and the complete approved checklist in `docs/SLICE-5-ITEM-SYSTEM-DESIGN.md`.
+
+### Distribution and inventory
+
+- Every configured rank column must sum to exactly 100 before dynamic adjustment.
+- Use a deterministic seedable selector and run at least 100,000 simulated selections for each rank. Record observed percentages and expected percentages. Common-item absolute deviation should remain within approximately 0.5 percentage points unless a documented goodness-of-fit test is used instead.
+- Verify the documented 1.00-1.35 gap multiplier and renormalization after dynamic catch-up adjustment.
+- Verify prerequisites are filtered before selection: Apex global availability and cooldown; Hyper-Drive position 6-8 plus at least 45 m behind the leader; any unavailable runtime prerequisite.
+- Verify one-slot inventory, multi-charge counts, collection-time outcome lock, approximately 0.85-second roulette, occupied-inventory pass-through, and approximately 4.5-second shared-box respawn.
+- Verify all four rows contain eight boxes in the legal racing corridor near 9%, 34%, 62%, and 89% lap progress.
+
+### Item functional and counter matrix
+
+- Kinetic Disc: forward/backward launch, governed travel, no more than three wall ricochets, standard spinout, hit destruction, nine-second lifetime cleanup.
+- Seeker Drone: nearest valid racer ahead by race progress, 0.5-second arming, bounded turn, no teleport, warning cue/state, twelve-second maximum cleanup.
+- Apex Missile: one active globally, minimum 18-second global interval, current leader at terminal lock, warning/sky/dive phases, 5.5 m AoE, heavy spin, Prismatic immunity, and precisely timed Shockwave terminal counter.
+- Blast Orb: directional deploy, three-second fuse, qualifying early direct-impact detonation, 4 m AoE, heavy spin, Shockwave cleanup.
+- Blaze Orbs: five charges, at least 0.55 seconds between shots, short 0.55-second spin, expiry cleanup.
+- Frost Orbs: three charges, approximately 55% momentum retention, approximately 20% handling penalty for approximately 1.2 seconds, refresh without multiplicative stacking.
+- Arc Blade: three charges, curved outbound/return path, at most one rival hit outbound and one on return per throw, no repeated overlap damage.
+- Arc Hammers: five charges, at least 0.35-second cadence, ballistic movement, one terrain bounce, short post-bounce expiry.
+- Slick: rear drop, approximately 12-second lifetime, approximately 1.1 m trigger, approved 360-degree spin/60% speed-retention effect, two active per owner, Shockwave cleanup.
+- Shockwave: approximately 5 m radial push and destruction/clearing of all supported ordinary projectiles, Slicks, Blast Orbs, and terminal Apex.
+- Ink: approximately 2.5-second partial human screen obstruction; AI path noise, approximately 80 ms reaction latency, and reduced precision without navigation failure.
+- Nitro Surge: approximately 1.2-second 1.18x initial cap target, strong acceleration, off-road penalty ignore, clean restoration.
+- Nitro Overdrive: six-second window, pulse no faster than every 0.75 seconds, approximately 0.9-second pulse, 1.15x initial cap target, clean window expiry.
+- Hyper-Drive Rocket: position/gap prerequisite, legal Circuit Alpha spline autopilot, immunity, approximately 1.25x initial cap target, automatic overtakes, maximum approximately six seconds, approximately 0.3-second control return, no teleport/progress mutation/direct first-place deposit.
+- Prismatic Invincibility: approximately six seconds, +12% speed, hazard/projectile immunity, hostile-contact spin, expiry warning/restoration.
+
+### Input, AI, race authority, and pause
+
+- Left Shift and E both activate held items.
+- S/Down plus item requests backward deployment where supported.
+- Coarse-pointer gameplay exposes a dedicated ITEM button; Brake/Reverse plus ITEM requests backward deployment where supported. Verify simultaneous accelerate/steer/drift combinations remain functional.
+- AI must acquire and use items tactically. Validate Seeker range, rear-attacker Slick use, defensive Shockwave hold/use, Nitro straight/recovery preference, and prompt Rocket activation.
+- AI obstacle awareness must include Slicks and Blast Orbs.
+- Seeker/Apex targeting must use validated race progress, not visual proximity alone.
+- Item effects may not directly edit checkpoint sequence, lap count, race rank authority, or finish placement. Hyper-Drive must earn progress through legal movement/checkpoint traversal.
+- Pause must freeze roulette, arming, fuses, projectiles, hazards, buffs/debuffs, item windows, respawn/cooldown timers, AI item decisions, and related audio progression as appropriate.
+
+### Lifecycle, soak, and performance
+
+- Track active item runtimes, projectile bodies/colliders, hazards, VFX emitters, listeners, timers, and audio voices through repeated use and restart/disposal.
+- No object may survive impact/completion/expiry without a documented state reason. Race restart/disposal must return item runtime counts to baseline.
+- Enforce the PRD maximum of 40 simultaneous active physics projectiles.
+- Instrument item/VFX CPU update cost against the approximately 1.0 ms budget and confirm no NaN/infinite transform under collision/item stress.
+- Run existing Speed, Acceleration, Weight, drift, surface, AI, lap, recovery, camera, minimap, and driver-state regression suites unchanged.
+
+### Live Slice 5 acceptance
+
+Desktop and mobile must both verify item-box pickup/respawn, roulette, HUD icon/count, keyboard/touch item input, backward use, representative offensive/defensive/catch-up interactions, AI item use, pause/restart cleanup, and that existing race controls remain usable. Record the deployed commit, CI/deployment run, browser/device evidence, defects, and Manny's explicit acceptance in `docs/IMPLEMENTATION-STATUS.md` before Slice 5 can close.
