@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   ACCU_ASSET_REVISION,
+  ALEX_ASSET_REVISION,
   archivedCleo,
   characterById,
   characterManifest,
@@ -25,6 +26,45 @@ describe('character manifest', () => {
     expect(validateCharacterManifest()).toEqual([]);
     expect(characterManifest).toHaveLength(12);
     expect(new Set(characterManifest.map(({ id }) => id)).size).toBe(12);
+  });
+
+  it('maps Alex to The Neon Vector and the approved AA-01 profile', () => {
+    const alex = characterById('aa-01');
+    expect(alex.displayName).toBe('Alex');
+    expect(alex.descriptor).toBe('Feather Sprinter');
+    expect(alex.assetState).toBe('production');
+    expect(alex.kartName).toBe('The Neon Vector');
+    expect(alex.kart).toContain(`/assets/characters/aa-01/kart.glb?v=${ALEX_ASSET_REVISION}`);
+    expect(alex.kartVisualYaw).toBe(NEGATIVE_Z_KART_VISUAL_YAW);
+    expect(alex.driverSpritePosition).toEqual([0, 0.92, -0.12]);
+    expect(alex.frontDriverSpritePosition).toEqual([0, 0.84, -0.12]);
+    expect(alex.driverSpriteIncludesSteeringControl).toBeUndefined();
+    expect(alex.driver?.rear).toContain(`?v=${ALEX_ASSET_REVISION}`);
+    expect(alex.driver?.front).toContain(`?v=${ALEX_ASSET_REVISION}`);
+    expect(alex.driver?.steerLeft).toContain(`?v=${ALEX_ASSET_REVISION}`);
+    expect(alex.driver?.steerRight).toContain(`?v=${ALEX_ASSET_REVISION}`);
+    expect(alex.driver?.hit).toContain(`?v=${ALEX_ASSET_REVISION}`);
+    expect(alex.driver?.victory).toContain(`?v=${ALEX_ASSET_REVISION}`);
+    expect(alex.driver?.frontSteerLeft).toContain(
+      `/assets/characters/aa-01/driver/front-steer-left.png?v=${ALEX_ASSET_REVISION}`,
+    );
+    expect(alex.driver?.frontSteerRight).toContain(
+      `/assets/characters/aa-01/driver/front-steer-right.png?v=${ALEX_ASSET_REVISION}`,
+    );
+    expect(alex.driver?.frontHit).toContain(
+      `/assets/characters/aa-01/driver/front-hit.png?v=${ALEX_ASSET_REVISION}`,
+    );
+    expect(alex.driver?.frontVictory).toContain(
+      `/assets/characters/aa-01/driver/front-victory.png?v=${ALEX_ASSET_REVISION}`,
+    );
+    expect(alex.stats).toEqual({
+      speed: 6,
+      acceleration: 9,
+      weight: 2,
+      handling: 8,
+      miniTurbo: 7,
+      traction: 4,
+    });
   });
 
   it('maps Manaconda to the approved production package and AA-09 profile', () => {

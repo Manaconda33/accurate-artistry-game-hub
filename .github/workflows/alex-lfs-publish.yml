@@ -1,0 +1,60 @@
+name: Alex LFS publication bridge
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  publish-approved-alex-glbs:
+    if: github.head_ref == 'feature/alex-neon-vector-local'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out exact PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          lfs: false
+
+      - name: Install Git LFS
+        run: |
+          git lfs install --local
+          git lfs version
+
+      - name: Install pinned builder dependencies
+        run: python -m pip install "numpy==2.3.5" "matplotlib==3.10.8"
+
+      - name: Rebuild and hash-gate approved Neon Vector GLBs
+        env:
+          NEON_VECTOR_SKIP_PREVIEW: "1"
+        run: |
+          NEON_VECTOR_LOD=LOD0 NEON_VECTOR_OUT=public/assets/characters/aa-01/kart.glb python tools/assets/build_alex_neon_vector.py
+          NEON_VECTOR_LOD=LOD1 NEON_VECTOR_OUT=public/assets/characters/aa-01/kart-lod1.glb python tools/assets/build_alex_neon_vector.py
+          NEON_VECTOR_LOD=LOD2 NEON_VECTOR_OUT=public/assets/characters/aa-01/kart-lod2.glb python tools/assets/build_alex_neon_vector.py
+          echo "2df26b2cf70781a410a110a35616fc19506ef014e0140b499b9470f7f5d39e85  public/assets/characters/aa-01/kart.glb" | sha256sum -c -
+          echo "abf82edd061876d5b2d71ae2f618707ae947d61aa5805a811e1246f011f08b84  public/assets/characters/aa-01/kart-lod1.glb" | sha256sum -c -
+          echo "dced4db85903cc8b410b1a746608cb1f4fdd7f101192d79bbf2d580fa705d68a  public/assets/characters/aa-01/kart-lod2.glb" | sha256sum -c -
+
+      - name: Prove committed pointers remain unchanged
+        run: |
+          git add public/assets/characters/aa-01/kart.glb public/assets/characters/aa-01/kart-lod1.glb public/assets/characters/aa-01/kart-lod2.glb
+          git diff --cached --exit-code
+
+      - name: Upload only approved LFS object IDs
+        run: |
+          git lfs push --object-id origin \
+            2df26b2cf70781a410a110a35616fc19506ef014e0140b499b9470f7f5d39e85 \
+            abf82edd061876d5b2d71ae2f618707ae947d61aa5805a811e1246f011f08b84 \
+            dced4db85903cc8b410b1a746608cb1f4fdd7f101192d79bbf2d580fa705d68a
+
+      - name: Fetch back and verify published objects
+        run: |
+          rm -rf .git/lfs/objects
+          git lfs fetch origin "${GITHUB_HEAD_REF}"
+          git lfs checkout
+          git lfs fsck
+          sha256sum public/assets/characters/aa-01/kart.glb public/assets/characters/aa-01/kart-lod1.glb public/assets/characters/aa-01/kart-lod2.glb

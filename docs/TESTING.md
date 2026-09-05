@@ -220,6 +220,18 @@ Run this matrix for every future production character, in addition to its slice-
 - Cleo's ten archived files at `public/assets/archive/characters/cleo-aa-06/` retain their recorded SHA-256 values and remain excluded from the active roster.
 - Product-owner acceptance is recorded only after the deployed desktop and mobile game confirms orientation, every driver state, cockpit occlusion, visible wings and tail, and single-control presentation.
 
+## Alex / Neon Vector local integration matrix
+
+- AA-01 renders Alex's approved portrait, Feather Sprinter descriptor, and 6 / 9 / 2 / 8 / 7 / 4 statistics.
+- `Race as Alex` loads The Neon Vector rather than the former AA-01 placeholder or a fallback kart.
+- CI materializes and validates `public/assets/characters/aa-01/kart.glb`, `kart-lod1.glb`, and `kart-lod2.glb`. Each begins with the binary glTF signature and declares `extras.forward: "-Z"`.
+- LOD0, LOD1, and LOD2 remain within 25,000, 12,000, and 5,000 triangles. Each retains the required thirteen-node hierarchy and one `SteeringWheel` node.
+- All ten driver states load from `alex-runtime-20260905-1`. Every frame is character-only, wheel-free, 512 x 512 transparent sRGBA, and retains Alex's cyan/magenta cheek-node identity.
+- `NEGATIVE_Z_KART_VISUAL_YAW` keeps The Neon Vector's triangle nose and twin violet exhausts race-forward and its cockpit-to-thruster conduits behind Alex.
+- Chase-facing position `[0, 0.92, -0.12]` keeps Alex seated behind the cockpit edge. Camera-facing position `[0, 0.84, -0.12]` keeps the modeled wheel visible between her hands; no sprite-owned wheel is permitted.
+- The approved Candidate 3 conduit pair remains structurally attached and readable in rear three-quarter and profile views; no floating hood emblem or steering-wheel intrusion is permitted.
+- Product-owner acceptance is recorded only after the deployed desktop and mobile game confirms selection, orientation, all ten driver states, cockpit occlusion, conduit visibility, and single-wheel presentation.
+
 ## McFleurdel / Fleur de Nuit manual matrix
 
 - AA-07 renders McFleurdel's approved portrait, High-Speed Cruiser descriptor, and 8 / 6 / 7 / 5 / 4 / 6 statistics.

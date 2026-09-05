@@ -10,6 +10,29 @@ The project roadmap remains at Slice 3. Items remain Slice 5 work and are not au
 
 **Dragon Queen / The Sovereign Wyrm is LIVE ACCEPTED / CLOSED.** Manny approved the deployed rear-view correction on 2026-09-04 after retesting neutral, steering-left, steering-right, hit, and victory camera-facing states. The final Dragon Queen acceptance defect is closed.
 
+**Alex / The Neon Vector is LOCALLY INTEGRATED / PUBLICATION PENDING.** Manny approved Alex's AA-01 mapping, Option A portrait, ten driver states, and Neon Vector geometry Candidate 3 on 2026-09-05. This checkpoint covers local assets, manifest registration, deterministic GLB validation, and offline cockpit review only; it does not authorize a push, pull request, deployment, or live acceptance.
+
+## Alex local integration checkpoint
+
+Alex is active in `characterManifest` as **AA-01 Feather Sprinter** under controlled revision `alex-runtime-20260905-1`:
+
+- Speed 6
+- Acceleration 9
+- Weight 2
+- Handling 8
+- Mini-Turbo 7
+- Traction 4
+- Kart: **The Neon Vector**
+- Chase-facing driver position: `[0, 0.92, -0.12]`
+- Camera-facing driver position: `[0, 0.84, -0.12]`
+- Kart orientation: `NEGATIVE_Z_KART_VISUAL_YAW`
+
+The approved Alex rasters are wheel-free and the Neon Vector supplies exactly one modeled steering wheel. Candidate 3's rear cockpit-to-thruster conduits remain exposed in the local geometry review. The Chat handoff must request publication approval, then complete deployed desktop and mobile checks for selection, orientation, all ten driver states, wheel visibility, seated occlusion, and conduit readability.
+
+Candidate 3 geometry is pinned locally at 10,396 / 6,444 / 3,420 triangles for LOD0 / LOD1 / LOD2. The runtime verifier covers all three GLBs and eleven Alex PNGs, including transparent-corner and `extras.forward: "-Z"` checks.
+
+Full local validation passed on 2026-09-05 after `npm ci` installed 198 packages from the committed lockfile. `npm run validate` passed strict typecheck, zero-warning lint, 18 Vitest files / 93 tests, 89.71% statement coverage, branding, 36 materialized runtime GLBs, 105 decoded runtime PNGs, and the production Vite build. `git lfs fsck` passed; deterministic LOD rebuilds matched all three approved GLB SHA-256 values; and the ten-state offline attachment sheet matched at SHA-256 `a875c7456b6fa2cea13d0d953d6033000bda7235dc28666da77441e7367c07fa`. The existing large-chunk warning remains non-blocking.
+
 ## Dragon Queen publication, correction, and final acceptance
 
 Manny approved Dragon Queen's character lock, definitive visual reference, transformation rights, The Sovereign Wyrm design/name, AA-06 Grip Specialist mapping, portrait Candidate 2, all ten driver states, and Sovereign Wyrm geometry Candidate 2 before publication.
@@ -145,30 +168,32 @@ The protected race contract remains unchanged: 384 canonical track samples, cour
 - Accu / Pink Precision — AA-11
 - Jennifer / The Hearthwarden — AA-12
 
-Cleo / The Gilded Stitch remains archived and inactive. **AA-01 is the only remaining governed placeholder.**
+Cleo / The Gilded Stitch remains archived and inactive. Alex fills the former AA-01 governed placeholder; all twelve roster profiles are now assigned.
 
 ## Known defects / unresolved issues
 
 - The existing production-build large-chunk warning remains known and non-blocking.
 - No Dragon Queen code, asset, orientation, placement, or gameplay defect is open.
+- Alex has no known local integration defect; publication and live acceptance are intentionally still open.
 - No balance candidate is active.
 
 ## Deferred work
 
-- AA-01 remains unfilled.
 - Items remain Slice 5 work and are not authorized by this checkpoint.
 - Further competitive-balance work remains deferred until explicitly reopened.
 - External PBR texture sets, HDR environment, baked AO assets, and other larger presentation additions remain outside the Dragon Queen checkpoint.
 
 ## Next recommended action
 
-Remain at **Slice 3**. Dragon Queen requires no further work. The next bounded product action is to continue approved Slice 3 avatar intake for the remaining AA-01 placeholder, or another explicitly approved Slice 3 task.
+Remain at **Slice 3**. The next bounded product action is to hand Alex's local checkpoint to Chat for explicit publication approval, followed by the repository PR/CI, deployment, and desktop/mobile live-acceptance workflow.
 
 Do not advance to Slice 5, begin new material balance work, or alter protected gameplay scope without Manny's explicit approval.
 
 ## Approval state
 
 **Dragon Queen / The Sovereign Wyrm: LIVE ACCEPTED / CLOSED.**
+
+**Alex / The Neon Vector: LOCALLY INTEGRATED / PUBLICATION PENDING.**
 
 **Balance experiment: ABANDONED / ROLLED BACK / CLOSED.**
 

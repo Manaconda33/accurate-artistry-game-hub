@@ -56,6 +56,9 @@ for (const [path, expectedHash] of archivedCleoHashes) {
 console.log(`Verified ${String(archivedCleoHashes.size)} archived Cleo asset hashes.`);
 
 const runtimeGlbs = [
+  'public/assets/characters/aa-01/kart.glb',
+  'public/assets/characters/aa-01/kart-lod1.glb',
+  'public/assets/characters/aa-01/kart-lod2.glb',
   'public/assets/characters/aa-02/kart.glb',
   'public/assets/characters/aa-02/kart-lod1.glb',
   'public/assets/characters/aa-02/kart-lod2.glb',
@@ -279,6 +282,17 @@ const lulaProtectedRects = {
 };
 
 const runtimePngs = [
+  ['public/assets/characters/aa-01/portrait.png', 256, 256],
+  ['public/assets/characters/aa-01/driver/front.png', 512, 512],
+  ['public/assets/characters/aa-01/driver/rear.png', 512, 512],
+  ['public/assets/characters/aa-01/driver/steer-left.png', 512, 512],
+  ['public/assets/characters/aa-01/driver/steer-right.png', 512, 512],
+  ['public/assets/characters/aa-01/driver/hit.png', 512, 512],
+  ['public/assets/characters/aa-01/driver/victory.png', 512, 512],
+  ['public/assets/characters/aa-01/driver/front-steer-left.png', 512, 512],
+  ['public/assets/characters/aa-01/driver/front-steer-right.png', 512, 512],
+  ['public/assets/characters/aa-01/driver/front-hit.png', 512, 512],
+  ['public/assets/characters/aa-01/driver/front-victory.png', 512, 512],
   ['public/assets/characters/aa-06/portrait.png', 256, 256],
   ['public/assets/characters/aa-06/driver/front.png', 512, 512],
   ['public/assets/characters/aa-06/driver/rear.png', 512, 512],
@@ -376,6 +390,17 @@ const runtimePngs = [
 ];
 
 const newTransparentFronts = new Set([
+  'public/assets/characters/aa-01/portrait.png',
+  'public/assets/characters/aa-01/driver/front.png',
+  'public/assets/characters/aa-01/driver/rear.png',
+  'public/assets/characters/aa-01/driver/steer-left.png',
+  'public/assets/characters/aa-01/driver/steer-right.png',
+  'public/assets/characters/aa-01/driver/hit.png',
+  'public/assets/characters/aa-01/driver/victory.png',
+  'public/assets/characters/aa-01/driver/front-steer-left.png',
+  'public/assets/characters/aa-01/driver/front-steer-right.png',
+  'public/assets/characters/aa-01/driver/front-hit.png',
+  'public/assets/characters/aa-01/driver/front-victory.png',
   'public/assets/characters/aa-06/portrait.png',
   'public/assets/characters/aa-06/driver/front.png',
   'public/assets/characters/aa-06/driver/rear.png',
