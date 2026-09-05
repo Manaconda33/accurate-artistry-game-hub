@@ -80,5 +80,5 @@ export function selectItem(
     if (roll < cursor) return entry.itemId;
   }
 
-  return weights[weights.length - 1].itemId;
+  throw new Error('Weighted item selection failed to resolve an eligible item.');
 }
