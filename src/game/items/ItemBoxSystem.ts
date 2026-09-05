@@ -34,6 +34,12 @@ interface RuntimeItemBox {
   materials: THREE.MeshStandardMaterial[];
 }
 
+interface ItemBoxCandidate {
+  box: RuntimeItemBox;
+  racer: ItemBoxRacerState;
+  distanceSq: number;
+}
+
 const ITEM_BOX_TRIGGER_RADIUS = 1.65;
 const ITEM_BOX_BASE_Y = 1.55;
 const ITEM_BOX_LATERAL_HALF_SPAN = 4.4;
@@ -163,24 +169,31 @@ export class ItemBoxSystem {
     if (dt <= 0) return;
     this.elapsed += dt;
 
-    for (const box of this.boxes) {
-      box.lifecycle.advance(dt);
-      if (box.lifecycle.isCollectible()) {
-        const candidate = this.closestEligibleRacer(box.placement.position, racers);
-        if (
-          candidate !== null &&
-          onCollectionRequest({
-            boxIndex: box.placement.index,
-            row: box.placement.row,
-            column: box.placement.column,
-            racerId: candidate.id,
-          })
-        ) {
-          box.lifecycle.collect();
-        }
+    for (const box of this.boxes) box.lifecycle.advance(dt);
+
+    const candidates = this.collectionCandidates(racers);
+    const assignedRacers = new Set<string>();
+    const assignedBoxes = new Set<number>();
+
+    for (const candidate of candidates) {
+      const boxIndex = candidate.box.placement.index;
+      if (assignedRacers.has(candidate.racer.id) || assignedBoxes.has(boxIndex)) continue;
+
+      assignedRacers.add(candidate.racer.id);
+      assignedBoxes.add(boxIndex);
+      if (
+        onCollectionRequest({
+          boxIndex,
+          row: candidate.box.placement.row,
+          column: candidate.box.placement.column,
+          racerId: candidate.racer.id,
+        })
+      ) {
+        candidate.box.lifecycle.collect();
       }
-      this.applyPresentation(box);
     }
+
+    for (const box of this.boxes) this.applyPresentation(box);
   }
 
   public presentation(index: number): ItemBoxPresentation | null {
@@ -195,25 +208,29 @@ export class ItemBoxSystem {
     this.group.clear();
   }
 
-  private closestEligibleRacer(
-    boxPosition: THREE.Vector3,
-    racers: readonly ItemBoxRacerState[],
-  ): ItemBoxRacerState | null {
-    let closest: ItemBoxRacerState | null = null;
-    let closestDistanceSq = ITEM_BOX_TRIGGER_RADIUS * ITEM_BOX_TRIGGER_RADIUS;
+  private collectionCandidates(racers: readonly ItemBoxRacerState[]): ItemBoxCandidate[] {
+    const triggerDistanceSq = ITEM_BOX_TRIGGER_RADIUS * ITEM_BOX_TRIGGER_RADIUS;
+    const candidates: ItemBoxCandidate[] = [];
 
     for (const racer of racers) {
       if (racer.finished || !racer.canCollect) continue;
-      const dx = racer.position.x - boxPosition.x;
-      const dz = racer.position.z - boxPosition.z;
-      const distanceSq = dx * dx + dz * dz;
-      if (distanceSq <= closestDistanceSq) {
-        closest = racer;
-        closestDistanceSq = distanceSq;
+      for (const box of this.boxes) {
+        if (!box.lifecycle.isCollectible()) continue;
+        const dx = racer.position.x - box.placement.position.x;
+        const dz = racer.position.z - box.placement.position.z;
+        const distanceSq = dx * dx + dz * dz;
+        if (distanceSq <= triggerDistanceSq) candidates.push({ box, racer, distanceSq });
       }
     }
 
-    return closest;
+    candidates.sort((first, second) => {
+      const distanceDifference = first.distanceSq - second.distanceSq;
+      if (Math.abs(distanceDifference) > 0.000001) return distanceDifference;
+      const boxDifference = first.box.placement.index - second.box.placement.index;
+      if (boxDifference !== 0) return boxDifference;
+      return first.racer.id.localeCompare(second.racer.id);
+    });
+    return candidates;
   }
 
   private applyPresentation(box: RuntimeItemBox): void {
