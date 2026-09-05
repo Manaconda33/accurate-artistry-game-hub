@@ -32,7 +32,7 @@ jobs:
           sudo apt-get install -y -qq libreoffice-writer poppler-utils
 
       - name: Synchronize approved governance files
-        run: python tools/slice5_docs_sync.py
+        run: python tools/slice5_docs_sync_fix.py
 
       - name: Render Word PRD for QA
         run: |
