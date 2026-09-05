@@ -29,6 +29,12 @@ describe('Slice 0 app shell', () => {
     );
     expect(root.textContent).toContain('Race as Lavi');
 
+    root.querySelector<HTMLElement>('[data-character="aa-01"]')?.click();
+    expect(root.textContent).toContain('Race as Alex');
+    expect(root.textContent).toContain('The Neon Vector');
+    expect(root.textContent).toContain('Feather Sprinter');
+    expect(root.textContent).not.toContain('Racer 01');
+
     root.querySelector<HTMLElement>('[data-character="aa-06"]')?.click();
     expect(root.textContent).toContain('Race as Dragon Queen');
     expect(root.textContent).toContain('The Sovereign Wyrm');

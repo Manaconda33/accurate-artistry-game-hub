@@ -32,7 +32,7 @@ Stat order is Speed / Acceleration / Weight / Handling / Mini-Turbo / Traction.
 
 | Profile | Archetype           | Class         | Stats                  | Status    | Character    | Kart                 | Approval          |
 | ------- | ------------------- | ------------- | ---------------------- | --------- | ------------ | -------------------- | ----------------- |
-| AA-01   | Feather Sprinter    | Featherweight | 6 / 9 / 2 / 8 / 7 / 4  | Available | -            | -                    | -                 |
+| AA-01   | Feather Sprinter    | Featherweight | 6 / 9 / 2 / 8 / 7 / 4  | Assigned  | Alex         | The Neon Vector      | Manny, 2026-09-05 |
 | AA-02   | Feather Technician  | Featherweight | 5 / 8 / 2 / 9 / 8 / 4  | Assigned  | Lavi         | Potato               | Manny, 2026-08-16 |
 | AA-03   | Feather Dirt Ace    | Featherweight | 5 / 8 / 3 / 7 / 6 / 7  | Assigned  | Lula         | The Verdant Hart     | Manny, 2026-08-29 |
 | AA-04   | Balanced Racer      | Medium        | 7 / 7 / 5 / 7 / 5 / 5  | Assigned  | Keeg         | The Mycelial Majesty | Manny, 2026-08-26 |
@@ -51,13 +51,21 @@ Manny approved Lula and Accu's four-frame camera-facing action packages, then ac
 
 ## Dragon Queen intake checkpoint
 
-Dragon Queen's literal-dragon character lock, definitive visual authority, transformation rights, The Sovereign Wyrm kart lock, and AA-06 Grip Specialist mapping were approved on 2026-09-03. Manny approved portrait Candidate 2, all ten driver states, and Sovereign Wyrm geometry Candidate 2 by 2026-09-04. Her complete package is locally active under `dragon-queen-runtime-20260904-1`. Publication and live acceptance remain gated. AA-01 is the only available profile.
+Dragon Queen's literal-dragon character lock, definitive visual authority, transformation rights, The Sovereign Wyrm kart lock, and AA-06 Grip Specialist mapping were approved on 2026-09-03. Manny approved portrait Candidate 2, all ten driver states, and Sovereign Wyrm geometry Candidate 2 by 2026-09-04. Her complete package is locally active under `dragon-queen-runtime-20260904-1`. Publication and live acceptance remain gated.
+
+## Alex intake checkpoint
+
+Alex's character lock, definitive visual authority, transformation rights, The Neon Vector kart lock, and AA-01 Feather Sprinter mapping were approved on 2026-09-05. Manny approved portrait Option A, all ten driver states, and Neon Vector geometry Candidate 3. Her package is locally active under `alex-runtime-20260905-1`; publication and live acceptance remain gated. No balance profile remains available after this assignment.
 
 ## Jennifer release checkpoint
 
-Jennifer's character lock, definitive reference, transformation rights, The Hearthwarden kart lock, and AA-12 All-Surface Heavy mapping were approved on 2026-09-03. Her complete package is live accepted in `characterManifest` under `jennifer-runtime-20260903-2`. AA-01 remains available; AA-06 is assigned to Dragon Queen.
+Jennifer's character lock, definitive reference, transformation rights, The Hearthwarden kart lock, and AA-12 All-Surface Heavy mapping were approved on 2026-09-03. Her complete package is live accepted in `characterManifest` under `jennifer-runtime-20260903-2`. AA-06 is assigned to Dragon Queen and AA-01 is assigned to Alex.
 
 ## Locked mapping rationale
+
+### AA-01: Alex / The Neon Vector
+
+Alex's intended driving identity is a warm, clever competitor who wins through rapid launch recovery, precise corrections, and well-timed drift conversion. Acceleration 9 and Handling 8 make responsiveness the headline strengths; Mini-Turbo 7 rewards confident drift timing. Speed 6 keeps her from becoming a straight-line specialist, while Weight 2 and Traction 4 preserve meaningful collision and off-road weaknesses. The profile fits the lightweight cyber-racer without overlapping Lavi's more technical AA-02 tuning or Lula's higher-traction AA-03 identity. Manny approved the mapping on 2026-09-05.
 
 ### AA-06: Dragon Queen / The Sovereign Wyrm
 

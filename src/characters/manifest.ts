@@ -62,6 +62,7 @@ export const TOPH_ASSET_REVISION = 'toph-runtime-20260902-2';
 export const LULA_ASSET_REVISION = 'lula-runtime-20260903-3';
 export const JENNIFER_ASSET_REVISION = 'jennifer-runtime-20260903-2';
 export const DRAGON_QUEEN_ASSET_REVISION = 'dragon-queen-runtime-20260904-1';
+export const ALEX_ASSET_REVISION = 'alex-runtime-20260905-1';
 
 const assetUrl = (path: string, revision: string): string =>
   `${import.meta.env.BASE_URL}${path}?v=${revision}`;
@@ -501,6 +502,43 @@ const jennifer: CharacterDefinition = {
   stats: { speed: 8, acceleration: 5, weight: 8, handling: 4, miniTurbo: 4, traction: 7 },
 };
 
+const alex: CharacterDefinition = {
+  id: 'aa-01',
+  displayName: 'Alex',
+  descriptor: 'Feather Sprinter',
+  initials: 'AX',
+  accent: '#16d9e8',
+  assetState: 'production',
+  portrait: assetUrl('assets/characters/aa-01/portrait.png', ALEX_ASSET_REVISION),
+  kartName: 'The Neon Vector',
+  kart: assetUrl('assets/characters/aa-01/kart.glb', ALEX_ASSET_REVISION),
+  kartVisualYaw: NEGATIVE_Z_KART_VISUAL_YAW,
+  driverSpritePosition: [0, 0.92, -0.12],
+  frontDriverSpritePosition: [0, 0.84, -0.12],
+  driver: {
+    rear: assetUrl('assets/characters/aa-01/driver/rear.png', ALEX_ASSET_REVISION),
+    front: assetUrl('assets/characters/aa-01/driver/front.png', ALEX_ASSET_REVISION),
+    steerLeft: assetUrl('assets/characters/aa-01/driver/steer-left.png', ALEX_ASSET_REVISION),
+    steerRight: assetUrl('assets/characters/aa-01/driver/steer-right.png', ALEX_ASSET_REVISION),
+    hit: assetUrl('assets/characters/aa-01/driver/hit.png', ALEX_ASSET_REVISION),
+    victory: assetUrl('assets/characters/aa-01/driver/victory.png', ALEX_ASSET_REVISION),
+    frontSteerLeft: assetUrl(
+      'assets/characters/aa-01/driver/front-steer-left.png',
+      ALEX_ASSET_REVISION,
+    ),
+    frontSteerRight: assetUrl(
+      'assets/characters/aa-01/driver/front-steer-right.png',
+      ALEX_ASSET_REVISION,
+    ),
+    frontHit: assetUrl('assets/characters/aa-01/driver/front-hit.png', ALEX_ASSET_REVISION),
+    frontVictory: assetUrl(
+      'assets/characters/aa-01/driver/front-victory.png',
+      ALEX_ASSET_REVISION,
+    ),
+  },
+  stats: { speed: 6, acceleration: 9, weight: 2, handling: 8, miniTurbo: 7, traction: 4 },
+};
+
 export const characterManifest: readonly CharacterDefinition[] = [
   lavi,
   manaconda,
@@ -513,27 +551,7 @@ export const characterManifest: readonly CharacterDefinition[] = [
   lula,
   jennifer,
   dragonQueen,
-  ...[['aa-01', 'Racer 01', 'Balanced Pilot', 'R1', '#9b7cff', [6, 6, 6, 6, 6, 6]]].map(
-    ([id, displayName, descriptor, initials, accent, values]) => {
-      const [speed, acceleration, weight, handling, miniTurbo, traction] = values as [
-        number,
-        number,
-        number,
-        number,
-        number,
-        number,
-      ];
-      return {
-        id: id as string,
-        displayName: displayName as string,
-        descriptor: descriptor as string,
-        initials: initials as string,
-        accent: accent as string,
-        assetState: 'placeholder' as const,
-        stats: { speed, acceleration, weight, handling, miniTurbo, traction },
-      };
-    },
-  ),
+  alex,
 ];
 
 export function validateCharacterManifest(
