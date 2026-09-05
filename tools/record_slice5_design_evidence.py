@@ -1,0 +1,56 @@
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+STATUS = ROOT / "docs/IMPLEMENTATION-STATUS.md"
+
+text = STATUS.read_text(encoding="utf-8")
+text = text.replace(
+    "**Slice 5 - Item Boxes, Weapons & Position-Based Distribution - DESIGN APPROVED / IMPLEMENTATION AUTHORIZED AFTER THIS DOCUMENTATION CHECKPOINT MERGES**",
+    "**Slice 5 - Item Boxes, Weapons & Position-Based Distribution - DESIGN APPROVED / IMPLEMENTATION AUTHORIZED**",
+    1,
+)
+text = text.replace(
+    "**Approval gate:** after this documentation checkpoint is merged and healthy, Slice 5 gameplay implementation is authorized on a dedicated feature branch.",
+    "**Approval gate:** Slice 5 gameplay implementation is authorized on a dedicated feature branch.",
+    1,
+)
+text = text.replace(
+    "**Slice 5 implementation: AUTHORIZED AFTER THIS DOCUMENTATION CHECKPOINT MERGES; NOT YET COMPLETE.**",
+    "**Slice 5 implementation: AUTHORIZED; NOT YET BEGUN / NOT COMPLETE.**",
+    1,
+)
+
+evidence = """
+
+## Slice 5 design checkpoint publication evidence
+
+The approved documentation-only Slice 5 design checkpoint is merged and healthy.
+
+- Pull request: **#95 — Record approved Slice 5 item-system design**
+- PR head: `9a00d49ba88e4444e6810b85146bf1303bf6e9fd`
+- PR CI run: **33994514332 — passed** Git LFS runtime verification, lockfile install, strict typecheck, zero-warning lint, tests, and production build.
+- Squash merge / design checkpoint: `5b828be9d16592103afb67d3ea84dbee167be8d5`
+- Main CI / GitHub Pages run: **33994553192 — validation and deployment passed**.
+- Pages artifact: **9977655925**
+- Pages artifact digest: `sha256:9fa8f3f7bdc18e9b51c5ad8f0380b8818db6490d7a281a1883f92b02e9baca77`
+- Live URL: `https://manaconda33.github.io/manacondas-minigame-mayhem/`
+- Word PRD amendment 2.2 synchronization run: **33994294280 — passed**; render artifact **9977580656**. The resulting 44-page Word PRD render was reviewed without clipping, overlap, or downstream layout breakage.
+- Final PR diff contained only `README.md`, the working/Word PRDs, `DECISIONS.md`, `IMPLEMENTATION-STATUS.md`, `TESTING.md`, and `SLICE-5-ITEM-SYSTEM-DESIGN.md`. No gameplay source file changed.
+- The existing Slice 3 closeout remains ADR-060; the approved Slice 5 implementation contract is ADR-061.
+
+This checkpoint satisfies the pre-implementation governance gate. Slice 5 gameplay implementation may now begin on a dedicated feature branch when work resumes. `src/game/items/` remains implementation scaffolding at this checkpoint. Slice 6 remains locked until Slice 5 is implemented, validated, deployed, and explicitly live accepted by Manny.
+
+**Latest verified Slice 5 design checkpoint:** `5b828be9d16592103afb67d3ea84dbee167be8d5`.
+"""
+
+if "## Slice 5 design checkpoint publication evidence" not in text:
+    text += evidence
+
+STATUS.write_text(text, encoding="utf-8")
+
+for temporary in [
+    ROOT / ".github/workflows/slice5-design-evidence.yml",
+    ROOT / "tools/record_slice5_design_evidence.py",
+]:
+    if temporary.exists():
+        temporary.unlink()
