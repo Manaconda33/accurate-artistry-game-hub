@@ -6,7 +6,7 @@
 
 High-Fidelity HTML5 Kart Racer Vertical Slice + Modular Mini-Game Hub
 
-Version 1.1 - Final approved baseline; working implementation amendment 2.0
+Version 1.1 - Final approved baseline; working implementation amendment 2.2
 
 August 16, 2026
 
@@ -67,6 +67,18 @@ Final rollout acceptance, September 3, 2026: Manny approved Lula and Accu after 
 Approved September 3, 2026. The public product name is `Manaconda's Minigame Mayhem`. The title screen must show that exact name without a presentation line above it. The former AA monogram is replaced by an original minigame mark showing multiple arcade paths or tokens, and the same mark supplies the browser icon. User-facing placeholders must not expose the internal `aa-##` compatibility keys.
 
 The canonical public repository is `Manaconda33/manacondas-minigame-mayhem`, and the GitHub Pages base path is `/manacondas-minigame-mayhem/`. Active product copy, page metadata, package identity, repository guidance, current PRD records, asset-builder labels, and public links must use the new brand. Dated history snapshots may retain superseded names and URLs as historical evidence, but they are not current authority. A build-time brand check must reject the former display name or repository slug outside preserved history. This amendment also authorizes publishing Jennifer's approved AA-12 package in the same release. Desktop and mobile live acceptance remain required after deployment.
+
+## Approved implementation amendment 2.2 - Slice 5 item-system implementation contract
+
+Approved September 5, 2026 before Slice 5 gameplay implementation. The fifteen-item roster, Sections 15-17 probability matrix, item state machines, ITEM-001 through ITEM-008, AI-004, and existing item values remain unchanged unless this amendment explicitly fills a previously unspecified behavior. The approved implementation and exit contract is recorded in `docs/SLICE-5-ITEM-SYSTEM-DESIGN.md` and is normative for Slice 5.
+
+Circuit Alpha uses four rows of eight shared item boxes at approximately 9%, 34%, 62%, and 89% of lap progress. A valid collection locks the weighted selection immediately using collection-time race state, presents roulette for approximately 0.85 seconds, and deactivates that box globally for approximately 4.5 seconds. A racer with an occupied one-slot inventory does not consume a box. Mobile/coarse-pointer gameplay adds a dedicated ITEM control; holding Brake/Reverse while using ITEM requests backward deployment where supported, matching the keyboard S/Down plus Shift/E contract.
+
+Hyper-Drive Rocket remains restricted to positions 6-8 and additionally requires at least 45 meters of negative race-progress gap to the leader at collection time. Invalid prerequisites remove the item before weighted selection and eligible weights are renormalized. Initial governed boost-cap targets are Nitro Surge 1.18x, Nitro Overdrive pulse 1.15x, Hyper-Drive Rocket 1.25x while on legal spline autopilot, and the existing Prismatic Invincibility 1.12x. These are configuration values subject to later evidence-based balance approval, not silent implementation tuning.
+
+Item effects use the shared PRD spin categories unless otherwise specified in the approved design: standard approximately 0.85 seconds, heavy explosive approximately 1.20 seconds, Blaze short spin approximately 0.55 seconds, Frost momentum/handling impairment without spin, and Slick 360-degree presentation with approximately 60% speed retention. Newly spawned projectiles/hazards receive a short owner-immunity/arming window; after arming, normal collisions may include later self-hit from a returning/ricocheted object or lingering owned hazard.
+
+Slice 5 architecture separates item definitions/selection, inventory and lifecycle, item boxes, projectiles, hazards, generic racer effects, targeting, Rocket spline autopilot, AI item policy, and HUD integration. Item balance remains configuration-driven. Slice 5 may use original procedural/simple models, icons, VFX, and placeholder audio sufficient for gameplay readability; final production audio/VFX polish remains Slice 6. Slice 5 cannot close until the approved exit checklist passes, including at least 100,000 seeded item selections per rank, interaction/counter tests, cleanup/object-count soak, desktop/mobile live deployment checks, and explicit product-owner acceptance.
 
 # Contents
 

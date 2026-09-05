@@ -2,16 +2,15 @@
 
 ## Current slice
 
-**Slice 3 — Character Selection & Avatar Ingestion — COMPLETE / LIVE ACCEPTED**
+**Slice 5 - Item Boxes, Weapons & Position-Based Distribution - DESIGN APPROVED / IMPLEMENTATION AUTHORIZED AFTER THIS DOCUMENTATION CHECKPOINT MERGES**
 
-PRD baseline: **v1.1, working implementation amendment 2.1**.
+PRD baseline: **v1.1, working implementation amendment 2.2**.
 
-Slice 3 is **COMPLETE / LIVE ACCEPTED**. The already-completed out-of-order Slice 4 AI/grid checkpoint remains retained. Slice 5 Items has not begun and is not authorized. The previously approved Circuit Alpha environment/camera pass remains **LIVE ACCEPTED / CLOSED**. Jennifer / The Hearthwarden and the Manaconda's Minigame Mayhem rebrand remain **LIVE ACCEPTED / CLOSED**.
+Slice 3 Character Selection & Avatar Ingestion is **COMPLETE / LIVE ACCEPTED**. The already-completed out-of-order Slice 4 AI/grid checkpoint remains retained. Manny approved the reconciled Slice 5 item-system implementation contract and exit checklist on 2026-09-05. The approved design is `docs/SLICE-5-ITEM-SYSTEM-DESIGN.md` and ADR-060. No Slice 5 gameplay code is complete at this checkpoint; `src/game/items/` remains implementation scaffolding until the dedicated feature branch begins.
 
-**Dragon Queen / The Sovereign Wyrm is LIVE ACCEPTED / CLOSED.** Manny approved the deployed rear-view correction on 2026-09-04 after retesting neutral, steering-left, steering-right, hit, and victory camera-facing states. The final Dragon Queen acceptance defect is closed.
+The existing fifteen-item roster and position probability matrix remain unchanged. Approved amendment 2.2 resolves item-box layout/ownership, mobile ITEM input, Hyper-Drive meaningful-gap eligibility, initial shared effect taxonomy, owner arming immunity, and initial boost-cap configuration targets. The abandoned competitive-balance experiment remains closed and is not reopened by Slice 5.
 
-**Alex / The Neon Vector is LIVE ACCEPTED / CLOSED.** Manny approved Alex's AA-01 mapping, Option A portrait, ten driver states, Neon Vector geometry Candidate 3, publication, deployment, and the final deployed desktop/mobile matrix on 2026-09-05. PR #92 passed CI, merged, and deployed through GitHub Pages. No Alex acceptance item remains open.
-
+**Approval gate:** after this documentation checkpoint is merged and healthy, Slice 5 gameplay implementation is authorized on a dedicated feature branch. Slice 6 remains locked until Slice 5 is fully validated, deployed, and live accepted by Manny.
 ## Alex integration and deployment checkpoint
 
 Alex is active in `characterManifest` as **AA-01 Feather Sprinter** under controlled revision `alex-runtime-20260905-1`:
@@ -207,26 +206,33 @@ Cleo / The Gilded Stitch remains archived and inactive. Alex fills the former AA
 
 ## Next recommended action
 
-Hold at the completed Slice 3 checkpoint. Because Slice 4 was completed out of order and retained, the next incomplete roadmap slice is Slice 5 Items. Do not begin it until Manny explicitly approves that scope.
+Merge the approved Slice 5 documentation checkpoint after CI is healthy. Then create a dedicated Slice 5 implementation branch and implement only the bounded item-system contract in `docs/SLICE-5-ITEM-SYSTEM-DESIGN.md`: configuration/selection first, then inventory/item boxes, shared effects and lifecycle, item families/counters, AI item policy, HUD/mobile input, soak/performance evidence, deployment, and product-owner live acceptance.
 
-Do not advance to Slice 5, begin new material balance work, or alter protected gameplay scope without Manny's explicit approval.
-
+Do not reopen competitive-balance tuning while establishing the baseline item implementation unless objective Slice 5 evidence exposes a blocking defect. Do not begin Slice 6 until Slice 5 is live accepted.
 ## Approval state
+
+**Slice 5 design: APPROVED 2026-09-05.**
+
+**Slice 5 implementation: AUTHORIZED AFTER THIS DOCUMENTATION CHECKPOINT MERGES; NOT YET COMPLETE.**
+
+**Slice 6: LOCKED pending Slice 5 validation, deployment, and Manny live acceptance.**
+
+**Slice 3 - Character Selection & Avatar Ingestion: COMPLETE / LIVE ACCEPTED.**
+
+**Retained Slice 4 AI/grid checkpoint: COMPLETE.**
 
 **Dragon Queen / The Sovereign Wyrm: LIVE ACCEPTED / CLOSED.**
 
 **Alex / The Neon Vector: LIVE ACCEPTED / CLOSED.**
 
-**Slice 3 — Character Selection & Avatar Ingestion: COMPLETE / LIVE ACCEPTED.**
-
 **Balance experiment: ABANDONED / ROLLED BACK / CLOSED.**
 
 **Circuit Alpha environment-art / camera polish: LIVE ACCEPTED / CLOSED.**
 
-**Latest verified Dragon Queen runtime/deployment commit: `15cab462d8eb574785427c026c9b199105c68074`.**
+## Slice 5 design approval checkpoint
 
-**Latest verified Alex runtime/deployment commit: `617312394decfcb95af4f8fee6431ee9d339201b`.**
+Manny approved the reconciled item-system design and objective exit checklist on 2026-09-05 before gameplay implementation. The repository records the approval in amendment 2.2, ADR-060, `docs/SLICE-5-ITEM-SYSTEM-DESIGN.md`, and the Slice 5 testing matrix. The checkpoint intentionally contains no item gameplay implementation.
 
-**Alex product-owner acceptance tested checkpoint: `daf1e3127478981e40cca9533300f8617f61004d`.**
+Approved fill-ins include four eight-box rows at approximately 9% / 34% / 62% / 89% lap progress; shared 4.5-second box deactivation; selection locked at collection before approximately 0.85-second roulette; dedicated mobile ITEM input with Brake/Reverse backward modifier; Hyper-Drive restricted to places 6-8 at least 45 m behind the leader; shared effect classifications; short spawn owner immunity followed by normal later self-collision; and initial boost-cap targets of 1.18x Nitro Surge, 1.15x Nitro Overdrive pulse, 1.25x Hyper-Drive, and existing 1.12x Prismatic.
 
-The project is paused after Slice 3 closure; Slice 5 is not authorized.
+The fifteen-item probability matrix is unchanged. Implementation completion still requires the full probability simulation, interaction/counter matrix, lifecycle soak, performance/regression evidence, healthy PR/main CI, GitHub Pages deployment, desktop/mobile live checks, and Manny acceptance.
