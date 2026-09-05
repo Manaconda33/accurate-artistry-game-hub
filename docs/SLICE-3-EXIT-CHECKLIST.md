@@ -87,11 +87,11 @@ Slice 3 may be marked **COMPLETE / LIVE ACCEPTED** only when every required item
 
 - [x] Publication approval is explicitly recorded after local validation passes.
 - [x] The validated file tree is published to `feature/alex-neon-vector-local`; the connected GitHub integration created the remote commit because the hosted shell could not authenticate an HTTPS Git push.
-- [ ] The pull request passes required CI before merge.
-- [ ] The merge commit is recorded.
-- [ ] The post-merge `main` workflow passes independently.
-- [ ] The deployment environment reports success.
-- [ ] The live URL and deployed commit are recorded.
+- [x] Pull request #92 passes required CI in run `33989589113` before merge.
+- [x] Merge commit `617312394decfcb95af4f8fee6431ee9d339201b` is recorded.
+- [x] Post-merge `main` run `33989653688` passes independently.
+- [x] The GitHub Pages deployment environment reports success.
+- [x] The live URL and deployed commit are recorded.
 - [ ] Deployed asset responses match the approved dimensions, revisions, and hashes where applicable.
 
 ## 9. Product-owner live acceptance
@@ -114,13 +114,13 @@ Slice 3 may be marked **COMPLETE / LIVE ACCEPTED** only when every required item
 
 ## 10. Evidence and closeout
 
-- [ ] `docs/IMPLEMENTATION-STATUS.md` records commands, results, counts, coverage, deployment, URL, deployed commit, manual scenarios, known defects, and limitations.
-- [ ] `docs/DECISIONS.md` records the final Alex integration/publication decision without claiming live acceptance prematurely.
+- [ ] `docs/IMPLEMENTATION-STATUS.md` records commands, results, counts, coverage, deployment, URL, deployed commit, manual scenarios, known defects, and limitations. (Automated/deployment evidence is recorded; manual scenarios remain pending.)
+- [x] `docs/DECISIONS.md` records the final Alex integration/publication decision without claiming live acceptance prematurely.
 - [ ] The roster ledger shows all twelve profiles assigned exactly once.
-- [ ] The final PR links this checklist and identifies every intentionally deferred item.
+- [x] PR #92 links this checklist and identifies every intentionally deferred item.
 - [ ] Any failed or unavailable evidence is recorded plainly; no manual result is inferred from an automated pass.
 - [ ] Only after every required item passes: status changes to **Slice 3 COMPLETE / LIVE ACCEPTED**.
 
-## Current status at Alex local checkpoint
+## Current status at Alex deployed checkpoint
 
-**NOT COMPLETE — PR CI, deployment, and live evidence pending.** Alex's approved assets, manifest integration, full dependency-backed validation, deterministic geometry checks, offline attachment review, feature-branch publication, PR #92 creation, and LFS object fetch-back verification are complete. Merge, post-merge deployment, and desktop/mobile product-owner acceptance remain open.
+**NOT COMPLETE — product-owner live evidence pending.** Alex's approved assets, manifest integration, full dependency-backed validation, deterministic geometry checks, offline attachment review, feature-branch publication, PR #92 CI/merge, LFS object fetch-back verification, deployment, and artifact-byte verification are complete. Desktop/mobile product-owner acceptance remains open.

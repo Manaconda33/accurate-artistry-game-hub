@@ -10,9 +10,9 @@ The project roadmap remains at Slice 3. Items remain Slice 5 work and are not au
 
 **Dragon Queen / The Sovereign Wyrm is LIVE ACCEPTED / CLOSED.** Manny approved the deployed rear-view correction on 2026-09-04 after retesting neutral, steering-left, steering-right, hit, and victory camera-facing states. The final Dragon Queen acceptance defect is closed.
 
-**Alex / The Neon Vector is PUBLISHED TO PR #92 / DEPLOYMENT PENDING.** Manny approved Alex's AA-01 mapping, Option A portrait, ten driver states, Neon Vector geometry Candidate 3, and publication on 2026-09-05. The approved package is published on `feature/alex-neon-vector-local`; live acceptance remains open until PR CI, merge, Pages deployment, and product-owner desktop/mobile review pass.
+**Alex / The Neon Vector is PUBLISHED / DEPLOYED / LIVE ACCEPTANCE PENDING.** Manny approved Alex's AA-01 mapping, Option A portrait, ten driver states, Neon Vector geometry Candidate 3, and publication on 2026-09-05. PR #92 passed CI, merged, and deployed through GitHub Pages. Product-owner desktop/mobile review remains the final gate.
 
-## Alex local integration checkpoint
+## Alex integration and deployment checkpoint
 
 Alex is active in `characterManifest` as **AA-01 Feather Sprinter** under controlled revision `alex-runtime-20260905-1`:
 
@@ -27,13 +27,17 @@ Alex is active in `characterManifest` as **AA-01 Feather Sprinter** under contro
 - Camera-facing driver position: `[0, 0.84, -0.12]`
 - Kart orientation: `NEGATIVE_Z_KART_VISUAL_YAW`
 
-The approved Alex rasters are wheel-free and the Neon Vector supplies exactly one modeled steering wheel. Candidate 3's rear cockpit-to-thruster conduits remain exposed in the local geometry review. The Chat handoff must request publication approval, then complete deployed desktop and mobile checks for selection, orientation, all ten driver states, wheel visibility, seated occlusion, and conduit readability.
+The approved Alex rasters are wheel-free and the Neon Vector supplies exactly one modeled steering wheel. Candidate 3's rear cockpit-to-thruster conduits remain exposed in the approved offline geometry review. Deployed desktop and mobile checks remain required for selection, orientation, all ten driver states, wheel visibility, seated occlusion, and conduit readability.
 
 Candidate 3 geometry is pinned locally at 10,396 / 6,444 / 3,420 triangles for LOD0 / LOD1 / LOD2. The runtime verifier covers all three GLBs and eleven Alex PNGs, including transparent-corner and `extras.forward: "-Z"` checks.
 
 Full local validation passed on 2026-09-05 after `npm ci` installed 198 packages from the committed lockfile. `npm run validate` passed strict typecheck, zero-warning lint, 18 Vitest files / 93 tests, 89.71% statement coverage, branding, 36 materialized runtime GLBs, 105 decoded runtime PNGs, and the production Vite build. `git lfs fsck` passed; deterministic LOD rebuilds matched all three approved GLB SHA-256 values; and the ten-state offline attachment sheet matched at SHA-256 `a875c7456b6fa2cea13d0d953d6033000bda7235dc28666da77441e7367c07fa`. The existing large-chunk warning remains non-blocking.
 
-Publication uses **PR #92 — Integrate Alex and The Neon Vector**. Because the hosted shell could not authenticate a normal HTTPS Git push, the connected GitHub integration published the validated file tree to the feature branch without changing the approved runtime assets. Temporary branch-scoped LFS bridge run **33989497206** rebuilt only Alex's three GLBs with NumPy 2.3.5 and Matplotlib 3.10.8, matched approved object IDs `2df26b2cf70781a410a110a35616fc19506ef014e0140b499b9470f7f5d39e85`, `abf82edd061876d5b2d71ae2f618707ae947d61aa5805a811e1246f011f08b84`, and `dced4db85903cc8b410b1a746608cb1f4fdd7f101192d79bbf2d580fa705d68a`, proved the committed pointers unchanged, uploaded 3/3 objects, deleted its runner cache, fetched the objects back by exact PR-head SHA, and passed `git lfs fsck`. The temporary write-enabled workflow was removed before merge review. PR CI, merge, deployment, and manual live acceptance remain pending at this checkpoint.
+Publication uses **PR #92 — Integrate Alex and The Neon Vector**. Because the hosted shell could not authenticate a normal HTTPS Git push, the connected GitHub integration published the validated file tree to the feature branch without changing the approved runtime assets. Temporary branch-scoped LFS bridge run **33989497206** rebuilt only Alex's three GLBs with NumPy 2.3.5 and Matplotlib 3.10.8, matched approved object IDs `2df26b2cf70781a410a110a35616fc19506ef014e0140b499b9470f7f5d39e85`, `abf82edd061876d5b2d71ae2f618707ae947d61aa5805a811e1246f011f08b84`, and `dced4db85903cc8b410b1a746608cb1f4fdd7f101192d79bbf2d580fa705d68a`, proved the committed pointers unchanged, uploaded 3/3 objects, deleted its runner cache, fetched the objects back by exact PR-head SHA, and passed `git lfs fsck`. The temporary write-enabled workflow was removed before merge review.
+
+PR CI run **33989589113** passed on final feature head `f667af78d056b43403c85149aa8c8357454a9f1b`. PR #92 merged at `617312394decfcb95af4f8fee6431ee9d339201b`. Main CI / Pages run **33989653688** independently passed LFS materialization and `git lfs fsck`, dependency installation, typecheck, zero-warning lint, tests, production build, Pages configuration, artifact upload, and deployment. Pages artifact **9976234566** has digest `sha256:e2188b050b5047f5985401eac22b5973c035c843ffaff214361ddbea6296e131`. Extracted artifact verification found all eleven Alex PNGs byte-identical to the approved source package and all three materialized GLBs byte-identical to their locked hashes with valid glTF 2 binary signatures.
+
+The live URL is `https://manaconda33.github.io/manacondas-minigame-mayhem/`. A live smoke check loaded the branded landing page, the twelve-slot Character Select, and Alex's controlled 256 x 256 portrait at `alex-runtime-20260905-1`; selecting Alex displayed Feather Sprinter, stats 6 / 9 / 2 / 8 / 7 / 4, and The Neon Vector. The cloud review browser has WebGL disabled, so it could not render the race scene. This is an environment limitation, not live acceptance evidence; manual desktop/mobile race review remains open.
 
 ## Dragon Queen publication, correction, and final acceptance
 
@@ -176,7 +180,7 @@ Cleo / The Gilded Stitch remains archived and inactive. Alex fills the former AA
 
 - The existing production-build large-chunk warning remains known and non-blocking.
 - No Dragon Queen code, asset, orientation, placement, or gameplay defect is open.
-- Alex has no known local integration defect; publication and live acceptance are intentionally still open.
+- Alex has no known integration or deployment defect; desktop/mobile live acceptance is intentionally still open.
 - No balance candidate is active.
 
 ## Deferred work
@@ -187,7 +191,7 @@ Cleo / The Gilded Stitch remains archived and inactive. Alex fills the former AA
 
 ## Next recommended action
 
-Remain at **Slice 3**. The next bounded product action is to hand Alex's local checkpoint to Chat for explicit publication approval, followed by the repository PR/CI, deployment, and desktop/mobile live-acceptance workflow.
+Remain at **Slice 3**. The next bounded product action is Alex's product-owner desktop/mobile live-acceptance matrix against deployed commit `617312394decfcb95af4f8fee6431ee9d339201b`.
 
 Do not advance to Slice 5, begin new material balance work, or alter protected gameplay scope without Manny's explicit approval.
 
@@ -195,12 +199,14 @@ Do not advance to Slice 5, begin new material balance work, or alter protected g
 
 **Dragon Queen / The Sovereign Wyrm: LIVE ACCEPTED / CLOSED.**
 
-**Alex / The Neon Vector: LOCALLY INTEGRATED / PUBLICATION PENDING.**
+**Alex / The Neon Vector: PUBLISHED / DEPLOYED / LIVE ACCEPTANCE PENDING.**
 
 **Balance experiment: ABANDONED / ROLLED BACK / CLOSED.**
 
 **Circuit Alpha environment-art / camera polish: LIVE ACCEPTED / CLOSED.**
 
 **Latest verified Dragon Queen runtime/deployment commit: `15cab462d8eb574785427c026c9b199105c68074`.**
+
+**Latest verified Alex runtime/deployment commit: `617312394decfcb95af4f8fee6431ee9d339201b`.**
 
 The project roadmap remains at Slice 3.
