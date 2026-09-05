@@ -165,10 +165,9 @@ export class ItemBoxSystem {
             row: box.placement.row,
             column: box.placement.column,
             racerId: candidate.id,
-          }) &&
-          box.lifecycle.collect()
+          })
         ) {
-          // Collection success is represented by the lifecycle transition below.
+          box.lifecycle.collect();
         }
       }
       this.applyPresentation(box);
