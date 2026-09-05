@@ -54,7 +54,7 @@ jobs:
       - name: Fetch back and verify published objects
         run: |
           rm -rf .git/lfs/objects
-          git lfs fetch origin "${GITHUB_HEAD_REF}"
+          git lfs fetch origin "${{ github.event.pull_request.head.sha }}"
           git lfs checkout
           git lfs fsck
           sha256sum public/assets/characters/aa-01/kart.glb public/assets/characters/aa-01/kart-lod1.glb public/assets/characters/aa-01/kart-lod2.glb
