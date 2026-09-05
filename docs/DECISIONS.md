@@ -475,7 +475,7 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 - **Approval:** Manny approved the complete live result and Slice 3 closeout on 2026-09-05.
 
 
-## ADR-060: Approve the Slice 5 item-system implementation contract
+## ADR-061: Approve the Slice 5 item-system implementation contract
 
 - **Date:** 2026-09-05
 - **Status:** Approved; implementation authorized after the design checkpoint merges
