@@ -62,6 +62,31 @@ describe('Slice 5 visible item boxes', () => {
     system.dispose();
   });
 
+  it('matches one racer to the nearest box when adjacent pickup radii overlap', () => {
+    const system = new ItemBoxSystem(new CircuitAlpha());
+    const first = system.placements[0];
+    const second = system.placements[1];
+    expect(first).toBeDefined();
+    expect(second).toBeDefined();
+    if (first === undefined || second === undefined) return;
+
+    const position = first.position.clone().lerp(second.position, 0.72);
+    const onCollection = vi.fn(() => true);
+    system.update(1 / 60, [racerAt(position)], onCollection);
+
+    expect(onCollection).toHaveBeenCalledOnce();
+    expect(onCollection).toHaveBeenCalledWith({
+      boxIndex: 1,
+      row: 0,
+      column: 1,
+      racerId: 'player',
+    });
+    expect(system.presentation(0)?.phase).toBe('available');
+    expect(system.presentation(1)?.phase).toBe('popping');
+
+    system.dispose();
+  });
+
   it('does not consume a box for a finished or occupied racer', () => {
     const system = new ItemBoxSystem(new CircuitAlpha());
     const placement = system.placements[0];
