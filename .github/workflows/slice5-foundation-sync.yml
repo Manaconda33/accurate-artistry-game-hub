@@ -6,6 +6,7 @@ on:
       - feature/slice-5-items-foundation
     paths:
       - tools/slice5_foundation_sync.py
+      - .github/workflows/slice5-foundation-sync.yml
 
 permissions:
   contents: write
