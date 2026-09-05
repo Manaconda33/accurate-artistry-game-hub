@@ -1,0 +1,33 @@
+name: Correct Slice 5 ADR numbering
+
+on:
+  push:
+    branches:
+      - docs/slice-5-design-approval
+    paths:
+      - .github/workflows/slice5-adr-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: docs/slice-5-design-approval
+          fetch-depth: 0
+
+      - name: Correct decision number and remove temporary workflow
+        run: |
+          sed -i 's/^## ADR-060: Approve the Slice 5 item-system implementation contract$/## ADR-061: Approve the Slice 5 item-system implementation contract/' docs/DECISIONS.md
+          sed -i 's/ADR-060/ADR-061/g' docs/SLICE-5-ITEM-SYSTEM-DESIGN.md docs/IMPLEMENTATION-STATUS.md
+          rm .github/workflows/slice5-adr-fix.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --check
+          git commit -m 'Correct Slice 5 decision number to ADR-061'
+          git push origin HEAD:docs/slice-5-design-approval
