@@ -1,0 +1,312 @@
+name: Slice 5 governance sync
+
+on:
+  push:
+    branches:
+      - docs/slice-5-design-approval
+    paths:
+      - .github/workflows/slice5-docs-sync.yml
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: docs/slice-5-design-approval
+          fetch-depth: 0
+          lfs: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install document tooling
+        run: |
+          python -m pip install --disable-pip-version-check python-docx
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libreoffice-writer poppler-utils
+
+      - name: Patch approved governance documents
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          from docx import Document
+          from docx.text.paragraph import Paragraph
+          from docx.oxml import OxmlElement
+
+          root = Path('.')
+
+          amendment_heading = 'Approved implementation amendment 2.2 - Slice 5 item-system implementation contract'
+          amendment_md = '''## Approved implementation amendment 2.2 - Slice 5 item-system implementation contract
+
+Approved September 5, 2026 before Slice 5 gameplay implementation. The fifteen-item roster, Sections 15-17 probability matrix, item state machines, ITEM-001 through ITEM-008, AI-004, and existing item values remain unchanged unless this amendment explicitly fills a previously unspecified behavior. The approved implementation and exit contract is recorded in `docs/SLICE-5-ITEM-SYSTEM-DESIGN.md` and is normative for Slice 5.
+
+Circuit Alpha uses four rows of eight shared item boxes at approximately 9%, 34%, 62%, and 89% of lap progress. A valid collection locks the weighted selection immediately using collection-time race state, presents roulette for approximately 0.85 seconds, and deactivates that box globally for approximately 4.5 seconds. A racer with an occupied one-slot inventory does not consume a box. Mobile/coarse-pointer gameplay adds a dedicated ITEM control; holding Brake/Reverse while using ITEM requests backward deployment where supported, matching the keyboard S/Down plus Shift/E contract.
+
+Hyper-Drive Rocket remains restricted to positions 6-8 and additionally requires at least 45 meters of negative race-progress gap to the leader at collection time. Invalid prerequisites remove the item before weighted selection and eligible weights are renormalized. Initial governed boost-cap targets are Nitro Surge 1.18x, Nitro Overdrive pulse 1.15x, Hyper-Drive Rocket 1.25x while on legal spline autopilot, and the existing Prismatic Invincibility 1.12x. These are configuration values subject to later evidence-based balance approval, not silent implementation tuning.
+
+Item effects use the shared PRD spin categories unless otherwise specified in the approved design: standard approximately 0.85 seconds, heavy explosive approximately 1.20 seconds, Blaze short spin approximately 0.55 seconds, Frost momentum/handling impairment without spin, and Slick 360-degree presentation with approximately 60% speed retention. Newly spawned projectiles/hazards receive a short owner-immunity/arming window; after arming, normal collisions may include later self-hit from a returning/ricocheted object or lingering owned hazard.
+
+Slice 5 architecture separates item definitions/selection, inventory and lifecycle, item boxes, projectiles, hazards, generic racer effects, targeting, Rocket spline autopilot, AI item policy, and HUD integration. Item balance remains configuration-driven. Slice 5 may use original procedural/simple models, icons, VFX, and placeholder audio sufficient for gameplay readability; final production audio/VFX polish remains Slice 6. Slice 5 cannot close until the approved exit checklist passes, including at least 100,000 seeded item selections per rank, interaction/counter tests, cleanup/object-count soak, desktop/mobile live deployment checks, and explicit product-owner acceptance.
+'''
+
+          # PRD.md
+          prd_path = root / 'docs/PRD.md'
+          prd = prd_path.read_text(encoding='utf-8')
+          prd = prd.replace(
+              'Version 1.1 - Final approved baseline; working implementation amendment 2.0',
+              'Version 1.1 - Final approved baseline; working implementation amendment 2.2',
+              1,
+          )
+          if amendment_heading not in prd:
+              marker = '# Contents\n'
+              if marker not in prd:
+                  raise SystemExit('PRD Contents marker not found')
+              prd = prd.replace(marker, amendment_md + '\n' + marker, 1)
+          prd_path.write_text(prd, encoding='utf-8')
+
+          # DECISIONS.md
+          decisions_path = root / 'docs/DECISIONS.md'
+          decisions = decisions_path.read_text(encoding='utf-8')
+          if '## ADR-060: Approve the Slice 5 item-system implementation contract' not in decisions:
+              decisions += '''\n\n## ADR-060: Approve the Slice 5 item-system implementation contract
+
+- **Date:** 2026-09-05
+- **Status:** Approved; implementation authorized after the design checkpoint merges
+- **Context:** Slice 3 is live accepted, the previously completed out-of-order Slice 4 checkpoint remains retained, and Slice 5 is the next incomplete PRD slice. The PRD already fixes fifteen items, one-slot inventory, distribution weights, core state machines, major item values, AI item use, and evidence requirements, but several operational details needed explicit product-owner resolution before implementation.
+- **Decision:** Preserve the existing fifteen-item roster and rank probability matrix. Implement the approved architecture and exit checklist in `docs/SLICE-5-ITEM-SYSTEM-DESIGN.md`. Use four rows of eight shared item boxes at approximately 9%, 34%, 62%, and 89% of lap progress; lock item selection at valid collection time; do not consume a box when inventory is occupied; add a dedicated mobile ITEM control with Brake/Reverse as the backward-use modifier; require Hyper-Drive Rocket to be position 6-8 and at least 45 m behind the leader; use the approved shared impact taxonomy; apply short owner immunity while spawned objects arm, then allow ordinary later self-interaction; and begin with configuration speed-cap targets of 1.18x Nitro Surge, 1.15x Nitro Overdrive pulse, 1.25x Hyper-Drive Rocket, and the existing 1.12x Prismatic Invincibility.
+- **Architecture:** Keep item definitions/weights in configuration; separate selection, inventory/lifecycle, boxes, projectiles, hazards, generic racer effects, targeting, Rocket legal-path autopilot, AI item policy, and HUD integration. Do not turn `KartTimeTrial` or `KartController` into item-name switchboards.
+- **Presentation:** Slice 5 uses original Manaconda's Minigame Mayhem item names and original procedural/simple gameplay-readable presentation. Final production audio/VFX/post-processing remains Slice 6.
+- **Evidence:** Slice 5 cannot close on code presence. The approved gate requires at least 100,000 seeded selections per rank, probability-fit evidence, item/counter interaction tests, lifecycle/object-count soak, regression coverage, GitHub Pages deployment, desktop/mobile product-owner playtest, and explicit acceptance.
+- **Product impact:** This amendment resolves implementation ambiguity without changing the approved item roster or probability matrix and without reopening the abandoned competitive-balance experiment.
+- **Approval:** Manny approved the reconciled Slice 5 item-system design and exit checklist on 2026-09-05.
+'''
+          decisions_path.write_text(decisions, encoding='utf-8')
+
+          # TESTING.md
+          testing_path = root / 'docs/TESTING.md'
+          testing = testing_path.read_text(encoding='utf-8')
+          if '## Slice 5 item-system validation matrix' not in testing:
+              testing += '''\n\n## Slice 5 item-system validation matrix
+
+This matrix is required in addition to the repository-wide validation commands and the complete approved checklist in `docs/SLICE-5-ITEM-SYSTEM-DESIGN.md`.
+
+### Distribution and inventory
+
+- Every configured rank column must sum to exactly 100 before dynamic adjustment.
+- Use a deterministic seedable selector and run at least 100,000 simulated selections for each rank. Record observed percentages and expected percentages. Common-item absolute deviation should remain within approximately 0.5 percentage points unless a documented goodness-of-fit test is used instead.
+- Verify the documented 1.00-1.35 gap multiplier and renormalization after dynamic catch-up adjustment.
+- Verify prerequisites are filtered before selection: Apex global availability and cooldown; Hyper-Drive position 6-8 plus at least 45 m behind the leader; any unavailable runtime prerequisite.
+- Verify one-slot inventory, multi-charge counts, collection-time outcome lock, approximately 0.85-second roulette, occupied-inventory pass-through, and approximately 4.5-second shared-box respawn.
+- Verify all four rows contain eight boxes in the legal racing corridor near 9%, 34%, 62%, and 89% lap progress.
+
+### Item functional and counter matrix
+
+- Kinetic Disc: forward/backward launch, governed travel, no more than three wall ricochets, standard spinout, hit destruction, nine-second lifetime cleanup.
+- Seeker Drone: nearest valid racer ahead by race progress, 0.5-second arming, bounded turn, no teleport, warning cue/state, twelve-second maximum cleanup.
+- Apex Missile: one active globally, minimum 18-second global interval, current leader at terminal lock, warning/sky/dive phases, 5.5 m AoE, heavy spin, Prismatic immunity, and precisely timed Shockwave terminal counter.
+- Blast Orb: directional deploy, three-second fuse, qualifying early direct-impact detonation, 4 m AoE, heavy spin, Shockwave cleanup.
+- Blaze Orbs: five charges, at least 0.55 seconds between shots, short 0.55-second spin, expiry cleanup.
+- Frost Orbs: three charges, approximately 55% momentum retention, approximately 20% handling penalty for approximately 1.2 seconds, refresh without multiplicative stacking.
+- Arc Blade: three charges, curved outbound/return path, at most one rival hit outbound and one on return per throw, no repeated overlap damage.
+- Arc Hammers: five charges, at least 0.35-second cadence, ballistic movement, one terrain bounce, short post-bounce expiry.
+- Slick: rear drop, approximately 12-second lifetime, approximately 1.1 m trigger, approved 360-degree spin/60% speed-retention effect, two active per owner, Shockwave cleanup.
+- Shockwave: approximately 5 m radial push and destruction/clearing of all supported ordinary projectiles, Slicks, Blast Orbs, and terminal Apex.
+- Ink: approximately 2.5-second partial human screen obstruction; AI path noise, approximately 80 ms reaction latency, and reduced precision without navigation failure.
+- Nitro Surge: approximately 1.2-second 1.18x initial cap target, strong acceleration, off-road penalty ignore, clean restoration.
+- Nitro Overdrive: six-second window, pulse no faster than every 0.75 seconds, approximately 0.9-second pulse, 1.15x initial cap target, clean window expiry.
+- Hyper-Drive Rocket: position/gap prerequisite, legal Circuit Alpha spline autopilot, immunity, approximately 1.25x initial cap target, automatic overtakes, maximum approximately six seconds, approximately 0.3-second control return, no teleport/progress mutation/direct first-place deposit.
+- Prismatic Invincibility: approximately six seconds, +12% speed, hazard/projectile immunity, hostile-contact spin, expiry warning/restoration.
+
+### Input, AI, race authority, and pause
+
+- Left Shift and E both activate held items.
+- S/Down plus item requests backward deployment where supported.
+- Coarse-pointer gameplay exposes a dedicated ITEM button; Brake/Reverse plus ITEM requests backward deployment where supported. Verify simultaneous accelerate/steer/drift combinations remain functional.
+- AI must acquire and use items tactically. Validate Seeker range, rear-attacker Slick use, defensive Shockwave hold/use, Nitro straight/recovery preference, and prompt Rocket activation.
+- AI obstacle awareness must include Slicks and Blast Orbs.
+- Seeker/Apex targeting must use validated race progress, not visual proximity alone.
+- Item effects may not directly edit checkpoint sequence, lap count, race rank authority, or finish placement. Hyper-Drive must earn progress through legal movement/checkpoint traversal.
+- Pause must freeze roulette, arming, fuses, projectiles, hazards, buffs/debuffs, item windows, respawn/cooldown timers, AI item decisions, and related audio progression as appropriate.
+
+### Lifecycle, soak, and performance
+
+- Track active item runtimes, projectile bodies/colliders, hazards, VFX emitters, listeners, timers, and audio voices through repeated use and restart/disposal.
+- No object may survive impact/completion/expiry without a documented state reason. Race restart/disposal must return item runtime counts to baseline.
+- Enforce the PRD maximum of 40 simultaneous active physics projectiles.
+- Instrument item/VFX CPU update cost against the approximately 1.0 ms budget and confirm no NaN/infinite transform under collision/item stress.
+- Run existing Speed, Acceleration, Weight, drift, surface, AI, lap, recovery, camera, minimap, and driver-state regression suites unchanged.
+
+### Live Slice 5 acceptance
+
+Desktop and mobile must both verify item-box pickup/respawn, roulette, HUD icon/count, keyboard/touch item input, backward use, representative offensive/defensive/catch-up interactions, AI item use, pause/restart cleanup, and that existing race controls remain usable. Record the deployed commit, CI/deployment run, browser/device evidence, defects, and Manny's explicit acceptance in `docs/IMPLEMENTATION-STATUS.md` before Slice 5 can close.
+'''
+          testing_path.write_text(testing, encoding='utf-8')
+
+          # IMPLEMENTATION-STATUS.md
+          status_path = root / 'docs/IMPLEMENTATION-STATUS.md'
+          status = status_path.read_text(encoding='utf-8')
+          current_block = '''## Current slice
+
+**Slice 5 - Item Boxes, Weapons & Position-Based Distribution - DESIGN APPROVED / IMPLEMENTATION AUTHORIZED AFTER THIS DOCUMENTATION CHECKPOINT MERGES**
+
+PRD baseline: **v1.1, working implementation amendment 2.2**.
+
+Slice 3 Character Selection & Avatar Ingestion is **COMPLETE / LIVE ACCEPTED**. The already-completed out-of-order Slice 4 AI/grid checkpoint remains retained. Manny approved the reconciled Slice 5 item-system implementation contract and exit checklist on 2026-09-05. The approved design is `docs/SLICE-5-ITEM-SYSTEM-DESIGN.md` and ADR-060. No Slice 5 gameplay code is complete at this checkpoint; `src/game/items/` remains implementation scaffolding until the dedicated feature branch begins.
+
+The existing fifteen-item roster and position probability matrix remain unchanged. Approved amendment 2.2 resolves item-box layout/ownership, mobile ITEM input, Hyper-Drive meaningful-gap eligibility, initial shared effect taxonomy, owner arming immunity, and initial boost-cap configuration targets. The abandoned competitive-balance experiment remains closed and is not reopened by Slice 5.
+
+**Approval gate:** after this documentation checkpoint is merged and healthy, Slice 5 gameplay implementation is authorized on a dedicated feature branch. Slice 6 remains locked until Slice 5 is fully validated, deployed, and live accepted by Manny.
+'''
+          status, count = re.subn(
+              r'## Current slice\n.*?(?=\n## Alex integration and deployment checkpoint)',
+              current_block.rstrip(),
+              status,
+              count=1,
+              flags=re.S,
+          )
+          if count != 1:
+              raise SystemExit('Could not replace current slice block')
+
+          next_block = '''## Next recommended action
+
+Merge the approved Slice 5 documentation checkpoint after CI is healthy. Then create a dedicated Slice 5 implementation branch and implement only the bounded item-system contract in `docs/SLICE-5-ITEM-SYSTEM-DESIGN.md`: configuration/selection first, then inventory/item boxes, shared effects and lifecycle, item families/counters, AI item policy, HUD/mobile input, soak/performance evidence, deployment, and product-owner live acceptance.
+
+Do not reopen competitive-balance tuning while establishing the baseline item implementation unless objective Slice 5 evidence exposes a blocking defect. Do not begin Slice 6 until Slice 5 is live accepted.
+'''
+          status, count = re.subn(
+              r'## Next recommended action\n.*?(?=\n## Approval state)',
+              next_block.rstrip(),
+              status,
+              count=1,
+              flags=re.S,
+          )
+          if count != 1:
+              raise SystemExit('Could not replace next recommended action block')
+
+          approval_block = '''## Approval state
+
+**Slice 5 design: APPROVED 2026-09-05.**
+
+**Slice 5 implementation: AUTHORIZED AFTER THIS DOCUMENTATION CHECKPOINT MERGES; NOT YET COMPLETE.**
+
+**Slice 6: LOCKED pending Slice 5 validation, deployment, and Manny live acceptance.**
+
+**Slice 3 - Character Selection & Avatar Ingestion: COMPLETE / LIVE ACCEPTED.**
+
+**Retained Slice 4 AI/grid checkpoint: COMPLETE.**
+
+**Dragon Queen / The Sovereign Wyrm: LIVE ACCEPTED / CLOSED.**
+
+**Alex / The Neon Vector: LIVE ACCEPTED / CLOSED.**
+
+**Balance experiment: ABANDONED / ROLLED BACK / CLOSED.**
+
+**Circuit Alpha environment-art / camera polish: LIVE ACCEPTED / CLOSED.**
+'''
+          status, count = re.subn(
+              r'## Approval state\n.*?(?=\n## |\Z)',
+              approval_block.rstrip(),
+              status,
+              count=1,
+              flags=re.S,
+          )
+          if count != 1:
+              raise SystemExit('Could not replace approval-state block')
+
+          if '## Slice 5 design approval checkpoint' not in status:
+              status += '''\n\n## Slice 5 design approval checkpoint
+
+Manny approved the reconciled item-system design and objective exit checklist on 2026-09-05 before gameplay implementation. The repository records the approval in amendment 2.2, ADR-060, `docs/SLICE-5-ITEM-SYSTEM-DESIGN.md`, and the Slice 5 testing matrix. The checkpoint intentionally contains no item gameplay implementation.
+
+Approved fill-ins include four eight-box rows at approximately 9% / 34% / 62% / 89% lap progress; shared 4.5-second box deactivation; selection locked at collection before approximately 0.85-second roulette; dedicated mobile ITEM input with Brake/Reverse backward modifier; Hyper-Drive restricted to places 6-8 at least 45 m behind the leader; shared effect classifications; short spawn owner immunity followed by normal later self-collision; and initial boost-cap targets of 1.18x Nitro Surge, 1.15x Nitro Overdrive pulse, 1.25x Hyper-Drive, and existing 1.12x Prismatic.
+
+The fifteen-item probability matrix is unchanged. Implementation completion still requires the full probability simulation, interaction/counter matrix, lifecycle soak, performance/regression evidence, healthy PR/main CI, GitHub Pages deployment, desktop/mobile live checks, and Manny acceptance.
+'''
+          status_path.write_text(status, encoding='utf-8')
+
+          # DOCX amendment sync.
+          docx_path = root / 'docs/Manacondas_Minigame_Mayhem_PRD_v1.1.docx'
+          doc = Document(docx_path)
+
+          version_found = False
+          for p in doc.paragraphs:
+              if 'Version 1.1 - Final approved baseline; working implementation amendment 2.0' in p.text:
+                  for run in p.runs:
+                      if 'working implementation amendment 2.0' in run.text:
+                          run.text = run.text.replace('working implementation amendment 2.0', 'working implementation amendment 2.2')
+                          version_found = True
+                  if not version_found:
+                      p.text = p.text.replace('working implementation amendment 2.0', 'working implementation amendment 2.2')
+                      version_found = True
+                  break
+          if not version_found:
+              # Accept an already advanced intermediate value, but require the visible line.
+              version_found = any('working implementation amendment 2.2' in p.text for p in doc.paragraphs)
+          if not version_found:
+              raise SystemExit('DOCX version line not found')
+
+          if not any(amendment_heading in p.text for p in doc.paragraphs):
+              contents_p = next((p for p in doc.paragraphs if p.text.strip() == 'Contents'), None)
+              ref_heading = next((p for p in doc.paragraphs if 'Approved implementation amendment 2.1' in p.text), None)
+              if contents_p is None or ref_heading is None:
+                  raise SystemExit('DOCX amendment insertion anchors not found')
+
+              def insert_before(reference: Paragraph, text: str, style_name: str | None = None):
+                  new_p = OxmlElement('w:p')
+                  reference._p.addprevious(new_p)
+                  para = Paragraph(new_p, reference._parent)
+                  if style_name:
+                      para.style = style_name
+                  para.add_run(text)
+                  return para
+
+              heading_style = ref_heading.style.name if ref_heading.style is not None else None
+              normal_style = next((p.style.name for p in doc.paragraphs if p.style and p.style.name == 'Normal'), None)
+              insert_before(contents_p, amendment_heading, heading_style)
+              blocks = [
+                  'Approved September 5, 2026 before Slice 5 gameplay implementation. The fifteen-item roster, Sections 15-17 probability matrix, item state machines, ITEM-001 through ITEM-008, AI-004, and existing item values remain unchanged unless this amendment explicitly fills a previously unspecified behavior. The approved implementation and exit contract is recorded in docs/SLICE-5-ITEM-SYSTEM-DESIGN.md and is normative for Slice 5.',
+                  'Circuit Alpha uses four rows of eight shared item boxes at approximately 9%, 34%, 62%, and 89% of lap progress. Valid collection locks the weighted result at collection time, roulette presents for approximately 0.85 seconds, and the collected box is globally inactive for approximately 4.5 seconds. Occupied inventory does not consume a box. Mobile gameplay adds a dedicated ITEM control and uses Brake/Reverse plus ITEM for backward-capable deployment, matching the keyboard contract.',
+                  'Hyper-Drive Rocket requires position 6-8 and at least 45 meters behind the leader at collection. Invalid prerequisites are filtered before selection and eligible weights renormalize. Initial governed speed-cap targets are Nitro Surge 1.18x, Nitro Overdrive pulse 1.15x, Hyper-Drive Rocket 1.25x on legal spline autopilot, and the existing Prismatic 1.12x.',
+                  'Shared effects use the existing standard approximately 0.85-second and heavy approximately 1.20-second spin categories unless the approved Slice 5 design specifies otherwise. Spawned projectiles/hazards have a short owner-immunity arming window; ordinary later self-interaction is permitted after arming.',
+                  'Slice 5 keeps definitions and probability data in configuration and separates item selection/lifecycle, boxes, projectiles, hazards, generic racer effects, targeting, Rocket autopilot, AI item policy, and HUD integration. Slice 5 cannot close without the approved probability, interaction, cleanup, performance, deployment, desktop/mobile, and product-owner acceptance evidence. Final production audio/VFX polish remains Slice 6.',
+              ]
+              for block in blocks:
+                  insert_before(contents_p, block, normal_style)
+
+          doc.save(docx_path)
+
+          # Remove this temporary workflow from the final feature head.
+          Path('.github/workflows/slice5-docs-sync.yml').unlink()
+          PY
+
+      - name: Render Word PRD for QA
+        run: |
+          mkdir -p /tmp/prd-render
+          libreoffice --headless --convert-to pdf --outdir /tmp/prd-render docs/Manacondas_Minigame_Mayhem_PRD_v1.1.docx
+          pdftoppm -png -r 110 /tmp/prd-render/Manacondas_Minigame_Mayhem_PRD_v1.1.pdf /tmp/prd-render/page
+          test -s /tmp/prd-render/Manacondas_Minigame_Mayhem_PRD_v1.1.pdf
+          test "$(find /tmp/prd-render -name 'page-*.png' | wc -l)" -ge 40
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: slice5-prd-render
+          path: |
+            /tmp/prd-render/Manacondas_Minigame_Mayhem_PRD_v1.1.pdf
+            /tmp/prd-render/page-*.png
+          if-no-files-found: error
+
+      - name: Commit synchronized governance state
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add README.md docs/PRD.md docs/DECISIONS.md docs/TESTING.md docs/IMPLEMENTATION-STATUS.md docs/Manacondas_Minigame_Mayhem_PRD_v1.1.docx docs/SLICE-5-ITEM-SYSTEM-DESIGN.md .github/workflows/slice5-docs-sync.yml
+          git diff --cached --check
+          git commit -m 'Record Slice 5 design approval and governance'
+          git push origin HEAD:docs/slice-5-design-approval
