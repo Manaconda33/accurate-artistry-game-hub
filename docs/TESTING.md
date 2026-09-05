@@ -134,7 +134,7 @@ For live acceptance, collide Accu and a light racer with comparable approach spe
 ## Slice 3 Character Select and Lavi manual matrix
 
 - Hub `Start Grand Prix` opens Character Select rather than starting the race immediately.
-- Exactly twelve slots render; every production identity displays its approved portrait, and the unfinished AA-01 identity displays an intentional monogram placeholder.
+- Exactly twelve slots render; every production identity, including Alex at AA-01, displays its approved portrait. No roster placeholder remains.
 - Selecting any slot updates its name, descriptor, six statistics, kart label, selected state, and race button without layout clipping.
 - Lavi remains the default selection and `Race as Lavi` loads Potato rather than the procedural fallback kart.
 - Potato reads as one opaque natural russet body with a continuous sculpted cockpit, rooted rear sprouts, connected wheels/axles, and no body clipping or translucency.
@@ -146,7 +146,7 @@ For live acceptance, collide Accu and a light racer with comparable approach spe
 - Rear view preserves Lavi's steering, hit, and victory state through the four matching front-action frames from `lavi-runtime-20260902-5`.
 - Lavi's commanded-left and commanded-right poses lean toward opposite camera sides. None of the four front-action sprites contains wheel or kart geometry; Potato supplies the only steering wheel.
 - Lavi's AA-02 profile feels nimble and responsive and remains the controlled player kart throughout the race.
-- Selecting a placeholder profile starts the same race with a monogram/fallback kart and that profile's statistics; it does not borrow Lavi's identity or final art.
+- The missing-asset test fixture starts the same race with the governed monogram/fallback kart and selected profile statistics; it does not borrow another production identity or final art.
 - Simulated missing portrait replaces the image with the correct monogram; simulated missing GLB loads the fallback kart and does not crash or change physics.
 - Desktop and mobile layouts expose all twelve slots, detail panel, back action, and race action without horizontal scrolling or controls hidden outside the viewport.
 
@@ -220,7 +220,7 @@ Run this matrix for every future production character, in addition to its slice-
 - Cleo's ten archived files at `public/assets/archive/characters/cleo-aa-06/` retain their recorded SHA-256 values and remain excluded from the active roster.
 - Product-owner acceptance is recorded only after the deployed desktop and mobile game confirms orientation, every driver state, cockpit occlusion, visible wings and tail, and single-control presentation.
 
-## Alex / Neon Vector local integration matrix
+## Alex / Neon Vector production acceptance matrix
 
 - AA-01 renders Alex's approved portrait, Feather Sprinter descriptor, and 6 / 9 / 2 / 8 / 7 / 4 statistics.
 - `Race as Alex` loads The Neon Vector rather than the former AA-01 placeholder or a fallback kart.
@@ -230,7 +230,7 @@ Run this matrix for every future production character, in addition to its slice-
 - `NEGATIVE_Z_KART_VISUAL_YAW` keeps The Neon Vector's triangle nose and twin violet exhausts race-forward and its cockpit-to-thruster conduits behind Alex.
 - Chase-facing position `[0, 0.92, -0.12]` keeps Alex seated behind the cockpit edge. Camera-facing position `[0, 0.84, -0.12]` keeps the modeled wheel visible between her hands; no sprite-owned wheel is permitted.
 - The approved Candidate 3 conduit pair remains structurally attached and readable in rear three-quarter and profile views; no floating hood emblem or steering-wheel intrusion is permitted.
-- Product-owner acceptance is recorded only after the deployed desktop and mobile game confirms selection, orientation, all ten driver states, cockpit occlusion, conduit visibility, and single-wheel presentation.
+- Manny confirmed the deployed desktop/mobile game against checkpoint `daf1e3127478981e40cca9533300f8617f61004d` on 2026-09-05. Selection, orientation, all ten driver states, cockpit occlusion, conduit visibility, one-hand steering silhouettes, torso rotation, and single-wheel presentation pass. Alex / The Neon Vector is live accepted.
 
 ## McFleurdel / Fleur de Nuit manual matrix
 

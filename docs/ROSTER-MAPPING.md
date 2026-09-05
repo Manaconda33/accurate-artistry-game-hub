@@ -55,7 +55,7 @@ Dragon Queen's literal-dragon character lock, definitive visual authority, trans
 
 ## Alex intake checkpoint
 
-Alex's character lock, definitive visual authority, transformation rights, The Neon Vector kart lock, and AA-01 Feather Sprinter mapping were approved on 2026-09-05. Manny approved portrait Option A, all ten driver states, and Neon Vector geometry Candidate 3. Her package is locally active under `alex-runtime-20260905-1`; publication and live acceptance remain gated. No balance profile remains available after this assignment.
+Alex's character lock, definitive visual authority, transformation rights, The Neon Vector kart lock, and AA-01 Feather Sprinter mapping were approved on 2026-09-05. Manny approved portrait Option A, all ten driver states, Neon Vector geometry Candidate 3, and the deployed desktop/mobile result. Her package is live accepted under `alex-runtime-20260905-1`; PR #92 merged at `617312394decfcb95af4f8fee6431ee9d339201b`, and final acceptance was recorded against deployed checkpoint `daf1e3127478981e40cca9533300f8617f61004d`. All twelve profiles are assigned and the Slice 3 roster mapping is complete.
 
 ## Jennifer release checkpoint
 

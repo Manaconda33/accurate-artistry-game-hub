@@ -10,7 +10,7 @@
 - Portrait design: Option A approved by Manny
 - Ten-frame driver design package: Approved by Manny; chase steering uses the final one-hand revision
 - 3D kart geometry: Candidate 3 approved by Manny
-- Runtime activation: Locally integrated; publication and live acceptance pending
+- Runtime activation: Published, deployed, and live accepted by Manny, 2026-09-05
 
 ## Character lock
 
@@ -36,7 +36,7 @@ Alex is a high-acceleration, high-control featherweight. She launches quickly, r
 - Kart package: deterministic LOD0, LOD1, and LOD2 GLBs with `extras.forward: "-Z"`
 - Runtime orientation: `NEGATIVE_Z_KART_VISUAL_YAW`
 - Controlled runtime revision: `alex-runtime-20260905-1`
-- Desktop and mobile live acceptance required before production closure
+- Desktop and mobile live acceptance: Passed against deployed checkpoint `daf1e3127478981e40cca9533300f8617f61004d`
 
 ## Approved 2D package
 
@@ -54,8 +54,8 @@ Manny approved Candidate 3 on 2026-09-05. The three LODs use 10,396, 6,444, and 
 | `public/assets/characters/aa-01/kart-lod1.glb` | LOD1 | 6,444 | `abf82edd061876d5b2d71ae2f618707ae947d61aa5805a811e1246f011f08b84` |
 | `public/assets/characters/aa-01/kart-lod2.glb` | LOD2 | 3,420 | `dced4db85903cc8b410b1a746608cb1f4fdd7f101192d79bbf2d580fa705d68a` |
 
-## Local runtime integration
+## Production runtime closure
 
-Alex is active in `characterManifest` as AA-01 under `alex-runtime-20260905-1`. The initial mount uses chase-facing `[0, 0.92, -0.12]` and camera-facing `[0, 0.84, -0.12]`, with the modeled wheel retained. The offline cockpit review is the local attachment gate; Chat must complete publication approval and deployed desktop/mobile live checks before production closure.
+Alex is active in `characterManifest` as AA-01 under `alex-runtime-20260905-1`. The production mount uses chase-facing `[0, 0.92, -0.12]` and camera-facing `[0, 0.84, -0.12]`, with the modeled wheel retained. PR #92 passed CI and merged at `617312394decfcb95af4f8fee6431ee9d339201b`; Pages deployment passed in run `33989653688`. Manny approved the deployed desktop/mobile matrix against checkpoint `daf1e3127478981e40cca9533300f8617f61004d` on 2026-09-05.
 
-The ten-state local attachment sheet is `alex-cockpit-review.png` outside the repository at this checkpoint (SHA-256 `a875c7456b6fa2cea13d0d953d6033000bda7235dc28666da77441e7367c07fa`). Dependency-free repository gates passed; Node package installation is still required before typecheck, lint, Vitest, and Vite build can run.
+The ten-state offline attachment sheet is `alex-cockpit-review.png` outside the repository (SHA-256 `a875c7456b6fa2cea13d0d953d6033000bda7235dc28666da77441e7367c07fa`). Full dependency-backed validation, LFS publication/fetch-back, PR CI, Pages deployment, artifact-byte verification, and product-owner live acceptance passed. Alex / The Neon Vector is **LIVE ACCEPTED / CLOSED**.

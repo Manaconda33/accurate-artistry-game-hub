@@ -2,15 +2,15 @@
 
 ## Current slice
 
-**Slice 3 — Character Selection & Avatar Ingestion**
+**Slice 3 — Character Selection & Avatar Ingestion — COMPLETE / LIVE ACCEPTED**
 
 PRD baseline: **v1.1, working implementation amendment 2.1**.
 
-The project roadmap remains at Slice 3. Items remain Slice 5 work and are not authorized. The previously approved Circuit Alpha environment/camera pass remains **LIVE ACCEPTED / CLOSED**. Jennifer / The Hearthwarden and the Manaconda's Minigame Mayhem rebrand remain **LIVE ACCEPTED / CLOSED**.
+Slice 3 is **COMPLETE / LIVE ACCEPTED**. The already-completed out-of-order Slice 4 AI/grid checkpoint remains retained. Slice 5 Items has not begun and is not authorized. The previously approved Circuit Alpha environment/camera pass remains **LIVE ACCEPTED / CLOSED**. Jennifer / The Hearthwarden and the Manaconda's Minigame Mayhem rebrand remain **LIVE ACCEPTED / CLOSED**.
 
 **Dragon Queen / The Sovereign Wyrm is LIVE ACCEPTED / CLOSED.** Manny approved the deployed rear-view correction on 2026-09-04 after retesting neutral, steering-left, steering-right, hit, and victory camera-facing states. The final Dragon Queen acceptance defect is closed.
 
-**Alex / The Neon Vector is PUBLISHED / DEPLOYED / LIVE ACCEPTANCE PENDING.** Manny approved Alex's AA-01 mapping, Option A portrait, ten driver states, Neon Vector geometry Candidate 3, and publication on 2026-09-05. PR #92 passed CI, merged, and deployed through GitHub Pages. Product-owner desktop/mobile review remains the final gate.
+**Alex / The Neon Vector is LIVE ACCEPTED / CLOSED.** Manny approved Alex's AA-01 mapping, Option A portrait, ten driver states, Neon Vector geometry Candidate 3, publication, deployment, and the final deployed desktop/mobile matrix on 2026-09-05. PR #92 passed CI, merged, and deployed through GitHub Pages. No Alex acceptance item remains open.
 
 ## Alex integration and deployment checkpoint
 
@@ -27,7 +27,7 @@ Alex is active in `characterManifest` as **AA-01 Feather Sprinter** under contro
 - Camera-facing driver position: `[0, 0.84, -0.12]`
 - Kart orientation: `NEGATIVE_Z_KART_VISUAL_YAW`
 
-The approved Alex rasters are wheel-free and the Neon Vector supplies exactly one modeled steering wheel. Candidate 3's rear cockpit-to-thruster conduits remain exposed in the approved offline geometry review. Deployed desktop and mobile checks remain required for selection, orientation, all ten driver states, wheel visibility, seated occlusion, and conduit readability.
+The approved Alex rasters are wheel-free and the Neon Vector supplies exactly one modeled steering wheel. Candidate 3's rear cockpit-to-thruster conduits remain exposed in the approved offline and deployed geometry reviews.
 
 Candidate 3 geometry is pinned locally at 10,396 / 6,444 / 3,420 triangles for LOD0 / LOD1 / LOD2. The runtime verifier covers all three GLBs and eleven Alex PNGs, including transparent-corner and `extras.forward: "-Z"` checks.
 
@@ -37,7 +37,22 @@ Publication uses **PR #92 — Integrate Alex and The Neon Vector**. Because the 
 
 PR CI run **33989589113** passed on final feature head `f667af78d056b43403c85149aa8c8357454a9f1b`. PR #92 merged at `617312394decfcb95af4f8fee6431ee9d339201b`. Main CI / Pages run **33989653688** independently passed LFS materialization and `git lfs fsck`, dependency installation, typecheck, zero-warning lint, tests, production build, Pages configuration, artifact upload, and deployment. Pages artifact **9976234566** has digest `sha256:e2188b050b5047f5985401eac22b5973c035c843ffaff214361ddbea6296e131`. Extracted artifact verification found all eleven Alex PNGs byte-identical to the approved source package and all three materialized GLBs byte-identical to their locked hashes with valid glTF 2 binary signatures.
 
-The live URL is `https://manaconda33.github.io/manacondas-minigame-mayhem/`. A live smoke check loaded the branded landing page, the twelve-slot Character Select, and Alex's controlled 256 x 256 portrait at `alex-runtime-20260905-1`; selecting Alex displayed Feather Sprinter, stats 6 / 9 / 2 / 8 / 7 / 4, and The Neon Vector. The cloud review browser has WebGL disabled, so it could not render the race scene. This is an environment limitation, not live acceptance evidence; manual desktop/mobile race review remains open.
+The live URL is `https://manaconda33.github.io/manacondas-minigame-mayhem/`. A live smoke check loaded the branded landing page, the twelve-slot Character Select, and Alex's controlled 256 x 256 portrait at `alex-runtime-20260905-1`; selecting Alex displayed Feather Sprinter, stats 6 / 9 / 2 / 8 / 7 / 4, and The Neon Vector. The cloud review browser had WebGL disabled and therefore did not supply race-scene evidence. Manny subsequently completed the deployed desktop/mobile product-owner matrix against checkpoint `daf1e3127478981e40cca9533300f8617f61004d` and approved it on 2026-09-05.
+
+### Final Alex product-owner live acceptance — PASSED
+
+- Character Select and race startup — PASS
+- chase neutral, steer-left, steer-right, hit, and victory — PASS
+- rear-view neutral, steer-left, steer-right, hit, and victory — PASS
+- commanded torso rotation and one-hand chase steering silhouettes — PASS
+- exactly one modeled steering wheel with correct hand alignment — PASS
+- seated occlusion and race-forward kart orientation — PASS
+- attached hood motif and clean steering area without pale/render-white or floating geometry — PASS
+- exposed cyan/magenta cockpit-to-thruster conduits — PASS
+- mobile touch controls, layout, HUD/minimap/results separation, and presentation — PASS
+- existing accepted racer regressions — PASS
+
+This approval closes Alex and the final Slice 3 exit gate. It does not authorize Slice 5.
 
 ## Dragon Queen publication, correction, and final acceptance
 
@@ -162,6 +177,7 @@ The protected race contract remains unchanged: 384 canonical track samples, cour
 
 ## Active production roster
 
+- Alex / The Neon Vector — AA-01
 - Lavi / Potato — AA-02
 - Lula / The Verdant Hart — AA-03
 - Keeg / The Mycelial Majesty — AA-04
@@ -180,7 +196,7 @@ Cleo / The Gilded Stitch remains archived and inactive. Alex fills the former AA
 
 - The existing production-build large-chunk warning remains known and non-blocking.
 - No Dragon Queen code, asset, orientation, placement, or gameplay defect is open.
-- Alex has no known integration or deployment defect; desktop/mobile live acceptance is intentionally still open.
+- No Alex integration, deployment, or live-acceptance defect is open.
 - No balance candidate is active.
 
 ## Deferred work
@@ -191,7 +207,7 @@ Cleo / The Gilded Stitch remains archived and inactive. Alex fills the former AA
 
 ## Next recommended action
 
-Remain at **Slice 3**. The next bounded product action is Alex's product-owner desktop/mobile live-acceptance matrix against deployed commit `617312394decfcb95af4f8fee6431ee9d339201b`.
+Hold at the completed Slice 3 checkpoint. Because Slice 4 was completed out of order and retained, the next incomplete roadmap slice is Slice 5 Items. Do not begin it until Manny explicitly approves that scope.
 
 Do not advance to Slice 5, begin new material balance work, or alter protected gameplay scope without Manny's explicit approval.
 
@@ -199,7 +215,9 @@ Do not advance to Slice 5, begin new material balance work, or alter protected g
 
 **Dragon Queen / The Sovereign Wyrm: LIVE ACCEPTED / CLOSED.**
 
-**Alex / The Neon Vector: PUBLISHED / DEPLOYED / LIVE ACCEPTANCE PENDING.**
+**Alex / The Neon Vector: LIVE ACCEPTED / CLOSED.**
+
+**Slice 3 — Character Selection & Avatar Ingestion: COMPLETE / LIVE ACCEPTED.**
 
 **Balance experiment: ABANDONED / ROLLED BACK / CLOSED.**
 
@@ -209,4 +227,6 @@ Do not advance to Slice 5, begin new material balance work, or alter protected g
 
 **Latest verified Alex runtime/deployment commit: `617312394decfcb95af4f8fee6431ee9d339201b`.**
 
-The project roadmap remains at Slice 3.
+**Alex product-owner acceptance tested checkpoint: `daf1e3127478981e40cca9533300f8617f61004d`.**
+
+The project is paused after Slice 3 closure; Slice 5 is not authorized.
