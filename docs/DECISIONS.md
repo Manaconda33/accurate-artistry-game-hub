@@ -453,11 +453,23 @@ ADR-020's historical Cleo-to-AA-06 production mapping is superseded only with re
 ## ADR-059: Integrate and deploy Alex and The Neon Vector
 
 - **Date:** 2026-09-05
-- **Status:** Published and deployed; live acceptance pending
+- **Status:** Live accepted / closed
 - **Context:** Manny approved Alex as the final Slice 3 racer for the formerly unassigned AA-01 profile. Her definitive reference, written character lock, warm clever competitor personality, The Neon Vector kart name and direction, Option A portrait, ten driver states, and Candidate 3 geometry were approved before integration.
 - **Decision:** Assign Alex to AA-01 Feather Sprinter with Speed 6 / Acceleration 9 / Weight 2 / Handling 8 / Mini-Turbo 7 / Traction 4. Activate `alex-runtime-20260905-1` in `characterManifest` with The Neon Vector, `NEGATIVE_Z_KART_VISUAL_YAW`, chase-facing driver position `[0, 0.92, -0.12]`, camera-facing position `[0, 0.84, -0.12]`, and the single modeled steering wheel supplied by the kart.
 - **Asset evidence:** Install the approved 256 x 256 portrait, ten 512 x 512 transparent character-only driver frames, and Candidate 3 LOD0/LOD1/LOD2 GLBs. The GLBs contain 10,396 / 6,444 / 3,420 triangles, four materials, thirteen required nodes, one `SteeringWheel`, and `extras.forward: "-Z"`. The approved rear cockpit-to-thruster conduits remain exposed.
 - **Validation evidence:** `npm ci` installed 198 lockfile-pinned packages. `npm run validate` passed strict typecheck, zero-warning lint, 18 Vitest files / 93 tests, 89.71% statement coverage, branding, 36 materialized GLBs, 105 decoded PNGs, and the production build. `git lfs fsck` and deterministic LOD hash comparisons passed. Temporary LFS bridge run `33989497206` uploaded and fetch-verified only the three approved GLBs. PR CI run `33989589113` passed; PR #92 merged at `617312394decfcb95af4f8fee6431ee9d339201b`; and main CI / Pages run `33989653688` passed validation and deployment with artifact `9976234566` at digest `sha256:e2188b050b5047f5985401eac22b5973c035c843ffaff214361ddbea6296e131`. Extracted deployment bytes match all fourteen approved Alex runtime files. The existing large-chunk warning remains non-blocking.
-- **Scope:** This decision closes Alex publication and deployment while assigning the final balance profile. It does not claim product-owner live acceptance or authorize Slice 5.
-- **Next gate:** Complete desktop/mobile product-owner live acceptance against deployed commit `617312394decfcb95af4f8fee6431ee9d339201b`.
+- **Live acceptance:** Manny approved the complete deployed desktop/mobile matrix against checkpoint `daf1e3127478981e40cca9533300f8617f61004d` on 2026-09-05. Character Select, race startup, all five chase states, all five rear-view states, one-hand turn silhouettes, torso rotation, single-wheel ownership/alignment, seated occlusion, kart orientation, hood/steering geometry, exposed conduits, touch presentation, and existing-racer regressions passed.
+- **Scope:** This decision closes Alex publication, deployment, and product-owner acceptance while assigning the final balance profile. It does not authorize Slice 5.
+- **Next gate:** None for Alex. Hold after Slice 3 closure until Manny explicitly authorizes the next incomplete roadmap slice.
 - **Approval:** Manny approved the Alex integration checkpoint on 2026-09-05 and explicitly authorized publication/deployment after the full local gate passed.
+
+## ADR-060: Close Slice 3 after Alex live acceptance
+
+- **Date:** 2026-09-05
+- **Status:** Accepted / closed
+- **Context:** Alex was the twelfth and final production racer and the last unfilled Slice 3 balance-profile assignment. All automated, publication, deployment, artifact-integrity, and product-owner gates in `docs/SLICE-3-EXIT-CHECKLIST.md` are complete.
+- **Decision:** Mark **Slice 3 — Character Selection & Avatar Ingestion** `COMPLETE / LIVE ACCEPTED`. Preserve all twelve unique AA-01 through AA-12 mappings, the controlled character asset revisions, and Cleo's inactive archive package.
+- **Evidence:** Manny's final `Approved` confirms the requested deployed desktop/mobile Alex matrix. PR #92, PR CI run `33989589113`, merge `617312394decfcb95af4f8fee6431ee9d339201b`, main CI / Pages run `33989653688`, artifact `9976234566`, deployment-evidence PR #93, and deployed acceptance checkpoint `daf1e3127478981e40cca9533300f8617f61004d` provide the traceable release chain.
+- **Scope:** This closes Slice 3 only. Slice 4's already-completed out-of-order AI/grid work remains retained. Slice 5 Items, further balance changes, and unrelated presentation scope remain unauthorized.
+- **Next gate:** Await Manny's explicit approval before beginning Slice 5 or another bounded project task.
+- **Approval:** Manny approved the complete live result and Slice 3 closeout on 2026-09-05.
