@@ -30,6 +30,7 @@ interface RuntimeItemBox {
   placement: ItemBoxPlacement;
   lifecycle: ItemBoxLifecycle;
   group: THREE.Group;
+  geometries: THREE.BufferGeometry[];
   materials: THREE.MeshStandardMaterial[];
 }
 
@@ -40,9 +41,7 @@ const ITEM_BOX_LATERAL_HALF_SPAN = 4.4;
 export function createItemBoxPlacements(track: CircuitAlpha): ItemBoxPlacement[] {
   const placements: ItemBoxPlacement[] = [];
   const columnStep =
-    ITEM_BOX_LAYOUT.boxesPerRow > 1
-      ? (ITEM_BOX_LATERAL_HALF_SPAN * 2) / (ITEM_BOX_LAYOUT.boxesPerRow - 1)
-      : 0;
+    (ITEM_BOX_LATERAL_HALF_SPAN * 2) / (ITEM_BOX_LAYOUT.boxesPerRow - 1);
 
   for (let row = 0; row < ITEM_BOX_LAYOUT.rowProgress.length; row += 1) {
     const progress = ITEM_BOX_LAYOUT.rowProgress[row];
@@ -73,6 +72,7 @@ export function createItemBoxPlacements(track: CircuitAlpha): ItemBoxPlacement[]
 
 function createPickupVisual(): {
   group: THREE.Group;
+  geometries: THREE.BufferGeometry[];
   materials: THREE.MeshStandardMaterial[];
 } {
   const group = new THREE.Group();
@@ -109,18 +109,26 @@ function createPickupVisual(): {
     depthWrite: false,
   });
 
-  const shell = new THREE.Mesh(new THREE.OctahedronGeometry(1.08, 0), shellMaterial);
+  const shellGeometry = new THREE.OctahedronGeometry(1.08, 0);
+  const coreGeometry = new THREE.IcosahedronGeometry(0.42, 0);
+  const ringGeometry = new THREE.TorusGeometry(0.74, 0.08, 8, 20);
+
+  const shell = new THREE.Mesh(shellGeometry, shellMaterial);
   shell.rotation.set(Math.PI * 0.25, 0, Math.PI * 0.25);
   shell.castShadow = true;
 
-  const core = new THREE.Mesh(new THREE.IcosahedronGeometry(0.42, 0), coreMaterial);
+  const core = new THREE.Mesh(coreGeometry, coreMaterial);
   core.castShadow = true;
 
-  const ring = new THREE.Mesh(new THREE.TorusGeometry(0.74, 0.08, 8, 20), ringMaterial);
+  const ring = new THREE.Mesh(ringGeometry, ringMaterial);
   ring.rotation.x = Math.PI * 0.5;
 
   group.add(shell, core, ring);
-  return { group, materials: [shellMaterial, coreMaterial, ringMaterial] };
+  return {
+    group,
+    geometries: [shellGeometry, coreGeometry, ringGeometry],
+    materials: [shellMaterial, coreMaterial, ringMaterial],
+  };
 }
 
 export class ItemBoxSystem {
@@ -134,13 +142,14 @@ export class ItemBoxSystem {
     this.placements = createItemBoxPlacements(track);
     this.boxes = this.placements.map((placement) => {
       const visual = createPickupVisual();
-      visual.group.name = `item-box-${placement.index}`;
+      visual.group.name = `item-box-${String(placement.index)}`;
       visual.group.position.copy(placement.position);
       this.group.add(visual.group);
       return {
         placement,
         lifecycle: new ItemBoxLifecycle(),
         group: visual.group,
+        geometries: visual.geometries,
         materials: visual.materials,
       };
     });
@@ -179,19 +188,10 @@ export class ItemBoxSystem {
   }
 
   public dispose(): void {
-    const geometries = new Set<THREE.BufferGeometry>();
-    const materials = new Set<THREE.Material>();
-    this.group.traverse((object) => {
-      if (!(object instanceof THREE.Mesh)) return;
-      geometries.add(object.geometry);
-      if (Array.isArray(object.material)) {
-        object.material.forEach((material) => materials.add(material));
-      } else {
-        materials.add(object.material);
-      }
-    });
-    geometries.forEach((geometry) => geometry.dispose());
-    materials.forEach((material) => material.dispose());
+    for (const box of this.boxes) {
+      for (const geometry of box.geometries) geometry.dispose();
+      for (const material of box.materials) material.dispose();
+    }
     this.group.clear();
   }
 
