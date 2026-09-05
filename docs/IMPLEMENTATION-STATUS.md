@@ -2,7 +2,7 @@
 
 ## Current slice
 
-**Slice 5 - Item Boxes, Weapons & Position-Based Distribution - DESIGN APPROVED / IMPLEMENTATION AUTHORIZED AFTER THIS DOCUMENTATION CHECKPOINT MERGES**
+**Slice 5 - Item Boxes, Weapons & Position-Based Distribution - DESIGN APPROVED / IMPLEMENTATION AUTHORIZED**
 
 PRD baseline: **v1.1, working implementation amendment 2.2**.
 
@@ -10,7 +10,7 @@ Slice 3 Character Selection & Avatar Ingestion is **COMPLETE / LIVE ACCEPTED**. 
 
 The existing fifteen-item roster and position probability matrix remain unchanged. Approved amendment 2.2 resolves item-box layout/ownership, mobile ITEM input, Hyper-Drive meaningful-gap eligibility, initial shared effect taxonomy, owner arming immunity, and initial boost-cap configuration targets. The abandoned competitive-balance experiment remains closed and is not reopened by Slice 5.
 
-**Approval gate:** after this documentation checkpoint is merged and healthy, Slice 5 gameplay implementation is authorized on a dedicated feature branch. Slice 6 remains locked until Slice 5 is fully validated, deployed, and live accepted by Manny.
+**Approval gate:** Slice 5 gameplay implementation is authorized on a dedicated feature branch. Slice 6 remains locked until Slice 5 is fully validated, deployed, and live accepted by Manny.
 ## Alex integration and deployment checkpoint
 
 Alex is active in `characterManifest` as **AA-01 Feather Sprinter** under controlled revision `alex-runtime-20260905-1`:
@@ -213,7 +213,7 @@ Do not reopen competitive-balance tuning while establishing the baseline item im
 
 **Slice 5 design: APPROVED 2026-09-05.**
 
-**Slice 5 implementation: AUTHORIZED AFTER THIS DOCUMENTATION CHECKPOINT MERGES; NOT YET COMPLETE.**
+**Slice 5 implementation: AUTHORIZED; NOT YET BEGUN / NOT COMPLETE.**
 
 **Slice 6: LOCKED pending Slice 5 validation, deployment, and Manny live acceptance.**
 
@@ -236,3 +236,24 @@ Manny approved the reconciled item-system design and objective exit checklist on
 Approved fill-ins include four eight-box rows at approximately 9% / 34% / 62% / 89% lap progress; shared 4.5-second box deactivation; selection locked at collection before approximately 0.85-second roulette; dedicated mobile ITEM input with Brake/Reverse backward modifier; Hyper-Drive restricted to places 6-8 at least 45 m behind the leader; shared effect classifications; short spawn owner immunity followed by normal later self-collision; and initial boost-cap targets of 1.18x Nitro Surge, 1.15x Nitro Overdrive pulse, 1.25x Hyper-Drive, and existing 1.12x Prismatic.
 
 The fifteen-item probability matrix is unchanged. Implementation completion still requires the full probability simulation, interaction/counter matrix, lifecycle soak, performance/regression evidence, healthy PR/main CI, GitHub Pages deployment, desktop/mobile live checks, and Manny acceptance.
+
+
+## Slice 5 design checkpoint publication evidence
+
+The approved documentation-only Slice 5 design checkpoint is merged and healthy.
+
+- Pull request: **#95 — Record approved Slice 5 item-system design**
+- PR head: `9a00d49ba88e4444e6810b85146bf1303bf6e9fd`
+- PR CI run: **33994514332 — passed** Git LFS runtime verification, lockfile install, strict typecheck, zero-warning lint, tests, and production build.
+- Squash merge / design checkpoint: `5b828be9d16592103afb67d3ea84dbee167be8d5`
+- Main CI / GitHub Pages run: **33994553192 — validation and deployment passed**.
+- Pages artifact: **9977655925**
+- Pages artifact digest: `sha256:9fa8f3f7bdc18e9b51c5ad8f0380b8818db6490d7a281a1883f92b02e9baca77`
+- Live URL: `https://manaconda33.github.io/manacondas-minigame-mayhem/`
+- Word PRD amendment 2.2 synchronization run: **33994294280 — passed**; render artifact **9977580656**. The resulting 44-page Word PRD render was reviewed without clipping, overlap, or downstream layout breakage.
+- Final PR diff contained only `README.md`, the working/Word PRDs, `DECISIONS.md`, `IMPLEMENTATION-STATUS.md`, `TESTING.md`, and `SLICE-5-ITEM-SYSTEM-DESIGN.md`. No gameplay source file changed.
+- The existing Slice 3 closeout remains ADR-060; the approved Slice 5 implementation contract is ADR-061.
+
+This checkpoint satisfies the pre-implementation governance gate. Slice 5 gameplay implementation may now begin on a dedicated feature branch when work resumes. `src/game/items/` remains implementation scaffolding at this checkpoint. Slice 6 remains locked until Slice 5 is implemented, validated, deployed, and explicitly live accepted by Manny.
+
+**Latest verified Slice 5 design checkpoint:** `5b828be9d16592103afb67d3ea84dbee167be8d5`.
