@@ -46,7 +46,7 @@ Slice 3 may be marked **COMPLETE / LIVE ACCEPTED** only when every required item
 - [ ] Every required GLB begins with the binary glTF signature and declares `extras.forward: "-Z"`.
 - [ ] Every kart stays within its LOD triangle budgets and retains the required node hierarchy and steering-control contract.
 - [ ] Controlled revision queries or changed filenames prevent stale browser/cache responses after approved asset changes.
-- [ ] `git lfs fsck` passes against the published checkpoint.
+- [x] `git lfs fsck` passes against the published checkpoint (LFS bridge run `33989497206`).
 
 ## 5. Shared driver-state behavior
 
@@ -86,7 +86,7 @@ Slice 3 may be marked **COMPLETE / LIVE ACCEPTED** only when every required item
 ## 8. Publication and deployment
 
 - [x] Publication approval is explicitly recorded after local validation passes.
-- [ ] The feature branch is pushed without rewriting the validated commit.
+- [x] The validated file tree is published to `feature/alex-neon-vector-local`; the connected GitHub integration created the remote commit because the hosted shell could not authenticate an HTTPS Git push.
 - [ ] The pull request passes required CI before merge.
 - [ ] The merge commit is recorded.
 - [ ] The post-merge `main` workflow passes independently.
@@ -123,4 +123,4 @@ Slice 3 may be marked **COMPLETE / LIVE ACCEPTED** only when every required item
 
 ## Current status at Alex local checkpoint
 
-**NOT COMPLETE — publication and live evidence pending.** Alex's approved local assets, manifest integration, full dependency-backed validation, deterministic geometry checks, and offline attachment review are complete. PR/CI, deployment, and desktop/mobile product-owner acceptance remain open.
+**NOT COMPLETE — PR CI, deployment, and live evidence pending.** Alex's approved assets, manifest integration, full dependency-backed validation, deterministic geometry checks, offline attachment review, feature-branch publication, PR #92 creation, and LFS object fetch-back verification are complete. Merge, post-merge deployment, and desktop/mobile product-owner acceptance remain open.
